@@ -1,0 +1,353 @@
+﻿@model GroupViewModel
+<!-- Page Heading -->
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h4 mb-0 text-gray-800">
+        กลุ่มผู้ใช้งานระบบ > สิทธิ์การใช้งาน @Model.Group.GroupName
+    </h1>
+    @*<div>
+            <a class="btn btn-success" asp-action="Create">บันทึก</a>
+            <a asp-action="Index" class="btn btn-secondary">ยกเลิก</a>
+        </div>*@
+</div>
+
+
+<div class="card">
+    <form asp-action="Edit" method="post">
+
+
+        <div class="card-body">
+            <div class="row justify-content-center">
+                <div class="col-md-10">
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <div class="form-group row">
+                        <label class="col-md-3 text-right">ชื่อกลุ่ม</label>
+                        <input class="col-md-6 form-control" name="GroupName" value="@Model.Group.GroupName" />
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 text-right">Description</label>
+                        <input class="col-md-6 form-control" name="Description" value="@Model.Group.Description" />
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 text-right">สถานะ</label>
+                        <select class="col-md-4 form-control" name="Status" asp-for="@Model.Group.Status" >
+                            <option value="1">ใช้งาน</option>
+                            <option value="2">ไม่ใช้งาน</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="card-body">
+
+            <div class="row">
+                <div class="col-md-12">
+                    <input type="hidden" name="GroupId" value="@Model.Group.GroupId" />
+                    @*<input type="hidden" name="GroupName" value="@Model.Group.GroupName" />*@
+                    <table id="GridView1" class="table table-sm table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">สิทธิ์การใช้งาน</th>
+                                <th scope="col">View</th>
+                                <th scope="col">Add</th>
+                                <th scope="col">Edit</th>
+                                <th scope="col">Delete</th>
+                                <th scope="col">Print</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{ int rowNo = 1; }
+                            @foreach (var x in Model.Members)
+                            {
+                                <tr>
+                                    <th style="width:10%" scope="row">@(rowNo++)</th>
+                                    <td style="width:30%">@x.Name</td>
+                                    <td>
+                                        <input type="checkbox" name="IdsToAdd" value="@x.RoleIdView" asp-for="@x.SelectedView" />
+                                    </td>
+                                    <td>
+                                        <input type="checkbox" name="IdsToAdd" value="@x.RoleIdAdd" asp-for="@x.SelectedAdd" />
+                                    </td>
+                                    <td>
+                                        <input type="checkbox" name="IdsToAdd" value="@x.RoleIdEdit" asp-for="@x.SelectedEdit" />
+                                    </td>
+                                    <td>
+                                        <input type="checkbox" name="IdsToAdd" value="@x.RoleIdDelete" asp-for="@x.SelectedDelete" />
+                                    </td>
+                                    <td>
+                                        <input type="checkbox" name="IdsToAdd" value="@x.RoleIdPrint" asp-for="@x.SelectedPrint" />
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="card-footer">
+            <div class="row justify-content-center">
+                <div class="col-md-10">
+                    <div class="form-group row">
+                        <div class="col-md-3">
+                        </div>
+                        <div class="col-md-6">
+                            <button type="submit" class="btn btn-success">บันทึก</button>
+                            <a asp-action="Index" class="btn btn-secondary">ยกเลิก</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+</div>
+
+
+
+
+
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+
+            //$("#GridView1").DataTable({
+            //    stateSave: true
+            //});
+
+                $("#login").click(function (e) {
+
+                    e.preventDefault();
+                    Login();
+                });
+
+                $("#showData_POST").click(function (e) {
+                    DisplayGridView2_POST();
+                });
+
+                $("#showData_GET").click(function (e) {
+                    DisplayGridView2_GET();
+                });
+
+                $("#showData_POST_MANUAL").click(function (e) {
+
+                    //e.preventDefault();
+
+                    DisplayGridView2_MANUAL();
+                    //$('#gvComments').DataTable();
+                });
+
+                $("#logout").click(function (e) {
+
+                    e.preventDefault();
+
+                    Logout();
+
+                });
+            });
+
+            function Login() {
+
+                var options = {};
+                options.url = "api/Account/Login";
+                options.contentType = "application/json";
+                options.method = "POST";
+
+                var obj = {};
+                obj.email = "ju@gmail.com";
+                obj.password = "Convergys131!";
+                options.data = JSON.stringify(obj);
+                console.log("obj:", obj)
+                console.log("JSON obj:", JSON.stringify(obj))
+
+                options.success = function (obj) {
+                    sessionStorage.setItem("token", obj);
+                    $("#response").html("<h2>User successfully logged in.</h2>");
+                };
+                options.error = function () {
+                    $("#response").html("<h2>Error while calling the Web API!</h2>");
+                };
+                $.ajax(options);
+            }
+
+            function Logout() {
+                sessionStorage.removeItem("token");
+                $("#response").html("<h2>User successfully logged out.</h2>");
+            }
+
+            function DisplayGridView2_POST() {
+
+                var options = {};
+
+                var obj = {};
+                obj.commentOf = "1";
+                obj.eventOrStadiumCode = "EVT201911260001";
+                obj.limitStart = "1";
+                obj.limitSiz = "10000";
+
+                $('#gvComments').DataTable(
+                    {
+                        destroy: true,
+                        //processing: true,
+                        serverSide: false,
+                        //ajax: options,
+                        "ajax": {
+                            url: "api/Comments/GetComment",
+                            dataType: "json",
+                            contentType: "application/json",
+                            type: "POST",
+                            data: function ( d ) {
+                                $.extend( d, obj );
+                                return JSON.stringify( d );
+                            },
+                            dataSrc: "",
+                            beforeSend: function (xhr) {
+                                xhr.setRequestHeader("Authorization", "Bearer " + sessionStorage.getItem("token"));
+                            },
+                            error: function (a, b, c) {
+                                $("#response").html("<h2>Error while calling the Web API! (" + b + " - " + c + ")</h2>");
+                            }
+                        },
+                        "columns": [
+                             { "data": "commentCode" },
+                             { "data": "comment1" },
+                             { "data": "eventCode" },
+                             { "data": "userName" },
+                             { "data": "createdDate" }
+                          ]
+                    }
+                );
+            }
+
+
+            function DisplayGridView2_GET() {
+                var obj2 = {};
+                obj2.commentOf = "1";
+                obj2.eventOrStadiumCode = "EVT201911260001";
+                obj2.limitStart = 1;
+                obj2.limitSize = 10000;
+                obj2.OrderBy = "COMMENT_ID";
+                obj2.OrderDesc = "ASC";
+                console.log("obj2:", obj2)
+                console.log("JSON obj2:", JSON.stringify(obj2))
+
+
+                var options = {};
+
+                var obj = {};
+                obj.commentOf = "1";
+                obj.eventOrStadiumCode = "EVT201911260001";
+                obj.limitStart = "1";
+                obj.limitSiz = "10000";
+
+                options.data = JSON.stringify(obj);
+
+                options.url = "api/Comments/GetComment_GET";
+                options.contentType = "application/json";
+                options.method = "GET";
+
+                options.beforeSend = function (request) {
+                    request.setRequestHeader("Authorization", "Bearer " + sessionStorage.getItem("token"));
+                };
+
+                $('#gvComments').DataTable(
+                    {
+                        destroy: true,
+                        //processing: true,
+                        serverSide: false,
+                        //ajax: options,
+                        "ajax": {
+                            url: "api/Comments/GetComment",
+                            dataType: "json",
+                            contentType: "application/json",
+                            type: "GET",
+                            data: JSON.stringify({
+                                "commentOf": "1",
+                                "eventOrStadiumCode": "EVT201911260001"
+                            }),
+                            dataSrc: "",
+                            beforeSend: function (xhr) {
+                                xhr.setRequestHeader("Authorization", "Bearer " + sessionStorage.getItem("token"));
+                            },
+                            error: function (a, b, c) {
+                                console.log("ERROR HERE OBJ " + JSON.stringify(obj2));
+                                console.log("ERROR HERE Details: " + a + " - " + b + " - " + c);
+                                $("#response").html("<h2>Error while calling the Web API! (" + b + " - " + c + ")</h2>");
+                            }
+                        },
+                        "columns": [
+                             { "data": "commentCode" },
+                             { "data": "comment1" },
+                             { "data": "eventCode" },
+                             { "data": "userName" },
+                             { "data": "createdDate" }
+                          ]
+                    }
+                );
+            }
+
+
+            function DisplayGridView2_MANUAL() {
+
+                var options = {};
+
+                var obj = {};
+                obj.commentOf = "1";
+                obj.eventOrStadiumCode = "EVT201911260001";
+                obj.limitStart = "1";
+                obj.limitSiz = "10";
+
+                options.data = JSON.stringify(obj);
+
+                options.url = "api/Comments/GetComment";
+                options.contentType = "application/json";
+                options.method = "POST";
+
+                options.beforeSend = function (request) {
+                    request.setRequestHeader("Authorization", "Bearer " + sessionStorage.getItem("token"));
+                };
+
+                options.success = function (data) {
+                    $("#response").html("<h2>Successfully Get Data</h2>");
+
+                    var rows = "";
+                    data.forEach(function (element) {
+                        var row = "<tr>";
+                        row += "<td>";
+                        row += element.commentCode;
+                        row += "</td>";
+                        row += "<td>";
+                        row += element.comment1;
+                        row += "</td>";
+                        row += "<td>";
+                        row += element.eventCode;
+                        row += "</td>";
+                        row += "<td>";
+                        row += element.userName;
+                        row += "</td>";
+                        row += "<td>";
+                        row += element.createdDate;
+                        row += "</td>";
+                        row += "</tr>";
+                        rows += row;
+                    });
+
+                    $("#gvComments > tbody").empty();
+                    $("#gvComments > tbody").append(rows);
+
+                };
+                options.error = function (a, b, c) {
+                    $("#response").html("<h2>Error while calling the Web API! (" + b + " - " + c + ")</h2>");
+                };
+                $.ajax(options);
+            }
+
+    </script>
+
+}
+
+

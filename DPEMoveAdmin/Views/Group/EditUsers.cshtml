@@ -1,0 +1,100 @@
+﻿@model GroupUserViewModel
+
+<div class="card">
+    <h5 class="card-header">
+        Role Group | User
+    </h5>
+    <div class="card-body">
+
+        <h5 class="card-title">กำหนดกลุ่มผู้ใช้งาน : @Model.Group.GroupName</h5>
+
+        <div asp-validation-summary="All" class="text-danger"></div>
+
+
+        <div id="TOBE_REMOVE">
+            <form asp-action="EditUsers" method="post">
+
+                <input type="hidden" name="GroupId" value="@Model.Group.GroupId" />
+                <input type="hidden" name="GroupName" value="@Model.Group.GroupName" />
+
+
+                <table class="table table-sm table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">User</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{ int rowNo = 1; }
+                        @foreach (var x in Model.Members)
+                        {
+                            <tr>
+                                <th style="width:10%" scope="row">@(rowNo++)</th>
+                                <td style="width:30%">@x.UserName</td>
+                                <td>
+                                    <input type="checkbox" name="IdsToAdd" value="@x.Id" asp-for="@x.Selected" />
+                                    @*<input type="checkbox" asp-for="@x.Selected" />
+                                    <label asp-for="@x.Selected">@x.UserName</label>*@
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+                <button type="submit" class="btn btn-primary">บันทึก</button>
+                <a asp-action="Index" class="btn btn-secondary">ยกเลิก</a>
+
+            </form>
+
+        </div>
+
+
+        @*<form asp-action="EditUsers" method="post">
+
+                <input type="hidden" name="GroupId" value="@Model.Group.GroupId" />
+                <input type="hidden" name="GroupName" value="@Model.Group.GroupName" />
+
+                <h6 class="bg-info m-1 text-white">Remove from @Model.Group.GroupName</h6>
+                <table class="table table-bordered table-sm">
+                    @foreach (var x in Model.Members)
+                    {
+                        <tr>
+                            <td style="width:500px">@x.UserName</td>
+                            <td>
+                                <input type="checkbox" name="IdsToDelete" value="@x.Id" />
+                            </td>
+                        </tr>
+                    }
+                </table>
+
+
+                <h6 class="bg-info m-1 text-white">Add to @Model.Group.GroupName</h6>
+                <table class="table table-bordered table-sm">
+                    @foreach (var x in Model.NonMembers)
+                    {
+                        <tr>
+                            <td style="width:500px">@x.UserName</td>
+                            <td>
+                                <input type="checkbox" name="IdsToAdd" value="@x.Id" />
+                            </td>
+                        </tr>
+
+                    }
+                </table>
+
+
+                <button type="submit" class="btn btn-primary">บันทึก</button>
+                <a asp-action="Index" class="btn btn-secondary">ยกเลิก</a>
+
+            </form>*@
+
+
+    </div>
+</div>
+
+
+
+
+
