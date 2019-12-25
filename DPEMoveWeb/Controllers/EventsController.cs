@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DPEMoveDAL.Models;
 using Microsoft.AspNetCore.Authorization;
+using DPEMoveDAL.ViewModels;
 
 namespace DPEMoveWeb.Controllers
 {
@@ -45,11 +46,23 @@ namespace DPEMoveWeb.Controllers
                 .Include(@a => @a.Address)
                 .Include(@a => @a.EventLevel)
                 .Include(@a => @a.EventType)
+                .Include(@a => @a.EventObjective)
                 .FirstOrDefaultAsync(m => m.EventId == id);
             if (@event == null)
             {
                 return NotFound();
             }
+
+            var qq = _context.MEventObjective
+                .Select(a => new EventObjectiveViewModel 
+                { 
+                    EventObjectiveId = a.EventObjectiveId, 
+                    EventObjectiveName = a.EventObjectiveName, 
+                    Selected = @event.EventObjective.Any(b => b.EventObjectiveId == a.EventObjectiveId)
+                })
+                .ToList();
+
+            ViewData["EventObjectiveList"] = qq;
 
             return View(@event);
         }

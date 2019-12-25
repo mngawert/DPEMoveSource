@@ -151,7 +151,28 @@ span.req { color: #ff0000; }
 .tbl-data .manage { width: 10%; max-width: 100px; text-align: center; }
 .tbl-data .center { text-align: center; }
 /**/
-
+@media screen and (max-width: 1024px) and (min-width: 769px) {
+	.navbar .navbar-nav .nav-item .nav-link {padding: 10px 15px;}
+}
+@media screen and (max-width: 991px) {
+	.stad_detail ul li { clear: both;}
+	.loadapp {margin: 10px 0 0 0;}
+	.loadapp img {margin: 0 0 5px 5px !important;}
+	/**/
+	.event-manipulate .tabs { padding-left: 5px; padding-right: 5px; }
+	.event-manipulate .tab { padding-left: 10px; padding-right: 10px; }
+	/**/
+}
+@media screen and (max-width: 767px) {
+	/**/
+	.row-field .c { width: 30%; }
+	.row-field .c.field { width: 70%; }
+	.event-thumb { margin-bottom: 10px; }
+	.breadcrumbs { font-size: 13px; padding-top: 0; }
+	.breadcrumbs-container .button-container { position: initial; right: initial; top: initial; text-align: center; margin: 20px 0; }
+	.event-manipulate .tab { font-size: 11px; padding-left: 5px; padding-right: 5px; }
+	/**/
+}
 @media screen and (max-width: 480px) {
 	.left_sec { margin: 0;}
     .loadapp { margin: 5px 0 10px 0;text-align: center !important;}
@@ -169,25 +190,8 @@ span.req { color: #ff0000; }
 	.service_sec-box {height: 124px; margin: 0 8px 0 0;}
 	.absol_right .btn {padding: 0.5rem 10px}
 	.center { text-align: left;}
-}
-@media screen and (max-width: 767px) {
-	/**/
-	.event-thumb { margin-bottom: 10px; }
-	.breadcrumbs { font-size: 13px; padding-top: 0; }
-	.breadcrumbs-container .button-container { position: initial; right: initial; top: initial; text-align: center; margin: 20px 0; }
-	.event-manipulate .tab { font-size: 11px; padding-left: 0; padding-right: 0; }
-	/**/
-}
-@media screen and (max-width: 991px) {
-	.stad_detail ul li { clear: both;}
-	.loadapp {margin: 10px 0 0 0;}
-	.loadapp img {margin: 0 0 5px 5px !important;}
-	/**/
-	.event-manipulate .tabs { padding-left: 5px; padding-right: 5px; }
-	.event-manipulate .tab { padding-left: 10px; padding-right: 10px; }
-	/**/
-}
 
-@media screen and (max-width: 1024px) and (min-width: 769px) {
-	.navbar .navbar-nav .nav-item .nav-link {padding: 10px 15px;}
+	/**/
+	.event-manipulate .tab { font-size: 11px; padding-left: 2px; padding-right: 5px; }
+	/**/
 }
