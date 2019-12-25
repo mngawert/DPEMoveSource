@@ -1,0 +1,181 @@
+﻿@model DPEMoveDAL.Models.Event
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>Edit</h2>
+
+<h4>Event</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="EventId" />
+            <div class="form-group">
+                <label asp-for="EventCode" class="control-label"></label>
+                <input asp-for="EventCode" class="form-control" />
+                <span asp-validation-for="EventCode" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EventName" class="control-label"></label>
+                <input asp-for="EventName" class="form-control" />
+                <span asp-validation-for="EventName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EventShortDescription" class="control-label"></label>
+                <input asp-for="EventShortDescription" class="form-control" />
+                <span asp-validation-for="EventShortDescription" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EventDescription" class="control-label"></label>
+                <input asp-for="EventDescription" class="form-control" />
+                <span asp-validation-for="EventDescription" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EventStartTimestamp" class="control-label"></label>
+                <input asp-for="EventStartTimestamp" class="form-control" />
+                <span asp-validation-for="EventStartTimestamp" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EventFinishTimestamp" class="control-label"></label>
+                <input asp-for="EventFinishTimestamp" class="form-control" />
+                <span asp-validation-for="EventFinishTimestamp" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AddressId" class="control-label"></label>
+                <select asp-for="AddressId" class="form-control" asp-items="ViewBag.AddressId"></select>
+                <span asp-validation-for="AddressId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StadiumCode" class="control-label"></label>
+                <input asp-for="StadiumCode" class="form-control" />
+                <span asp-validation-for="StadiumCode" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PublishUrl" class="control-label"></label>
+                <input asp-for="PublishUrl" class="form-control" />
+                <span asp-validation-for="PublishUrl" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ResponsiblePerson" class="control-label"></label>
+                <input asp-for="ResponsiblePerson" class="form-control" />
+                <span asp-validation-for="ResponsiblePerson" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ResponsiblePersonCode" class="control-label"></label>
+                <input asp-for="ResponsiblePersonCode" class="form-control" />
+                <span asp-validation-for="ResponsiblePersonCode" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ReadCount" class="control-label"></label>
+                <input asp-for="ReadCount" class="form-control" />
+                <span asp-validation-for="ReadCount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EventLevelId" class="control-label"></label>
+                <select asp-for="EventLevelId" class="form-control" asp-items="ViewBag.EventLevelId"></select>
+                <span asp-validation-for="EventLevelId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EventLevelEtc" class="control-label"></label>
+                <input asp-for="EventLevelEtc" class="form-control" />
+                <span asp-validation-for="EventLevelEtc" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EventObjectivePersonId" class="control-label"></label>
+                <input asp-for="EventObjectivePersonId" class="form-control" />
+                <span asp-validation-for="EventObjectivePersonId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Status" class="control-label"></label>
+                <input asp-for="Status" class="form-control" />
+                <span asp-validation-for="Status" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CreatedDate" class="control-label"></label>
+                <input asp-for="CreatedDate" class="form-control" />
+                <span asp-validation-for="CreatedDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CreatedBy" class="control-label"></label>
+                <input asp-for="CreatedBy" class="form-control" />
+                <span asp-validation-for="CreatedBy" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UpdatedDate" class="control-label"></label>
+                <input asp-for="UpdatedDate" class="form-control" />
+                <span asp-validation-for="UpdatedDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UpdatedBy" class="control-label"></label>
+                <input asp-for="UpdatedBy" class="form-control" />
+                <span asp-validation-for="UpdatedBy" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Budget" class="control-label"></label>
+                <input asp-for="Budget" class="form-control" />
+                <span asp-validation-for="Budget" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Budgetused" class="control-label"></label>
+                <input asp-for="Budgetused" class="form-control" />
+                <span asp-validation-for="Budgetused" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EventTypeId" class="control-label"></label>
+                <select asp-for="EventTypeId" class="form-control" asp-items="ViewBag.EventTypeId"></select>
+                <span asp-validation-for="EventTypeId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProjectSelect" class="control-label"></label>
+                <input asp-for="ProjectSelect" class="form-control" />
+                <span asp-validation-for="ProjectSelect" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProjectCode" class="control-label"></label>
+                <input asp-for="ProjectCode" class="form-control" />
+                <span asp-validation-for="ProjectCode" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ResponsiblePersonType" class="control-label"></label>
+                <input asp-for="ResponsiblePersonType" class="form-control" />
+                <span asp-validation-for="ResponsiblePersonType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ContactPersonName" class="control-label"></label>
+                <input asp-for="ContactPersonName" class="form-control" />
+                <span asp-validation-for="ContactPersonName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ContactPersonEmail" class="control-label"></label>
+                <input asp-for="ContactPersonEmail" class="form-control" />
+                <span asp-validation-for="ContactPersonEmail" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ContactPersonMobile" class="control-label"></label>
+                <input asp-for="ContactPersonMobile" class="form-control" />
+                <span asp-validation-for="ContactPersonMobile" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ContactPersonFax" class="control-label"></label>
+                <input asp-for="ContactPersonFax" class="form-control" />
+                <span asp-validation-for="ContactPersonFax" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ContactPersonLineid" class="control-label"></label>
+                <input asp-for="ContactPersonLineid" class="form-control" />
+                <span asp-validation-for="ContactPersonLineid" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

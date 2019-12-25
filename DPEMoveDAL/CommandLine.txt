@@ -13,8 +13,4 @@ Update-Database -Context AppIdentityDbContext
 
 Remove-Migration -Context AppIdentityDbContext
 
-test
-
-
-
 
