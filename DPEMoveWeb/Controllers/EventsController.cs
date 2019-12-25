@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DPEMoveDAL.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DPEMoveWeb.Controllers
 {
@@ -19,9 +20,16 @@ namespace DPEMoveWeb.Controllers
         }
 
         // GET: Events
+        [Authorize]
         public async Task<IActionResult> Index()
         {
-            var appDbContext = _context.Event.Include(@a => @a.Address).Include(@a => @a.EventLevel).Include(@a => @a.EventType);
+            var appDbContext = _context.Event
+                .Include(@a => @a.Address)
+                .Include(@a => @a.EventLevel)
+                .Include(@a => @a.EventType)
+                .Include(a => a.EventUploadedFile)
+                    .ThenInclude(b => b.UploadedFile)
+                ;
             return View(await appDbContext.ToListAsync());
         }
 

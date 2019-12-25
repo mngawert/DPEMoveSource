@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DPEMoveWeb.ApiControllers
 {
-    //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [Route("api/master/[action]")]
     [ApiController]
     public class MasterApiController : ControllerBase

@@ -42,23 +42,6 @@ namespace DPEMoveWeb.ApiControllers
 
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> Register_OLD(User user)
-        {
-            string email = user.Email;
-            string password = user.Password;
-
-            var userIdentity = new ApplicationUser { UserName = email, Email = email };
-            var result = await userManager.CreateAsync(userIdentity, password);
-
-            if (result == IdentityResult.Success)
-            {
-                return await Login(user);
-            }
-            else return BadRequest();
-        }
-
-        [HttpPost]
-        [AllowAnonymous]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
             if (ModelState.IsValid)

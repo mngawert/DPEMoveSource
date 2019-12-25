@@ -4,91 +4,191 @@
     ViewData["Title"] = "ข้อมูลกิจกรรม";
 }
 
-<h4>กิจกรรม > ข้อมูลกิจกรรม</h4>
-
-<div class="border p-4 mt-4">
-    <form method="post">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="form-group row">
-                    <label class="col-md-2 text-right">ช่วงวันที่</label>
-                    <input class="col-md-3 form-control" id="datetimepicker1" name="Date1" />
-                    <label class="col-md-2 text-right">ถึงวันที่</label>
-                    <input class="col-md-3 form-control" id="datetimepicker2" name="Date2" />
-                </div>
-                <div class="form-group row">
-                    <label class="col-md-2 text-right">ประเภทกิจกรรม</label>
-                    <select class="col-md-3 form-control" name="Status">
-                        <option value="-1">แสดงทั้งหมด</option>
-                        <option value="1">--</option>
-                        <option value="2">--</option>
-                    </select>
-                    <label class="col-md-2 text-right">ชื่อกิจกรรม</label>
-                    <input class="col-md-3 form-control" name="Name" />
-                </div>
-                <div class="form-group row">
-                    <div class="col-md-3 mx-auto">
-                        <button type="submit" class="btn btn-green btn-block">แสดงข้อมูล</button>
+<div class="row breadcrumbs-container">
+    <div class="col-12">
+        <div class="breadcrumbs">
+            <a href="#">กิจกรรม</a> > ข้อมูลกิจกรรม
+        </div>
+        <div class="button-container">
+            <a href="#" class="button green">+ สร้างกิจกรรม</a>
+        </div>
+    </div>
+</div>
+<div class="row search-events">
+    <div class="col-12">
+        <div class="block-border">
+            <form>
+                <div class="row">
+                    <div class="col-sm-12 col-lg-4">
+                        <div class="row-field clearfix">
+                            <div class="c lbl">
+                                ช่วงวันที่
+                            </div>
+                            <div class="c field">
+                                <select class="input-field">
+                                    <option value="">dd/mm/yyyy</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-lg-4">
+                        <div class="row-field clearfix">
+                            <div class="c lbl">
+                                ถึงวันที่
+                            </div>
+                            <div class="c field">
+                                <select class="input-field">
+                                    <option value="">dd/mm/yyyy</option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
+                <div class="row">
+                    <div class="col-sm-12 col-lg-4">
+                        <div class="row-field clearfix">
+                            <div class="c lbl">
+                                จังหวัด
+                            </div>
+                            <div class="c field">
+                                <select class="input-field">
+                                    <option value="">แสดงทั้งหมด</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-lg-4">
+                        <div class="row-field clearfix">
+                            <div class="c lbl">
+                                อำเภอ
+                            </div>
+                            <div class="c field">
+                                <select class="input-field">
+                                    <option value="">แสดงทั้งหมด</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-lg-4">
+                        <div class="row-field clearfix">
+                            <div class="c lbl">
+                                ตำบล
+                            </div>
+                            <div class="c field">
+                                <select class="input-field">
+                                    <option value="">แสดงทั้งหมด</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12 col-lg-4">
+                        <div class="row-field clearfix">
+                            <div class="c lbl">
+                                ประเภทกิจกรรม
+                            </div>
+                            <div class="c field">
+                                <select class="input-field">
+                                    <option value="">แสดงทั้งหมด</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-lg-4">
+                        <div class="row-field clearfix">
+                            <div class="c lbl">
+                                ชื่อกิจกรรม
+                            </div>
+                            <div class="c field">
+                                <input type="text" class="input-field" name="" value="" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row-button"><a href="#" class="button darkgreen">แสดงข้อมูล</a></div>
+            </form>
         </div>
-    </form>
+    </div>
 </div>
+<div class="row search-events-result">
+    <div class="col-12">
+        <ul>
+            <li>
+                <a href="#">
+                    <div class="row event">
+                        <div class="col-12 col-sm-5 col-md-4">
+                            <div class="event-thumb"><img src="images/thumb_event1.jpg" /></div>
+                        </div>
+                        <div class="col-12 col-sm-7 col-md-8">
+                            <div class="rating">
+                                <span class="fa fa-star checked"></span>
+                                <span class="fa fa-star checked"></span>
+                                <span class="fa fa-star-half-o checked"></span>
+                                <span class="fa fa-star"></span>
+                                <span class="fa fa-star"></span>
+                            </div>
+                            <div class="event-date">17 พ.ย. 62</div>
+                            <h4>EGAT 50th For A Better Life</h4>
+                            <div class="event-place">
+                                สถานที่ : การไฟฟ้าฝ่ายผลิตแห่งประเทศไทย (บางกรวย)<br />
+                                จ.นนทบุรี
+                            </div>
+                            <div class="row read-comment">
+                                <div class="col-sm-12 col-md-6">
+                                    <div class="read-total">อ่านแล้ว 20 คน</div>
+                                </div>
+                                <div class="col-sm-12 col-md-6">
+                                    <div class="comment-total">แสดงความคิดเห็น 120 คน</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </li>
+
+            @foreach (var e in Model)
+            {
+
+                <li>
+                    <a asp-action="Details" asp-route-id="@e.EventId">
+                        <div class="row event">
+                            <div class="col-12 col-sm-5 col-md-4">
+                                <div class="event-thumb"><img src="@e.EventUploadedFile.FirstOrDefault()?.UploadedFile?.FileUrl" /></div>
+                            </div>
+                            <div class="col-12 col-sm-7 col-md-8">
+                                <div class="rating">
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                </div>
+                                <div class="event-date">17 พ.ย. 62</div>
+                                <h4> @e.EventName</h4>
+                                <div class="event-place">
+                                    สถานที่ : @e.Address?.Description [e.Address?.Description] <br />
+                                    @e.Address?.ProvinceCode [e.Address?.ProvinceCode]
+                                </div>
+                                <div class="row read-comment">
+                                    <div class="col-sm-12 col-md-6">
+                                        <div class="read-total">อ่านแล้ว @e.ReadCount [e.ReadCount] คน</div>
+                                    </div>
+                                    <div class="col-sm-12 col-md-6">
+                                        <div class="comment-total">แสดงความคิดเห็น [xxxx] คน</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </li>
 
 
-<p class="text-right">
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.EventCode)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EventName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EventStartTimestamp)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EventFinishTimestamp)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ReadCount)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EventCode)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EventName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EventStartTimestamp)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EventFinishTimestamp)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ReadCount)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.EventId">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.EventId">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.EventId">Delete</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+            }
+
+        </ul>
+    </div>
+</div>
 
 
 @section Scripts {

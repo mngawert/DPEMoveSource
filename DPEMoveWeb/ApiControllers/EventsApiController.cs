@@ -47,9 +47,9 @@ namespace DPEMoveWeb.ApiControllers
             return q;
         }
 
-        // GET: api/Events/5
+        // GET: api/Events/GetEventDetail/5
         [HttpGet("{id}")]
-        [Authorize]
+        //[Authorize]
         public async Task<IActionResult> GetEventDetail([FromRoute] int id)
         {
             if (!ModelState.IsValid)

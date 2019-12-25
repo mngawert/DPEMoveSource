@@ -8,6 +8,7 @@
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.10" />
+    <PackageReference Include="RestSharp" Version="106.6.10" />
   </ItemGroup>
     
   <ItemGroup>
@@ -16,6 +17,74 @@
 
   <ItemGroup>
     <Folder Include="Context\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\assets\css\.DS_Store" />
+    <None Include="wwwroot\assets\fonts\nucleo-icons.woff2" />
+    <None Include="wwwroot\assets\img\.DS_Store" />
+    <None Include="wwwroot\assets\img\faces\.DS_Store" />
+    <None Include="wwwroot\assets\js\.DS_Store" />
+    <None Include="wwwroot\assets\js\bootstrap-datetimepicker.min.js" />
+    <None Include="wwwroot\assets\js\bootstrap-switch.min.js" />
+    <None Include="wwwroot\assets\js\bootstrap.min.js" />
+    <None Include="wwwroot\assets\js\jquery-3.2.1.js" />
+    <None Include="wwwroot\assets\js\jquery-ui-1.12.1.custom.min.js" />
+    <None Include="wwwroot\assets\js\moment.min.js" />
+    <None Include="wwwroot\assets\js\nouislider.js" />
+    <None Include="wwwroot\assets\js\paper-kit.js" />
+    <None Include="wwwroot\assets\js\popper.js" />
+    <None Include="wwwroot\assets\sass\.DS_Store" />
+    <None Include="wwwroot\assets\sass\paper-kit.scss" />
+    <None Include="wwwroot\assets\sass\paper-kit\.DS_Store" />
+    <None Include="wwwroot\assets\sass\paper-kit\mixins\_buttons.scss" />
+    <None Include="wwwroot\assets\sass\paper-kit\mixins\_inputs.scss" />
+    <None Include="wwwroot\assets\sass\paper-kit\mixins\_labels.scss" />
+    <None Include="wwwroot\assets\sass\paper-kit\mixins\_navbars.scss" />
+    <None Include="wwwroot\assets\sass\paper-kit\mixins\_popovers.scss" />
+    <None Include="wwwroot\assets\sass\paper-kit\mixins\_tabs.scss" />
+    <None Include="wwwroot\assets\sass\paper-kit\mixins\_transparency.scss" />
+    <None Include="wwwroot\assets\sass\paper-kit\mixins\_vendor-prefixes.scss" />
+    <None Include="wwwroot\assets\sass\paper-kit\plugins\_datetimepicker.scss" />
+    <None Include="wwwroot\assets\sass\paper-kit\_alerts.scss" />
+    <None Include="wwwroot\assets\sass\paper-kit\_bootstrap-switch.scss" />
+    <None Include="wwwroot\assets\sass\paper-kit\_buttons.scss" />
+    <None Include="wwwroot\assets\sass\paper-kit\_cards.scss" />
+    <None Include="wwwroot\assets\sass\paper-kit\_carousel.scss" />
+    <None Include="wwwroot\assets\sass\paper-kit\_checkbox-radio.scss" />
+    <None Include="wwwroot\assets\sass\paper-kit\_collapse.scss" />
+    <None Include="wwwroot\assets\sass\paper-kit\_dropdown.scss" />
+    <None Include="wwwroot\assets\sass\paper-kit\_examples.scss" />
+    <None Include="wwwroot\assets\sass\paper-kit\_footers.scss" />
+    <None Include="wwwroot\assets\sass\paper-kit\_icons.scss" />
+    <None Include="wwwroot\assets\sass\paper-kit\_images.scss" />
+    <None Include="wwwroot\assets\sass\paper-kit\_inputs.scss" />
+    <None Include="wwwroot\assets\sass\paper-kit\_labels.scss" />
+    <None Include="wwwroot\assets\sass\paper-kit\_misc.scss" />
+    <None Include="wwwroot\assets\sass\paper-kit\_mixins.scss" />
+    <None Include="wwwroot\assets\sass\paper-kit\_modal.scss" />
+    <None Include="wwwroot\assets\sass\paper-kit\_navbars.scss" />
+    <None Include="wwwroot\assets\sass\paper-kit\_progress-bars.scss" />
+    <None Include="wwwroot\assets\sass\paper-kit\_responsive.scss" />
+    <None Include="wwwroot\assets\sass\paper-kit\_sections.scss" />
+    <None Include="wwwroot\assets\sass\paper-kit\_sliders.scss" />
+    <None Include="wwwroot\assets\sass\paper-kit\_social-buttons.scss" />
+    <None Include="wwwroot\assets\sass\paper-kit\_tabs-navs-pagination.scss" />
+    <None Include="wwwroot\assets\sass\paper-kit\_tooltips-and-popovers.scss" />
+    <None Include="wwwroot\assets\sass\paper-kit\_typography.scss" />
+    <None Include="wwwroot\assets\sass\paper-kit\_variables.scss" />
+    <None Include="wwwroot\css\.DS_Store" />
+    <None Include="wwwroot\css\fonts\Kanit-Regular.svg" />
+    <None Include="wwwroot\css\Icon_" />
+    <None Include="wwwroot\images\.DS_Store" />
+    <None Include="wwwroot\images\banner1.svg" />
+    <None Include="wwwroot\images\banner2.svg" />
+    <None Include="wwwroot\images\banner3.svg" />
+    <None Include="wwwroot\images\Icon_" />
+    <None Include="wwwroot\js\Icon_" />
+    <None Include="wwwroot\js\scripts.js" />
+    <None Include="wwwroot\js\site.js" />
+    <None Include="wwwroot\js\site.min.js" />
   </ItemGroup>
 
 </Project>

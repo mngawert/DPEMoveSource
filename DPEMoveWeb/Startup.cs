@@ -65,7 +65,8 @@ namespace DPEMoveWeb
                 return smtpClient;
             });
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
+                .AddJsonOptions(a => a.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
             services.AddDbContext<AppDbContext>(a => a.UseOracle(Configuration["ConnectionStrings:DPEMoveDatabase"], b => b.UseOracleSQLCompatibility("11")));
             services.AddDbContext<AppIdentityDbContext>(options => options.UseOracle(Configuration["ConnectionStrings:DPEMoveDatabase"], b => b.UseOracleSQLCompatibility("11")));

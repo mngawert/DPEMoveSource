@@ -1,0 +1,679 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/png" href="assets/img/favicon.ico">
+    <link rel="apple-touch-icon" sizes="76x76" href="assets/img/app-icon.png">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>DPE-Move ระบบ Mobile Application ด้านการพลศึกษา สุขภาพ กีฬา นันทนาการ วิทยาศาสตร์การกีฬา และพัฒนาบุคลากรการกีฬา</title>
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+    <meta name="viewport" content="width=device-width" />
+
+    <!-- Bootstrap core CSS     -->
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="assets/css/paper-kit.css?v=2.1.0" rel="stylesheet"/>
+
+    <!--  CSS for Demo Purpose, don't include it in your project     -->
+    <link href="assets/css/demo.css" rel="stylesheet" />
+
+    <!--     Fonts and icons     -->
+    <link href='http://fonts.googleapis.com/css?family=Montserrat:400,300,700' rel='stylesheet' type='text/css'>
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+    <link href="assets/css/nucleo-icons.css" rel="stylesheet" />
+    <link href="css/master.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 col-md-8 col-lg-8">
+                <div class="logo"><img src="images/logo.png" width="67" height="104" alt=""/><img src="images/icon_app.png" width="99" height="104" alt=""/></div>
+                <div class="head_text">
+                <h2>DPE-Move</h2>
+                <span>ระบบ Mobile Application ด้านการพลศึกษา<br>
+                สุขภาพ กีฬา นันทนาการ วิทยาศาสตร์การกีฬา และพัฒนาบุคลากรการกีฬา</span></div>
+            </div>
+            <div class="col-sm-12 col-md-4 col-lg-4 loadapp"><a href="#"><img src="images/bt_play.png" width="134" height="44" alt=""/></a><a href="#"><img src="images/bt-store.png" width="134" height="44" alt=""/></a></div>
+        </div>
+    </div>
+    <nav class="navbar navbar-expand-md bg-nav">
+        <div class="container">
+            <div class="navbar-translate">
+                <button class="navbar-toggler navbar-toggler-right navbar-burger" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-bar"></span> <span class="navbar-toggler-bar"></span> <span class="navbar-toggler-bar"></span> </button>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar-menu">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item"> <a class="nav-link" href="#pk">หน้าหลัก</a> </li>
+                    <li class="nav-item active"> <a class="nav-link" href="#pk">กิจกรรม</a> </li>
+                    <li class="nav-item"> <a class="nav-link" href="#pk">สนามกีฬา/สถานที่ออกกำลังกาย</a> </li>
+                    <li class="nav-item"> <a class="nav-link" href="#pk">บุคคลากร</a> </li>
+                    <li class="nav-item"> <a class="nav-link" href="#pk">แบบสำรวจ</a> </li>
+                    <li class="nav-item"> <a class="nav-link" href="#pk">เกี่ยวกับเรา</a> </li>
+                    <li class="nav-item"> <a class="nav-link" href="#pk">ติดต่อเรา</a> </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="wrapper">
+        <div class="page-breadcrumbs" style="background-image: url('images/bg-bc.jpg')">
+            <div class="wellcome_sec">
+                <div class="container">
+                    <div class="wellcome">
+                    <p>ยินดีต้อนรับสู่กรมพลศึกษา กระทรวงการท่องเที่ยวและกีฬา</p>
+                    </div>
+                </div>
+            </div>
+            <div class="filter"></div>
+            <div class="content-center">
+                <div class="container">
+                    <h2 class="presentation-subtitle text-center">ข้อมูลกิจกรรม</h2>
+                </div>
+            </div>
+        </div>
+        <div class="section">
+            <div class="container">
+                <div class="row breadcrumbs-container">
+                    <div class="col-12">
+                        <div class="breadcrumbs">
+                            <a href="#">กิจกรรม</a> > <a href="#">ข้อมูลกิจกรรม</a> > เพิ่ม/แก้ไข
+                        </div>
+                        <div class="button-container">
+                            <a href="#" class="button green">บันทึก</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="row event-manipulate">
+                    <div class="col-12">
+                        <form action="" enctype="multipart/form-data">
+                            <div class="tabs">
+                                <span class="tab">ข้อมูลทั่วไป</span>
+                                <span class="tab">ประเภทกิจกรรม</span>
+                                <span class="tab">สถานที่</span>
+                                <span class="tab">สิ่งอำนวยความสะดวก</span>
+                                <span class="tab">รายละเอียด</span>
+                                <span class="tab">ภาพประกอบ</span>
+                            </div>
+                            <div class="tab_content">
+                                <div class="tab_item">
+                                    <div class="block-group">
+                                        <div class="heading">กิจกรรม</div>
+                                        <div class="entry-data">
+                                            <div class="row">
+                                                <div class="col-sm-12 col-lg-6">
+                                                    <div class="row-field clearfix">
+                                                        <div class="c lbl">
+                                                            ชื่อกิจกรรม <span class="req">*</span>
+                                                        </div>
+                                                        <div class="c field">
+                                                            <input type="text" name="" value="" class="input-field"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12 col-lg-6">
+                                                    <div class="row-field clearfix">
+                                                        <div class="c lbl">
+                                                            งบประมาณ
+                                                        </div>
+                                                        <div class="c field">
+                                                            <input type="text" name="" value="" class="input-field"/> บาท
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-12 col-lg-6">
+                                                    <div class="row-field clearfix">
+                                                        <div class="c lbl">
+                                                            <input type="checkbox" name="" value="" /> โครงการ
+                                                        </div>
+                                                        <div class="c field">
+                                                            <select class="input-field">
+                                                                <option value="">กรุณาเลือก</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12 col-lg-6">
+                                                    <div class="row-field clearfix">
+                                                        <div class="c lbl">
+                                                            จ่ายจริง
+                                                        </div>
+                                                        <div class="c field">
+                                                            <input type="text" name="" value="" class="input-field"/> บาท
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="block-group">
+                                        <div class="heading">ผู้รับผิดชอบ</div>
+                                        <div class="entry-data">
+                                            <div class="row">
+                                                <div class="col-sm-12 col-lg-6">
+                                                    <div class="row-field clearfix">
+                                                        <div class="c lbl">
+                                                            <input type="checkbox" name="" value="" /> ภาครัฐ โปรดระบุ
+                                                        </div>
+                                                        <div class="c field">
+                                                            <input type="text" name="" value="" class="input-field"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-12 col-lg-6">
+                                                    <div class="row-field clearfix">
+                                                        <div class="c lbl">
+                                                            <input type="checkbox" name="" value="" /> เอกชน โปรดระบุ
+                                                        </div>
+                                                        <div class="c field">
+                                                            <input type="text" name="" value="" class="input-field"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="block-group">
+                                        <div class="heading">วันที่จัดกิจกรรม</div>
+                                        <div class="entry-data">
+                                            <div class="row">
+                                                <div class="col-sm-12 col-lg-4">
+                                                    <div class="row-field clearfix">
+                                                        <div class="c lbl">
+                                                            วันที่เริ่ม <span class="req">*</span>
+                                                        </div>
+                                                        <div class="c field">
+                                                            <select class="input-field">
+                                                                <option value="">dd/mm/yyyy</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12 col-lg-4">
+                                                    <div class="row-field clearfix">
+                                                        <div class="c lbl">
+                                                            เวลา
+                                                        </div>
+                                                        <div class="c field">
+                                                            <select class="input-field">
+                                                                <option value="">HH</option>
+                                                            </select>
+                                                            :
+                                                            <select class="input-field">
+                                                                <option value="">mm</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-12 col-lg-4">
+                                                    <div class="row-field clearfix">
+                                                        <div class="c lbl">
+                                                            วันที่สิ้นสุด <span class="req">*</span>
+                                                        </div>
+                                                        <div class="c field">
+                                                            <select class="input-field">
+                                                                <option value="">dd/mm/yyyy</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12 col-lg-4">
+                                                    <div class="row-field clearfix">
+                                                        <div class="c lbl">
+                                                            เวลา
+                                                        </div>
+                                                        <div class="c field">
+                                                            <select class="input-field">
+                                                                <option value="">HH</option>
+                                                            </select>
+                                                            :
+                                                            <select class="input-field">
+                                                                <option value="">mm</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="block-group">
+                                        <div class="heading">ข้อมูลติดต่อ</div>
+                                        <div class="entry-data">
+                                            <div class="row">
+                                                <div class="col-sm-12 col-lg-4">
+                                                    <div class="row-field clearfix">
+                                                        <div class="c lbl">
+                                                            ชื่อผู้ติดต่อ
+                                                        </div>
+                                                        <div class="c field">
+                                                            <input type="text" name="" value="" class="input-field"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12 col-lg-4">
+                                                    <div class="row-field clearfix">
+                                                        <div class="c lbl">
+                                                            อีเมล์
+                                                        </div>
+                                                        <div class="c field">
+                                                            <input type="email" name="" value="" class="input-field"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-12 col-lg-4">
+                                                    <div class="row-field clearfix">
+                                                        <div class="c lbl">
+                                                            โทรศัพท์
+                                                        </div>
+                                                        <div class="c field">
+                                                            <input type="text" name="" value="" class="input-field"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12 col-lg-4">
+                                                    <div class="row-field clearfix">
+                                                        <div class="c lbl">
+                                                            โทรสาร
+                                                        </div>
+                                                        <div class="c field">
+                                                            <input type="text" name="" value="" class="input-field"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="block-group">
+                                        <div class="heading">วัตถุประสงค์ของกิจกรรม</div>
+                                        <div class="entry-data">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <div class="row-field clearfix">
+                                                        <div class="c lbl" style="text-align: left;">
+                                                            <div><input type="checkbox" name="" value="" /> เพื่อแข่งขันกีฬา</div>
+                                                            <div><input type="checkbox" name="" value="" /> เพื่อการสร้างสัมพันธ์</div>
+                                                            <div><input type="checkbox" name="" value="" /> เพื่อสุขภาพ</div>
+                                                            <div><input type="checkbox" name="" value="" /> เพื่อความเป็นอาชีพ</div>
+                                                            <div><input type="checkbox" name="" value="" /> กีฬาเพื่อการท่องเที่ยว</div>
+                                                            <div><input type="checkbox" name="" value="" /> อื่นๆ โปรดระบุ <input type="text" name="" value="" class="input-field"/></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab_item">
+                                    <div class="block-group">
+                                        <div class="heading">ประเภทกิจกรรม</div>
+                                        <div class="entry-data">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <div class="row-field clearfix">
+                                                        <div class="c field">
+                                                            ด้าน
+                                                            <select class="input-field">
+                                                                <option value="">กีฬา</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <br/>
+                                                    <div class="row-field clearfix">
+                                                        <div class="c field">
+                                                            ชนิดกีฬา
+                                                            <div><input type="checkbox" name="" value="" class="input-field" /> ฟุตบอล</div>
+                                                            <div><input type="checkbox" name="" value="" class="input-field" /> วอลเล่บอล</div>
+                                                            <div><input type="checkbox" name="" value="" class="input-field" /> บาสเก็ตบอล</div>
+                                                            <div><input type="checkbox" name="" value="" class="input-field" /> อื่นๆ โปรดระบุ <input type="text" name="" value="" class="input-field"/></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="block-group">
+                                        <div class="heading">ระดับกิจกรรม</div>
+                                        <div class="entry-data">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <div class="row-field clearfix">
+                                                        <div class="c field">
+                                                        <div><input type="radio" name="" value="" class="input-field" /> ระดับท้องถิ่น / ระดับจังหวัด</div>
+                                                        <div><input type="radio" name="" value="" class="input-field" /> ระดับชาติ / ระดับประเทศ</div>
+                                                        <div><input type="radio" name="" value="" class="input-field" /> ระดับนานาชาติ</div>
+                                                        <div><input type="radio" name="" value="" class="input-field" /> อื่นๆ โปรดระบุ <input type="text" name="" value="" class="input-field"/></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="block-group">
+                                        <div class="heading">กลุ่มเป้าหมายกิจกรรม</div>
+                                        <div class="entry-data">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <div class="row-field clearfix">
+                                                        <div class="c field">
+                                                        <div><input type="checkbox" name="" value="" class="input-field" /> กีฬาพื้นฐานสำหรับนักเรียนนักศึกษา</div>
+                                                        <div><input type="checkbox" name="" value="" class="input-field" /> กีฬาพื้นฐานสำหรับประชาชน</div>
+                                                        <div><input type="checkbox" name="" value="" class="input-field" /> กีฬาเพื่อมวลชน</div>
+                                                        <div><input type="checkbox" name="" value="" class="input-field" /> อื่นๆ โปรดระบุ <input type="text" name="" value="" class="input-field"/></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab_item">
+                                    <div class="block-group">
+                                        <div class="heading">สถานที่จัดกิจกรรม</div>
+                                        <div class="entry-data">
+                                            <div class="row">
+                                                <div class="col-sm-12 col-lg-6">
+                                                    <div class="row-field clearfix">
+                                                        <div class="c lbl">
+                                                            ชื่อสถานที่ <span class="req">*</span>
+                                                        </div>
+                                                        <div class="c field">
+                                                            <input type="text" name="" value="" class="input-field"/>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row-field clearfix">
+                                                        <div class="c lbl">
+                                                            เลขที่ <span class="req">*</span>
+                                                        </div>
+                                                        <div class="c field">
+                                                            <input type="text" name="" value="" class="input-field"/>
+                                                        </div>
+                                                        <div class="c lbl">
+                                                            หมู่
+                                                        </div>
+                                                        <div class="c field">
+                                                            <input type="text" name="" value="" class="input-field"/>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row-field clearfix">
+                                                        <div class="c lbl">
+                                                            ซอย <span class="req">*</span>
+                                                        </div>
+                                                        <div class="c field">
+                                                            <input type="text" name="" value="" class="input-field"/>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row-field clearfix">
+                                                        <div class="c lbl">
+                                                            ถนน <span class="req">*</span>
+                                                        </div>
+                                                        <div class="c field">
+                                                            <input type="text" name="" value="" class="input-field"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12 col-lg-6">
+                                                    <div class="row-field clearfix">
+                                                        <div class="c lbl">
+                                                            จังหวัด <span class="req">*</span>
+                                                        </div>
+                                                        <div class="c field">
+                                                            <select class="input-field">
+                                                                <option value="">กรุณาเลือก</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row-field clearfix">
+                                                        <div class="c lbl">
+                                                            อำเภอ <span class="req">*</span>
+                                                        </div>
+                                                        <div class="c field">
+                                                            <select class="input-field">
+                                                                <option value="">กรุณาเลือก</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row-field clearfix">
+                                                        <div class="c lbl">
+                                                            ตำบล <span class="req">*</span>
+                                                        </div>
+                                                        <div class="c field">
+                                                            <select class="input-field">
+                                                                <option value="">กรุณาเลือก</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row-field clearfix">
+                                                        <div class="c lbl">
+                                                            รหัสไปรษณีย์ <span class="req">*</span>
+                                                        </div>
+                                                        <div class="c field">
+                                                            <input type="text" name="" value="" class="input-field"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="block-group">
+                                        <div class="heading">พิกัด</div>
+                                        <div class="entry-data">
+                                            <div class="row">
+                                                <div class="col-sm-12 col-lg-6">
+                                                    <div class="row-field clearfix">
+                                                        <div class="c lbl">
+                                                            ละติจูด
+                                                        </div>
+                                                        <div class="c field">
+                                                            <input type="text" name="" value="" class="input-field"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12 col-lg-6">
+                                                    <div class="row-field clearfix">
+                                                        <div class="c lbl">
+                                                            ลองติจูด <span class="req">*</span>
+                                                        </div>
+                                                        <div class="c field">
+                                                            <input type="text" name="" value="" class="input-field"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab_item">
+                                    <div class="block-group">
+                                        <div class="heading">Topic 1 <div class="button-container"><a href="#" class="button small darkgreen">+เพิ่มรายการ</a></div></div>
+                                        <div class="entry-data">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <table cellspacing="0" class="tbl-data" width="100%">
+                                                        <tr>
+                                                            <th class="name">ชื่อ</th>
+                                                            <th class="amount">จำนวน</th>
+                                                            <th class="unit">หน่วย</th>
+                                                            <th class="manage center">จัดการ</th>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>ห้องน้ำ</td>
+                                                            <td>20</td>
+                                                            <td>ห้อง</td>
+                                                            <td class="center"><a href="#" class="button small red">&nbsp;ลบ&nbsp;</a> <a href="#" class="button small darkgreen">แก้ไข</a></td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="block-group">
+                                        <div class="heading">Topic 2 <div class="button-container"><a href="#" class="button small darkgreen">+เพิ่มรายการ</a></div></div>
+                                        <div class="entry-data">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <table cellspacing="0" class="tbl-data" width="100%">
+                                                        <tr>
+                                                            <th class="name">ชื่อ</th>
+                                                            <th class="amount">จำนวน</th>
+                                                            <th class="unit">หน่วย</th>
+                                                            <th class="manage center">จัดการ</th>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>ที่จอดรถ</td>
+                                                            <td>200</td>
+                                                            <td>คัน</td>
+                                                            <td class="center"><a href="#" class="button small red">&nbsp;ลบ&nbsp;</a> <a href="#" class="button small darkgreen">แก้ไข</a></td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="block-group">
+                                        <div class="heading">Topic 3 <div class="button-container"><a href="#" class="button small darkgreen">+เพิ่มรายการ</a></div></div>
+                                        <div class="entry-data">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <table cellspacing="0" class="tbl-data" width="100%">
+                                                        <tr>
+                                                            <th class="name">ชื่อ</th>
+                                                            <th class="amount">จำนวน</th>
+                                                            <th class="unit">หน่วย</th>
+                                                            <th class="manage center">จัดการ</th>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>ร้านอาหารและเครื่องดื่ม</td>
+                                                            <td>20</td>
+                                                            <td>ร้านค้า</td>
+                                                            <td class="center"><a href="#" class="button small red">&nbsp;ลบ&nbsp;</a> <a href="#" class="button small darkgreen">แก้ไข</a></td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="block-group">
+                                        <div class="heading">Topic 4 <div class="button-container"><a href="#" class="button small darkgreen">+เพิ่มรายการ</a></div></div>
+                                        <div class="entry-data">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <table cellspacing="0" class="tbl-data" width="100%">
+                                                        <tr>
+                                                            <th class="name">ชื่อ</th>
+                                                            <th class="amount">จำนวน</th>
+                                                            <th class="unit">หน่วย</th>
+                                                            <th class="manage">จัดการ</th>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>ห้องปฐมพยาบาล</td>
+                                                            <td>12</td>
+                                                            <td>ห้อง</td>
+                                                            <td class="center"><a href="#" class="button small red">&nbsp;ลบ&nbsp;</a> <a href="#" class="button small darkgreen">แก้ไข</a></td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab_item">
+                                    <div class="block-group">
+                                        <div class="heading">รายละเอียดกิจกรรม</div>
+                                        <div class="entry-data">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <textarea name=""></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab_item">
+                                    <div class="block-group">
+                                        <div class="heading">ภาพประกอบ</div>
+                                        <div class="entry-data">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    https://css-tricks.com/drag-and-drop-file-uploading/
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer_top">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12 col-md-3 col-lg-3">
+                        <h4>ติดต่อกรมพลศึกษา </h4>
+                        TEL : 0-2214-0120<br>
+                        FAX : 0-2216-44080-2216-4408<br>
+                        EMAIL : webmaster@dpe.go.th
+                    </div>
+                    <div class="col-sm-12 col-md-6 col-lg-6 center">
+                        <h2>กรมพลศึกษา </h2>
+                        <h5>DEPARTMENT OF PHYSICAL EDUCATION</h5>
+                        เลขที่ 154 ถนนพระราม 1 แขวงวังใหม่ เขตปทุมวัน กรุงเทพฯ 10330<br>
+                        <br>
+                        กรมพลศึกษายุคใหม่ มีนโยบายและแนวทางส่งเสริมและพัฒนาการพลศึกษา สุขภาพ การกีฬา นันทนาการ วิทยาศาสตร์การกีฬา และการพัฒนาบุคลากรสาขาที่เกี่ยวข้อง
+                    </div>
+                    <div class="col-sm-12 col-md-3 col-lg-3">
+                        <h4>สถิติผู้เข้าเยี่ยมชมเว็บไซต์</h4>
+                        ทั้งหมด 791,932<br>
+                        วันนี้ 1,226<br>
+                        เมื่อวาน 4,616<br>
+                        เดือนนี้ 40,095<br>
+                        เดือนที่แล้ว
+                        <hr>
+                        <img src="images/ic_login.png" width="30" height="28" alt=""/><a href="#">เข้าสู่ระบบ</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            <div class="container">
+                <div class="row">
+                <div class="col-sm-12 col-md-3 col-lg-2"></div>
+                <div class="col-sm-12 col-md-9 col-lg-10">
+                <div class=""><img src="images/logo_footer.png" width="61" height="85" alt=""/>
+                <h5>สงวนลิขสิทธิ์ โดยกรมพลศึกษา</h5>
+                แผนผังเว็บไซต์... | นโยบายเว็บไซต์ | นโยบายคุ้มครองข้อมูลส่วนบุคคล | นโยบายรักษาความมันคงปลอดภัยเว็บไซต์</div>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Core JS Files -->
+    <script src="assets/js/jquery-3.2.1.js" type="text/javascript"></script>
+    <script src="assets/js/jquery-ui-1.12.1.custom.min.js" type="text/javascript"></script>
+    <script src="assets/js/popper.js" type="text/javascript"></script>
+    <script src="assets/js/bootstrap.min.js" type="text/javascript"></script>
+
+    <!-- Switches -->
+    <script src="assets/js/bootstrap-switch.min.js"></script>
+
+    <!--  Plugins for Slider -->
+    <script src="assets/js/nouislider.js"></script>
+
+    <!--  Plugins for DateTimePicker -->
+    <script src="assets/js/moment.min.js"></script>
+    <script src="assets/js/bootstrap-datetimepicker.min.js"></script>
+
+    <!--  Paper Kit Initialization and functons -->
+    <script src="assets/js/paper-kit.js?v=2.1.0"></script>
+
+    <script src="js/scripts.js"></script>
+
+</body>
+</html>

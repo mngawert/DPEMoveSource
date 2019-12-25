@@ -1,0 +1,105 @@
+﻿@model IEnumerable<DPEMoveDAL.Models.Event>
+
+@{
+    ViewData["Title"] = "ข้อมูลกิจกรรม";
+}
+
+<h4>กิจกรรม > ข้อมูลกิจกรรม</h4>
+
+<div class="border p-4 mt-4">
+    <form method="post">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group row">
+                    <label class="col-md-2 text-right">ช่วงวันที่</label>
+                    <input class="col-md-3 form-control" id="datetimepicker1" name="Date1" />
+                    <label class="col-md-2 text-right">ถึงวันที่</label>
+                    <input class="col-md-3 form-control" id="datetimepicker2" name="Date2" />
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-2 text-right">ประเภทกิจกรรม</label>
+                    <select class="col-md-3 form-control" name="Status">
+                        <option value="-1">แสดงทั้งหมด</option>
+                        <option value="1">--</option>
+                        <option value="2">--</option>
+                    </select>
+                    <label class="col-md-2 text-right">ชื่อกิจกรรม</label>
+                    <input class="col-md-3 form-control" name="Name" />
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-3 mx-auto">
+                        <button type="submit" class="btn btn-green btn-block">แสดงข้อมูล</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+<p class="text-right">
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.EventCode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EventName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EventStartTimestamp)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EventFinishTimestamp)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ReadCount)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EventCode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EventName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EventStartTimestamp)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EventFinishTimestamp)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ReadCount)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.EventId">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.EventId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.EventId">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<textarea>Next, use our Get Started docs to setup Tiny!</textarea>
+
+
+@section Scripts {
+    <script type="text/javascript">
+        $(function () {
+            $('#datetimepicker1,#datetimepicker2').datetimepicker({
+                format: 'd/M/Y'
+            });
+        });
+    </script>
+}
+
