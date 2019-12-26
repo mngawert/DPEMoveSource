@@ -113,8 +113,8 @@
 </div>
 <div class="row search-events-result">
     <div class="col-12">
-        <ul>
-            <li>
+        <ul id="ul-search-events-result">
+            @*<li>
                 <a href="#">
                     <div class="row event">
                         <div class="col-12 col-sm-5 col-md-4">
@@ -145,11 +145,10 @@
                         </div>
                     </div>
                 </a>
-            </li>
+            </li>*@
 
-            @foreach (var e in Model)
+            @*@foreach (var e in Model)
             {
-
                 <li>
                     <a asp-action="Details" asp-route-id="@e.EventId">
                         <div class="row event">
@@ -182,16 +181,15 @@
                         </div>
                     </a>
                 </li>
-
-
-            }
-
+            }*@
         </ul>
     </div>
 </div>
 
 
 @section Scripts {
+    <script src="~/js/pages/events-index.js"></script>
+
     <script type="text/javascript">
         $(function () {
             $('#datetimepicker1,#datetimepicker2').datetimepicker({

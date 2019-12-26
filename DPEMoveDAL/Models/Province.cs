@@ -7,13 +7,13 @@ namespace DPEMoveDAL.Models
     {
         public Province()
         {
-            District = new HashSet<District>();
+            Amphur = new HashSet<Amphur>();
         }
 
         public int ProvinceId { get; set; }
         public string ProvinceCode { get; set; }
         public string ProvinceName { get; set; }
 
-        public ICollection<District> District { get; set; }
+        public ICollection<Amphur> Amphur { get; set; }
     }
 }

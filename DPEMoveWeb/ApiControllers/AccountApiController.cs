@@ -82,9 +82,6 @@ namespace DPEMoveWeb.ApiControllers
             return BadRequest(ModelState);
         }
 
-
-
-
         [HttpPost]
         [AllowAnonymous]
         public async Task<IActionResult> Login(User user)
@@ -200,6 +197,61 @@ namespace DPEMoveWeb.ApiControllers
 
             return BadRequest();
         }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> GetProfile(ForgotPasswordViewModel model)
+        {
+            var user = await userManager.FindByEmailAsync(model.Email);
+
+            if (user == null) 
+                return BadRequest();
+
+            var q = new UserViewModel2
+            {
+                Email = user.Email,
+                UserName = user.UserName,
+                Name = user.Name,
+                IdcardType = user.IdcardType,
+                IdcardNo = user.IdcardNo,
+                AccountType = user.AccountType,
+                GroupId = user.GroupId,
+                Status = user.Status
+            };
+
+            return Ok(q);
+        }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> UpdateProfile(UserViewModel2 model)
+        {
+            var user = await userManager.FindByEmailAsync(model.Email);
+
+            if (user == null)
+                return BadRequest();
+
+            user.UserName = model.UserName;
+            user.Name = model.Name;
+            user.IdcardType = model.IdcardType;
+            user.IdcardNo = model.IdcardNo;
+            user.AccountType = model.AccountType;
+            user.GroupId = model.GroupId;
+            user.Status = model.Status;
+
+            var result = await userManager.UpdateAsync(user);
+
+            if (result.Succeeded)
+                return Ok();
+
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError(string.Empty, error.Description);
+            }
+
+            return BadRequest(ModelState);
+        }
+
 
         [Authorize]
         //[HttpGet("claims")]

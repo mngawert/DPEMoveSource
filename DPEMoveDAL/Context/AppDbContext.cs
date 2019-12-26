@@ -17,6 +17,7 @@ namespace DPEMoveDAL.Models
 
         public virtual DbSet<ActionLog> ActionLog { get; set; }
         public virtual DbSet<Address> Address { get; set; }
+        public virtual DbSet<Amphur> Amphur { get; set; }
         public virtual DbSet<Applog> Applog { get; set; }
         public virtual DbSet<AspNetRoleClaims> AspNetRoleClaims { get; set; }
         public virtual DbSet<AspNetRoles> AspNetRoles { get; set; }
@@ -26,10 +27,10 @@ namespace DPEMoveDAL.Models
         public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
         public virtual DbSet<AspNetUserTokens> AspNetUserTokens { get; set; }
         public virtual DbSet<Comment> Comment { get; set; }
+        public virtual DbSet<CpeConfig> CpeConfig { get; set; }
         public virtual DbSet<Department> Department { get; set; }
         public virtual DbSet<DepartmentEvent> DepartmentEvent { get; set; }
         public virtual DbSet<DepartmentPerson> DepartmentPerson { get; set; }
-        public virtual DbSet<District> District { get; set; }
         public virtual DbSet<Employeeshierarchy> Employeeshierarchy { get; set; }
         public virtual DbSet<Event> Event { get; set; }
         public virtual DbSet<EventFacilities> EventFacilities { get; set; }
@@ -72,6 +73,7 @@ namespace DPEMoveDAL.Models
         public virtual DbSet<Rolegroup> Rolegroup { get; set; }
         public virtual DbSet<Rolegrouphasrole> Rolegrouphasrole { get; set; }
         public virtual DbSet<Rolegrouphasuser> Rolegrouphasuser { get; set; }
+        public virtual DbSet<Tambon> Tambon { get; set; }
         public virtual DbSet<TmpAccount> TmpAccount { get; set; }
         public virtual DbSet<UploadedFile> UploadedFile { get; set; }
         public virtual DbSet<User> User { get; set; }
@@ -215,6 +217,37 @@ namespace DPEMoveDAL.Models
                     .HasColumnType("TIMESTAMP(6)");
             });
 
+            modelBuilder.Entity<Amphur>(entity =>
+            {
+                entity.ToTable("AMPHUR");
+
+                entity.HasIndex(e => e.AmphurId)
+                    .HasName("AMPHUR_PK")
+                    .IsUnique();
+
+                entity.Property(e => e.AmphurId)
+                    .HasColumnName("AMPHUR_ID")
+                    .ValueGeneratedNever();
+
+                entity.Property(e => e.AmphurCode)
+                    .IsRequired()
+                    .HasColumnName("AMPHUR_CODE")
+                    .HasColumnType("VARCHAR2(50)");
+
+                entity.Property(e => e.AmphurName)
+                    .IsRequired()
+                    .HasColumnName("AMPHUR_NAME")
+                    .HasColumnType("VARCHAR2(50)");
+
+                entity.Property(e => e.ProvinceId).HasColumnName("PROVINCE_ID");
+
+                entity.HasOne(d => d.Province)
+                    .WithMany(p => p.Amphur)
+                    .HasForeignKey(d => d.ProvinceId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_PROVINCEID");
+            });
+
             modelBuilder.Entity<Applog>(entity =>
             {
                 entity.ToTable("APPLOG");
@@ -230,7 +263,7 @@ namespace DPEMoveDAL.Models
 
                 entity.Property(e => e.Exception)
                     .HasColumnName("EXCEPTION")
-                    .HasColumnType("VARCHAR2(512)");
+                    .HasColumnType("VARCHAR2(4000)");
 
                 entity.Property(e => e.Logged)
                     .HasColumnName("LOGGED")
@@ -439,6 +472,26 @@ namespace DPEMoveDAL.Models
                     .HasColumnType("VARCHAR2(32)");
             });
 
+            modelBuilder.Entity<CpeConfig>(entity =>
+            {
+                entity.HasKey(e => e.Name);
+
+                entity.ToTable("CPE_CONFIG");
+
+                entity.HasIndex(e => e.Name)
+                    .HasName("CPE_CONIG_PK")
+                    .IsUnique();
+
+                entity.Property(e => e.Name)
+                    .HasColumnName("NAME")
+                    .HasColumnType("VARCHAR2(50)")
+                    .ValueGeneratedNever();
+
+                entity.Property(e => e.Value)
+                    .HasColumnName("VALUE")
+                    .HasColumnType("VARCHAR2(4000)");
+            });
+
             modelBuilder.Entity<Department>(entity =>
             {
                 entity.ToTable("DEPARTMENT");
@@ -473,7 +526,6 @@ namespace DPEMoveDAL.Models
                     .HasColumnType("CHAR(1)");
 
                 entity.Property(e => e.Email)
-                    .IsRequired()
                     .HasColumnName("EMAIL")
                     .HasColumnType("VARCHAR2(255)");
 
@@ -640,37 +692,6 @@ namespace DPEMoveDAL.Models
                     .HasForeignKey(d => d.DepartmentId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_DEPARTMENT");
-            });
-
-            modelBuilder.Entity<District>(entity =>
-            {
-                entity.ToTable("DISTRICT");
-
-                entity.HasIndex(e => e.DistrictId)
-                    .HasName("PK_DISTRICTID")
-                    .IsUnique();
-
-                entity.Property(e => e.DistrictId)
-                    .HasColumnName("DISTRICT_ID")
-                    .ValueGeneratedNever();
-
-                entity.Property(e => e.DistrictCode)
-                    .IsRequired()
-                    .HasColumnName("DISTRICT_CODE")
-                    .HasColumnType("VARCHAR2(50)");
-
-                entity.Property(e => e.DistrictName)
-                    .IsRequired()
-                    .HasColumnName("DISTRICT_NAME")
-                    .HasColumnType("VARCHAR2(50)");
-
-                entity.Property(e => e.ProvinceId).HasColumnName("PROVINCE_ID");
-
-                entity.HasOne(d => d.Province)
-                    .WithMany(p => p.District)
-                    .HasForeignKey(d => d.ProvinceId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_PROVINCE");
             });
 
             modelBuilder.Entity<Employeeshierarchy>(entity =>
@@ -2335,6 +2356,37 @@ namespace DPEMoveDAL.Models
                 entity.Property(e => e.RoleGroupId).HasColumnName("ROLE_GROUP_ID");
 
                 entity.Property(e => e.UserId).HasColumnName("USER_ID");
+            });
+
+            modelBuilder.Entity<Tambon>(entity =>
+            {
+                entity.ToTable("TAMBON");
+
+                entity.HasIndex(e => e.TambonId)
+                    .HasName("ATAMBON_PK")
+                    .IsUnique();
+
+                entity.Property(e => e.TambonId)
+                    .HasColumnName("TAMBON_ID")
+                    .ValueGeneratedNever();
+
+                entity.Property(e => e.AmphurId).HasColumnName("AMPHUR_ID");
+
+                entity.Property(e => e.TambonCode)
+                    .IsRequired()
+                    .HasColumnName("TAMBON_CODE")
+                    .HasColumnType("VARCHAR2(50)");
+
+                entity.Property(e => e.TambonName)
+                    .IsRequired()
+                    .HasColumnName("TAMBON_NAME")
+                    .HasColumnType("VARCHAR2(50)");
+
+                entity.HasOne(d => d.Amphur)
+                    .WithMany(p => p.Tambon)
+                    .HasForeignKey(d => d.AmphurId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_AMPHUR");
             });
 
             modelBuilder.Entity<TmpAccount>(entity =>

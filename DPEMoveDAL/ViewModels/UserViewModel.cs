@@ -18,4 +18,17 @@ namespace DPEMoveDAL.ViewModels
         public int? GroupId { get; set; }
         public bool Selected { get; set; }
     }
+
+    public class UserViewModel2
+    {
+        public string Email { get; set; }
+        public string UserName { get; set; }
+        public string IdcardType { get; set; }
+        public string IdcardNo { get; set; }
+        public string Name { get; set; }
+        public string AccountType { get; set; }
+        public string Status { get; set; }
+        public int? GroupId { get; set; }
+    }
+
 }

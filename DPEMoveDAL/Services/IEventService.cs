@@ -10,10 +10,8 @@ namespace DPEMoveDAL.Services
     public interface IEventService
     {
         IEnumerable<EventViewModel> GetEvent(EventViewModel model);
-
+        IEnumerable<EventDbQuery> GetEvent2(EventRequestViewModel model);
         Task<Event> GetEventById(int id);
-
         Event AddViewCount(string eventCode);
-
     }
 }

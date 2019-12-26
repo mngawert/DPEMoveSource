@@ -139,5 +139,72 @@ namespace DPEMoveDAL.Services
 
             return PaginatedList<EventViewModel>.Create(q, model.LimitStart ?? 1, model.LimitSize ?? 10000);
         }
+
+        public IEnumerable<EventDbQuery> GetEvent2(EventRequestViewModel model)
+        {
+            var q = _context.Event
+                .Select(a => new EventDbQuery 
+                { 
+                    EventId = a.EventId,
+                    EventCode = a.EventCode,
+                    EventName = a.EventName,
+                    EventShortDescription = a.EventShortDescription,
+                    EventDescription = a.EventShortDescription,
+                    EventStartTimestamp = a.EventStartTimestamp,
+                    EventFinishTimestamp = a.EventFinishTimestamp,
+                    Budget = a.Budget,
+                    Budgetused = a.Budgetused,
+                    PublishUrl = a.PublishUrl,
+                    ReadCount = a.ReadCount,
+                    CommentCount = _context.Comment.Where(b => b.EventCode == a.EventCode).Count(),
+                    AddressDescription = a.Address.Description,
+                    Latitude = a.Address.Latitude,
+                    Longitude = a.Address.Longitude,
+                    FileUrl = a.EventUploadedFile.FirstOrDefault().UploadedFile.FileUrl
+                });
+
+
+            if (model.EventCode != null)
+            {
+                q = q.Where(a => a.EventCode.Contains(model.EventCode));
+            }
+            if (model.EventName != null)
+            {
+                q = q.Where(a => a.EventName.Contains(model.EventName));
+            }
+
+            if (model.Latitude != null && model.Longitude != null)
+            {
+                var eventsNearby = new List<EventDbQuery>();
+
+                foreach (var e in q)
+                {
+                    if (e.Latitude != null && e.Longitude != null)
+                    {
+                        var lat1 = Convert.ToDouble(e.Latitude);
+                        var lon1 = Convert.ToDouble(e.Longitude);
+                        var lat2 = Convert.ToDouble(model.Latitude);
+                        var lon2 = Convert.ToDouble(model.Longitude);
+
+                        var distance = GeoDataSource.Distance(lat1, lon1, lat2, lon2, 'K');
+                        e.Distance = distance;
+
+                        if (model.Distance != null)
+                        {
+                            if (e.Distance <= model.Distance)
+                            {
+                                eventsNearby.Add(e);
+                            }
+                        }
+                        else
+                        {
+                            eventsNearby.Add(e);
+                        }
+                    }
+                }
+                return PaginatedList<EventDbQuery>.Create(eventsNearby.ToList(), model.LimitStart ?? 1, model.LimitSize ?? 10000); ;
+            }
+            return PaginatedList<EventDbQuery>.Create(q, model.LimitStart ?? 1, model.LimitSize ?? 10000);
+        }
     }
 }

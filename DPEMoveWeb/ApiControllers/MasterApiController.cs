@@ -40,6 +40,24 @@ namespace DPEMoveWeb.ApiControllers
             return q;
         }
 
+        [HttpGet]
+        [Authorize]
+        public IEnumerable<CpeConfig> GetConfig()
+        {
+            var q = _context.CpeConfig.ToList();
+
+            return q;
+        }
+        [HttpGet]
+        [Authorize]
+        public CpeConfig GetTermAndCondition()
+        {
+            var q = _context.CpeConfig.Where(a => a.Name == "Terms and Condition").FirstOrDefault();
+
+            return q;
+        }
+
+
 
     }
 }
