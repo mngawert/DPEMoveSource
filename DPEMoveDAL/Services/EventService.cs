@@ -202,9 +202,10 @@ namespace DPEMoveDAL.Services
                         }
                     }
                 }
-                return PaginatedList<EventDbQuery>.Create(eventsNearby.ToList(), model.LimitStart ?? 1, model.LimitSize ?? 10000); ;
+                return PaginatedList<EventDbQuery>.Create(eventsNearby, model.LimitStart ?? 1, model.LimitSize ?? 10000); ;
             }
-            return PaginatedList<EventDbQuery>.Create(q, model.LimitStart ?? 1, model.LimitSize ?? 10000);
+
+            return PaginatedList<EventDbQuery>.Create(q.ToList(), model.LimitStart ?? 1, model.LimitSize ?? 10000);
         }
     }
 }

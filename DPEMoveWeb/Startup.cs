@@ -41,6 +41,18 @@ namespace DPEMoveWeb
             services.AddScoped<ICommentService, CommentService>();
 
             services.AddAutoMapper(typeof(MapperProfile));
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAll",
+                    builder =>
+                    {
+                        builder
+                        .AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader()
+                        .AllowCredentials();
+                    });
+            });
 
             services.Configure<CookiePolicyOptions>(options =>
             {
@@ -123,6 +135,7 @@ namespace DPEMoveWeb
                 app.UseHsts();
             }
 
+            app.UseCors("AllowAll");
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();

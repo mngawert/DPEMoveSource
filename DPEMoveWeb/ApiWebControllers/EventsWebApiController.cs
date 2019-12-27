@@ -38,16 +38,7 @@ namespace DPEMoveWeb.ApiWebControllers
 
         [HttpPost]
         //[Authorize]
-        public IEnumerable<EventViewModel> GetEvent([FromBody] EventViewModel model)
-        {
-            var q = _eventService.GetEvent(model);
-
-            return q;
-        }
-
-        [HttpPost]
-        //[Authorize]
-        public IEnumerable<EventDbQuery> GetEvent2([FromBody] EventRequestViewModel model)
+        public IEnumerable<EventDbQuery> GetEvent([FromBody] EventRequestViewModel model)
         {
             var q = _eventService.GetEvent2(model);
 
