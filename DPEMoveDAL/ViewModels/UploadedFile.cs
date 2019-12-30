@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 
 namespace DPEMoveDAL.ViewModels
@@ -15,6 +16,7 @@ namespace DPEMoveDAL.ViewModels
         public DateTime? UpdatedDate { get; set; }
         public int? UpdatedBy { get; set; }
 
+        [JsonIgnore]
         public ICollection<EventUploadedFileViewModel> EventUploadedFile { get; set; }
     }
 }

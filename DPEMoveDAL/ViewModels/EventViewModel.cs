@@ -44,8 +44,8 @@ namespace DPEMoveDAL.ViewModels
         public MEventTypeViewModel EventType { get; set; }
         public MStatusViewModel StatusNavigation { get; set; }
         public ICollection<EventJoinPersonTypeViewModel> EventJoinPersonType { get; set; }
-        //public ICollection<EventUploadedFileViewModel> EventUploadedFile { get; set; }
-        public ICollection<UploadedFileViewModel> UploadedFile { get; set; }
+        public ICollection<EventUploadedFileViewModel> EventUploadedFile { get; set; }
+        //public ICollection<UploadedFileViewModel> UploadedFile { get; set; }
 
     }
 

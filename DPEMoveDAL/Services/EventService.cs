@@ -3,6 +3,7 @@ using DPEMoveDAL.Helper;
 using DPEMoveDAL.Models;
 using DPEMoveDAL.ViewModels;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,11 +15,13 @@ namespace DPEMoveDAL.Services
     {
         private readonly AppDbContext _context;
         private readonly IMapper _mapper;
+        private readonly ILogger<EventService> _logger;
 
-        public EventService(AppDbContext context, IMapper mapper)
+        public EventService(AppDbContext context, IMapper mapper, ILogger<EventService> logger)
         {
             _context = context;
             _mapper = mapper;
+            _logger = logger;
         }
 
         public Event AddViewCount(string eventCode)
@@ -65,8 +68,8 @@ namespace DPEMoveDAL.Services
                 //.Include(a => a.EventJoinPersonType)
                 //    .ThenInclude(b => b.JoinPersonType)
                 //.Include(a => a.StatusNavigation)
-                //.Include(a => a.EventUploadedFile)
-                //    .ThenInclude(b => b.UploadedFile)
+                .Include(a => a.EventUploadedFile)
+                    .ThenInclude(b => b.UploadedFile)
                 .Select(a => _mapper.Map<EventViewModel>(a))
                 //.Select( a => new EventViewModel 
                 //{
@@ -100,6 +103,8 @@ namespace DPEMoveDAL.Services
                 }
             }
 
+            _logger.LogDebug("GetEvent q before address = ", q);
+
             if (model.Address != null)
             {
                 if (model.Address?.Latitude != null && model.Address?.Longitude != null)
@@ -132,11 +137,12 @@ namespace DPEMoveDAL.Services
                             }
                         }
                     }
-
+                    _logger.LogDebug("eventsNearby = ", eventsNearby);
                     return PaginatedList<EventViewModel>.Create(eventsNearby.ToList(), model.LimitStart ?? 1, model.LimitSize ?? 10000); ;
                 }
             }
 
+            _logger.LogDebug("q = ", q);
             return PaginatedList<EventViewModel>.Create(q, model.LimitStart ?? 1, model.LimitSize ?? 10000);
         }
 
@@ -173,6 +179,9 @@ namespace DPEMoveDAL.Services
                 q = q.Where(a => a.EventName.Contains(model.EventName));
             }
 
+            _logger.LogDebug("GetEvent q before address = {0}", q);
+            _logger.LogDebug("GetEvent q before Latitude,Longitude = {0},{1}", model.Latitude, model.Longitude);
+
             if (model.Latitude != null && model.Longitude != null)
             {
                 var eventsNearby = new List<EventDbQuery>();
@@ -202,9 +211,11 @@ namespace DPEMoveDAL.Services
                         }
                     }
                 }
+                _logger.LogDebug("eventsNearby = {0}", eventsNearby);
                 return PaginatedList<EventDbQuery>.Create(eventsNearby, model.LimitStart ?? 1, model.LimitSize ?? 10000); ;
             }
 
+            _logger.LogDebug("q = {0}", q);
             return PaginatedList<EventDbQuery>.Create(q.ToList(), model.LimitStart ?? 1, model.LimitSize ?? 10000);
         }
     }
