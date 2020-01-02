@@ -170,6 +170,19 @@ namespace DPEMoveWeb.ApiControllers
 
         [HttpPost]
         [AllowAnonymous]
+        public async Task<IActionResult> GetReadOnlyToken()
+        {
+            var user = new User
+            {
+                Email = configuration["ReadOnlyToken:Email"],
+                Password = configuration["ReadOnlyToken:Password"]
+            };
+
+            return await GetToken(user);
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> ForgotPassword(ForgotPasswordViewModel model)
         {
             if (ModelState.IsValid)
