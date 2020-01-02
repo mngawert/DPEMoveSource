@@ -73,6 +73,9 @@ namespace DPEMoveDAL.Models
         public virtual DbSet<Rolegroup> Rolegroup { get; set; }
         public virtual DbSet<Rolegrouphasrole> Rolegrouphasrole { get; set; }
         public virtual DbSet<Rolegrouphasuser> Rolegrouphasuser { get; set; }
+        public virtual DbSet<SurveyDetail> SurveyDetail { get; set; }
+        public virtual DbSet<SurveyDetail151> SurveyDetail151 { get; set; }
+        public virtual DbSet<SurveyHeader> SurveyHeader { get; set; }
         public virtual DbSet<Tambon> Tambon { get; set; }
         public virtual DbSet<TmpAccount> TmpAccount { get; set; }
         public virtual DbSet<UploadedFile> UploadedFile { get; set; }
@@ -337,7 +340,7 @@ namespace DPEMoveDAL.Models
 
             modelBuilder.Entity<AspNetUserLogins>(entity =>
             {
-                entity.HasKey(e => new { e.LoginProvider, e.ProviderKey });
+                entity.HasKey(e => new { e.ProviderKey, e.LoginProvider });
 
                 entity.HasIndex(e => e.UserId);
 
@@ -355,7 +358,7 @@ namespace DPEMoveDAL.Models
 
             modelBuilder.Entity<AspNetUserRoles>(entity =>
             {
-                entity.HasKey(e => new { e.UserId, e.RoleId });
+                entity.HasKey(e => new { e.RoleId, e.UserId });
 
                 entity.HasIndex(e => e.RoleId);
 
@@ -387,11 +390,15 @@ namespace DPEMoveDAL.Models
                     .HasName("UserNameIndex")
                     .IsUnique();
 
-                entity.Property(e => e.Id).ValueGeneratedNever();
-
                 entity.Property(e => e.AccountType).HasColumnType("VARCHAR2(2)");
 
+                entity.Property(e => e.AppUserId).ValueGeneratedNever();
+
                 entity.Property(e => e.Email).HasMaxLength(256);
+
+                entity.Property(e => e.EmailConfirmed).ValueGeneratedOnAdd();
+
+                entity.Property(e => e.GroupId).ValueGeneratedNever();
 
                 entity.Property(e => e.IdcardNo).HasColumnType("VARCHAR2(20)");
 
@@ -412,7 +419,7 @@ namespace DPEMoveDAL.Models
 
             modelBuilder.Entity<AspNetUserTokens>(entity =>
             {
-                entity.HasKey(e => new { e.UserId, e.LoginProvider, e.Name });
+                entity.HasKey(e => new { e.Name, e.LoginProvider, e.UserId });
 
                 entity.HasIndex(e => new { e.UserId, e.LoginProvider, e.Name })
                     .HasName("PK_AspNetUserTokens")
@@ -1633,7 +1640,7 @@ namespace DPEMoveDAL.Models
 
             modelBuilder.Entity<MGroupRole>(entity =>
             {
-                entity.HasKey(e => new { e.GroupId, e.RoleId });
+                entity.HasKey(e => new { e.RoleId, e.GroupId });
 
                 entity.ToTable("M_GROUP_ROLE");
 
@@ -1641,9 +1648,9 @@ namespace DPEMoveDAL.Models
                     .HasName("M_GROUP_ROLE_PK")
                     .IsUnique();
 
-                entity.Property(e => e.GroupId).HasColumnName("GROUP_ID");
-
                 entity.Property(e => e.RoleId).HasColumnName("ROLE_ID");
+
+                entity.Property(e => e.GroupId).HasColumnName("GROUP_ID");
             });
 
             modelBuilder.Entity<MIdcardType>(entity =>
@@ -2103,9 +2110,9 @@ namespace DPEMoveDAL.Models
                     .HasColumnName("UPDATED_DATE")
                     .HasColumnType("TIMESTAMP(6)");
 
-                entity.Property(e => e.VoteFor)
+                entity.Property(e => e.VoteOf)
                     .IsRequired()
-                    .HasColumnName("VOTE_FOR")
+                    .HasColumnName("VOTE_OF")
                     .HasColumnType("VARCHAR2(1)");
 
                 entity.Property(e => e.VoteType)
@@ -2325,7 +2332,7 @@ namespace DPEMoveDAL.Models
 
             modelBuilder.Entity<Rolegrouphasrole>(entity =>
             {
-                entity.HasKey(e => new { e.RoleGroupId, e.RoleId });
+                entity.HasKey(e => new { e.RoleId, e.RoleGroupId });
 
                 entity.ToTable("ROLEGROUPHASROLE");
 
@@ -2333,9 +2340,9 @@ namespace DPEMoveDAL.Models
                     .HasName("ROLEGROUPHASROLE_PK")
                     .IsUnique();
 
-                entity.Property(e => e.RoleGroupId).HasColumnName("ROLE_GROUP_ID");
-
                 entity.Property(e => e.RoleId).HasColumnName("ROLE_ID");
+
+                entity.Property(e => e.RoleGroupId).HasColumnName("ROLE_GROUP_ID");
 
                 entity.HasOne(d => d.RoleGroup)
                     .WithMany(p => p.Rolegrouphasrole)
@@ -2345,7 +2352,7 @@ namespace DPEMoveDAL.Models
 
             modelBuilder.Entity<Rolegrouphasuser>(entity =>
             {
-                entity.HasKey(e => new { e.RoleGroupId, e.UserId });
+                entity.HasKey(e => new { e.UserId, e.RoleGroupId });
 
                 entity.ToTable("ROLEGROUPHASUSER");
 
@@ -2353,9 +2360,309 @@ namespace DPEMoveDAL.Models
                     .HasName("ROLEGROUPHASUSER_PK")
                     .IsUnique();
 
-                entity.Property(e => e.RoleGroupId).HasColumnName("ROLE_GROUP_ID");
-
                 entity.Property(e => e.UserId).HasColumnName("USER_ID");
+
+                entity.Property(e => e.RoleGroupId).HasColumnName("ROLE_GROUP_ID");
+            });
+
+            modelBuilder.Entity<SurveyDetail>(entity =>
+            {
+                entity.ToTable("SURVEY_DETAIL");
+
+                entity.HasIndex(e => e.SurveyDetailId)
+                    .HasName("PK_SURVEY_DETAIL")
+                    .IsUnique();
+
+                entity.Property(e => e.SurveyDetailId)
+                    .HasColumnName("SURVEY_DETAIL_ID")
+                    .ValueGeneratedNever();
+
+                entity.Property(e => e.Ans10)
+                    .HasColumnName("ANS_10")
+                    .HasColumnType("VARCHAR2(10)");
+
+                entity.Property(e => e.Ans10Etc)
+                    .HasColumnName("ANS_10_ETC")
+                    .HasColumnType("VARCHAR2(128)");
+
+                entity.Property(e => e.Ans11)
+                    .HasColumnName("ANS_11")
+                    .HasColumnType("VARCHAR2(10)");
+
+                entity.Property(e => e.Ans11Etc)
+                    .HasColumnName("ANS_11_ETC")
+                    .HasColumnType("VARCHAR2(128)");
+
+                entity.Property(e => e.Ans12High)
+                    .HasColumnName("ANS_12_HIGH")
+                    .HasColumnType("NUMBER(10,2)");
+
+                entity.Property(e => e.Ans12Weight)
+                    .HasColumnName("ANS_12_WEIGHT")
+                    .HasColumnType("NUMBER(10,2)");
+
+                entity.Property(e => e.Ans13)
+                    .HasColumnName("ANS_13")
+                    .HasColumnType("VARCHAR2(10)");
+
+                entity.Property(e => e.Ans14)
+                    .HasColumnName("ANS_14")
+                    .HasColumnType("VARCHAR2(10)");
+
+                entity.Property(e => e.Ans152)
+                    .HasColumnName("ANS_15_2")
+                    .HasColumnType("VARCHAR2(128)");
+
+                entity.Property(e => e.Ans152Etc)
+                    .HasColumnName("ANS_15_2_ETC")
+                    .HasColumnType("VARCHAR2(128)");
+
+                entity.Property(e => e.Ans153)
+                    .HasColumnName("ANS_15_3")
+                    .HasColumnType("VARCHAR2(128)");
+
+                entity.Property(e => e.Ans154)
+                    .HasColumnName("ANS_15_4")
+                    .HasColumnType("VARCHAR2(128)");
+
+                entity.Property(e => e.Ans154Etc)
+                    .HasColumnName("ANS_15_4_ETC")
+                    .HasColumnType("VARCHAR2(128)");
+
+                entity.Property(e => e.Ans155)
+                    .HasColumnName("ANS_15_5")
+                    .HasColumnType("VARCHAR2(128)");
+
+                entity.Property(e => e.Ans155Etc)
+                    .HasColumnName("ANS_15_5_ETC")
+                    .HasColumnType("VARCHAR2(128)");
+
+                entity.Property(e => e.Ans16)
+                    .HasColumnName("ANS_16")
+                    .HasColumnType("VARCHAR2(128)");
+
+                entity.Property(e => e.Ans16Etc)
+                    .HasColumnName("ANS_16_ETC")
+                    .HasColumnType("VARCHAR2(128)");
+
+                entity.Property(e => e.Ans17)
+                    .HasColumnName("ANS_17")
+                    .HasColumnType("VARCHAR2(128)");
+
+                entity.Property(e => e.Ans17Etc)
+                    .HasColumnName("ANS_17_ETC")
+                    .HasColumnType("VARCHAR2(512)");
+
+                entity.Property(e => e.Ans3)
+                    .HasColumnName("ANS_3")
+                    .HasColumnType("VARCHAR2(10)");
+
+                entity.Property(e => e.Ans4)
+                    .HasColumnName("ANS_4")
+                    .HasColumnType("VARCHAR2(10)");
+
+                entity.Property(e => e.Ans5)
+                    .HasColumnName("ANS_5")
+                    .HasColumnType("VARCHAR2(10)");
+
+                entity.Property(e => e.Ans6)
+                    .HasColumnName("ANS_6")
+                    .HasColumnType("VARCHAR2(10)");
+
+                entity.Property(e => e.Ans6Etc)
+                    .HasColumnName("ANS_6_ETC")
+                    .HasColumnType("VARCHAR2(128)");
+
+                entity.Property(e => e.Ans7)
+                    .HasColumnName("ANS_7")
+                    .HasColumnType("VARCHAR2(10)");
+
+                entity.Property(e => e.Ans7Etc)
+                    .HasColumnName("ANS_7_ETC")
+                    .HasColumnType("VARCHAR2(128)");
+
+                entity.Property(e => e.Ans8)
+                    .HasColumnName("ANS_8")
+                    .HasColumnType("VARCHAR2(10)");
+
+                entity.Property(e => e.Ans8Etc)
+                    .HasColumnName("ANS_8_ETC")
+                    .HasColumnType("VARCHAR2(128)");
+
+                entity.Property(e => e.Ans9)
+                    .HasColumnName("ANS_9")
+                    .HasColumnType("VARCHAR2(10)");
+
+                entity.Property(e => e.Ans9Etc)
+                    .HasColumnName("ANS_9_ETC")
+                    .HasColumnType("VARCHAR2(128)");
+
+                entity.Property(e => e.CreatedBy).HasColumnName("CREATED_BY");
+
+                entity.Property(e => e.CreatedDate)
+                    .HasColumnName("CREATED_DATE")
+                    .HasColumnType("TIMESTAMP(6)");
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasColumnName("NAME")
+                    .HasColumnType("VARCHAR2(255)");
+
+                entity.Property(e => e.Order).HasColumnName("ORDER");
+
+                entity.Property(e => e.Status).HasColumnName("STATUS");
+
+                entity.Property(e => e.SurveyDetailCode)
+                    .IsRequired()
+                    .HasColumnName("SURVEY_DETAIL_CODE")
+                    .HasColumnType("VARCHAR2(32)");
+
+                entity.Property(e => e.SurveyHeaderId).HasColumnName("SURVEY_HEADER_ID");
+
+                entity.Property(e => e.UpdatedBy).HasColumnName("UPDATED_BY");
+
+                entity.Property(e => e.UpdatedDate)
+                    .HasColumnName("UPDATED_DATE")
+                    .HasColumnType("TIMESTAMP(6)");
+
+                entity.HasOne(d => d.SurveyHeader)
+                    .WithMany(p => p.SurveyDetail)
+                    .HasForeignKey(d => d.SurveyHeaderId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_SURVEYDETAIL_HEADER");
+            });
+
+            modelBuilder.Entity<SurveyDetail151>(entity =>
+            {
+                entity.ToTable("SURVEY_DETAIL_15_1");
+
+                entity.HasIndex(e => e.SurveyDetail151Id)
+                    .HasName("PK_SURVEY_DETAIL_15_1")
+                    .IsUnique();
+
+                entity.Property(e => e.SurveyDetail151Id)
+                    .HasColumnName("SURVEY_DETAIL_15_1_ID")
+                    .ValueGeneratedNever();
+
+                entity.Property(e => e.Ans151)
+                    .HasColumnName("ANS_15_1")
+                    .HasColumnType("VARCHAR2(10)");
+
+                entity.Property(e => e.Ans151Day).HasColumnName("ANS_15_1_DAY");
+
+                entity.Property(e => e.Ans151Detail)
+                    .HasColumnName("ANS_15_1_DETAIL")
+                    .HasColumnType("VARCHAR2(10)");
+
+                entity.Property(e => e.Ans151Heavy)
+                    .HasColumnName("ANS_15_1_HEAVY")
+                    .HasColumnType("VARCHAR2(10)");
+
+                entity.Property(e => e.Ans151Min)
+                    .HasColumnName("ANS_15_1_MIN")
+                    .HasColumnType("NUMBER(10,2)");
+
+                entity.Property(e => e.CreatedBy).HasColumnName("CREATED_BY");
+
+                entity.Property(e => e.CreatedDate)
+                    .HasColumnName("CREATED_DATE")
+                    .HasColumnType("TIMESTAMP(6)");
+
+                entity.Property(e => e.Status).HasColumnName("STATUS");
+
+                entity.Property(e => e.SurveyDetail151Code)
+                    .IsRequired()
+                    .HasColumnName("SURVEY_DETAIL_15_1_CODE")
+                    .HasColumnType("VARCHAR2(32)");
+
+                entity.Property(e => e.SurveyDetailId).HasColumnName("SURVEY_DETAIL_ID");
+
+                entity.Property(e => e.UpdatedBy).HasColumnName("UPDATED_BY");
+
+                entity.Property(e => e.UpdatedDate)
+                    .HasColumnName("UPDATED_DATE")
+                    .HasColumnType("TIMESTAMP(6)");
+
+                entity.HasOne(d => d.SurveyDetail)
+                    .WithMany(p => p.SurveyDetail151)
+                    .HasForeignKey(d => d.SurveyDetailId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_SURVEYDETAIL151_DETAIL");
+            });
+
+            modelBuilder.Entity<SurveyHeader>(entity =>
+            {
+                entity.ToTable("SURVEY_HEADER");
+
+                entity.HasIndex(e => e.SurveyHeaderId)
+                    .HasName("PK_SURVEY_HEADER")
+                    .IsUnique();
+
+                entity.Property(e => e.SurveyHeaderId)
+                    .HasColumnName("SURVEY_HEADER_ID")
+                    .ValueGeneratedNever();
+
+                entity.Property(e => e.AddressId).HasColumnName("ADDRESS_ID");
+
+                entity.Property(e => e.CreatedBy).HasColumnName("CREATED_BY");
+
+                entity.Property(e => e.CreatedDate)
+                    .HasColumnName("CREATED_DATE")
+                    .HasColumnType("TIMESTAMP(6)");
+
+                entity.Property(e => e.EaCode)
+                    .HasColumnName("EA_CODE")
+                    .HasColumnType("VARCHAR2(48)");
+
+                entity.Property(e => e.EmployeeName)
+                    .HasColumnName("EMPLOYEE_NAME")
+                    .HasColumnType("VARCHAR2(255)");
+
+                entity.Property(e => e.EmployeePhone)
+                    .HasColumnName("EMPLOYEE_PHONE")
+                    .HasColumnType("VARCHAR2(48)");
+
+                entity.Property(e => e.HouseholdCount)
+                    .HasColumnName("HOUSEHOLD_COUNT")
+                    .HasColumnType("CHAR(1)");
+
+                entity.Property(e => e.HouseholdNo)
+                    .HasColumnName("HOUSEHOLD_NO")
+                    .HasColumnType("VARCHAR2(48)");
+
+                entity.Property(e => e.IsInCity)
+                    .HasColumnName("IS_IN_CITY")
+                    .HasColumnType("CHAR(1)");
+
+                entity.Property(e => e.Morethan15YearsCount).HasColumnName("MORETHAN_15_YEARS_COUNT");
+
+                entity.Property(e => e.Phone)
+                    .IsRequired()
+                    .HasColumnName("PHONE")
+                    .HasColumnType("VARCHAR2(48)");
+
+                entity.Property(e => e.Qc)
+                    .IsRequired()
+                    .HasColumnName("QC")
+                    .HasColumnType("VARCHAR2(255)");
+
+                entity.Property(e => e.Status).HasColumnName("STATUS");
+
+                entity.Property(e => e.SurveyHeaderCode)
+                    .IsRequired()
+                    .HasColumnName("SURVEY_HEADER_CODE")
+                    .HasColumnType("VARCHAR2(32)");
+
+                entity.Property(e => e.UpdatedBy).HasColumnName("UPDATED_BY");
+
+                entity.Property(e => e.UpdatedDate)
+                    .HasColumnName("UPDATED_DATE")
+                    .HasColumnType("TIMESTAMP(6)");
+
+                entity.HasOne(d => d.Address)
+                    .WithMany(p => p.SurveyHeader)
+                    .HasForeignKey(d => d.AddressId)
+                    .HasConstraintName("FK_SURVEY_HEADER_ADDRESS");
             });
 
             modelBuilder.Entity<Tambon>(entity =>

@@ -229,7 +229,8 @@ namespace DPEMoveWeb.ApiControllers
                 IdcardNo = user.IdcardNo,
                 AccountType = user.AccountType,
                 GroupId = user.GroupId,
-                Status = user.Status
+                Status = user.Status,
+                AppUserId = user.AppUserId,
             };
 
             return Ok(q);

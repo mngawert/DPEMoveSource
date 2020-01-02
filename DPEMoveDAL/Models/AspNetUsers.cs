@@ -34,6 +34,7 @@ namespace DPEMoveDAL.Models
         public string AccountType { get; set; }
         public string Status { get; set; }
         public int? GroupId { get; set; }
+        public int AppUserId { get; set; }
 
         public ICollection<AspNetUserClaims> AspNetUserClaims { get; set; }
         public ICollection<AspNetUserLogins> AspNetUserLogins { get; set; }
