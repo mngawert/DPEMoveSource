@@ -57,21 +57,21 @@
                 @{ int rowNo = 1; }
                 @foreach (var r in Model)
                 {
-                <tr>
-                    <td scope="row">@(rowNo++)</td>
-                    <td>@r.GroupName</td>
-                    <td>@r.Description</td>
-                    <td style="width:40%">
-                        <form asp-action="Delete" asp-route-id="@r.GroupId">
+                    <tr>
+                        <td scope="row">@(rowNo++)</td>
+                        <td>@r.GroupName</td>
+                        <td>@r.Description</td>
+                        <td style="width:40%">
+                            <form asp-action="Delete" asp-route-id="@r.GroupId">
 
-                            <a class="btn btn-sm btn-primary" asp-action="Edit" asp-route-id="@r.GroupId">กำหนดสิทธิ์ Web</a>
-                            <a class="btn btn-sm btn-dark" asp-action="Edit" asp-route-id="@r.GroupId">กำหนดสิทธิ์ Mobile</a>
-                            <a class="btn btn-sm btn-facebook" asp-action="EditUsers" asp-route-id="@r.GroupId">กล่มผู้ใช้งาน</a>
-                            <button class="btn btn-sm btn-danger" type="submit">ลบ</button>
+                                <a class="btn btn-sm btn-primary" asp-action="Edit" asp-route-id="@r.GroupId">กำหนดสิทธิ์ Web</a>
+                                <a class="btn btn-sm btn-dark" asp-action="Edit" asp-route-id="@r.GroupId">กำหนดสิทธิ์ Mobile</a>
+                                <a class="btn btn-sm btn-facebook" asp-action="EditUsers" asp-route-id="@r.GroupId">กล่มผู้ใช้งาน</a>
+                                <button class="btn btn-sm btn-danger" type="submit">ลบ</button>
 
-                        </form>
-                    </td>
-                </tr>
+                            </form>
+                        </td>
+                    </tr>
                 }
             </tbody>
         </table>
@@ -81,3 +81,15 @@
 </div>
 
 
+
+@section Scripts {
+    @*<script src="~/js/pages/events-index.js"></script>
+
+    <script type="text/javascript">
+        $(function () {
+            $('#datetimepicker1,#datetimepicker2').datetimepicker({
+                format: 'd/M/Y'
+            });
+        });
+    </script>*@
+}
