@@ -15,4 +15,8 @@
     <ProjectReference Include="..\DPEMoveDAL\DPEMoveDAL.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="ViewModels\" />
+  </ItemGroup>
+
 </Project>

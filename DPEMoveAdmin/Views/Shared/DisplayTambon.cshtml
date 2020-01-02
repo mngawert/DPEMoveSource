@@ -1,0 +1,12 @@
+﻿
+@model DPEMoveDAL.Models.Tambon
+
+<option value=""> กรุณาเลือก</option>
+
+@if (ViewBag.TambonList != null)
+{
+    foreach (var i in ViewBag.TambonList)
+    {
+        <option value="@i.Value">@i.Text</option>
+    }
+}

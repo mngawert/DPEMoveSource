@@ -1,0 +1,252 @@
+﻿@model DPEMoveAdmin.ViewModels.AddressDropdownListClass
+<form asp-action="CreateDep" method="post">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11"><label>หน่วยงาน/ศูนย์กีฬา> สร้าง </label></div>
+            <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+                <button class="btn-default badge-pill w-100" style="background-color:chartreuse;" name="mainSave">บันทึก</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-light">
+        <br />
+        <nav>
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                <a class="nav-item nav-link active" id="nav-general-tab" data-toggle="tab" href="#nav-general" role="tab" aria-controls="nav-general" aria-selected="true">ทั่วไป</a>
+                <a class="nav-item nav-link" id="nav-addr-tab" data-toggle="tab" href="#nav-addr" role="tab" aria-controls="nav-addr" aria-selected="false">ที่อยู่</a>
+                <a class="nav-item nav-link" id="nav-person-tab" data-toggle="tab" href="#nav-person" role="tab" aria-controls="nav-person" aria-selected="false">บุคลากร</a>
+                <a class="nav-item nav-link" id="nav-org-tab" data-toggle="tab" href="#nav-org" role="tab" aria-controls="nav-org" aria-selected="false">Organize Chart</a>
+            </div>
+        </nav>
+        <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane show active" id="nav-general" role="tabpanel" aria-labelledby="nav-general-tab">
+                <P style="background-color:lightblue">ข้อมูลทั่วไป</P>
+                <br />
+                <div class="row">
+                    <div class="col-md-2 text-right">
+                        <label>ชื่อ</label><label>*</label>
+                    </div>
+                    <div class="col-md-10">
+                        <input name="department1" type="text" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2 text-right">
+                        <label>วิสัยทัศน์</label>
+                    </div>
+                    <div class="col-md-10">
+                        <textarea name="vision" class="w-50"></textarea>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2 text-right">
+                        <label>พันธกิจ</label>
+                    </div>
+                    <div class="col-md-10">
+                        <textarea name="mision" class="w-50"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane" id="nav-addr" role="tabpanel" aria-labelledby="nav-addr-tab">
+
+                <P style="background-color:lightblue">ที่อยู่</P>
+                <br />
+                <div class="container">
+                    <div class="row">
+
+                        <div class="col-md-7">
+                            <div class="row">
+                                <!--row1-->
+                                <div class="col-md-3 text-right">
+                                    <label>หมู่บ้าน</label><label>*</label>
+                                </div>
+                                <div class="col-md-9">
+                                    <input name="housePropertyName" type="text" class="w-75" />
+                                </div>
+                                <div class="col-md-3 text-right">
+                                    <label>อาคาร</label>
+                                </div>
+                                <div class="col-md-9">
+                                    <input name="buildingName" type="text" class="w-75" />
+                                </div>
+                            </div> <!--row-->
+                        </div> <!--1st colomn-->
+                        <div class="col-md-5">
+                            <div class="row">
+                                <!--row1-->
+                                <div class="col-md-4 text-right">
+                                    <label>จังหวัด</label><label>*</label>
+                                </div>
+                                <div class="col-md-8">
+                                    @Html.DropDownListFor(m => m.ProvinceId, ViewBag.ProvinceList as SelectList, "กรุณาเลือก", new { @class = "form-control" })
+                                </div>
+                            </div><!--row1-->
+                        </div><!--2nd col-->
+                        <!--row 2-->
+                        <div class="col-md-7">
+                            <div class="row">
+                                <div class="col-md-3 text-right">
+                                    <label> เลขที่</label><label>*</label>
+                                </div>
+                                <div class="col-md-1">
+                                    <input name="no" type="text" style="width:100px" />
+                                </div>
+                                <div class="col-md-3  text-right">
+                                    <label>หมู่</label><label>*</label>
+                                </div>
+                                <div class="col-md-5 text-left">
+                                    <input name="moo" type="text" style="width:100px" />
+                                </div>
+                            </div> <!--row-->
+                        </div> <!--1st colomn-->
+                        <div class="col-md-5">
+                            <div class="row">
+                                <div class="col-md-4 text-right">
+                                    <label>อำเภอ</label><label>*</label>
+                                </div>
+                                <div class="col-md-8">
+
+                                    @Html.DropDownListFor(m => m.AmphurId, new SelectList(""), "กรุณาเลือก", new { @class = "form-control" })
+
+                                </div>
+                            </div><!--row2-->
+                        </div><!--2nd col-->
+                        <!--row 3-->
+                        <div class="col-md-7">
+                            <div class="row">
+                                <div class="col-md-3 text-right">
+                                    <label>ซอย</label>
+                                </div>
+                                <div class="col-md-1">
+                                    <input name="soi" type="text" style="width:100px" />
+                                </div>
+                                <div class="col-md-3 text-right">
+                                    <label>ถนน</label><label>*</label>
+                                </div>
+                                <div class="col-md-5 text-left">
+                                    <input name="road" type="text" style="width:100px" />
+                                </div>
+                            </div> <!--row-->
+                        </div> <!--1st colomn-->
+                        <div class="col-md-5">
+                            <div class="row">
+                                <div class="col-md-4 text-right">
+                                    <label>ตำบล</label><label>*</label>
+                                </div>
+                                <div class="col-md-8">
+
+                                    @Html.DropDownListFor(m => m.TambonId, new SelectList(""), "กรุณาเลือก", new { @class = "form-control" })
+
+                                </div>
+                            </div><!--row3-->
+                        </div><!--2nd col-->
+                        <!--row 4-->
+                        <div class="col-md-7">
+                            <div class="row">
+                                <div class="col-md-3 text-right">
+                                    <label>โทรศัพท์</label>
+                                </div>
+                                <div class="col-md-9">
+                                    <input name="mobile" type="text" class="w-75" />
+                                </div>
+                            </div> <!--row-->
+                        </div> <!--1st colomn-->
+                        <div class="col-md-5">
+                            <div class="row">
+                                <div class="col-md-4 text-right">
+                                    <label>รหัสไปรษณีย์</label><label>*</label>
+                                </div>
+                                <div class="col-md-8 w-100">
+                                    <input name="postCode" type="text" />
+                                </div>
+                            </div><!--row4-->
+                        </div><!--2nd col-->
+                        <!--row 5-->
+                        <div class="col-md-7">
+                            <div class="row">
+                                <div class="col-md-3 text-right">
+                                    <labe>E-mail</labe>
+                                </div>
+                                <div class="col-md-9">
+                                    <input name="email" type="text" class="w-75" />
+                                </div>
+                            </div> <!--row-->
+                        </div> <!--1st colomn-->
+                        <div class="col-md-5">
+                        </div><!--2nd col-->
+
+                    </div><!--main row-->
+                </div> <!--end container-->
+            </div><!--end tab-->
+            <div class="tab-pane" id="nav-person" role="tabpanel" aria-labelledby="nav-person-tab">
+                <P style="background-color:lightblue">บุคลากร</P>
+                <br />
+                <div class="row">
+                    <div class="col-md-11">
+                        <label>ชื่อ</label>
+                        <input name="personName" type="text" />
+                    </div>
+                    <div class="col-md-1">
+                        <button class="btn-default badge-pill w-100" style="background-color:chartreuse;">เพิ่ม</button>
+                    </div>
+                </div>
+                <br />
+                <div class="container">
+                    <div class="row border-dark alert-dark">
+                        <div class="col-md-3">#</div>
+                        <div class="col-md-3">ชื่อ-สกุล</div>
+                        <div class="col-md-3">ตำแหน่ง</div>
+                        <div class="col-md-3">จัดการ</div>
+                    </div>
+                </div>
+                <br />
+            </div>
+            <div class="tab-pane" id="nav-corg" role="tabpanel" aria-labelledby="nav-org-tab">
+                <P style="background-color:lightblue">Oranize Chart</P>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script>
+    $(document).ready(function () {
+        $("#ProvinceId").change(function () {
+            var provinceId = $(this).val();
+            debugger
+            $.ajax({
+                type: "post",
+                url: "/SportCenter/GetAmphur?pid=" + provinceId,
+                contentType: "html",
+                success: function (response) {
+                    debugger
+                    $("#AmphurId").empty();
+                    $("#AmphurId").append(response);
+                }
+            })
+
+        })
+
+        $("#AmphurId").change(function () {
+            var amphurid = $(this).val();
+            debugger
+            $.ajax({
+                type: "post",
+                url: "/SportCenter/GetTambon?aid=" + amphurid,
+                contentType: "html",
+                success: function (response) {
+                    debugger
+                    $("#TambonId").empty();
+                    $("#TambonId").append(response);
+                }
+            })
+
+        })
+
+
+    })
+    </script>
+
+
+
+</form>

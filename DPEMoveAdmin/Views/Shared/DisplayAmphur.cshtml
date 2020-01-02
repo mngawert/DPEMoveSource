@@ -1,0 +1,13 @@
+﻿
+@model  DPEMoveDAL.Models.Amphur
+
+<option value=""> กรุณาเลือก</option>
+
+@if (ViewBag.AmphurList != null)
+{
+    foreach (var i in ViewBag.AmphurList)
+    { 
+      <option value="@i.Value">@i.Text</option>
+    }
+}
+

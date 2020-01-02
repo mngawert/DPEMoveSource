@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 using DPEMoveDAL.Models;
+using DPEMoveAdmin.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -29,7 +30,7 @@ namespace DPEMoveAdmin.Controllers
             return View(q);
         }
 
-        /*
+        
 
         public IActionResult CreateDep()
         {
@@ -37,6 +38,7 @@ namespace DPEMoveAdmin.Controllers
             return View();
         }
 
+        
         public ActionResult GetAmphur(int pid)
         {
             List<Amphur> amphurList = context.Amphur.Where(x => x.ProvinceId == pid).ToList();
@@ -55,6 +57,12 @@ namespace DPEMoveAdmin.Controllers
         public List<Province> GetProvinceList()
         {
             List<Province> province = context.Province.ToList();
+            return province;
+        }
+
+        public List<Province> GetProvinceList(string pcode)
+        {
+            List<Province> province = context.Province.Where(a => a.ProvinceCode == pcode).ToList();
             return province;
         }
 
@@ -125,7 +133,10 @@ namespace DPEMoveAdmin.Controllers
         public async Task<IActionResult> DepEdit(int id)
         {
             var q = await context.Department.Include(a => a.Address).Include(a => a.DepartmentPerson).Where(a => a.DepartmentId == id).FirstOrDefaultAsync();
+            
+            ViewBag.ProvinceList = new SelectList(GetProvinceList(q.Address.ProvinceCode), "ProvinceId", "ProvinceName");
 
+            
             if (q != null)
             {
                    return View(q);
@@ -134,21 +145,30 @@ namespace DPEMoveAdmin.Controllers
         }
 
         [HttpPost]
-        public IActionResult DepEdit(Department d)
+        public IActionResult DepEdit(Department d, AddressDropdownListClass ddl)
         {
-           // String timeStamp = GetTimestamp(DateTime.Now);
+            // String timeStamp = GetTimestamp(DateTime.Now);
 
-            var q = context.Department.Where(a => a.DepartmentId == d.DepartmentId).FirstOrDefault();
+            var dep = context.Department.Where(a => a.DepartmentId == d.DepartmentId).FirstOrDefault();
+            var adr = context.Address.Where(a => a.AddressId == dep.AddressId).FirstOrDefault();
 
-            if (q != null)
+            if (dep != null && adr != null)
             {
-                q.Department1 = d.Department1;
-               // q.Vistion = d.Vistion;
-                q.Mission = d.Mission;
-              //  q.Email = d.Email;
-               // q.Mobile = d.Mobile;
-               // q.Status = d.Status;
-                q.UpdatedDate = DateTime.Now;
+                dep.Department1 = d.Department1;
+                dep.Vistion = d.Vistion;
+                dep.Mission = d.Mission;
+                dep.Email = ddl.Email;
+                dep.Mobile = ddl.Mobile;
+                dep.UpdatedDate = DateTime.Now;
+
+                adr.BuildingName = ddl.BuildingName;
+                adr.HousePropertyName = ddl.HousePropertyName;
+                adr.Moo = ddl.Moo;
+                adr.No = ddl.No;
+                adr.Road = ddl.Road;
+                adr.Soi = ddl.Soi;
+                adr.Postcode = ddl.Postcode;
+
 
                 context.SaveChanges();
             }
@@ -186,7 +206,7 @@ namespace DPEMoveAdmin.Controllers
             return View();
         }
 
-        */
+    
 
         //  public ActionResult GetChart()
         //  {
