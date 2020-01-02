@@ -1,0 +1,1087 @@
+﻿
+<div class="text-md-center">
+    <h3>แบบสำรวจการออกกำลังกาย หรือเล่นกีฬาของประชาชน</h3>
+</div>
+<div class="text-md-center">
+    <h2>ประจำปีงบประมาณ พ.ศ. 2563</h2>
+</div>
+<div class="col-md-12 text-right">
+    เลขที่แบบสอบถาม <input id="QANotxt" type="text" />
+</div>
+<div class="text-left">
+    คำชี้แจง
+</div>
+<div class="text-left">
+    <p>
+        แบบสำรวจการออกกำลังกาย หรือเล่นกำฬาของประชาชน ประจำปีงบประมาณ พ.ศ. 2563 จัดทำขึ้นโดยกรมพลศึกษา
+        กระทรวงการท่องเที่ยวและกีฬา เพื่อเก็บข้อมูลการออกกำลังกาย หรือเล่นกีฬาของประชาชนประจำปีงบประมาณ พ.ศ. 2563
+        สำหรับนำไปปรับปรุง การดำเนินงาน ทั้งนี้กรมพลศึกษาจะนำข้อมูลที่ได้มาประมวลผล โดยทุกคำตอบของท่านจะได้รับการเก็บรักษา
+        เป็นความลับ และจะไม่มีผลกระทบใดๆ ต่อตัวท่านเพราะข้อมูลถูกนำมาใช้ในการวิเคราะห์เพื่อนำไปเป็นข้อมูลในการส่งเสริมด้าน
+        การออกกำลังกาย และเล่นกีฬาของคนไทยในภาพรวมต่อไป
+    </p>
+</div>
+<div class="text-left">
+    โปรดทำเครื่องหมาย <input id="Checkbox1" type="checkbox" checked /> ลงในช่องที่ตรงกับความเป็นจริงมากที่สุด
+</div>
+<div class="text-left">
+    กรุณาตอบให้ครบทุกข้อ
+</div>
+<br />
+<div class="text-left bg-dark text-white">
+    ตอนที่ 1 : ข้อมูลที่อยู่อาศัย:พนักงานเก็บข้อมูลทำการบันทึกข้อมูล
+</div>
+<br />
+<div>
+    <div class="border-dark">
+        <div>
+            <label>บ้านเลขที่</label> <input id="homeNo" type="text" /> <label>หมู่บ้าน</label> <input id="villageName" type="text" /> <label>ถนน</label> <input id="road" type="text" />
+        </div>
+
+        <div>
+            <label>ตรอก/ซอย</label> <input id="soi" type="text" />  <label>รหัสไปรษณีย์</label> <input id="postCode" type="text" />
+        </div>
+
+        <div>
+            <label>ผู้ให้ทำการติดต่อเพื่อการตรวจสอบข้อมูล</label> <input id="QCName" type="text" class="w-50" />
+        </div>
+
+        <div>
+            <label>เบอร์โทร</label> <input id="telNo" type="text" class="w-50" />
+        </div>
+        <hr />
+        <div>
+            <input id="disTrictIn" type="checkbox" />
+            <label> 1. ในเขตเทศบาล </label>
+            <input id="disTrictOut" type="checkbox" />
+            <label> 2. นอกเขตเทศบาล </label>
+        </div>
+        <div>
+            <label>ตำบล/แขวง</label> <input id="tambon" type="text" />  <label>อำเถอ/เขต </label> <input id="amphur" type="text" />
+        </div>
+        <div>
+            <label>จังหวัด (พนง. ระบุ Code) </label> <input id="provinceCode" type="text" />
+            <label>ภาค (พนง. ระบุ Code) </label> <input id="region" type="text" />
+        </div>
+        <div>
+            <label>ลำดับ EA (พนง. ระบุ Code) </label> <input id="seq" type="text" />
+            <label>ลำดับที่ครัวเรือน </label> <input id="familyseq" type="text" />
+        </div>
+        <div>
+            <label>ผลการแจงนับครัวเรือน </label>
+            <input id="canCount" type="checkbox" />
+            <label>1. แจงนับครัวเรือนได้ </label>
+            <input id="cantCount" type="checkbox" />
+            <label>2. แจงนับครัวเรือนไม่ได้ </label>
+        </div>
+        <div>
+            <label>จำนวนสมาชิกที่มีอายุตั้งแต่ 15 ปีขึ้นไปทั้งสิ้นในครัวเรือน จำนวน </label>
+            <input id="countPerson" type="text" />
+            <label> คน </label>
+
+        </div>
+        <hr />
+    </div>
+    <div>
+        <label>ชื่อพนักงานสัมภาษณ์</label> <input id="interviewer" type="text" />
+    </div>
+    <div>
+        <label>เบอร์โทรศัพท์</label> <input id="interviewerTel" type="text" />
+    </div>
+</div>
+<hr />
+
+<br />
+<div class="text-left bg-dark text-white">
+    ตอนที่ 2 :  ลักษณะทั่วไปของสมาชิกในครัวเรือนที่มีอายุตั้งแต่ 15 ปีขึ้นไป
+</div>
+<div>
+    <p>
+        ข้อ 1 - 14 โปรดระบุ ชื่อ-สกุล และข้อมูลส่วนตัว (ความเกี่ยวพันกับหัวหน้าครัวเรือน เพศ อายุ ศาสนา สัญชาติ
+        ระดับการศึกษา สถานภาพ การมีโรคประจำตัว อาชีพ น้ำหนัก ส่วนสูง รายได้ส่วนตัวต่อเดือน รายได้ครอบครัวต่อเดือน)
+    </p>
+</div>
+<div>
+    <label>1. ลำดับที่ </label> <input id="sec2iNo1" type="text" />
+    <label>2. ชื่อ-สกุล </label> <input id="sec2NameSur" type="text" />
+</div>
+<div>
+    <table border="1">
+        <tr>
+            <td>3. ความเกี่ยวพันกับหัวหน้าครัวเรือน</td>
+            <td>4. เพศ   </td>
+            <td>5. อายุ</td>
+            <td>6. ศาสนา</td>
+            <td>7. สัญชาติ</td>
+            <td>8. ระดับการศึกษา</td>
+        </tr>
+        <tr>
+            <td class="col-md-2 align-top">
+                <div>
+                    <input id="sec2table1col1check1" type="checkbox" />
+                    <label> 1.หัวหน้าครัวเรือน</label>
+                </div>
+                <div>
+                    <input id="sec2table1col1check2" type="checkbox" />
+                    <label> 2.ภรรยาหรือสามี</label>
+                </div>
+                <div>
+                    <input id="sec2table1col1check3" type="checkbox" />
+                    <label> 3.บุตรที่ยังไม่สมรส</label>
+                </div>
+                <div>
+                    <input id="sec2table1col1check4" type="checkbox" />
+                    <label> 4.บุตรที่สมรสแล้ว</label>
+                </div>
+                <div>
+                    <input id="sec2table1col1check5" type="checkbox" />
+                    <label> 5.บุตรเขย บุตรสะใภ้</label>
+                </div>
+                <div>
+                    <input id="sec2table1col1check6" type="checkbox" />
+                    <label> 6.บุตรของบุตร</label>
+                </div>
+                <div>
+                    <input id="sec2table1col1check7" type="checkbox" />
+                    <label> 7.พ่อ แม่/พ่อ แม่ของคู่สมรส</label>
+                </div>
+                <div>
+                    <input id="sec2table1col1check8" type="checkbox" />
+                    <label> 8.ญาติอื่นๆ</label>
+                </div>
+                <div>
+                    <input id="sec2table1col1check9" type="checkbox" />
+                    <label> 9.ผู้อาศัยหรือคนรับใช้</label>
+                </div>
+            </td>
+            <td class="col-md-4 align-top" style="width:50px">
+                <div>
+                    <input id="sec2table1col2check1" type="checkbox" />
+                    <label> 1. ชาย</label>
+                </div>
+                <div>
+                    <input id="sec2table1col2check2" type="checkbox" />
+                    <label> 2. หญิง</label>
+                </div>
+            </td>
+            <td class="col-md-6 align-top">
+                <div>
+                    <input id="sec2table1col3check1" type="checkbox" />
+                    <label>โปรดระบุอายุุ </label>
+                    <input id="sec2table1col3Year" type="text" style="width:150px" />
+                    <label> ปี </label>
+                </div>
+            </td>
+            <td class="col-md-8 align-top">
+                <div>
+                    <input id="sec2table1col4check1" type="checkbox" />
+                    <label> 1.พุทธ </label>
+                </div>
+                <div>
+                    <input id="sec2table1col4check2" type="checkbox" />
+                    <label> 2.อิสลาม </label>
+                </div>
+                <div>
+                    <input id="sec2table1col4check3" type="checkbox" />
+                    <label> 3.คริสต์ </label>
+                </div>
+                <div>
+                    <input id="sec2table1col4check4" type="checkbox" />
+                    <label> 4.พราหณ์-ฮินดู</label>
+                </div>
+                <div>
+                    <input id="sec2table1col4check5" type="checkbox" />
+                    <label> 5.ซิกซื</label>
+                </div>
+                <div>
+                    <input id="sec2table1col4check6" type="checkbox" />
+                    <label> 6.ไม่นับถือศาสนาใด</label>
+                </div>
+                <div>
+                    <input id="sec2table1col4check7" type="checkbox" />
+                    <label> 7.อื่นๆ ระบุ</label>
+                    <input id="sec2table1col4Cult" type="text" style="width:150px" />
+                </div>
+            </td>
+            <td class="col-md-10 align-top">
+                <div>
+                    <input id="sec2table1col5check1" type="checkbox" />
+                    <label> 1.ไทย</label>
+                </div>
+                <div>
+                    <input id="sec2table1col5check2" type="checkbox" />
+                    <label> 2.อื่นๆ ระบุ</label>
+                    <input id="sec2table1col5Nation" type="text" style="width:150px" />
+                </div>
+                <div>
+                    <input id="sec2table1col5check3" type="checkbox" />
+                    <label> 3.ไม่มีสัญชาติ</label>
+                </div>
+            </td>
+            <td class="col-md-12 align-top">
+                <div>
+                    <input id="sec2table1col6check1" type="checkbox" />
+                    <label> 1.ไม่เคยเรียน</label>
+                </div>
+                <div>
+                    <input id="sec2table1col6check2" type="checkbox" />
+                    <label> 2.ก่่อนประถมศึกษา</label>
+                </div>
+                <div>
+                    <input id="sec2table1col6check3" type="checkbox" />
+                    <label> 3.ประถมศึกษ</label>
+                </div>
+                <div>
+                    <input id="sec2table1col6check4" type="checkbox" />
+                    <label> 4.มัธยมศึกษาตอนต้น</label>
+                </div>
+                <div>
+                    <input id="sec2table1col6check5" type="checkbox" />
+                    <label> 5.มัธยมศึกษาตอนปลายสายสามัญ</label>
+                </div>
+                <div>
+                    <input id="sec2table1col6check6" type="checkbox" />
+                    <label> 6.มัธยมศึกษาตอนปลายสายอาชีพ</label>
+                </div>
+                <div>
+                    <input id="sec2table1col6check7" type="checkbox" />
+                    <label> 7.ปวส. /ปวท. /อนุปริญญา</label>
+                </div>
+                <div>
+                    <input id="sec2table1col6check8" type="checkbox" />
+                    <label> 8.ปริญญาตรี</label>
+                </div>
+                <div>
+                    <input id="sec2table1col6check9" type="checkbox" />
+                    <label> 9.สูงกว่าปริญญาตรี</label>
+                </div>
+                <div>
+                    <input id="sec2table1col6check10" type="checkbox" />
+                    <label> 10.อื่นๆ (ได้แก่ หลักสูตรระยะสั้น เช่น ตัดผม ตัดเสื้อ ซ่อมเครื่องใช้ไฟฟ้า เป็นต้น) ระบุ </label>
+                    <input id="sec2table1col6Other" type="text" style="width:150px" />
+                </div>
+                <div>
+                    <input id="sec2table1col6check11" type="checkbox" />
+                    <label> 11.จำไม่ได้/ไม่ทราบ </label>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
+<br />
+<div>
+    <table border="1">
+        <tr>
+            <td>9.สถานภาพ</td>
+            <td>10.การมีโรคประจำตัว</td>
+            <td>11.อาชีพ</td>
+            <td>12.น้ำหนัก/ส่วนสูง</td>
+            <td>13.รายได้ส่วนตัว(กรณีนักเรียน/นักศึกษาที่มีรายได้ให้ระบุจำนวนเงินที่ได้รับต่อเดือนจากผู้ปกครอง)</td>
+            <td>14.รายได้ของครัวเรือนเฉลี่ยต่อเดือน</td>
+        </tr>
+        <tr>
+            <td class="align-top">
+                <div>
+                    <input id="sec2table2col1check1" type="checkbox" />
+                    <label>1.โสด</label>
+                </div>
+                <div>
+                    <input id="sec2table2col1check2" type="checkbox" />
+                    <label>2.สถานภาพสมรส</label>
+                </div>
+                <div>
+                    <input id="sec2table2col1check3" type="checkbox" />
+                    <label>3.หม้าย</label>
+                </div>
+                <div>
+                    <input id="sec2table2col1check4" type="checkbox" />
+                    <label>4.หย่า</label>
+                </div>
+                <div>
+                    <input id="sec2table2col1check5" type="checkbox" />
+                    <label>5.แยกกันอยู่</label>
+                </div>
+                <div>
+                    <input id="sec2table2col1check6" type="checkbox" />
+                    <label>6.อื่นๆ ระบุ </label>
+                    <input id="sec2table2col1Other" type="text" style="width:100px" />
+                </div>
+            </td>
+            <td class="align-top">
+                <div>
+                    <input id="sec2table2col2check1" type="checkbox" />
+                    <label>1.มี ระบุ </label>
+                    <input id="sec2table2col1congenitaldisease" type="text" style="width:100px" />
+                </div>
+                <div>
+                    <input id="sec2table2col2check2" type="checkbox" />
+                    <label>
+                        2.โรค NCDs (โรคเบาหวาน โรคความดันโลหิตสูง
+                        โรคหลอดเลือดสมองและหัวใจ เป็นต้น)
+                    </label>
+                    <input id="sec2table2col1congenitaldisease" type="text" style="width:100px" />
+                </div>
+                <div>
+                    <input id="sec2table2col2check3" type="checkbox" />
+                    <label>3.ไม่มี </label>
+                </div>
+            </td>
+            <td class="align-top">
+                <div>
+                    <input id="sec2table2col3check1" type="checkbox" />
+                    <label>1.รับราชการ/เจ้าหน้าที่ของรัฐ </label>
+                </div>
+                <div>
+                    <input id="sec2table2col3check2" type="checkbox" />
+                    <label>2.รัฐวิสาหกิจ</label>
+                </div>
+                <div>
+                    <input id="sec2table2col3check3" type="checkbox" />
+                    <label>3.พนักงานบริษัท/ห้างร้าน</label>
+                </div>
+                <div>
+                    <input id="sec2table2col3check4" type="checkbox" />
+                    <label>4.ประกอบธุรกิจส่วนตัว</label>
+                </div>
+                <div>
+                    <input id="sec2table2col3check5" type="checkbox" />
+                    <label>5.รับจ้างทั่วไป</label>
+                </div>
+                <div>
+                    <input id="sec2table2col3check6" type="checkbox" />
+                    <label>6.แม่บ้าน/พ่อบ้าน</label>
+                </div>
+                <div>
+                    <input id="sec2table2col3check7" type="checkbox" />
+                    <label>7.ทำการเกษตร</label>
+                </div>
+                <div>
+                    <input id="sec2table2col3check8" type="checkbox" />
+                    <label>8.นักเรียน/นักศึกษา</label>
+                </div>
+                <div>
+                    <input id="sec2table2col3check9" type="checkbox" />
+                    <label>9.ไม่มีอาชิพ</label>
+                </div>
+                <div>
+                    <input id="sec2table2col3check10" type="checkbox" />
+                    <label>10.ไม่ทราบ</label>
+                </div>
+                <div>
+                    <input id="sec2table2col3check11" type="checkbox" />
+                    <label>11.อื่นๆ</label>
+                </div>
+                <div>
+                    <label>ระบุ</label>
+                    <input id="sec2table2col3Career" type="text" style="width:100px" />
+                </div>
+            </td>
+            <td class="align-top">
+                <div>
+                    <label>น้ำหนัก</label>
+                    <input id="sec2table2col4Weight" type="text" style="width:90px" />
+                    <label>กก.</label>
+                </div>
+                <div>
+                    <label>ส่วนสูง</label>
+                    <input id="sec2table2col4Hight" type="text" style="width:90px" />
+                    <label>ซม.</label>
+                </div>
+            </td>
+            <td>
+                <div>
+                    <label>ระบุจำนวนเงินที่ได้รับต่อเดือน (บาท)</label>
+                </div>
+                <div>
+                    <input id="sec2table2col5check1" type="checkbox" />
+                    <label>ไม่เกิน 5,000</label>
+                </div>
+                <div>
+                    <input id="sec2table2col5check2" type="checkbox" />
+                    <label> 5,001 - 15,000</label>
+                </div>
+                <div>
+                    <input id="sec2table2col5check3" type="checkbox" />
+                    <label> 15,001 - 30,000</label>
+                </div>
+                <div>
+                    <input id="sec2table2col5check4" type="checkbox" />
+                    <label> 30,001 - 50,000</label>
+                </div>
+                <div>
+                    <input id="sec2table2col5check5" type="checkbox" />
+                    <label> 50,001 - 70,000</label>
+                </div>
+                <div>
+                    <input id="sec2table2col5check6" type="checkbox" />
+                    <label> 70,001 - 90,000</label>
+                </div>
+                <div>
+                    <input id="sec2table2col5check7" type="checkbox" />
+                    <label> มากกว่า 90,000</label>
+                </div>
+                <div>
+                    <input id="sec2table2col5check8" type="checkbox" />
+                    <label> ไม่ทราบ</label>
+                </div>
+            </td>
+            <td>
+                <div>
+                    <label> ระบุรายได้ต่อเดือน (บาท)</label>
+                </div>
+                <div>
+                    <input id="sec2table2col6check1" type="checkbox" />
+                    <label> ไม่เกิน 15,000</label>
+                </div>
+                <div>
+                    <input id="sec2table2col6check2" type="checkbox" />
+                    <label>15,001 - 30,000</label>
+                </div>
+                <div>
+                    <input id="sec2table2col6check3" type="checkbox" />
+                    <label>30,001 - 50,000</label>
+                </div>
+                <div>
+                    <input id="sec2table2col6check4" type="checkbox" />
+                    <label>50,001 - 70,000</label>
+                </div>
+                <div>
+                    <input id="sec2table2col6check5" type="checkbox" />
+                    <label>70,001 - 90,000</label>
+                </div>
+                <div>
+                    <input id="sec2table2col6check6" type="checkbox" />
+                    <label>มากกว่า 90,000</label>
+                </div>
+                <div>
+                    <input id="sec2table2col6check7" type="checkbox" />
+                    <label>ไม่ทราบ</label>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
+<hr />
+<br />
+<div class="text-left bg-dark text-white">
+    ตอนที่ 3 การออกกำลังกาย และการเล่นกีฬา
+</div>
+<br />
+<div>
+    <label>ข้อ 15.1 โดยปกติคุณออกกำลังกายหรือเล่นกีฬา หรือไม่</label>
+</div>
+<div class="row border-success">
+    <div class="col-md-3 align-content-center">
+        <label>ก.ประเภทการออกกำลังกาย/เล่นกีฬา(รวมทั้งการออกกำลังกายในการประกอบอาชีพและการออกกำลังภายในชีวิตประจำวัน)</label>
+    </div>
+    <div class="col-md-3 align-content-center">
+        <label>ข.ระดับของกิจกรรม(ความหนัก)**</label>
+    </div>
+    <div class="col-md-3 align-content-center">
+        <label>ค.เวลาทีออกกำลังกายหรือเล่นกีฬาต่อวัน(นาที)</label>
+    </div>
+    <div class="col-md-3 align-content-center">
+        <label>ง.จำนวนวันที่ออกกำลังกายหรือเล่นกีฬาต่อสัปดาห์</label>
+    </div>
+</div>
+<div class="row">
+    <!--row1-->
+    <div class="col-md-3">
+        <input id="item15row1col1" type="checkbox" />
+        <label> 1. ระบุ</label>
+        <input id="item15row1col1tb" type="text" />
+    </div>
+    <div class="col-md-3 text-left">
+        <div class="row text-left">
+            <div>
+                <input id="item15row1col2check1" type="checkbox" />
+                <label>1.ระดับปานกลาง</label>
+            </div>
+        </div>
+        <div class="row text-left">
+            <div>
+                <input id="item15row1col2check2" type="checkbox" />
+                <label>2.ระดับหนัก</label>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 text-left">
+        <input id="item15row1col3" type="text" />
+        <label>นาที</label>
+    </div>
+    <div class="col-md-3 text-left">
+        <input id="item15row1col4" type="text" />
+        <label>วัน</label>
+    </div>
+</div>
+<div class="row text-left">
+    <!--row2-->
+    <div class="col-md-3">
+        <input id="item15row2col1" type="checkbox" />
+        <label> 2. ระบุ</label>
+        <input id="item15row2col1tb" type="text" />
+    </div>
+    <div class="col-md-3 text-left">
+        <div class="row text-left">
+            <div>
+                <input id="item15row2col2check1" type="checkbox" />
+                <label>1.ระดับปานกลาง</label>
+            </div>
+        </div>
+        <div class="row text-left">
+            <div>
+                <input id="item15row2col2check2" type="checkbox" />
+                <label>2.ระดับหนัก</label>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <input id="item15row3col3" type="text" />
+        <label>นาที</label>
+    </div>
+    <div class="col-md-3">
+        <input id="item15row3col4" type="text" />
+        <label>วัน</label>
+    </div>
+</div>
+<div class="row text-left">
+    <!--row3-->
+    <div class="col-md-3">
+        <input id="item15row3col1" type="checkbox" />
+        <label> 3. ระบุ</label>
+        <input id="item15row3col1tb" type="text" />
+    </div>
+    <div class="col-md-3 text-left">
+        <div class="row text-left">
+            <div>
+                <input id="item15row3col2check1" type="checkbox" />
+                <label>1.ระดับปานกลาง</label>
+            </div>
+        </div>
+        <div class="row text-left">
+            <div>
+                <input id="item15row3col2check2" type="checkbox" />
+                <label>2.ระดับหนัก</label>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <input id="item15row3col3" type="text" />
+        <label>นาที</label>
+    </div>
+    <div class="col-md-3">
+        <input id="item15row3col4" type="text" />
+        <label>วัน</label>
+    </div>
+</div>
+<div class="row text-left">
+    <!--row4-->
+    <div class="col-md-3">
+        <input id="item15row4col1" type="checkbox" />
+        <label> 4. ระบุ</label>
+        <input id="item15row4col1tb" type="text" />
+    </div>
+    <div class="col-md-3 text-left">
+        <div class="row text-left">
+            <div>
+                <input id="item15row4col2check1" type="checkbox" />
+                <label>1.ระดับปานกลาง</label>
+            </div>
+        </div>
+        <div class="row text-left">
+            <div>
+                <input id="item15row4col2check2" type="checkbox" />
+                <label>2.ระดับหนัก</label>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <input id="item15row4col3" type="text" />
+        <label>นาที</label>
+    </div>
+    <div class="col-md-3">
+        <input id="item15row4col4" type="text" />
+        <label>วัน</label>
+    </div>
+</div>
+<div class="row text-left">
+    <!--row5-->
+    <div class="col-md-3">
+        <input id="item15row5col1" type="checkbox" />
+        <label> 5. ไม่มีการออกกำลังกาย</label>
+    </div>
+    <div class="col-md-9">
+        <label>-> ข้ามไปตอบข้อ 15.5</label>
+    </div>
+</div>
+<br />
+<div>
+    <label>หมายเหตุ  ** คำอธิบายระดับความหนักของกิจกรรม</label>
+</div>
+<div>
+    <label>
+        1. ระดับปานกลาง คือ การหายใจเร็วขึ้นจากปกติ ไม่ถึงกับหอบ ติดต่อกันเป็นระยะเวลา
+        อย่างน้อย 10 นาที เช่น การเดินเร็ว ถีบจักรยาน ว่ายน้ำ เป็นต้น
+    </label>
+</div>
+<div>
+    <label>
+        2. ระดับหนัก คือ การหายใจแรงและเร็วกว่าปกติมาก หรือหอบติดต่อกันเป็นระยะเวลา
+        อย่างน้อย 10 นาที เช่น วิ่งกระโดดเชือก เล่นบาสเกตบอล หรือเล่นฟุตบอล เป็นต้น
+    </label>
+</div>
+<div>
+    <label>คำอธิบาย</label>
+    <label>
+        การออกกำลังกาย หมายถึง การกระทำใดๆ ที่มีการเคลื่อนไหวส่วนต่างๆ ของร่างกายเพื่อสุขภาพ
+        เพื่อความสนุกสนาน และเพื่อสังคม รวมทั้งการออกกำลังกายในการประกอบอาชีพ และการออกกำลังกายในชีวิตประจำวัน
+    </label>
+    <label>
+        การเล่นกีฬา หมายถึง การออกกำลังกายโดยใช้ทักษะกีฬาพื้นฐาน และมีวัตถุประสงค์เพื่อสร้างเสริมสุขภาพ
+        ความสนุกสนานเพื่อสังคม เพื่อการแข่งขัน (การเล่นกีฬาเป็นส่วนหนึ่งของการออกกำลังกาย)
+    </label>
+</div>
+<br />
+<div>
+    <label>
+        ข้อ 15.2 - 15.4 การออกกำลังกายหรือการเล่นกีฬา
+        คุณมักออกกำลังหรือเล่นกีฬาที่ใด เวลาใด และบ่อยครั้งเพียงใด
+    </label>
+</div>
+<div>
+    <table border="1">
+        <tr class="bg-gray-400">
+            <td></td>
+            <td>การออกกำลังกายหรือการเล่นกีฬา</td>
+        </tr>
+        <tr>
+            <td>
+                <label>15.2 สถานที่ใดที่คุณมักออกกำลังกายหรือเล่นกีฬา (ตอบได้มากกว่า 1 สถานที่)</label>
+            </td>
+            <td>
+                <div>
+                    <input id="item15.2table2col2check1" type="checkbox" />
+                    <label> 1. บ้าน/บริเวณที่พักอาศัย</label>
+                </div>
+                <div>
+                    <input id="item15.2table2col2check2" type="checkbox" />
+                    <label> 2. ที่ทำงาน</label>
+                </div>
+                <div>
+                    <input id="item15.2table2col2check3" type="checkbox" />
+                    <label> 3. สวนสาธารณะ</label>
+                </div>
+                <div>
+                    <input id="item15.2table2col2check4" type="checkbox" />
+                    <label> 4. สนามกีฬาประจำตำบล/อำเภอ/จังหวัด</label>
+                </div>
+                <div>
+                    <input id="item15.2table2col2check5" type="checkbox" />
+                    <label> 5. ลานออกกำลังกาย/เล่นกีฬา</label>
+                </div>
+                <div>
+                    <input id="item15.2table2col2check6" type="checkbox" />
+                    <label> 6. ฟิตเนสหรือยิม</label>
+                </div>
+                <div>
+                    <input id="item15.2table2col2check7" type="checkbox" />
+                    <label> 7. โรงเรียน/สถานศึกษา</label>
+                </div>
+                <div>
+                    <input id="item15.2table2col2check8" type="checkbox" />
+                    <label> 8. อื่นๆ ระบุ</label>
+                    <input id="item15.2table2col2check8tb" type="text" />
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td><label class="text-wrap">15.3 เวลาในการออกกำลังกาย/เล่นกีฬา(ตอบได้มากกว่า 1 คำตอบ)</label></td>
+            <td>
+                <div class="row">
+                    <div class="col-md-6">
+                        <input id="item15.3table2row2col2check0" type="checkbox" />
+                        <label>00.00 - 01.00 น.</label>
+                    </div>
+                    <div class="col-md-6">
+                        <input id="item15.3table2row2col2check1" type="checkbox" />
+                        <label>01.00 - 02.00 น.</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <input id="item15.3table2row2col2check2" type="checkbox" />
+                        <label>02.00 - 03.00 น.</label>
+                    </div>
+                    <div class="col-md-6">
+                        <input id="item15.3table2row2col2check3" type="checkbox" />
+                        <label>03.00 - 04.00 น.</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <input id="item15.3table2row2col2check4" type="checkbox" />
+                        <label>04.00 - 05.00 น.</label>
+                    </div>
+                    <div class="col-md-6">
+                        <input id="item15.3table2row2col2check5" type="checkbox" />
+                        <label>05.00 - 06.00 น.</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <input id="item15.3table2row2col2check6" type="checkbox" />
+                        <label>06.00 - 07.00 น.</label>
+                    </div>
+                    <div class="col-md-6">
+                        <input id="item15.3table2row2col2check7" type="checkbox" />
+                        <label>07.00 - 08.00 น.</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <input id="item15.3table2row2col2check8" type="checkbox" />
+                        <label>08.00 - 09.00 น.</label>
+                    </div>
+                    <div class="col-md-6">
+                        <input id="item15.3table2row2col2check9" type="checkbox" />
+                        <label>09.00 - 10.00 น.</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <input id="item15.3table2row2col2check10" type="checkbox" />
+                        <label>10.00 - 11.00 น.</label>
+                    </div>
+                    <div class="col-md-6">
+                        <input id="item15.3table2row2col2check11" type="checkbox" />
+                        <label>11.00 - 12.00 น.</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <input id="item15.3table2row2col2check12" type="checkbox" />
+                        <label>12.00 - 13.00 น.</label>
+                    </div>
+                    <div class="col-md-6">
+                        <input id="item15.3table2row2col2check13" type="checkbox" />
+                        <label>13.00 - 14.00 น.</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <input id="item15.3table2row2col2check14" type="checkbox" />
+                        <label>14.00 - 15.00 น.</label>
+                    </div>
+                    <div class="col-md-6">
+                        <input id="item15.3table2row2col2check15" type="checkbox" />
+                        <label>15.00 - 16.00 น.</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <input id="item15.3table2row2col2check16" type="checkbox" />
+                        <label>16.00 - 17.00 น.</label>
+                    </div>
+                    <div class="col-md-6">
+                        <input id="item15.3table2row2col2check17" type="checkbox" />
+                        <label>17.00 - 18.00 น.</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <input id="item15.3table2row2col2check18" type="checkbox" />
+                        <label>18.00 - 19.00 น.</label>
+                    </div>
+                    <div class="col-md-6">
+                        <input id="item15.3table2row2col2check19" type="checkbox" />
+                        <label>19.00 - 20.00 น.</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <input id="item15.3table2row2col2check20" type="checkbox" />
+                        <label>20.00 - 21.00 น.</label>
+                    </div>
+                    <div class="col-md-6">
+                        <input id="item15.3table2row2col2check21" type="checkbox" />
+                        <label>21.00 - 22.00 น.</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <input id="item15.3table2row2col2check22" type="checkbox" />
+                        <label>22.00 - 23.00 น.</label>
+                    </div>
+                    <div class="col-md-6">
+                        <input id="item15.3table2row2col2check23" type="checkbox" />
+                        <label>23.00 - 24.00 น.</label>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
+<div>
+    <label>15.4 เพราะเหตุผลใดคุณจึงออกกำลังกายหรือเล่นกีฬา (ตอบได้มากกว่า 1 ข้อ)</label>
+</div>
+<div class="row">
+    <!--row1-->
+    <div class="col-md-3">
+        <input id="item15.4row1col1" type="checkbox" />
+        <label>1. ต้องการให้ร่างกายแข็งแรง</label>
+    </div>
+    <div class="col-md-2">
+        <input id="item15.4row1col2" type="checkbox" />
+        <label>2. เป็นงานต้องทำ/เป็นอาชีพ</label>
+    </div>
+    <div class="col-md-3">
+        <input id="item15.4row1col3" type="checkbox" />
+        <label>3. ทำกิจกรรมร่วมกับเพื่อน/เพื่อนชวน</label>
+    </div>
+    <div class="col-md-2">
+        <input id="item15.4row1col4" type="checkbox" />
+        <label>4. รักษา/บรรเทาอาการเจ็บป่วย</label>
+    </div>
+    <div class="col-md-2">
+        <input id="item15.4row1col5" type="checkbox" />
+        <label>5. ใช้เวลาว่างให้เป็นประโยชน์</label>
+    </div>
+</div>
+<div class="row">
+    <!--row2-->
+    <div class="col-md-3">
+        <input id="item15.4row2col1" type="checkbox" />
+        <label>6. ต้องการรูปร่างที่ดี/หุ่นดี</label>
+    </div>
+    <div class="col-md-2">
+        <input id="item15.4row2col2" type="checkbox" />
+        <label>7. กำลังเป็นที่นิยม/ตามกระแสนิยม</label>
+    </div>
+    <div class="col-md-3">
+        <input id="item15.4row2col3" type="checkbox" />
+        <label>8. ควบคุมน้ำหนัก/ลดน้ำหนัก</label>
+    </div>
+    <div class="col-md-2">
+        <input id="item15.4row2col4" type="checkbox" />
+        <label>9. คลายเครียด/พักผ่าน</label>
+    </div>
+    <div class="col-md-2">
+        <input id="item15.4row2col5" type="checkbox" />
+        <label>10. ชอบในกีฬานั้นๆ</label>
+    </div>
+</div>
+<div class="row">
+    <!--row3-->
+    <div class="col-md-3">
+        <input id="item15.4row3col1" type="checkbox" />
+        <label>11. ชอบการออกกำลังกาย</label>
+    </div>
+    <div class="col-md-2">
+        <input id="item15.4row3col2" type="checkbox" />
+        <label>12. อื่นๆ </label>
+        <label>ระบุ </label>
+        <input id="item15.4row3col2other" type="text" />
+    </div>
+    <div class="col-md-3">
+    </div>
+    <div class="col-md-2">
+    </div>
+    <div class="col-md-2">
+    </div>
+</div>
+<div>
+    <label>15.5 เพราะเหตุผลใดคุณจึงไม่ออกกำลังกายหรือเล่นกีฬา (ตอบได้มากกว่า 1 ข้อ) (ถามเฉพาะผู้ที่ไม่ออกกำลังกาย)</label>
+</div>
+<div class="row">
+    <div class="col-md-2">
+        <input id="item15.5row1col1" type="checkbox" />
+        <label>1. ขี้เกียจ </label>
+    </div>
+    <div class="col-md-2">
+        <input id="item15.5row1col2" type="checkbox" />
+        <label>2. ไม่มีเวลา</label>
+    </div>
+    <div class="col-md-2">
+        <input id="item15.5row1col3" type="checkbox" />
+        <label>3. ป่วย</label>
+    </div>
+    <div class="col-md-3">
+        <input id="item15.5row1col4" type="checkbox" />
+        <label>4. ไม่ตอบการออกกำลังกาย</label>
+    </div>
+    <div class="col-md-3">
+        <input id="item15.5row1col5" type="checkbox" />
+        <label>5. ไม่มีความรู้</label>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-2">
+        <input id="item15.5row2col1" type="checkbox" />
+        <label>6. น่าเบื่อหน่าย</label>
+    </div>
+    <div class="col-md-2">
+        <input id="item15.5row2col2" type="checkbox" />
+        <label>7. พิการ</label>
+    </div>
+    <div class="col-md-2">
+        <input id="item15.5row2col3" type="checkbox" />
+        <label>8. ไม่มีสถานที่</label>
+    </div>
+    <div class="col-md-3">
+        <input id="item15.5row2col4" type="checkbox" />
+        <label>9. ไม่จำเป็นต่อตนเอง</label>
+    </div>
+    <div class="col-md-3">
+        <input id="item15.5row2col5" type="checkbox" />
+        <label>10. ขาดแรงจูงใจ</label>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <input id="item15.5row3col1" type="checkbox" />
+        <label>11. อื่นๆ ระบุ</label>
+        <input id="item15.5row3col1other" type="text" />
+    </div>
+    <div class="col-md-8">
+    </div>
+</div>
+<hr />
+<br />
+<div class="text-left bg-dark text-white">
+    ตอนที่ 4 ความคิดเห็น/ข้อเสนอแนะ
+</div>
+<br />
+<div>
+    <label>16. คุณคิดว่าอะไรที่จูงใจให้คุณ และครอบครัว หรือคนรอบข้างคุณ มาออกกำลังกายหรือเล่นกีฬา (ตอบได้มากกว่า 1 ข้อ)</label>
+</div>
+<div class="row">
+    <!--row1-->
+    <div class="col-md-4">
+        <input id="item16row1col1" type="checkbox" />
+        <label>1. ความรู้ในการออกกำลังกาย</label>
+    </div>
+    <div class="col-md-4">
+        <input id="item16row1col2" type="checkbox" />
+        <label>2. ทัศนคติในการออกกำลังกาย</label>
+    </div>
+    <div class="col-md-4">
+        <input id="item16row1col3" type="checkbox" />
+        <label>3. สนามกีฬาหรือสถานที่ที่มีความสวยงามมีมาตรฐาน</label>
+    </div>
+</div>
+<div class="row">
+    <!--row2-->
+    <div class="col-md-4">
+        <input id="item16row2col1" type="checkbox" />
+        <label>4. ผู้นำการออกกำลังกาย</label>
+    </div>
+    <div class="col-md-4">
+        <input id="item16row2col2" type="checkbox" />
+        <label>5. การจัดกิจกรรมที่น่าสนใจ</label>
+    </div>
+    <div class="col-md-4">
+        <input id="item16row2col3" type="checkbox" />
+        <label>6. ดารา/นักร้อง/บุคคลที่มีชื่อเสียง</label>
+    </div>
+</div>
+<div class="row">
+    <!--row3-->
+    <div class="col-md-4">
+        <input id="item16row3col1" type="checkbox" />
+        <label>7. ญาติพี่น้อง/เพื่อน</label>
+    </div>
+    <div class="col-md-4">
+        <input id="item16row3col2" type="checkbox" />
+        <label>8. อาสาสมัครทางการกีฬามาให้ความรู้</label>
+    </div>
+    <div class="col-md-4">
+        <input id="item16row3col3" type="checkbox" />
+        <label>9. อื่นๆ </label>
+        <label>ระบุ </label>
+        <input id="item16row3col3other" type="text" />
+    </div>
+</div>
+<br />
+<div>
+    <label>ข้อ 17.คุณมีข้อเสนอแนะ หรือความต้องการให้หน่วยงานภาครัฐ/เอกชน ส่งเสริมให้ประชาชนออกกำลังกายหรือเล่นกีฬาเพิ่มขึ้นอย่างไร</label>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <input id="item17row1col1" type="checkbox" />
+        <label>1. สร้างสวนสาธารณะเพิ่มขี้น </label>
+    </div>
+    <div class="col-md-4">
+        <input id="item17row1col2" type="checkbox" />
+        <label>
+            2. ปรับปรุงซ่อมแซม สวนสาธารณะที่มีอยู่เดิมให้มีสภาพที่ดี มีความปลอดภัย
+            และพร้อมใช้งาน เช่น มีไฟฟ้าส่องสว่าง มียามรักษาการณ์คอยสอดส่องดูแลความปลอดภัยของผู้มาใช้บริการ
+        </label>
+    </div>
+    <div class="col-md-4">
+        <input id="item17row1col3" type="checkbox" />
+        <label>
+            3. สนับสนุนอุปกรณ์การกีฬา เครื่องออกกำลังกายกลางแจ้ง เครื่องออกกำลังการในร่ม อุปกรณ์เครื่องเล่นในยิม ฯลฯ
+        </label>
+    </div>
+</div>
+<div class="row">
+    <!--row 2-->
+    <div class="col-md-4">
+        <input id="item17row2col1" type="checkbox" />
+        <label>4. จัดกิจกรรมรณรงค์ชักชวนให้ประชาชนออกกำลังกายหรือเล่นกีฬา </label>
+    </div>
+    <div class="col-md-4">
+        <input id="item17row2col2" type="checkbox" />
+        <label>
+            5. อุปกรณ์การกีฬาควรมีราคาถูกลง
+        </label>
+    </div>
+    <div class="col-md-4">
+        <input id="item17row2col3" type="checkbox" />
+        <label>
+            6. จัดให้มีบุคลากรทางการกีฬามาให้ความรู้ในการออกกำลังกายหรือเล่นกีฬา
+            เช่น อาสาสมัครทางการกีฬา เจ้าหน้าที่พลศึกษา ผู้ฝึกสอนกีฬา เป็นต้น
+        </label>
+    </div>
+</div>
+<div class="row">
+    <!--row 3-->
+    <div class="col-md-4">
+        <input id="item17row3col1" type="checkbox" />
+        <label>
+            7. แหล่งรวบรวมข้อมูลด้านการออกกำลังกายหรือเล่นกีฬาที่สามารถ
+            สืบค้นผ่านระบบออนไลน์ เพื่อส่งเสริมให้ประชาชนออกกำลังกาย
+            อย่างถูกวิธี ถูกต้อง และปลอดภัย
+        </label>
+    </div>
+    <div class="col-md-4">
+        <input id="item17row3col2" type="checkbox" />
+        <label>
+            8. ส่งเสริมให้ประชาชนออกกำลังกายโดยสามารถนำผลของการออกกำลังกาย
+            หรือเล่นกีฬามาใช้เป็นส่วนลดบริการของภาครัฐและภาคเอกชน เช่น ส่วนลดค่าโดยสารการเดินทางสาธารณะ
+            ส่วนลดค่าสาธารณูปโภค ลดหย่อนภาษี ส่วนลดสินค้าอุปโภคบริโภคต่างๆ เป็นต้น
+        </label>
+    </div>
+    <div class="col-md-4">
+        <input id="item17row3col3" type="checkbox" />
+        <label>
+            9. อื่น ๆ
+        </label>
+        <label>
+            ระบุ
+        </label>
+        <input id="item17row3col3other" type="text" />
+    </div>
+</div>
+<hr />
+<br />
+<br />
+<div class="text-center">
+    กรมพลศึกษา กระทรวงการท่องเที่ยวและกีฬา
+</div>
+<div class="text-center">
+    ขอขอบคุณที่ตอบแบบสำรวจ
+</div>
+<div class="text-center">
+    :>:>:>:>
+</div>
+
