@@ -1,0 +1,19 @@
+﻿@model IEnumerable<string>
+
+<div class="bg-primary m-1 p-1 text-white"><h4>Create Role</h4></div>
+
+<div asp-validation-summary="All" class="text-danger"></div>
+
+<form asp-action="Create" method="post">
+
+    <div class="form-group">
+        <label for="roleName">Role Name: </label>
+        <input name="roleName" class="form-control" />
+    </div>
+
+    <button class="btn btn-primary" type="submit">Create</button>
+
+    <a class="btn btn-secondary" asp-action="Index">Cancel</a>
+
+</form>
+
