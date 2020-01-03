@@ -1,0 +1,72 @@
+﻿@model DepartmentPerson;
+
+<form asp-action="DepPersonEdit" method="post">
+
+    <h3 class="bg-gray-400">แก้ไขข้อมูลบุคลากร</h3>
+
+    <div class="row">
+        <div class="col-md-11"></div>
+        <div class="col-md-1">
+            <button class="btn-default badge-pill w-100" asp-action="DepPersonEdit" style="background-color:chartreuse;">บันทึก</button>
+        </div>
+    </div>
+    <hr />
+    <div><input name="departmentPersonId" type="hidden" value="@Model.DepartmentPersonId" /></div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="row">
+                <div class="col-md-3 text-right"><label>ชื่อ</label></div>
+                <div class="col-md-9 text-left"><input name="firstName" type="text" value="@Model.Firstname" /></div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="row">
+                <div class="col-md-3 text-right"><label>สกุล</label></div>
+                <div class="col-md-9 text-left"><input name="lastName" type="text" value="@Model.Lastname" /></div>
+            </div>
+        </div>
+        <div class="col-md-5">
+            <div class="row">
+                <div class="col-md-3 text-right"><label>ตำแหน่ง</label></div>
+                <div class="col-md-9 text-left"><input name="positionName" type="text" value="@Model.PositionName" /></div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="row">
+                <div class="col-md-3 text-right"><label>E-mail</label></div>
+                <div class="col-md-9 text-left"><input name="email" type="text" value="@Model.Email" /></div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="row">
+                <div class="col-md-3 text-right"><label>โทรศัพท์</label></div>
+                <div class="col-md-9 text-left"><input name="mobile" type="text" value="@Model.Mobile" /></div>
+            </div>
+        </div>
+        <div class="col-md-5">
+            <div class="row">
+                <div class="col-md-3 text-right"> <label>หัวหน้า</label></div>
+                <div class="col-md-9 text-left">
+                    <select id="ParentPersonId" name="ParentPersonId" class="ParentPersonId">
+                        @foreach (var i in ViewBag.ParentList)
+                        {
+                            <option value="@i.Value">@i.Text</option>
+                        }
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr />
+</form>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script>
+    $(document).ready(function () {
+        alert("test");
+    $("select.ParentPersonId").change(function(){
+        var ParentPersonId = $(this).children("option:selected").val();   
+    });
+});
+</script>

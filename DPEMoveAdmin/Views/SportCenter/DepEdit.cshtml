@@ -1,6 +1,8 @@
 ﻿
 @model Department;
 
+
+
 <form asp-action="DepEdit" method="post">
 
     <div class="container">
@@ -83,10 +85,10 @@
                                     <label>จังหวัด</label><label>*</label>
                                 </div>
                                 <div class="col-md-8">
-                                    <select id="Province" style="width:182px">
-                                        <option disabled="disabled">กรุงเทพมหานคร</option>
-                                    </select>
-                                 </div>
+
+                                    @Html.DropDownList("ProvinceId", ViewBag.ProvinceList as SelectList, new { @class = "form-control" })
+         
+                                </div>
                              </div><!--row1-->
                         </div><!--2nd col-->
                         <!--row 2-->
@@ -112,9 +114,7 @@
                                     <label>อำเภอ</label><label>*</label>
                                 </div>
                                 <div class="col-md-8">
-                                    <select id="Amphor" style="width:182px">
-                                        <option>คลองสองต้นนุ่น</option>
-                                    </select>
+                                    @Html.DropDownList("AmphurId", ViewBag.Ammphur as SelectList, new { @class = "form-control" })
                                 </div>
                             </div><!--row2-->
                         </div><!--2nd col-->
@@ -141,9 +141,7 @@
                                     <label>ตำบล</label><label>*</label>
                                 </div>
                                 <div class="col-md-8">
-                                    <select id="Tumbon" style="width:182px">
-                                        <option>ลาดกระบัง</option>
-                                    </select>
+                                    @Html.DropDownList("TumbonId", ViewBag.Tambon as SelectList, new { @class = "form-control" })
                                 </div>
                             </div><!--row3-->
                         </div><!--2nd col-->
@@ -187,16 +185,8 @@
             </div><!--end tab-->
             <div class="tab-pane" id="nav-person" role="tabpanel" aria-labelledby="nav-person-tab">
                 <P style="background-color:lightblue">บุคลากร</P>
-                <br />
-                <div class="row">
-                    <div class="col-md-11">
-                        <label>ชื่อ</label>
-                        <input name="personName" type="text" />
-                    </div>
-                    <div class="col-md-1">
-                        <button class="btn-default badge-pill w-100" style="background-color:chartreuse;">เพิ่ม</button>
-                    </div>
-                </div>
+
+                <div>แสดงรายชื่อบุคลากรของหน่วยงาน  <input value="@Model.Department1" type="text" class="bg-transparent border-0 " /></div>
                 <br />
                 <div class="container">
                     <div class="row border-dark alert-dark">
@@ -215,9 +205,9 @@
                             <div class="col-md-3">@i.Firstname  @i.Lastname</div>
                             <div class="col-md-3">@i.PositionName</div>
                             <div class="col-md-3">
-                                <button class="btn-default badge-pill w-20" style="background-color:chartreuse;" asp-route-id="@i.DepartmentPersonId">จัดการ</button>
+                                <a class="btn-default badge-pill w-100" style="background-color:chartreuse;" asp-action="DepPersonEdit" asp-route-id="@i.DepartmentPersonId">แก้ไข</a>
                             </div>
-                        </div>
+                         </div>
                     </div>
                 }
             </div>

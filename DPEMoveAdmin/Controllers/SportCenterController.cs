@@ -46,6 +46,13 @@ namespace DPEMoveAdmin.Controllers
             return PartialView("DisplayAmphur");
         }
 
+        public List<Amphur> GetAmphur(string acode)
+        {
+
+            List<Amphur> amphur = context.Amphur.Where(x => x.AmphurCode == acode).ToList();
+            return amphur;
+        }
+
         public ActionResult GetTambon(int aid)
         {
             List<Tambon> tambonList = context.Tambon.Where(x => x.AmphurId == aid).ToList();
@@ -53,6 +60,12 @@ namespace DPEMoveAdmin.Controllers
             return PartialView("DisplayTambon");
         }
 
+        public List<Tambon> GetTambon(string tcode)
+        {
+
+            List<Tambon> tambon = context.Tambon.Where(x => x.TambonCode == tcode).ToList();
+            return tambon;
+        }
 
         public List<Province> GetProvinceList()
         {
@@ -128,21 +141,51 @@ namespace DPEMoveAdmin.Controllers
         }
 
 
+        public async Task<IActionResult> DepPersonEdit(int id)
+        {
+            var q = await context.DepartmentPerson.Where(a => a.DepartmentPersonId == id).FirstOrDefaultAsync();
 
+            List<DepartmentPerson> parentList = context.DepartmentPerson.Where(a => a.ParentPersonId == null).ToList();
+            ViewBag.ParentList = new SelectList(parentList, "DepartmentPersonId", "Firstname");
+
+            return View(q);
+        }
+
+        [HttpPost]
+        public IActionResult DepPersonEdit(DepartmentPerson dp)
+        {
+            var q = context.DepartmentPerson.Where(a => a.DepartmentPersonId == dp.DepartmentPersonId).FirstOrDefault();
+
+            if (q != null)
+            {
+                q.Firstname = dp.Firstname;
+                q.Lastname = dp.Lastname;
+                q.Email = dp.Email;
+                q.Mobile = dp.Mobile;
+                q.PositionName = dp.PositionName;
+                q.UpdatedDate = DateTime.Now;
+                q.UpdatedBy = 1;
+                q.ParentPersonId = dp.ParentPersonId;
+                context.SaveChanges();
+            }
+            return RedirectToAction("Index");
+        }
 
         public async Task<IActionResult> DepEdit(int id)
         {
             var q = await context.Department.Include(a => a.Address).Include(a => a.DepartmentPerson).Where(a => a.DepartmentId == id).FirstOrDefaultAsync();
             
             ViewBag.ProvinceList = new SelectList(GetProvinceList(q.Address.ProvinceCode), "ProvinceId", "ProvinceName");
+            ViewBag.Ammphur = new SelectList(GetAmphur(q.Address.AmphurCode), "AmphurId", "AmphurName");
+            ViewBag.Tambon = new SelectList(GetTambon(q.Address.TambonCode), "TambonId", "TambonName");
 
-            
             if (q != null)
             {
                    return View(q);
             }
             return View();
         }
+
 
         [HttpPost]
         public IActionResult DepEdit(Department d, AddressDropdownListClass ddl)

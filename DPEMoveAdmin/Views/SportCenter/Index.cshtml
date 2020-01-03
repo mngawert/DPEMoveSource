@@ -18,6 +18,7 @@
             <div class="col-md-3">@i.Department1</div>
             <div class="col-md-3">@i.Email</div>
             <div class="col-md-3">
+                <a class="btn-default badge-pill w-100" style="background-color:chartreuse;" asp-action="DepPerson" asp-route-id="@i.DepartmentId">เพิ่มบุคลากร</a>
                 <a class="btn-default badge-pill w-100" style="background-color:chartreuse;" asp-action="DepEdit" asp-route-id="@i.DepartmentId">Edit</a>
                 <a class="btn-default badge-pill w-100" style="background-color:chartreuse;" asp-action="DepDelete" asp-route-id="@i.DepartmentId">Delete</a>
             </div>
