@@ -40,6 +40,7 @@ namespace DPEMoveDAL.Services
                 .Include(a => a.Address)
                 .Include(a => a.EventLevel)
                 .Include(a => a.EventType)
+                .Include(a => a.EventNearby)
                 .Include(a => a.EventJoinPersonType)
                     .ThenInclude(b => b.JoinPersonType)
                 .Include(a => a.EventUploadedFile)
@@ -54,6 +55,7 @@ namespace DPEMoveDAL.Services
                     .ThenInclude(b => b.MEventFacilitiesTopic)
                 .Where(a => a.EventId == id)
                 .FirstOrDefaultAsync();
+
 
             return q;
         }
@@ -89,21 +91,21 @@ namespace DPEMoveDAL.Services
                 q = q.Where(a => a.EventName.Contains(model.EventName));
             }
 
-            /* Order by*/
-            q = q.OrderBy(a => a.CreatedDate);
-            if (!string.IsNullOrWhiteSpace(model.OrderBy))
-            {
-                if (model.OrderBy == "EventCode")
-                {
-                    q = q.OrderBy(a => a.EventCode);
-                }
-                else if (model.OrderBy == "EventName")
-                {
-                    q = q.OrderBy(a => a.EventName);
-                }
-            }
+            //return q;
 
-            _logger.LogDebug("GetEvent q before address = ", q);
+            /* Order by*/
+            //q = q.OrderBy(a => a.CreatedDate);
+            //if (!string.IsNullOrWhiteSpace(model.OrderBy))
+            //{
+            //    if (model.OrderBy == "EventCode")
+            //    {
+            //        q = q.OrderBy(a => a.EventCode);
+            //    }
+            //    else if (model.OrderBy == "EventName")
+            //    {
+            //        q = q.OrderBy(a => a.EventName);
+            //    }
+            //}
 
             if (model.Address != null)
             {

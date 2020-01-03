@@ -10,7 +10,7 @@ namespace DPEMoveDAL.Services
     public interface IVoteService
     {
         void AddOrEditVote(VoteRequest model);
-        IEnumerable<VoteDbQuery> GetVote(VoteRequest2 model);
+        VoteDbQuery GetVote(VoteRequest2 model);
         IEnumerable<VoteSummaryDbQuery> GetVoteSummary(VoteSummaryRequest model);
     }
 }

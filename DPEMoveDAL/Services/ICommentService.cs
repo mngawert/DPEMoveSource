@@ -9,7 +9,10 @@ namespace DPEMoveDAL.Services
 {
     public interface ICommentService
     {
-        IEnumerable<CommentViewModel> GetComment(CommentViewModelReq model);
-        Comment AddComment(CommentViewModel model);
+        IEnumerable<CommentViewModel> GetComment(CommentViewModel2 model);
+        CommentDbQuery GetCommentDetails(int id);
+        void AddComment(CommentViewModel model);
+        void EditComment(CommentViewModel model);
+        void DeleteComment(CommentViewModel model);
     }
 }

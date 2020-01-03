@@ -69,14 +69,14 @@ namespace DPEMoveDAL.Services
             }
         }
 
-        public IEnumerable<VoteDbQuery> GetVote(VoteRequest2 model)
+        public VoteDbQuery GetVote(VoteRequest2 model)
         {
 
             string sql = "select * from VW_VOTE where VOTE_OF = {0} and EVENT_OR_STADIUM_CODE = {1} and CREATED_BY = {2}";
 
-            var q = _context.VoteDbQuery.FromSql(sql, model.VoteOf, model.EventOrStadiumCode, model.CreatedBy);
+            var q = _context.VoteDbQuery.FromSql(sql, model.VoteOf, model.EventOrStadiumCode, model.CreatedBy).FirstOrDefault();
 
-            return q.ToList();
+            return q;
         }
 
         public IEnumerable<VoteSummaryDbQuery> GetVoteSummary(VoteSummaryRequest model)

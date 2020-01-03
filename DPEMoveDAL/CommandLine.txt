@@ -14,3 +14,17 @@ Update-Database -Context AppIdentityDbContext
 Remove-Migration -Context AppIdentityDbContext
 
 
+
+
+namespace DPEMoveDAL.Models
+{
+    public partial class MEventFacilitiesTopic
+    {
+        [JsonIgnore]
+        public ICollection<EventFacilities> EventFacilities { get; set; }
+    }
+}
+
+AppDbContext.cs
+entity.Property(e => e.AppUserId).ValueGeneratedNever();
+entity.Property(e => e.GroupId).ValueGeneratedNever();
