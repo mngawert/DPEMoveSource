@@ -29,6 +29,7 @@ namespace DPEMoveDAL.ViewModels
         public string AccountType { get; set; }
         public string Status { get; set; }
         public int? GroupId { get; set; }
+        public int AppUserId { get; set; }
     }
 
 }

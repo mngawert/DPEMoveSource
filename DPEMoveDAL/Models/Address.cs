@@ -9,6 +9,7 @@ namespace DPEMoveDAL.Models
         {
             Department = new HashSet<Department>();
             Event = new HashSet<Event>();
+            SurveyHeader = new HashSet<SurveyHeader>();
             User = new HashSet<User>();
         }
 
@@ -38,6 +39,7 @@ namespace DPEMoveDAL.Models
 
         public ICollection<Department> Department { get; set; }
         public ICollection<Event> Event { get; set; }
+        public ICollection<SurveyHeader> SurveyHeader { get; set; }
         public ICollection<User> User { get; set; }
     }
 }
