@@ -38,7 +38,6 @@ namespace DPEMoveDAL.Services
         {
             var q = await _context.Event
                 .Include(a => a.Address)
-                    .ThenInclude(b => b.ProvinceCodeNavigation)
                 .Include(a => a.EventLevel)
                 .Include(a => a.EventType)
                 .Include(a => a.EventNearby)
