@@ -32,181 +32,286 @@ namespace DPEMoveWeb.ApiControllers
             _commentService = commentService;
         }
 
-
         [HttpPost]
         [Authorize]
         public IActionResult AddComment([FromBody] CommentViewModel model)
         {
-            if (!ModelState.IsValid)
+            try
             {
-                return BadRequest(ModelState);
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+                
+                _commentService.AddComment(model);
+
+                Response.Headers["ResponseCode"] = "2000";
+                Response.Headers["ResponseDescription"] = "Ok";
+
+                return Ok();
             }
-
-            //var userName = User.GetLoggedInUserName();
-
-            Comment q = _commentService.AddComment(model);
-
-            return Ok(q);
-        }
-
-        [HttpPost]
-        [Authorize]
-        public IEnumerable<CommentViewModel> GetComment([FromBody] CommentViewModelReq model)
-        {
-            _logger.LogInformation("GetComment Start!");
-
-            var q = _commentService.GetComment(model);
-
-            return q;
-        }
-
-
-        [HttpGet]
-        [Authorize]
-        public IEnumerable<CommentViewModel> GetComment()
-        {
-            var model = new CommentViewModelReq
+            catch (Exception e)
             {
-                CommentOf = "1",
-                EventOrStadiumCode = "EVT201911260001",
-                LimitStart = 1,
-                LimitSize = 1000
-            };
-
-            var q = _commentService.GetComment(model);
-
-            return q;
-        }
-
-        [HttpGet]
-        [Authorize]
-        public IEnumerable<CommentViewModel> GetComment_GET()
-        {
-            var model = new CommentViewModelReq
-            {
-                CommentOf = "1",
-                EventOrStadiumCode = "EVT201911260001",
-                LimitStart = 1,
-                LimitSize = 1000
-            };
-
-            var q = _commentService.GetComment(model);
-
-            return q;
+                Response.Headers["ResponseCode"] = "4000";
+                Response.Headers["ResponseDescription"] = e.Message;
+                return BadRequest(e.ToString());
+            }
         }
 
 
         [HttpPost]
         [Authorize]
-        public IEnumerable<CommentViewModel> GetComment2([FromBody] CommentViewModelReq model)
+        public IActionResult EditComment([FromBody] CommentViewModel model)
         {
-            //var model = new CommentViewModelReq
-            //{
-            //    CommentOf = "1",
-            //    EventOrStadiumCode = "EVT201911260001",
-            //    LimitStart = 1,
-            //    LimitSize = 1000
-            //};
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
 
-            var q = _commentService.GetComment(model);
+                _commentService.EditComment(model);
 
-            return q;
+                Response.Headers["ResponseCode"] = "2000";
+                Response.Headers["ResponseDescription"] = "Ok";
+
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                Response.Headers["ResponseCode"] = "4000";
+                Response.Headers["ResponseDescription"] = e.Message;
+                return BadRequest(e.ToString());
+            }
+        }
+
+        [HttpPost]
+        [Authorize]
+        public IActionResult DeleteComment([FromBody] CommentViewModel model)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+
+                _commentService.DeleteComment(model);
+
+                Response.Headers["ResponseCode"] = "2000";
+                Response.Headers["ResponseDescription"] = "Ok";
+
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                Response.Headers["ResponseCode"] = "4000";
+                Response.Headers["ResponseDescription"] = e.Message;
+                return BadRequest(e.ToString());
+            }
         }
 
 
-        // GET: api/Comments/5
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetComment([FromRoute] int id)
+        [HttpPost]
+        [Authorize]
+        public IActionResult GetComment([FromBody] CommentViewModel2 model)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            var comment = await _context.Comment.FindAsync(id);
-
-            if (comment == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(comment);
-        }
-
-        // PUT: api/Comments/5
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutComment([FromRoute] int id, [FromBody] Comment comment)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            if (id != comment.CommentId)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(comment).State = EntityState.Modified;
 
             try
             {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!CommentExists(id))
+                if (!ModelState.IsValid)
                 {
-                    return NotFound();
+                    return BadRequest(ModelState);
                 }
-                else
+
+                var q = _commentService.GetComment(model);
+
+                Response.Headers["ResponseCode"] = "2000";
+                Response.Headers["ResponseDescription"] = "Ok";
+
+                return Ok(q);
+            }
+            catch (Exception e)
+            {
+                Response.Headers["ResponseCode"] = "4000";
+                Response.Headers["ResponseDescription"] = e.Message;
+                return BadRequest(e.ToString());
+            }
+        }
+
+        [HttpGet("{id}")]
+        [Authorize]
+        public IActionResult GetCommentDetails([FromRoute] int id)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
                 {
-                    throw;
+                    return BadRequest(ModelState);
                 }
+
+                var q = _commentService.GetCommentDetails(id);
+
+                Response.Headers["ResponseCode"] = "2000";
+                Response.Headers["ResponseDescription"] = "Ok";
+
+                return Ok(q);
             }
-
-            return NoContent();
-        }
-
-        // POST: api/Comments
-        [HttpPost]
-        public async Task<IActionResult> PostComment([FromBody] Comment comment)
-        {
-            if (!ModelState.IsValid)
+            catch (Exception e)
             {
-                return BadRequest(ModelState);
+                Response.Headers["ResponseCode"] = "4000";
+                Response.Headers["ResponseDescription"] = e.Message;
+                return BadRequest(e.ToString());
             }
-
-            _context.Comment.Add(comment);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetComment", new { id = comment.CommentId }, comment);
         }
 
-        // DELETE: api/Comments/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteComment([FromRoute] int id)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
 
-            var comment = await _context.Comment.FindAsync(id);
-            if (comment == null)
-            {
-                return NotFound();
-            }
+        //[HttpGet]
+        //[Authorize]
+        //public IEnumerable<CommentViewModel> GetComment()
+        //{
+        //    var model = new CommentViewModel2
+        //    {
+        //        CommentOf = "1",
+        //        EventOrStadiumCode = "EVT201911260001",
+        //        LimitStart = 1,
+        //        LimitSize = 1000
+        //    };
 
-            _context.Comment.Remove(comment);
-            await _context.SaveChangesAsync();
+        //    var q = _commentService.GetComment(model);
 
-            return Ok(comment);
-        }
+        //    return q;
+        //}
 
-        private bool CommentExists(int id)
-        {
-            return _context.Comment.Any(e => e.CommentId == id);
-        }
+        //[HttpGet]
+        //[Authorize]
+        //public IEnumerable<CommentViewModel> GetComment_GET()
+        //{
+        //    var model = new CommentViewModel2
+        //    {
+        //        CommentOf = "1",
+        //        EventOrStadiumCode = "EVT201911260001",
+        //        LimitStart = 1,
+        //        LimitSize = 1000
+        //    };
+
+        //    var q = _commentService.GetComment(model);
+
+        //    return q;
+        //}
+
+
+        //[HttpPost]
+        //[Authorize]
+        //public IEnumerable<CommentViewModel> GetComment2([FromBody] CommentViewModel2 model)
+        //{
+        //    //var model = new CommentViewModelReq
+        //    //{
+        //    //    CommentOf = "1",
+        //    //    EventOrStadiumCode = "EVT201911260001",
+        //    //    LimitStart = 1,
+        //    //    LimitSize = 1000
+        //    //};
+
+        //    var q = _commentService.GetComment(model);
+
+        //    return q;
+        //}
+
+
+        //// GET: api/Comments/5
+        //[HttpGet("{id}")]
+        //public async Task<IActionResult> GetComment([FromRoute] int id)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
+
+        //    var comment = await _context.Comment.FindAsync(id);
+
+        //    if (comment == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    return Ok(comment);
+        //}
+
+        //// PUT: api/Comments/5
+        //[HttpPut("{id}")]
+        //public async Task<IActionResult> PutComment([FromRoute] int id, [FromBody] Comment comment)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
+
+        //    if (id != comment.CommentId)
+        //    {
+        //        return BadRequest();
+        //    }
+
+        //    _context.Entry(comment).State = EntityState.Modified;
+
+        //    try
+        //    {
+        //        await _context.SaveChangesAsync();
+        //    }
+        //    catch (DbUpdateConcurrencyException)
+        //    {
+        //        if (!CommentExists(id))
+        //        {
+        //            return NotFound();
+        //        }
+        //        else
+        //        {
+        //            throw;
+        //        }
+        //    }
+
+        //    return NoContent();
+        //}
+
+        //// POST: api/Comments
+        //[HttpPost]
+        //public async Task<IActionResult> PostComment([FromBody] Comment comment)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
+
+        //    _context.Comment.Add(comment);
+        //    await _context.SaveChangesAsync();
+
+        //    return CreatedAtAction("GetComment", new { id = comment.CommentId }, comment);
+        //}
+
+        //// DELETE: api/Comments/5
+        //[HttpDelete("{id}")]
+        //public async Task<IActionResult> DeleteComment([FromRoute] int id)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
+
+        //    var comment = await _context.Comment.FindAsync(id);
+        //    if (comment == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    _context.Comment.Remove(comment);
+        //    await _context.SaveChangesAsync();
+
+        //    return Ok(comment);
+        //}
+
+        //private bool CommentExists(int id)
+        //{
+        //    return _context.Comment.Any(e => e.CommentId == id);
+        //}
     }
 }

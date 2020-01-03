@@ -25,6 +25,6 @@ namespace DPEMoveDAL.Models
     }
 }
 
-
+AppDbContext.cs
 entity.Property(e => e.AppUserId).ValueGeneratedNever();
 entity.Property(e => e.GroupId).ValueGeneratedNever();

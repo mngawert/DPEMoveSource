@@ -17,11 +17,12 @@ namespace DPEMoveDAL.Services
         private readonly IMapper _mapper;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IHttpContextAccessor _httpContextAccessor;
-        private User GetCurrentUser()
-        {
-            string userName = _httpContextAccessor.HttpContext.User.FindFirst("sub")?.Value;
-            return _context.User.Where(a => a.UserName == userName).FirstOrDefault();
-        }
+
+        //private User GetCurrentUser()
+        //{
+        //    string userName = _httpContextAccessor.HttpContext.User.FindFirst("sub")?.Value;
+        //    return _context.User.Where(a => a.UserName == userName).FirstOrDefault();
+        //}
 
         public CommentService(AppDbContext context, IMapper mapper, IHttpContextAccessor httpContextAccessor, UserManager<ApplicationUser> userManager)
         {
@@ -31,50 +32,67 @@ namespace DPEMoveDAL.Services
             _userManager = userManager;
         }
 
-        public Comment AddComment(CommentViewModel model)
+        public void AddComment(CommentViewModel model)
         {
-            var q = _mapper.Map<Comment>(model);
+            var q = new Comment
+            {
+                Comment1 = model.Comment1,
+                CommentCode = "N/A",
+                UserCode = model.UserCode,
+                Status = 1,
+                CreatedBy = model.CreatedBy,
+                CreatedDate = DateTime.Now,
+            };
 
-            var user = GetCurrentUser();
-
-            q.CommentCode = "CM_001";
-            q.UserCode = user?.UserName ?? "N/A";
-            q.CreatedBy = user?.UserId ?? 0;
-            q.CreatedDate = DateTime.Now;
+            if (model.CommentOf == "1") 
+                q.EventCode = model.EventOrStadiumCode;
+            else
+                q.StadiumCode = model.EventOrStadiumCode;
 
             _context.Add(q).State = EntityState.Added;
             _context.SaveChanges();
-
-            return q;
         }
 
-
-        public IEnumerable<CommentViewModel> GetComment(CommentViewModelReq model)
+        public void EditComment(CommentViewModel model)
         {
-            //var q = _context.Comment
-            //    //.Select(a => _mapper.Map<CommentViewModel>(a))
-            //    .Select(a => new CommentViewModel
-            //    { 
-            //        CommentCode = a.CommentCode,
-            //        Comment1 = a.Comment1,
-            //        UserCode = a.UserCode,
-            //        EventCode = a.EventCode
-            //    });
-            //    ;
+            var q = _context.Comment.Where(a => a.CommentId == model.CommentId).FirstOrDefault();
 
-            string sql = "select a.* ,b.USER_NAME " +
-                "from \"COMMENT\" a, \"USER\" b where a.CREATED_BY = b.USER_ID";
+            if (q != null)
+            {
+                q.Comment1 = model.Comment1;
+                q.CommentCode = "N/A";
+                q.UserCode = model.UserCode;
+                q.Status = 1;
+                q.CreatedBy = model.CreatedBy;
+                q.UpdatedBy = model.CreatedBy;
+                q.UpdatedDate = DateTime.Now;
+
+                if (model.CommentOf == "1")
+                    q.EventCode = model.EventOrStadiumCode;
+                else
+                    q.StadiumCode = model.EventOrStadiumCode;
+
+                _context.Entry(q).State = EntityState.Modified;
+                _context.SaveChanges();
+            }
+        }
+
+        public void DeleteComment(CommentViewModel model)
+        {
+            var q = _context.Comment.Where(a => a.CommentId == model.CommentId).FirstOrDefault();
+
+            if (q != null)
+            {
+                _context.Remove(q).State = EntityState.Deleted;
+                _context.SaveChanges();
+            }
+        }
+
+        public IEnumerable<CommentViewModel> GetComment(CommentViewModel2 model)
+        {
+            string sql = "select * from VW_COMMENT";
 
             var q = _context.CommentDbQuery.FromSql(sql);
-
-            if (model.CommentOf == "1")
-            {
-                q = q.Where(a => a.EventCode == model.EventOrStadiumCode);
-            }
-            else if (model.CommentOf == "2")
-            {
-                q = q.Where(a => a.EventCode == model.EventOrStadiumCode);
-            }
 
             /* Order by*/
             q = q.OrderBy(a => a.CreatedDate);
@@ -82,24 +100,17 @@ namespace DPEMoveDAL.Services
             var qq = PaginatedList<CommentDbQuery>.Create(q, model.LimitStart ?? 1, model.LimitSize ?? 10000);
 
             var q3 = _mapper.Map<List<CommentViewModel>>(qq);
-            //var q3 = qq.Select(a => new CommentViewModel 
-            //{
-            //    CommentId = a.CommentId,
-            //    CommentCode = a.CommentCode,
-            //    Comment1 = a.Comment1,
-            //    CreatedBy = a.CreatedBy,
-            //    CreatedDate = a.CreatedDate,
-            //    EventCode = a.EventCode,
-            //    //StadiumCode = "",
-            //    //Status = 1,
-            //    UserCode = a.UserCode,
-            //    UserName = a.UserName            
-            //});
 
             return q3;
         }
 
+        public CommentDbQuery GetCommentDetails(int id)
+        {
+            string sql = "select * from VW_COMMENT where COMMENT_ID = {0}";
 
+            var q = _context.CommentDbQuery.FromSql(sql, id).FirstOrDefault();
 
+            return q;
+        }
     }
 }
