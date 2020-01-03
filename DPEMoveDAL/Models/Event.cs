@@ -11,6 +11,7 @@ namespace DPEMoveDAL.Models
             EventGoal = new HashSet<EventGoal>();
             EventJoinPersonType = new HashSet<EventJoinPersonType>();
             EventLevelNavigation = new HashSet<EventLevel>();
+            EventNearby = new HashSet<EventNearby>();
             EventObjective = new HashSet<EventObjective>();
             EventSport = new HashSet<EventSport>();
             EventUploadedFile = new HashSet<EventUploadedFile>();
@@ -56,6 +57,7 @@ namespace DPEMoveDAL.Models
         public ICollection<EventGoal> EventGoal { get; set; }
         public ICollection<EventJoinPersonType> EventJoinPersonType { get; set; }
         public ICollection<EventLevel> EventLevelNavigation { get; set; }
+        public ICollection<EventNearby> EventNearby { get; set; }
         public ICollection<EventObjective> EventObjective { get; set; }
         public ICollection<EventSport> EventSport { get; set; }
         public ICollection<EventUploadedFile> EventUploadedFile { get; set; }

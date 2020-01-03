@@ -37,6 +37,7 @@ namespace DPEMoveDAL.Models
         public virtual DbSet<EventGoal> EventGoal { get; set; }
         public virtual DbSet<EventJoinPersonType> EventJoinPersonType { get; set; }
         public virtual DbSet<EventLevel> EventLevel { get; set; }
+        public virtual DbSet<EventNearby> EventNearby { get; set; }
         public virtual DbSet<EventObjective> EventObjective { get; set; }
         public virtual DbSet<EventSport> EventSport { get; set; }
         public virtual DbSet<EventUploadedFile> EventUploadedFile { get; set; }
@@ -340,7 +341,7 @@ namespace DPEMoveDAL.Models
 
             modelBuilder.Entity<AspNetUserLogins>(entity =>
             {
-                entity.HasKey(e => new { e.ProviderKey, e.LoginProvider });
+                entity.HasKey(e => new { e.LoginProvider, e.ProviderKey });
 
                 entity.HasIndex(e => e.UserId);
 
@@ -358,7 +359,7 @@ namespace DPEMoveDAL.Models
 
             modelBuilder.Entity<AspNetUserRoles>(entity =>
             {
-                entity.HasKey(e => new { e.RoleId, e.UserId });
+                entity.HasKey(e => new { e.UserId, e.RoleId });
 
                 entity.HasIndex(e => e.RoleId);
 
@@ -419,7 +420,7 @@ namespace DPEMoveDAL.Models
 
             modelBuilder.Entity<AspNetUserTokens>(entity =>
             {
-                entity.HasKey(e => new { e.Name, e.LoginProvider, e.UserId });
+                entity.HasKey(e => new { e.UserId, e.LoginProvider, e.Name });
 
                 entity.HasIndex(e => new { e.UserId, e.LoginProvider, e.Name })
                     .HasName("PK_AspNetUserTokens")
@@ -1057,6 +1058,52 @@ namespace DPEMoveDAL.Models
                     .HasConstraintName("SYS_C00111027");
             });
 
+            modelBuilder.Entity<EventNearby>(entity =>
+            {
+                entity.ToTable("EVENT_NEARBY");
+
+                entity.HasIndex(e => e.EventNearbyId)
+                    .HasName("EVENT_NEARBY_PK")
+                    .IsUnique();
+
+                entity.Property(e => e.EventNearbyId).HasColumnName("EVENT_NEARBY_ID");
+
+                entity.Property(e => e.CreatedBy).HasColumnName("CREATED_BY");
+
+                entity.Property(e => e.CreatedDate)
+                    .HasColumnName("CREATED_DATE")
+                    .HasColumnType("TIMESTAMP(6)");
+
+                entity.Property(e => e.Distance)
+                    .IsRequired()
+                    .HasColumnName("DISTANCE")
+                    .HasColumnType("VARCHAR2(24)");
+
+                entity.Property(e => e.DistanceUnit)
+                    .IsRequired()
+                    .HasColumnName("DISTANCE_UNIT")
+                    .HasColumnType("VARCHAR2(128)");
+
+                entity.Property(e => e.EventId).HasColumnName("EVENT_ID");
+
+                entity.Property(e => e.NearbyName)
+                    .IsRequired()
+                    .HasColumnName("NEARBY_NAME")
+                    .HasColumnType("VARCHAR2(512)");
+
+                entity.Property(e => e.UpdatedBy).HasColumnName("UPDATED_BY");
+
+                entity.Property(e => e.UpdatedDate)
+                    .HasColumnName("UPDATED_DATE")
+                    .HasColumnType("TIMESTAMP(6)");
+
+                entity.HasOne(d => d.Event)
+                    .WithMany(p => p.EventNearby)
+                    .HasForeignKey(d => d.EventId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("EVENT_NEARBY_R01");
+            });
+
             modelBuilder.Entity<EventObjective>(entity =>
             {
                 entity.ToTable("EVENT_OBJECTIVE");
@@ -1640,7 +1687,7 @@ namespace DPEMoveDAL.Models
 
             modelBuilder.Entity<MGroupRole>(entity =>
             {
-                entity.HasKey(e => new { e.RoleId, e.GroupId });
+                entity.HasKey(e => new { e.GroupId, e.RoleId });
 
                 entity.ToTable("M_GROUP_ROLE");
 
@@ -1648,9 +1695,9 @@ namespace DPEMoveDAL.Models
                     .HasName("M_GROUP_ROLE_PK")
                     .IsUnique();
 
-                entity.Property(e => e.RoleId).HasColumnName("ROLE_ID");
-
                 entity.Property(e => e.GroupId).HasColumnName("GROUP_ID");
+
+                entity.Property(e => e.RoleId).HasColumnName("ROLE_ID");
             });
 
             modelBuilder.Entity<MIdcardType>(entity =>
@@ -2332,7 +2379,7 @@ namespace DPEMoveDAL.Models
 
             modelBuilder.Entity<Rolegrouphasrole>(entity =>
             {
-                entity.HasKey(e => new { e.RoleId, e.RoleGroupId });
+                entity.HasKey(e => new { e.RoleGroupId, e.RoleId });
 
                 entity.ToTable("ROLEGROUPHASROLE");
 
@@ -2340,9 +2387,9 @@ namespace DPEMoveDAL.Models
                     .HasName("ROLEGROUPHASROLE_PK")
                     .IsUnique();
 
-                entity.Property(e => e.RoleId).HasColumnName("ROLE_ID");
-
                 entity.Property(e => e.RoleGroupId).HasColumnName("ROLE_GROUP_ID");
+
+                entity.Property(e => e.RoleId).HasColumnName("ROLE_ID");
 
                 entity.HasOne(d => d.RoleGroup)
                     .WithMany(p => p.Rolegrouphasrole)
@@ -2352,7 +2399,7 @@ namespace DPEMoveDAL.Models
 
             modelBuilder.Entity<Rolegrouphasuser>(entity =>
             {
-                entity.HasKey(e => new { e.UserId, e.RoleGroupId });
+                entity.HasKey(e => new { e.RoleGroupId, e.UserId });
 
                 entity.ToTable("ROLEGROUPHASUSER");
 
@@ -2360,9 +2407,9 @@ namespace DPEMoveDAL.Models
                     .HasName("ROLEGROUPHASUSER_PK")
                     .IsUnique();
 
-                entity.Property(e => e.UserId).HasColumnName("USER_ID");
-
                 entity.Property(e => e.RoleGroupId).HasColumnName("ROLE_GROUP_ID");
+
+                entity.Property(e => e.UserId).HasColumnName("USER_ID");
             });
 
             modelBuilder.Entity<SurveyDetail>(entity =>
@@ -2948,6 +2995,8 @@ namespace DPEMoveDAL.Models
             modelBuilder.HasSequence("SQ_EVENT");
 
             modelBuilder.HasSequence("SQ_EVENT_JOIN_PERSON_TYPE");
+
+            modelBuilder.HasSequence("SQ_EVENT_NEARBY");
 
             modelBuilder.HasSequence("SQ_EVENT_SPORT");
 

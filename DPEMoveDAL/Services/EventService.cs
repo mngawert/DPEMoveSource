@@ -40,6 +40,7 @@ namespace DPEMoveDAL.Services
                 .Include(a => a.Address)
                 .Include(a => a.EventLevel)
                 .Include(a => a.EventType)
+                .Include(a => a.EventNearby)
                 .Include(a => a.EventJoinPersonType)
                     .ThenInclude(b => b.JoinPersonType)
                 .Include(a => a.EventUploadedFile)
