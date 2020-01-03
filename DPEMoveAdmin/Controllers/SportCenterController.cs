@@ -145,8 +145,22 @@ namespace DPEMoveAdmin.Controllers
         {
             var q = await context.DepartmentPerson.Where(a => a.DepartmentPersonId == id).FirstOrDefaultAsync();
 
-            List<DepartmentPerson> parentList = context.DepartmentPerson.Where(a => a.ParentPersonId == null).ToList();
-            ViewBag.ParentList = new SelectList(parentList, "DepartmentPersonId", "Firstname");
+            List<DepartmentPerson> parentList = context.DepartmentPerson.Where(a => a.DepartmentPersonId != id) .ToList();
+            //ViewBag.ParentList = new SelectList(parentList, "DepartmentPersonId", "Firstname");
+
+            var items = new List<SelectListItem>();
+
+            foreach (var p in parentList)
+            {
+                items.Add(new SelectListItem() 
+                {  
+                    Text = p.Firstname,
+                    Value = p.DepartmentPersonId.ToString(),
+                    Selected = p.DepartmentPersonId == q.ParentPersonId
+                });;
+            }
+
+            ViewBag.ParentList2 = items;
 
             return View(q);
         }

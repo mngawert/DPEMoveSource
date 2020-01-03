@@ -49,24 +49,37 @@
             <div class="row">
                 <div class="col-md-3 text-right"> <label>หัวหน้า</label></div>
                 <div class="col-md-9 text-left">
-                    <select id="ParentPersonId" name="ParentPersonId" class="ParentPersonId">
-                        @foreach (var i in ViewBag.ParentList)
-                        {
-                            <option value="@i.Value">@i.Text</option>
-                        }
-                    </select>
+                    @*<select id="ParentPersonId" name="ParentPersonId" class="ParentPersonId">
+                            @foreach (var i in ViewBag.ParentList)
+                            {
+                                <option value="@i.Value">@i.Text</option>
+                            }
+                        </select>*@
+
+                    @Html.DropDownListFor(a => a.ParentPersonId, ViewBag.ParentList2 as List<SelectListItem>)
+
+
                 </div>
             </div>
         </div>
     </div>
     <hr />
 </form>
-<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-<script>
-    $(document).ready(function () {
-        alert("test");
-    $("select.ParentPersonId").change(function(){
-        var ParentPersonId = $(this).children("option:selected").val();   
+@*<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            //alert("test");
+        $("select.ParentPersonId").change(function(){
+            var ParentPersonId = $(this).children("option:selected").val();
+        });
     });
-});
-</script>
+    </script>*@
+
+
+@section Scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            alert("test");
+        });
+    </script>
+}
