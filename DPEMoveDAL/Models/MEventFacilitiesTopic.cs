@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 
 namespace DPEMoveDAL.Models
@@ -19,6 +20,7 @@ namespace DPEMoveDAL.Models
         public DateTime? UpdatedDate { get; set; }
         public int? UpdatedBy { get; set; }
 
+        [JsonIgnore]
         public ICollection<EventFacilities> EventFacilities { get; set; }
     }
 }

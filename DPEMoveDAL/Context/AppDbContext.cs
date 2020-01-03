@@ -60,6 +60,7 @@ namespace DPEMoveDAL.Models
         public virtual DbSet<MPermissiongroupProgram> MPermissiongroupProgram { get; set; }
         public virtual DbSet<MPhoneNumberType> MPhoneNumberType { get; set; }
         public virtual DbSet<MProgram> MProgram { get; set; }
+        public virtual DbSet<MProvince> MProvince { get; set; }
         public virtual DbSet<MRole> MRole { get; set; }
         public virtual DbSet<MSport> MSport { get; set; }
         public virtual DbSet<MStatus> MStatus { get; set; }
@@ -82,6 +83,8 @@ namespace DPEMoveDAL.Models
         public virtual DbSet<UploadedFile> UploadedFile { get; set; }
         public virtual DbSet<User> User { get; set; }
         public virtual DbSet<Vote> Vote { get; set; }
+
+        // Unable to generate entity type for table 'DPEMOVE.TEMP_PROVINCES'. Please see the warning messages.
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -219,6 +222,11 @@ namespace DPEMoveDAL.Models
                 entity.Property(e => e.UpdatedDate)
                     .HasColumnName("UPDATED_DATE")
                     .HasColumnType("TIMESTAMP(6)");
+
+                entity.HasOne(d => d.ProvinceCodeNavigation)
+                    .WithMany(p => p.Address)
+                    .HasForeignKey(d => d.ProvinceCode)
+                    .HasConstraintName("ADDRESS_R01");
             });
 
             modelBuilder.Entity<Amphur>(entity =>
@@ -1930,6 +1938,26 @@ namespace DPEMoveDAL.Models
                 entity.Property(e => e.UpdateDate)
                     .HasColumnName("UPDATE_DATE")
                     .HasColumnType("TIMESTAMP(6)");
+            });
+
+            modelBuilder.Entity<MProvince>(entity =>
+            {
+                entity.HasKey(e => e.ProvinceCode);
+
+                entity.ToTable("M_PROVINCE");
+
+                entity.HasIndex(e => e.ProvinceCode)
+                    .HasName("M_PROVINCE_PK")
+                    .IsUnique();
+
+                entity.Property(e => e.ProvinceCode)
+                    .HasColumnName("PROVINCE_CODE")
+                    .HasColumnType("VARCHAR2(20)")
+                    .ValueGeneratedNever();
+
+                entity.Property(e => e.ProvinceName)
+                    .HasColumnName("PROVINCE_NAME")
+                    .HasColumnType("VARCHAR2(255)");
             });
 
             modelBuilder.Entity<MRole>(entity =>

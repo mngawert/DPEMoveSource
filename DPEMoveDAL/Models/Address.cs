@@ -37,6 +37,7 @@ namespace DPEMoveDAL.Models
         public decimal? Latitude { get; set; }
         public decimal? Longitude { get; set; }
 
+        public MProvince ProvinceCodeNavigation { get; set; }
         public ICollection<Department> Department { get; set; }
         public ICollection<Event> Event { get; set; }
         public ICollection<SurveyHeader> SurveyHeader { get; set; }

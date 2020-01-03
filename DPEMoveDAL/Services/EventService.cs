@@ -38,6 +38,7 @@ namespace DPEMoveDAL.Services
         {
             var q = await _context.Event
                 .Include(a => a.Address)
+                    .ThenInclude(b => b.ProvinceCodeNavigation)
                 .Include(a => a.EventLevel)
                 .Include(a => a.EventType)
                 .Include(a => a.EventNearby)
@@ -55,6 +56,7 @@ namespace DPEMoveDAL.Services
                     .ThenInclude(b => b.MEventFacilitiesTopic)
                 .Where(a => a.EventId == id)
                 .FirstOrDefaultAsync();
+
 
             return q;
         }
@@ -90,21 +92,21 @@ namespace DPEMoveDAL.Services
                 q = q.Where(a => a.EventName.Contains(model.EventName));
             }
 
-            /* Order by*/
-            q = q.OrderBy(a => a.CreatedDate);
-            if (!string.IsNullOrWhiteSpace(model.OrderBy))
-            {
-                if (model.OrderBy == "EventCode")
-                {
-                    q = q.OrderBy(a => a.EventCode);
-                }
-                else if (model.OrderBy == "EventName")
-                {
-                    q = q.OrderBy(a => a.EventName);
-                }
-            }
+            //return q;
 
-            _logger.LogDebug("GetEvent q before address = ", q);
+            /* Order by*/
+            //q = q.OrderBy(a => a.CreatedDate);
+            //if (!string.IsNullOrWhiteSpace(model.OrderBy))
+            //{
+            //    if (model.OrderBy == "EventCode")
+            //    {
+            //        q = q.OrderBy(a => a.EventCode);
+            //    }
+            //    else if (model.OrderBy == "EventName")
+            //    {
+            //        q = q.OrderBy(a => a.EventName);
+            //    }
+            //}
 
             if (model.Address != null)
             {
