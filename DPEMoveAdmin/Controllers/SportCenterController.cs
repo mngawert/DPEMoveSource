@@ -155,8 +155,7 @@ namespace DPEMoveAdmin.Controllers
                 items.Add(new SelectListItem() 
                 {  
                     Text = p.Firstname,
-                    Value = p.DepartmentPersonId.ToString(),
-                    Selected = p.DepartmentPersonId == q.ParentPersonId
+                    Value = p.DepartmentPersonId.ToString()
                 });;
             }
 
