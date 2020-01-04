@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
@@ -23,18 +24,21 @@ namespace DPEMoveWeb.Controllers
         private readonly SignInManager<ApplicationUser> signInManager;
         private readonly ILogger<AccountController> logger;
         private readonly SmtpClient smtpClient;
+        private readonly AppDbContext _context;
 
         public AccountController(IConfiguration configuration,
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             ILogger<AccountController> logger,
-            SmtpClient smtpClient)
+            SmtpClient smtpClient,
+            AppDbContext context)
         {
             this.configuration = configuration;
             this.userManager = userManager;
             this.signInManager = signInManager;
             this.logger = logger;
             this.smtpClient = smtpClient;
+            _context = context;
         }
 
 
@@ -42,6 +46,14 @@ namespace DPEMoveWeb.Controllers
         [AllowAnonymous]
         public IActionResult Register()
         {
+            var accountTypeList = _context.MAccountType.Select(a => new SelectListItem 
+            {
+                Text = a.AccountTypeName,
+                Value = a.AccountTypeId                    
+            });
+
+            ViewBag.accountTypeList = accountTypeList;
+
             return View();
         }
 
@@ -80,6 +92,8 @@ namespace DPEMoveWeb.Controllers
                     Status = "1"
                 };
 
+                user.GroupId = _context.MAccountType.Where(a => a.AccountTypeId == model.AccountType).FirstOrDefault()?.DefaultGroupId;
+
                 var result = await userManager.CreateAsync(user, model.Password);
 
                 if (result.Succeeded)
@@ -105,6 +119,18 @@ namespace DPEMoveWeb.Controllers
                 {
                     ModelState.AddModelError(string.Empty, error.Description);
                 }
+            }
+
+            if (!ModelState.IsValid)
+            {
+                var accountTypeList = _context.MAccountType.Select(a => new SelectListItem
+                {
+                    Text = a.AccountTypeName,
+                    Value = a.AccountTypeId
+                });
+                ViewBag.accountTypeList = accountTypeList;
+                
+                return View(model);
             }
 
             return View(model);
