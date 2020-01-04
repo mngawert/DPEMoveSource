@@ -11,7 +11,9 @@ namespace DPEMoveDAL.Services
     {
         IEnumerable<EventViewModel> GetEvent(EventViewModel model);
         IEnumerable<EventDbQuery> GetEvent2(EventRequestViewModel model);
-        Task<Event> GetEventById(int id);
+        Task<Event> GetEventDetails(int id);
+        Task<EventViewModel2> GetEventDetails2(int id);
+        void UpdateEvent(EventViewModel2 model);
         Event AddViewCount(string eventCode);
     }
 }

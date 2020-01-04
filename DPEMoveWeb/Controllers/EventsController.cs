@@ -8,17 +8,25 @@ using Microsoft.EntityFrameworkCore;
 using DPEMoveDAL.Models;
 using Microsoft.AspNetCore.Authorization;
 using DPEMoveDAL.ViewModels;
+using Microsoft.Extensions.Logging;
+using DPEMoveDAL.Services;
 
 namespace DPEMoveWeb.Controllers
 {
     public class EventsController : Controller
     {
         private readonly AppDbContext _context;
+        private readonly ILogger<EventsController> _logger;
+        private readonly IEventService _eventService;
 
-        public EventsController(AppDbContext context)
+        public EventsController(AppDbContext context, ILogger<EventsController> logger, IEventService eventService)
         {
             _context = context;
+            _logger = logger;
+            _eventService = eventService;
         }
+
+
 
         // GET: Events
         [Authorize]
@@ -42,29 +50,14 @@ namespace DPEMoveWeb.Controllers
                 return NotFound();
             }
 
-            var @event = await _context.Event
-                .Include(@a => @a.Address)
-                .Include(@a => @a.EventLevel)
-                .Include(@a => @a.EventType)
-                .Include(@a => @a.EventObjective)
-                .FirstOrDefaultAsync(m => m.EventId == id);
-            if (@event == null)
+            var eventVM = await _eventService.GetEventDetails2(id.Value);
+            
+            if (eventVM == null)
             {
                 return NotFound();
             }
 
-            var qq = _context.MEventObjective
-                .Select(a => new EventObjectiveViewModel 
-                { 
-                    EventObjectiveId = a.EventObjectiveId, 
-                    EventObjectiveName = a.EventObjectiveName, 
-                    Selected = @event.EventObjective.Any(b => b.EventObjectiveId == a.EventObjectiveId)
-                })
-                .ToList();
-
-            ViewData["EventObjectiveList"] = qq;
-
-            return View(@event);
+            return View(eventVM);
         }
 
         // GET: Events/Create
@@ -113,6 +106,31 @@ namespace DPEMoveWeb.Controllers
             ViewData["EventTypeId"] = new SelectList(_context.MEventType, "EventTypeId", "EventTypeCode", @event.EventTypeId);
             return View(@event);
         }
+
+        [HttpPost]
+        public IActionResult EditEvent([FromForm] EventViewModel2 model)
+        {
+            _logger.LogDebug("model.EventId={0}", model.EventId);
+            _logger.LogDebug("model.EventName={0}", model.EventName);
+            //_logger.LogDebug("model.MEventObjective.Length={0}", model.MEventObjective.Length);
+
+            //foreach (var x in model.MEventObjective)
+            //{
+            //    _logger.LogDebug("x.MEventObjectiveId={0}", x.MEventObjectiveId);
+            //    _logger.LogDebug("x.EventObjectiveName={0}", x.EventObjectiveName);
+            //}
+
+            _logger.LogDebug("model.MEventObjectiveIds.Length={0}", model.MEventObjectiveIds.Length);
+            foreach (var x in model.MEventObjectiveIds)
+            {
+                _logger.LogDebug("MEventObjectiveId={0}", x);
+            }
+
+            _eventService.UpdateEvent(model);
+
+            return RedirectToAction("Index");
+        }
+
 
         // POST: Events/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 

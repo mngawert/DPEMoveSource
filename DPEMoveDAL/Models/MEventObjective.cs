@@ -10,7 +10,7 @@ namespace DPEMoveDAL.Models
             EventObjective = new HashSet<EventObjective>();
         }
 
-        public int EventObjectiveId { get; set; }
+        public int MEventObjectiveId { get; set; }
         public string EventObjectiveCode { get; set; }
         public string EventObjectiveName { get; set; }
         public int? Status { get; set; }

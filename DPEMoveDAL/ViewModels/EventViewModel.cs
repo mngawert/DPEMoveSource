@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DPEMoveDAL.Models;
+using System;
 using System.Collections.Generic;
 
 namespace DPEMoveDAL.ViewModels
@@ -90,5 +91,36 @@ namespace DPEMoveDAL.ViewModels
         public double? Distance { get; set; }
     }
 
+    public class EventViewModel2
+    {
+        public int EventId { get; set; }
+        public string EventCode { get; set; }
+        public string EventName { get; set; }
+        public string EventShortDescription { get; set; }
+        public string EventDescription { get; set; }
+        public DateTime EventStartTimestamp { get; set; }
+        public DateTime? EventFinishTimestamp { get; set; }
+        public int? AddressId { get; set; }
+        public string StadiumCode { get; set; }
+        public string PublishUrl { get; set; }
+        public string ResponsiblePerson { get; set; }
+        public string ResponsiblePersonCode { get; set; }
+        public int ReadCount { get; set; }
+        public int EventLevelId { get; set; }
+        public string EventLevelEtc { get; set; }
+        public int? EventObjectivePersonId { get; set; }
+        public int Status { get; set; }
+        public DateTime CreatedDate { get; set; }
+        public int CreatedBy { get; set; }
+        public DateTime? UpdatedDate { get; set; }
+        public int? UpdatedBy { get; set; }
+        public decimal? Budget { get; set; }
+        public decimal? Budgetused { get; set; }
+        public int? EventTypeId { get; set; }
+
+        public MEventObjectiveViewModel[] MEventObjective { get; set; }
+        public int[] MEventObjectiveIds { get; set; }
+
+    }
 
 }

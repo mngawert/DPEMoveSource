@@ -34,7 +34,7 @@ namespace DPEMoveDAL.Services
 
             return q;
         }
-        public async Task<Event> GetEventById(int id)
+        public async Task<Event> GetEventDetails(int id)
         {
             var q = await _context.Event
                 .Include(a => a.Address)
@@ -59,6 +59,29 @@ namespace DPEMoveDAL.Services
 
             return q;
         }
+
+
+        public async Task<EventViewModel2> GetEventDetails2(int id)
+        {
+            var @event = await GetEventDetails(id);
+            var eventVM = _mapper.Map<EventViewModel2>(@event);
+
+            var listMEventObjective = _context.MEventObjective
+                .Select(a => new MEventObjectiveViewModel
+                {
+                    MEventObjectiveId = a.MEventObjectiveId,
+                    EventObjectiveName = a.EventObjectiveName,
+                    Selected = @event.EventObjective.Any(b => b.MEventObjectiveId == a.MEventObjectiveId)
+                })
+                .ToList();
+
+            eventVM.MEventObjective = listMEventObjective.ToArray();
+
+            return eventVM;
+        }
+
+
+
 
 
         public IEnumerable<EventViewModel> GetEvent(EventViewModel model)
@@ -181,7 +204,6 @@ namespace DPEMoveDAL.Services
                 q = q.Where(a => a.EventName.Contains(model.EventName));
             }
 
-            _logger.LogDebug("GetEvent q before address = {0}", q);
             _logger.LogDebug("GetEvent q before Latitude,Longitude = {0},{1}", model.Latitude, model.Longitude);
 
             if (model.Latitude != null && model.Longitude != null)
@@ -219,6 +241,39 @@ namespace DPEMoveDAL.Services
 
             _logger.LogDebug("q = {0}", q);
             return PaginatedList<EventDbQuery>.Create(q.ToList(), model.LimitStart ?? 1, model.LimitSize ?? 10000);
+        }
+
+        public void UpdateEvent(EventViewModel2 model)
+        {
+            var ev = _context.Event.Where(a => a.EventId == model.EventId).FirstOrDefault();
+
+            ev.EventName = model.EventName;
+            _context.Update(ev).State = EntityState.Modified;
+            _context.SaveChanges();
+
+            var evObjective = _context.EventObjective.Where(a => a.EventId == ev.EventId);
+            foreach (var x in evObjective)
+            {
+                _context.Remove(x).State = EntityState.Deleted;
+                _context.SaveChanges();
+            }
+            _context.SaveChanges();
+
+            foreach (var id in model.MEventObjectiveIds)
+            {
+                _logger.LogDebug("inserting EventObjective id={0}", id);
+                var obj = new EventObjective 
+                { 
+                    EventId = model.EventId,
+                    MEventObjectiveId = id,
+                    CreatedBy = 0,
+                    CreatedDate = DateTime.Now                    
+                };
+
+                _context.Entry(obj).State = EntityState.Added;
+                _context.SaveChanges();
+            }
+            _context.SaveChanges();
         }
     }
 }

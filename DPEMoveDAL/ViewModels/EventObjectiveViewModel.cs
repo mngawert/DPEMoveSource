@@ -4,9 +4,9 @@ using System.Text;
 
 namespace DPEMoveDAL.ViewModels
 {
-    public class EventObjectiveViewModel
+    public class MEventObjectiveViewModel
     {
-        public int EventObjectiveId { get; set; }
+        public int MEventObjectiveId { get; set; }
         public string EventObjectiveName { get; set; }
         public bool Selected { get; set; }
     }

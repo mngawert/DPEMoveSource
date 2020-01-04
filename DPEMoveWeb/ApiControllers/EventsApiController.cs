@@ -65,7 +65,7 @@ namespace DPEMoveWeb.ApiControllers
                 return BadRequest(ModelState);
             }
 
-            var @event = await _eventService.GetEventById(id);
+            var @event = await _eventService.GetEventDetails(id);
 
             if (@event == null)
             {

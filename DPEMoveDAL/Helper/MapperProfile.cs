@@ -13,6 +13,7 @@ namespace DPEMoveDAL.Helper
         public MapperProfile()
         {
             CreateMap<Event, EventViewModel>().ReverseMap();
+            CreateMap<Event, EventViewModel2>().ReverseMap();
             CreateMap<EventJoinPersonType, EventJoinPersonTypeViewModel>().ReverseMap();
             CreateMap<MStatus, MStatusViewModel>().ReverseMap();
             CreateMap<Address, AddressViewModel>().ReverseMap();
