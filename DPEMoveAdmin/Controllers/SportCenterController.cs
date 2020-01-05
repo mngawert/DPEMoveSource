@@ -29,7 +29,14 @@ namespace DPEMoveAdmin.Controllers
 
             return View(q);
         }
-        
+
+        public List<Province> GetProvinceList()
+        {
+            List<Province> province = context.Province.ToList();
+            return province;
+        }
+
+
         public ActionResult GetAmphur(int pid)
         {
             List<Amphur> amphurList = context.Amphur.Where(x => x.ProvinceId == pid).ToList();
@@ -37,12 +44,12 @@ namespace DPEMoveAdmin.Controllers
             return PartialView("DisplayAmphur");
         }
 
-        public List<Amphur> GetAmphur(string acode)
+        public List<Amphur> GetAmphur2(string acode)
         {
 
             List<Amphur> amphur = context.Amphur.Where(x => x.AmphurCode == acode).ToList();
             return amphur;
-        }
+        } 
 
         public ActionResult GetTambon(int aid)
         {
@@ -51,20 +58,15 @@ namespace DPEMoveAdmin.Controllers
             return PartialView("DisplayTambon");
         }
 
-        public List<Tambon> GetTambon(string tcode)
+        public List<Tambon> GetTambon2(string tcode)
         {
 
             List<Tambon> tambon = context.Tambon.Where(x => x.TambonCode == tcode).ToList();
             return tambon;
         }
 
-        public List<Province> GetProvinceList()
-        {
-            List<Province> province = context.Province.ToList();
-            return province;
-        }
 
-        public List<Province> GetProvinceList(string pcode)
+       public List<Province> GetProvinceList2(string pcode)
         {
             List<Province> province = context.Province.Where(a => a.ProvinceCode == pcode).ToList();
             return province;
@@ -79,16 +81,14 @@ namespace DPEMoveAdmin.Controllers
 
         [HttpPost]
         // public async Task<IActionResult> Create(string productId, string productName, string productDesc)
-        public  async Task<IActionResult> CreateDep(Department p, AddressDropdownListClass ddl)
+        public  IActionResult CreateDep(Department p, AddressDropdownListClass ddl)
         {
 
-            var provCode = context.Province.Where(a => a.ProvinceId == ddl.ProvinceId).FirstOrDefault();
+            var provCode =  context.Province.Where(a => a.ProvinceId == ddl.ProvinceId).FirstOrDefault();
             var amphurCode = context.Amphur.Where(a => a.AmphurId == ddl.AmphurId).FirstOrDefault();
             var tambonCode = context.Tambon.Where(a => a.TambonId == ddl.TambonId).FirstOrDefault();
 
-            var depID = context.Department.Max(a => a.DepartmentId);
-
-            if (ModelState.IsValid)
+            if (p != null && ddl != null)
             {
                 var adr = new Address
                 {
@@ -107,12 +107,14 @@ namespace DPEMoveAdmin.Controllers
 
                 };
 
-                await context.AddRangeAsync(adr);
-                await context.SaveChangesAsync();
+                context.AddRangeAsync(adr);
+                context.SaveChangesAsync();
 
                 var adrId = context.Address.Where(a => a.AmphurCode == amphurCode.AmphurCode 
                 && a.ProvinceCode == provCode.ProvinceCode 
-                && a.TambonCode == tambonCode.TambonCode).FirstOrDefault();
+                && a.TambonCode == tambonCode.TambonCode
+                && a.BuildingName == ddl.BuildingName
+                && a.No == ddl.No).FirstOrDefault();
 
                 var q = new Department
                 {
@@ -128,8 +130,8 @@ namespace DPEMoveAdmin.Controllers
                     CreatedDate = DateTime.Now,
                     CreatedBy = 0
                 };
-                await context.AddRangeAsync(q);
-                await context.SaveChangesAsync();
+                context.AddRangeAsync(q);
+                context.SaveChangesAsync();
 
                 return RedirectToAction("Index");
 
@@ -164,16 +166,15 @@ namespace DPEMoveAdmin.Controllers
         public IActionResult DepPersonCreate(DepartmentPerson dp)
         {
 
-            var pcode = context.DepartmentPerson.Max(a => a.DepartmentPersonCode);
-            var p = pcode.Substring(0, pcode.IndexOf('_'));
-            var code = pcode.Substring(2, 4);
+          
+            int code = 2000;
             code = code + 1;
-            pcode = p + '_' + code;
+            var pcode = "P" + '_' + code;
 
             var depp = new DepartmentPerson
             {
                 DepartmentPersonCode = pcode,
-                DepartmentId = 11,
+                DepartmentId = dp.DepartmentId,
                 TitleCode = "1",
                 Firstname = dp.Firstname,
                 Lastname = dp.Lastname,
@@ -187,7 +188,8 @@ namespace DPEMoveAdmin.Controllers
             };
             context.AddRangeAsync(depp);
             context.SaveChangesAsync();
-            return View();
+           
+            return RedirectToAction("DepEdit", new { id = dp.DepartmentId });
 
         }
 
@@ -197,7 +199,6 @@ namespace DPEMoveAdmin.Controllers
             var q = await context.DepartmentPerson.Where(a => a.DepartmentPersonId == id).FirstOrDefaultAsync();
 
             List<DepartmentPerson> parentList = context.DepartmentPerson.Where(a => a.DepartmentPersonId != id) .ToList();
-            //ViewBag.ParentList = new SelectList(parentList, "DepartmentPersonId", "Firstname");
 
             var items = new List<SelectListItem>();
 
@@ -211,6 +212,7 @@ namespace DPEMoveAdmin.Controllers
             }
 
             ViewBag.ParentList2 = items;
+            ViewBag.DepId = q.DepartmentId;
 
             return View(q);
         }
@@ -231,17 +233,61 @@ namespace DPEMoveAdmin.Controllers
                 q.UpdatedBy = 1;
                 q.ParentPersonId = dp.ParentPersonId;
                 context.SaveChanges();
+                return RedirectToAction("DepEdit", new { id = dp.DepartmentId });
             }
             return RedirectToAction("Index");
+
         }
 
         public async Task<IActionResult> DepEdit(int id)
         {
             var q = await context.Department.Include(a => a.Address).Include(a => a.DepartmentPerson).Where(a => a.DepartmentId == id).FirstOrDefaultAsync();
-            
-            ViewBag.ProvinceList = new SelectList(GetProvinceList(q.Address.ProvinceCode), "ProvinceId", "ProvinceName");
-            ViewBag.Ammphur = new SelectList(GetAmphur(q.Address.AmphurCode), "AmphurId", "AmphurName");
-            ViewBag.Tambon = new SelectList(GetTambon(q.Address.TambonCode), "TambonId", "TambonName");
+
+            var adr = await context.Address.Where(a => a.AddressId == q.AddressId).FirstOrDefaultAsync();
+
+            ViewBag.ProvinceList = new SelectList(GetProvinceList2(adr.ProvinceCode), "ProvinceId", "ProvinceName");
+            ViewBag.Ammphur = new SelectList(GetAmphur2(adr.AmphurCode), "AmphurId", "AmphurName");
+            ViewBag.Tambon = new SelectList(GetTambon2(adr.TambonCode), "TambonId", "TambonName");
+
+            /*
+            List<Province> provinceList = context.Province.ToList();
+            var pitems = new List<SelectListItem>();
+            foreach (var p in provinceList)
+            {
+                pitems.Add(new SelectListItem()
+                {
+                    Text = p.ProvinceName,
+                    Value = p.ProvinceId.ToString()
+                }); ;
+            }
+
+            List<Amphur> amphurList = context.Amphur.ToList();
+            var aitems = new List<SelectListItem>();
+            foreach (var p in amphurList)
+            {
+                aitems.Add(new SelectListItem()
+                {
+                    Text = p.AmphurName,
+                    Value = p.AmphurId.ToString()
+                }); ;
+            }
+
+            List<Tambon> tambonList = context.Tambon.ToList();
+            var titems = new List<SelectListItem>();
+            foreach (var p in tambonList)
+            {
+                titems.Add(new SelectListItem()
+                {
+                    Text = p.TambonName,
+                    Value = p.TambonId.ToString()
+                }); ;
+            }
+
+            ViewBag.ProvinceList = pitems;
+            ViewBag.Ammphur = aitems;
+            ViewBag.Tambon = titems;
+            */
+
 
             if (q != null)
             {

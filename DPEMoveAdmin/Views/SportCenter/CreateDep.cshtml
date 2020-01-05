@@ -1,11 +1,11 @@
 ﻿@model DPEMoveAdmin.ViewModels.AddressDropdownListClass
 
-    <form asp-action="DepEdit" method="post">
+    <form asp-action="CreateDep" method="post">
         <div class="container">
             <div class="row">
                 <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11"><label>หน่วยงาน/ศูนย์กีฬา> สร้าง </label></div>
                 <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
-                    <button class="btn btn-success btn-block" asp-action="DepEdit" name="mainSave">บันทึก</button>
+                    <button class="btn btn-success btn-block">บันทึก</button>
                 </div>
             </div>
         </div>
@@ -30,7 +30,7 @@
                                 <label>ชื่อ</label><label>*</label>
                             </div>
                             <div class="col-md-10">
-                                <input name="departmentID" type="text"  hidden="hidden" />
+                                <input name="departmentID" type="text" hidden="hidden" />
                                 <input name="department1" type="text" class=" w-50 form-control" />
                             </div>
                         </div>
@@ -59,7 +59,7 @@
                                 <div class="form-group row">
                                     <!--row1-->
                                     <label class="col-md-2 text-right">หมู่บ้าน</label>
-                                    <input class="col-md-3 text-left form-control" name="housePropertyName" type="text"/>
+                                    <input class="col-md-3 text-left form-control" name="housePropertyName" type="text" />
                                     <label class="col-md-2 text-right">จังหวัด</label>
                                     <div class="col-md-4">
                                         @Html.DropDownListFor(m => m.ProvinceId, ViewBag.ProvinceList as SelectList, "กรุณาเลือก", new { @class = "form-control" })
@@ -67,7 +67,7 @@
                                 </div> <!--row-->
                                 <div class="form-group row">
                                     <label class="col-md-2 text-right">อาคาร</label>
-                                    <input class="col-md-3 text-left form-control" name="buildingName" type="text"/>
+                                    <input class="col-md-3 text-left form-control" name="buildingName" type="text" />
                                     <label class="col-md-2 text-right">อำเภอ</label>
                                     <div class="col-md-4">
                                         @Html.DropDownListFor(m => m.AmphurId, new SelectList(""), "กรุณาเลือก", new { @class = "form-control" })
@@ -75,7 +75,7 @@
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-md-2 text-right">เลขที่</label>
-                                    <input class="col-md-3 text-left form-control" name="no" type="text"/>
+                                    <input class="col-md-3 text-left form-control" name="no" type="text" />
                                     <label class="col-md-2 text-right">ตำบล</label>
                                     <div class="col-md-4">
                                         @Html.DropDownListFor(m => m.TambonId, new SelectList(""), "กรุณาเลือก", new { @class = "form-control" })
@@ -85,7 +85,7 @@
                                     <label class="col-md-2 text-right">หมู่</label>
                                     <input class="col-md-3 text-left form-control" name="moo" type="text" />
                                     <label class="col-md-2 text-right">รหัสไปรษณีย์</label>
-                                    <input class="col-md-4 text-left form-control" name="postcode" type="text"/>
+                                    <input class="col-md-4 text-left form-control" name="postcode" type="text" />
 
 
                                 </div>
@@ -105,7 +105,7 @@
                         </div><!--main row-->
                     </div><!--end tab-->
                     <div class="tab-pane" id="nav-person" role="tabpanel" aria-labelledby="nav-person-tab">
-                        <P class="bg-gradient-light">บุคลากร</P> 
+                        <P class="bg-gradient-light">บุคลากร</P>
                     </div>
                     <div class="tab-pane" id="nav-org" role="tabpanel" aria-labelledby="nav-org-tab">
                         <P class="bg-gradient-light"> Oranize Chart</P>
@@ -116,43 +116,44 @@
                 </div> <!--end nav content-->
             </div> <!--end card body-->
         </div> <!--end card-->
+
+
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script>
+            $(document).ready(function () {
+                $("#ProvinceId").change(function () {
+                    var provinceId = $(this).val();
+                    debugger
+                    $.ajax({
+                        type: "post",
+                        url: "/SportCenter/GetAmphur?pid=" + provinceId,
+                        contentType: "html",
+                        success: function (response) {
+                            debugger
+                            $("#AmphurId").empty();
+                            $("#AmphurId").append(response);
+                        }
+                    })
+
+                })
+
+                $("#AmphurId").change(function () {
+                    var amphurId = $(this).val();
+                    debugger
+                    $.ajax({
+                        type: "post",
+                        url: "/SportCenter/GetTambon?aid=" + amphurId,
+                        contentType: "html",
+                        success: function (response) {
+                            debugger
+                            $("#TambonId").empty();
+                            $("#TambonId").append(response);
+                        }
+                    })
+
+                })
+
+
+            })
+        </script>
     </form>
-
-<script src="~/lib/jquery/dist/jquery.js"></script>
-<script>
-    $(document).ready(function () {
-        $("#ProvinceId").change(function () {
-            var provinceId = $(this).val();
-            debugger
-            $.ajax({
-                type: "post",
-                url: "/SportCenter/GetAmphur?pid=" + provinceId,
-                contentType: "html",
-                success: function (response) {
-                    debugger
-                    $("#AmphurId").empty();
-                    $("#AmphurId").append(response);
-                }
-            })
-
-        })
-
-        $("#AmphurId").change(function () {
-            var amphurid = $(this).val();
-            debugger
-            $.ajax({
-                type: "post",
-                url: "/SportCenter/GetTambon?aid=" + amphurid,
-                contentType: "html",
-                success: function (response) {
-                    debugger
-                    $("#TambonId").empty();
-                    $("#TambonId").append(response);
-                }
-            })
-
-        })
-
-
-    })
-</script>
