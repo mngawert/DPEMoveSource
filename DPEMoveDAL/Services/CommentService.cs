@@ -96,6 +96,15 @@ namespace DPEMoveDAL.Services
 
             var q = _context.CommentDbQuery.FromSql(sql);
 
+            if (!string.IsNullOrEmpty(model.CommentOf))
+            {
+                q = q.Where(a => a.CommentOf == model.CommentOf);
+            }
+            if (!string.IsNullOrEmpty(model.EventOrStadiumCode))
+            {
+                q = q.Where(a => a.EventOrStadiumCode == model.EventOrStadiumCode);
+            }
+
             /* Order by*/
             if (model.OrderBy?.ToUpper() == "CREATEDDATE")
             {
