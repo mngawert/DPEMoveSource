@@ -1,4 +1,4 @@
-﻿@model DPEMoveDAL.Models.DepartmentPerson;
+﻿@model int;
 
 <form asp-action="DepPersonCreate" method="post">
 
@@ -14,7 +14,9 @@
     <div class="card">
         <div class="card-body">
 
-            <input type="hidden" asp-for="DepartmentId" value="@ViewBag.Departmentid" />
+            <input type="text" value="@Model" />
+
+            @*<input type="hidden" asp-for="DepartmentId" value="@ViewBag.Departmentid" />*@
 
             <div class="row">
                 <div class="col-md-12">
@@ -35,7 +37,7 @@
                         <input class="col-md-3 text-left form-control" name="positionName" type="text" />
                         <label class="col-md-2 text-right">หัวหน้า</label>
                         <div class="col-md-3">
-                            <select asp-for="ParentPersonId" asp-items="ViewBag.ParentList" class="form-control w-100">
+                            <select name="ParentPersonId" asp-items="ViewBag.ParentList" class="form-control w-100">
                                 <option>---</option>
                             </select>
                         </div>
@@ -44,11 +46,11 @@
                 </div>
             </div>
             @* <select id="ParentPersonId" name="ParentPersonId" class="ParentPersonId">
-                    @foreach (var i in ViewBag.ParentList)
-                    {
-                        <option value="@i.Value">@i.Text</option>
-                    }
-                </select> *@
+            @foreach (var i in ViewBag.ParentList)
+            {
+                <option value="@i.Value">@i.Text</option>
+            }
+        </select> *@
 
         </div>
     </div>

@@ -139,7 +139,7 @@ namespace DPEMoveAdmin.Controllers
         }
 
 
-        public async Task<IActionResult> DepPersonCreate(int? did)
+        public async Task<IActionResult> DepPersonCreate(int id)
         {
             List<DepartmentPerson> parentList = await context.DepartmentPerson.ToListAsync();
             
@@ -156,7 +156,7 @@ namespace DPEMoveAdmin.Controllers
 
             ViewBag.ParentList = items;
             //ViewBag.Departmentid = 
-            return View();
+            return View(id);
 
         }
 
