@@ -117,6 +117,14 @@ namespace DPEMoveDAL.ViewModels
         public decimal? Budget { get; set; }
         public decimal? Budgetused { get; set; }
         public int? EventTypeId { get; set; }
+        public string ProjectSelect { get; set; }
+        public string ProjectCode { get; set; }
+        public string ResponsiblePersonType { get; set; }
+        public string ContactPersonName { get; set; }
+        public string ContactPersonEmail { get; set; }
+        public string ContactPersonMobile { get; set; }
+        public string ContactPersonFax { get; set; }
+        public string ContactPersonLineid { get; set; }
 
         public MEventObjectiveViewModel[] MEventObjective { get; set; }
         public int[] MEventObjectiveIds { get; set; }

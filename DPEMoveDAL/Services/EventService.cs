@@ -242,24 +242,45 @@ namespace DPEMoveDAL.Services
             _logger.LogDebug("q = {0}", q);
             return PaginatedList<EventDbQuery>.Create(q.ToList(), model.LimitStart ?? 1, model.LimitSize ?? 10000);
         }
-
         public void UpdateEvent(EventViewModel2 model)
         {
+            /* EVENT */
             var ev = _context.Event.Where(a => a.EventId == model.EventId).FirstOrDefault();
 
             ev.EventName = model.EventName;
+            //ev.EventCode = model.EventCode;
+            ev.Budget = model.Budget;
+            ev.Budgetused = model.Budgetused;
+            ev.ResponsiblePersonType = model.ResponsiblePersonType;
+            ev.ResponsiblePerson = model.ResponsiblePerson;
+            //ev.ResponsiblePersonCode = model.ResponsiblePersonCode;
+            //ev.EventShortDescription = model.EventShortDescription;
+            //ev.EventDescription = model.EventDescription;
+            ev.EventStartTimestamp = model.EventStartTimestamp;
+            ev.EventFinishTimestamp = model.EventFinishTimestamp;
+            ev.ContactPersonName = model.ContactPersonName;
+            ev.ContactPersonEmail = model.ContactPersonEmail;
+            ev.ContactPersonMobile = model.ContactPersonMobile;
+            ev.ContactPersonFax = model.ContactPersonFax;
+            //ev.EventLevelEtc = model.EventLevelEtc;
+            //ev.ProjectCode = model.ProjectCode;
+            ev.ProjectSelect = model.ProjectSelect;
+            //ev.PublishUrl = model.PublishUrl;
+
+
             _context.Update(ev).State = EntityState.Modified;
             _context.SaveChanges();
 
+
+            /* EVENTOBJECTIVE */
             var evObjective = _context.EventObjective.Where(a => a.EventId == ev.EventId);
             foreach (var x in evObjective)
             {
                 _context.Remove(x).State = EntityState.Deleted;
-                _context.SaveChanges();
             }
             _context.SaveChanges();
 
-            foreach (var id in model.MEventObjectiveIds)
+            foreach (var id in model.MEventObjectiveIds ?? new int[] { })
             {
                 _logger.LogDebug("inserting EventObjective id={0}", id);
                 var obj = new EventObjective 
@@ -271,9 +292,11 @@ namespace DPEMoveDAL.Services
                 };
 
                 _context.Entry(obj).State = EntityState.Added;
-                _context.SaveChanges();
             }
             _context.SaveChanges();
+
+
+
         }
     }
 }

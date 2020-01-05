@@ -112,16 +112,8 @@ namespace DPEMoveWeb.Controllers
         {
             _logger.LogDebug("model.EventId={0}", model.EventId);
             _logger.LogDebug("model.EventName={0}", model.EventName);
-            //_logger.LogDebug("model.MEventObjective.Length={0}", model.MEventObjective.Length);
-
-            //foreach (var x in model.MEventObjective)
-            //{
-            //    _logger.LogDebug("x.MEventObjectiveId={0}", x.MEventObjectiveId);
-            //    _logger.LogDebug("x.EventObjectiveName={0}", x.EventObjectiveName);
-            //}
-
-            _logger.LogDebug("model.MEventObjectiveIds.Length={0}", model.MEventObjectiveIds.Length);
-            foreach (var x in model.MEventObjectiveIds)
+            _logger.LogDebug("model.MEventObjectiveIds.Length={0}", model.MEventObjectiveIds?.Length);
+            foreach (var x in model.MEventObjectiveIds ?? new int[] { })
             {
                 _logger.LogDebug("MEventObjectiveId={0}", x);
             }

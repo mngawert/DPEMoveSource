@@ -58,7 +58,7 @@
                                 <div class="col-sm-12 col-lg-6">
                                     <div class="row-field clearfix">
                                         <div class="c lbl">
-                                            <input type="checkbox" name="" value="" /> โครงการ
+                                            <input type="checkbox" name="ProjectSelect" value="1" checked="@Model.ProjectSelect?.Equals("1")" /> โครงการ
                                         </div>
                                         <div class="c field">
                                             <select class="input-field">
@@ -73,7 +73,7 @@
                                             จ่ายจริง
                                         </div>
                                         <div class="c field">
-                                            <input type="text" name="" value="@Model.Budgetused" class="input-field" /> บาท
+                                            <input type="text" name="Budgetused" value="@Model.Budgetused" class="input-field" /> บาท
                                         </div>
                                     </div>
                                 </div>
@@ -87,10 +87,13 @@
                                 <div class="col-sm-12 col-lg-6">
                                     <div class="row-field clearfix">
                                         <div class="c lbl">
-                                            <input type="checkbox" name="" value="" /> ภาครัฐ โปรดระบุ
+                                            ชื่อผู้รับผิดชอบ
+                                            @*โปรดระบุ*@
                                         </div>
                                         <div class="c field">
-                                            <input type="text" name="" value="" class="input-field" />
+                                            @*<input type="text" asp-for="ResponsiblePerson" value="@Model.ResponsiblePerson" class="input-field" />*@
+                                            <input type="radio" asp-for="ResponsiblePersonType" value="1" /> ภาครัฐ
+                                            <input type="radio" asp-for="ResponsiblePersonType" value="2" /> เอกชน
                                         </div>
                                     </div>
                                 </div>
@@ -99,10 +102,11 @@
                                 <div class="col-sm-12 col-lg-6">
                                     <div class="row-field clearfix">
                                         <div class="c lbl">
-                                            <input type="checkbox" name="" value="" /> เอกชน โปรดระบุ
+                                            @*<input type="radio" asp-for="ResponsiblePersonType" value="2" /> เอกชน โปรดระบุ*@
+                                            โปรดระบุ
                                         </div>
                                         <div class="c field">
-                                            <input type="text" name="" value="" class="input-field" />
+                                            <input type="text" asp-for="ResponsiblePerson" value="@Model.ResponsiblePerson" class="input-field" />
                                         </div>
                                     </div>
                                 </div>
@@ -119,9 +123,10 @@
                                             วันที่เริ่ม <span class="req">*</span>
                                         </div>
                                         <div class="c field">
-                                            <select class="input-field">
+                                            <input type="date" asp-for="EventStartTimestamp" />
+                                            @*<select class="input-field">
                                                 <option value="">dd/mm/yyyy</option>
-                                            </select>
+                                            </select>*@
                                         </div>
                                     </div>
                                 </div>
@@ -149,9 +154,7 @@
                                             วันที่สิ้นสุด <span class="req">*</span>
                                         </div>
                                         <div class="c field">
-                                            <select class="input-field">
-                                                <option value="">dd/mm/yyyy</option>
-                                            </select>
+                                            <input type="date" asp-for="EventFinishTimestamp" />
                                         </div>
                                     </div>
                                 </div>
@@ -184,7 +187,7 @@
                                             ชื่อผู้ติดต่อ
                                         </div>
                                         <div class="c field">
-                                            <input type="text" name="" value="" class="input-field" />
+                                            <input type="text" asp-for="ContactPersonName" class="input-field" />
                                         </div>
                                     </div>
                                 </div>
@@ -194,7 +197,7 @@
                                             อีเมล์
                                         </div>
                                         <div class="c field">
-                                            <input type="email" name="" value="" class="input-field" />
+                                            <input type="text" asp-for="ContactPersonEmail" class="input-field" />
                                         </div>
                                     </div>
                                 </div>
@@ -206,7 +209,7 @@
                                             โทรศัพท์
                                         </div>
                                         <div class="c field">
-                                            <input type="text" name="" value="" class="input-field" />
+                                            <input type="text" asp-for="ContactPersonMobile" class="input-field" />
                                         </div>
                                     </div>
                                 </div>
@@ -216,7 +219,7 @@
                                             โทรสาร
                                         </div>
                                         <div class="c field">
-                                            <input type="text" name="" value="" class="input-field" />
+                                            <input type="text" asp-for="ContactPersonFax" class="input-field" />
                                         </div>
                                     </div>
                                 </div>
