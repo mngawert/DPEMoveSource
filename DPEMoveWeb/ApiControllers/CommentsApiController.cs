@@ -43,12 +43,12 @@ namespace DPEMoveWeb.ApiControllers
                     return BadRequest(ModelState);
                 }
                 
-                _commentService.AddComment(model);
+                var q =_commentService.AddComment(model);
 
                 Response.Headers["ResponseCode"] = "2000";
                 Response.Headers["ResponseDescription"] = "Ok";
 
-                return Ok();
+                return Ok(q);
             }
             catch (Exception e)
             {

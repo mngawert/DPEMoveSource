@@ -32,7 +32,7 @@ namespace DPEMoveDAL.Services
             _userManager = userManager;
         }
 
-        public void AddComment(CommentViewModel model)
+        public CommentDbQuery AddComment(CommentViewModel model)
         {
             var q = new Comment
             {
@@ -51,6 +51,8 @@ namespace DPEMoveDAL.Services
 
             _context.Add(q).State = EntityState.Added;
             _context.SaveChanges();
+
+            return GetCommentDetails(q.CommentId);
         }
 
         public void EditComment(CommentViewModel model)
@@ -94,8 +96,41 @@ namespace DPEMoveDAL.Services
 
             var q = _context.CommentDbQuery.FromSql(sql);
 
+            if (!string.IsNullOrEmpty(model.CommentOf))
+            {
+                q = q.Where(a => a.CommentOf == model.CommentOf);
+            }
+            if (!string.IsNullOrEmpty(model.EventOrStadiumCode))
+            {
+                q = q.Where(a => a.EventOrStadiumCode == model.EventOrStadiumCode);
+            }
+
             /* Order by*/
-            q = q.OrderBy(a => a.CreatedDate);
+            if (model.OrderBy?.ToUpper() == "CREATEDDATE")
+            {
+                if (model.OrderDesc?.ToUpper() == "ASC")
+                    q = q.OrderBy(a => a.CreatedDate);
+                else
+                    q = q.OrderByDescending(a => a.CreatedDate);
+            }
+            else if (model.OrderBy?.ToUpper() == "UPDATEDDATE")
+            {
+                if (model.OrderDesc?.ToUpper() == "ASC")
+                    q = q.OrderBy(a => a.UpdatedDate);
+                else
+                    q = q.OrderByDescending(a => a.UpdatedDate);
+            }
+            else if (model.OrderBy?.ToUpper() == "COMMENTID")
+            {
+                if (model.OrderDesc?.ToUpper() == "ASC")
+                    q = q.OrderBy(a => a.CommentId);
+                else
+                    q = q.OrderByDescending(a => a.CommentId);
+            }
+            else
+            {
+                q = q.OrderByDescending(a => a.CreatedDate);
+            }
 
             var qq = PaginatedList<CommentDbQuery>.Create(q, model.LimitStart ?? 1, model.LimitSize ?? 10000);
 
