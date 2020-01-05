@@ -2,9 +2,14 @@
 
 @model List<DPEMoveDAL.Models.Department>;
 
-<h5>แสดงรายชื่อ หน่วยงาน/ศูนย์กีฬา</h5>
+<div class="row">
+    <div class="col-md-10">
+        <h4>แสดงรายชื่อ หน่วยงาน/ศูนย์กีฬา</h4></div>
+    <div class="col-md-2">
+        <a class="btn btn btn-success btn-block" asp-action="CreateDep">สร้างหน่วยงาน</a>
+    </div>
+</div>
 <br />
-
 <div class="card">
     <div class="card-body">
         <div class="row table table-sm table-striped">
