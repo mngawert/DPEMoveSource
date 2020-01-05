@@ -1,0 +1,63 @@
+﻿@model DPEMoveDAL.Models.DepartmentPerson;
+
+<form asp-action="DepPersonCreate" method="post">
+
+    <div class="row">
+        <div class="col-md-11">
+            <label>สร้างข้อมูลบุคลากร</label>
+        </div>
+        <div class="col-md-1">
+            <button class="btn btn-success btn-block" asp-action="DepPersonCreate">บันทึก</button>
+        </div>
+    </div>
+    <br />
+    <div class="card">
+        <div class="card-body">
+
+            <input type="hidden" asp-for="DepartmentId" value="@ViewContext.HttpContext.Request.Query["id"]" />
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group row">
+                        <label class="col-md-2 text-right">ชื่อ</label>
+                        <input class="col-md-3 text-left form-control" name="firstName" type="text" />
+                        <label class="col-md-2 text-right">E-mail</label>
+                        <input class="col-md-3 text-left form-control" name="email" type="text" />
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-2 text-right">สกุล</label>
+                        <input class="col-md-3 text-left form-control" name="lastName" type="text" />
+                        <label class="col-md-2 text-right">โทรศัพท์</label>
+                        <input class="col-md-3 text-left form-control" name="mobile" type="text" />
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-2 text-right">ตำแหน่ง</label>
+                        <input class="col-md-3 text-left form-control" name="positionName" type="text" />
+                        <label class="col-md-2 text-right">หัวหน้า</label>
+                        <div class="col-md-3">
+                            <select asp-for="ParentPersonId" asp-items="ViewBag.ParentList" class="form-control w-100">
+                                <option>---</option>
+                            </select>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            @* <select id="ParentPersonId" name="ParentPersonId" class="ParentPersonId">
+                    @foreach (var i in ViewBag.ParentList)
+                    {
+                        <option value="@i.Value">@i.Text</option>
+                    }
+                </select> *@
+
+        </div>
+    </div>
+</form>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("select.ParentPersonId").change(function () {
+            var ParentPersonId = $(this).children("option:selected").val();
+        });
+    });
+</script>

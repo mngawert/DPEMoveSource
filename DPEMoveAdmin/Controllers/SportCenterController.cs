@@ -25,19 +25,10 @@ namespace DPEMoveAdmin.Controllers
 
         public IActionResult Index()
         {
-            var q = context.Department.OrderBy(a => a.DepartmentId).ToList();
+            var q = context.Department.Include(a => a.DepartmentPerson).OrderBy(a => a.DepartmentId).ToList();
 
             return View(q);
         }
-
-        
-
-        public IActionResult CreateDep()
-        {
-            ViewBag.ProvinceList = new SelectList(GetProvinceList(), "ProvinceId", "ProvinceName");
-            return View();
-        }
-
         
         public ActionResult GetAmphur(int pid)
         {
@@ -78,6 +69,13 @@ namespace DPEMoveAdmin.Controllers
             List<Province> province = context.Province.Where(a => a.ProvinceCode == pcode).ToList();
             return province;
         }
+
+        public IActionResult CreateDep()
+        {
+            ViewBag.ProvinceList = new SelectList(GetProvinceList(), "ProvinceId", "ProvinceName");
+            return View();
+        }
+
 
         [HttpPost]
         // public async Task<IActionResult> Create(string productId, string productName, string productDesc)
@@ -138,6 +136,58 @@ namespace DPEMoveAdmin.Controllers
             }
 
             return View();  
+        }
+
+
+        public async Task<IActionResult> DepPersonCreate(int did)
+        {
+            List<DepartmentPerson> parentList = await context.DepartmentPerson.ToListAsync();
+            
+            var items = new List<SelectListItem>();
+
+            foreach (var p in parentList)
+            {
+                items.Add(new SelectListItem()
+                {
+                    Text =  p.Firstname,
+                    Value = p.DepartmentPersonId.ToString()
+                }); ;
+            }
+
+            ViewBag.ParentList = items;
+            return View();
+
+        }
+
+        [HttpPost]
+        public IActionResult DepPersonCreate(DepartmentPerson dp)
+        {
+
+            var pcode = context.DepartmentPerson.Max(a => a.DepartmentPersonCode);
+            var p = pcode.Substring(0, pcode.IndexOf('_'));
+            var code = pcode.Substring(2, 4);
+            code = code + 1;
+            pcode = p + '_' + code;
+
+            var depp = new DepartmentPerson
+            {
+                DepartmentPersonCode = pcode,
+                DepartmentId = 11,
+                TitleCode = "1",
+                Firstname = dp.Firstname,
+                Lastname = dp.Lastname,
+                ParentPersonId = dp.ParentPersonId,
+                PositionName = dp.PositionName,
+                Email = dp.Email,
+                Mobile = dp.Mobile,
+                Status = 1,
+                CreatedBy = 1,
+                CreatedDate = DateTime.Now
+            };
+            context.AddRangeAsync(depp);
+            context.SaveChangesAsync();
+            return View();
+
         }
 
 
@@ -233,7 +283,7 @@ namespace DPEMoveAdmin.Controllers
 
         public async Task<IActionResult> DepDelete(int Id)
         {
-            var q = await context.Department.FindAsync(Id);
+            var q = await context.Department.Include(a => a.Address).Include(a => a.DepartmentPerson).Where(a => a.DepartmentId == Id).FirstOrDefaultAsync();
 
             if (q != null)
             {
@@ -248,11 +298,15 @@ namespace DPEMoveAdmin.Controllers
         {
             if (ModelState.IsValid)
             {
-                var q = context.Department.Where(a => a.DepartmentId == p.DepartmentId).FirstOrDefault();
+                var dep = context.Department.Where(a => a.DepartmentId == p.DepartmentId).FirstOrDefault();
+                var depperson = context.DepartmentPerson.Where(a => a.DepartmentId == p.DepartmentId).FirstOrDefault();
+                var addr = context.Address.Where(a => a.AddressId == p.AddressId).FirstOrDefault();
 
-                if (q != null)
+                if (dep != null)
                 {
-                    context.Remove(q);
+                    context.Remove(depperson);
+                    context.Remove(addr);
+                    context.Remove(dep);
                     context.SaveChanges();
 
                     return RedirectToAction("Index");

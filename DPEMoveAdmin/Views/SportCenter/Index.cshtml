@@ -1,29 +1,34 @@
-﻿@model List<Department>;
+﻿@*@model List<Department>;*@
+
+@model List<DPEMoveDAL.Models.Department>;
 
 <h5>แสดงรายชื่อ หน่วยงาน/ศูนย์กีฬา</h5>
 <br />
 
-<div class="container">
-    <div class="row border-dark alert-dark">
-        <div class="col-md-3">รหัสหน่วยงาน</div>
-        <div class="col-md-3">ชื่อหน่วยงาน</div>
-        <div class="col-md-3">E-mail</div>
-        <div class="col-md-3">จัดการ</div>
-    </div>
-    <br />
-    @foreach (var i in Model)
-    {
-        <div class="row">
-            <div class="col-md-3">@i.DepartmentId</div>
-            <div class="col-md-3">@i.Department1</div>
-            <div class="col-md-3">@i.Email</div>
-            <div class="col-md-3">
-                <a class="btn-default badge-pill w-100" style="background-color:chartreuse;" asp-action="DepPerson" asp-route-id="@i.DepartmentId">เพิ่มบุคลากร</a>
-                <a class="btn-default badge-pill w-100" style="background-color:chartreuse;" asp-action="DepEdit" asp-route-id="@i.DepartmentId">Edit</a>
-                <a class="btn-default badge-pill w-100" style="background-color:chartreuse;" asp-action="DepDelete" asp-route-id="@i.DepartmentId">Delete</a>
-            </div>
+<div class="card">
+    <div class="card-body">
+        <div class="row table table-sm table-striped">
+            <div class="col-md-2">รหัสหน่วยงาน</div>
+            <div class="col-md-3">ชื่อหน่วยงาน</div>
+            <div class="col-md-3">E-mail</div>
+            <div class="col-md-4">จัดการ</div>
         </div>
+        <hr />
+        @foreach (var i in Model)
+        {
+            <div class="row table table-sm table-striped table-condensed">
+                <div class="col-md-2">@i.DepartmentId</div>
+                <div class="col-md-3">@i.Department1</div>
+                <div class="col-md-3">@i.Email</div>
+                <div class="col-md-4">
+                    <a class="btn btn-sm btn-facebook" asp-action="DepPersonCreate" asp-route-id="@i.DepartmentId">เพิ่มบุคลากร </a>
 
-    }
+                    <a class="btn btn-sm btn-primary" asp-action="DepEdit" asp-route-id="@i.DepartmentId">แก้ไข</a>
 
+                    <a class="btn btn-sm btn-danger" asp-action="DepDelete" asp-route-id="@i.DepartmentId">ลบ</a>
+                </div>
+            </div>
+
+        }
+    </div>
 </div>
