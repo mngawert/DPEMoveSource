@@ -12,6 +12,8 @@ function GetEvent() {
     input.limitStart = "1";
     input.limitSize = "10";
     input.eventName = $("#txtEventName").val();
+    input.eventStart = $("#txtEventStart").val();
+    input.eventFinish = $("#txtEventFinish").val();
 
     console.log("input", input);
 

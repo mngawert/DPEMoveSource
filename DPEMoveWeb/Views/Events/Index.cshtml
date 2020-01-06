@@ -25,9 +25,7 @@
                                 ช่วงวันที่
                             </div>
                             <div class="c field">
-                                <select class="input-field">
-                                    <option value="">dd/mm/yyyy</option>
-                                </select>
+                                <input id="txtEventStart" class="input-field" type="text" data-provide="datepicker" data-date-language="th-th">
                             </div>
                         </div>
                     </div>
@@ -37,9 +35,7 @@
                                 ถึงวันที่
                             </div>
                             <div class="c field">
-                                <select class="input-field">
-                                    <option value="">dd/mm/yyyy</option>
-                                </select>
+                                <input id="txtEventFinish" class="input-field" type="text" data-provide="datepicker" data-date-language="th-th">
                             </div>
                         </div>
                     </div>
@@ -188,15 +184,6 @@
 
 
 @section Scripts {
-
     <script src="~/js/pages/events-index.js"></script>
-
-    <script type="text/javascript">
-        $(function () {
-            $('#datetimepicker1,#datetimepicker2').datetimepicker({
-                format: 'd/M/Y'
-            });
-        });
-    </script>
 }
 

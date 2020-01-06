@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -79,9 +80,6 @@ namespace DPEMoveDAL.Services
 
             return eventVM;
         }
-
-
-
 
 
         public IEnumerable<EventViewModel> GetEvent(EventViewModel model)
@@ -202,6 +200,18 @@ namespace DPEMoveDAL.Services
             if (!string.IsNullOrEmpty(model.EventName))
             {
                 q = q.Where(a => a.EventName.Contains(model.EventName));
+            }
+            if (!string.IsNullOrEmpty(model.EventStart))
+            {
+                ThaiBuddhistCalendar cal = new ThaiBuddhistCalendar();
+                var dateStart = cal.ToDateTime(int.Parse(model.EventStart.Substring(6, 4)), int.Parse(model.EventStart.Substring(3, 2)), int.Parse(model.EventStart.Substring(0, 2)), 0, 0, 0, 0);
+                q = q.Where(a => dateStart.ToString("yyyyMMdd").CompareTo(a.EventFinishTimestamp.Value.ToString("yyyyMMdd")) <= 0);
+            }
+            if (!string.IsNullOrEmpty(model.EventFinish))
+            {
+                ThaiBuddhistCalendar cal = new ThaiBuddhistCalendar();
+                var dateFinish = cal.ToDateTime(int.Parse(model.EventFinish.Substring(6, 4)), int.Parse(model.EventFinish.Substring(3, 2)), int.Parse(model.EventFinish.Substring(0, 2)), 0, 0, 0, 0);
+                q = q.Where(a => a.EventStartTimestamp.ToString("yyyyMMdd").CompareTo(dateFinish.ToString("yyyyMMdd")) <= 0);
             }
 
             _logger.LogDebug("GetEvent q before Latitude,Longitude = {0},{1}", model.Latitude, model.Longitude);

@@ -67,6 +67,8 @@ namespace DPEMoveDAL.ViewModels
         public int? LimitSize { get; set; }
         public string OrderBy { get; set; }
         public string OrderDesc { get; set; }
+        public string EventStart { get; set; }
+        public string EventFinish { get; set; }
     }
 
     public class EventDbQuery
