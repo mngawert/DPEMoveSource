@@ -884,9 +884,7 @@ namespace DPEMoveDAL.Models
                     .HasName("PK_EVENT_FACILITIES")
                     .IsUnique();
 
-                entity.Property(e => e.EventFacilitiesId)
-                    .HasColumnName("EVENT_FACILITIES_ID")
-                    .ValueGeneratedNever();
+                entity.Property(e => e.EventFacilitiesId).HasColumnName("EVENT_FACILITIES_ID");
 
                 entity.Property(e => e.CreatedBy).HasColumnName("CREATED_BY");
 
@@ -3010,6 +3008,8 @@ namespace DPEMoveDAL.Models
             modelBuilder.HasSequence("SQ_DEPARTMENT_PERSON");
 
             modelBuilder.HasSequence("SQ_EVENT");
+
+            modelBuilder.HasSequence("SQ_EVENT_FACILITIES");
 
             modelBuilder.HasSequence("SQ_EVENT_JOIN_PERSON_TYPE");
 

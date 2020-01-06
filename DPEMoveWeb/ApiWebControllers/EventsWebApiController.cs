@@ -6,9 +6,11 @@ using AutoMapper;
 using DPEMoveDAL.Models;
 using DPEMoveDAL.Services;
 using DPEMoveDAL.ViewModels;
+using DPEMoveWeb.Helper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace DPEMoveWeb.ApiWebControllers
 {
@@ -45,7 +47,6 @@ namespace DPEMoveWeb.ApiWebControllers
             return q;
         }
 
-
         [HttpGet("{id}")]
         [Authorize]
         public async Task<IActionResult> GetEventDetail([FromRoute] int id)
@@ -65,6 +66,82 @@ namespace DPEMoveWeb.ApiWebControllers
             return Ok(@event);
         }
 
+
+        //[Authorize]
+        public IActionResult GetMEventFacilitiesTopic()
+        {
+            var q = _context.MEventFacilitiesTopic.ToList();
+
+            return Ok(q);
+        }
+
+        [HttpPost]
+        //[Authorize]
+        public List<EventFacilities> GetEventFacilitiesFromSession(EventFacilities model)
+        {
+            if (HttpContext.Session.Get<List<EventFacilities>>("Session_EventFacilities_" + model.EventId + "_" + model.MEventFacilitiesTopicId) == null)
+            {
+                var data = _context.EventFacilities.Where(a => a.EventId == model.EventId && a.MEventFacilitiesTopicId == model.MEventFacilitiesTopicId).ToList();
+                HttpContext.Session.Set<List<EventFacilities>>("Session_EventFacilities_" + model.EventId + "_" + model.MEventFacilitiesTopicId, data);
+            }
+            
+            var q = HttpContext.Session.Get<List<EventFacilities>>("Session_EventFacilities_" + model.EventId + "_" + model.MEventFacilitiesTopicId);
+            
+            return q;
+        }
+
+
+        [HttpPost]
+        //[Authorize]
+        public IActionResult AddEventFacilitiesToSession(EventFacilities model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var data = GetEventFacilitiesFromSession(model);
+
+            var q = new EventFacilities
+            {
+                EventFacilitiesId = new Random().Next(-100000, -1),
+                EventId = model.EventId,
+                MEventFacilitiesTopicId = model.MEventFacilitiesTopicId,
+                EventFacilitiesName = model.EventFacilitiesName,
+                FacilitiesAmount = model.FacilitiesAmount,
+                FacilitiesUnit = model.FacilitiesUnit,
+                Status = model.Status,
+                CreatedBy = model.CreatedBy,
+                CreatedDate = DateTime.Now
+            };
+
+            data.Add(q);
+
+            HttpContext.Session.Set<List<EventFacilities>>("Session_EventFacilities_" + model.EventId + "_" + model.MEventFacilitiesTopicId, data);
+
+            return Ok();
+        }
+
+
+        [HttpPost]
+        //[Authorize]
+        public IActionResult DeleteEventFacilitiesFromSession(EventFacilities model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var data = GetEventFacilitiesFromSession(model);
+
+            var q = data.Where(a => a.EventFacilitiesId == model.EventFacilitiesId).FirstOrDefault();
+
+            data.Remove(q);
+
+            HttpContext.Session.Set<List<EventFacilities>>("Session_EventFacilities_" + model.EventId + "_" + model.MEventFacilitiesTopicId, data);
+
+            return Ok();
+        }
 
     }
 }

@@ -1,14 +1,23 @@
 ﻿
-
 $(document).ready(function () {
+    //GetEvent();
+});
+
+
+function GetEvent() {
 
     var options = {};
 
     var input = {};
     input.limitStart = "1";
-    input.limitSiz = "10";
+    input.limitSize = "10";
+    input.eventName = $("#txtEventName").val();
+
+    console.log("input", input);
 
     options.data = JSON.stringify(input);
+
+    console.log("options.data", options.data);
 
     options.url = "webapi/Events/GetEvent";
     options.contentType = "application/json";
@@ -21,13 +30,13 @@ $(document).ready(function () {
     options.success = function (data) {
         var items = '';
         $.each(data, function (index, value) {
-            items += 
-            `
+            items +=
+                `
             <li>
-                <a href="Events/Details/` + value.eventId +`">
+                <a href="Events/Details/` + value.eventId + `">
                     <div class="row event">
                         <div class="col-12 col-sm-5 col-md-4">
-                            <div class="event-thumb"><img src="` + value.fileUrl +`" /></div>
+                            <div class="event-thumb"><img src="` + value.fileUrl + `" /></div>
                         </div>
                         <div class="col-12 col-sm-7 col-md-8">
                             <div class="rating">
@@ -45,10 +54,10 @@ $(document).ready(function () {
                             </div>
                             <div class="row read-comment">
                                 <div class="col-sm-12 col-md-6">
-                                    <div class="read-total">อ่านแล้ว ` + value.readCount +` คน</div>
+                                    <div class="read-total">อ่านแล้ว ` + value.readCount + ` คน</div>
                                 </div>
                                 <div class="col-sm-12 col-md-6">
-                                    <div class="comment-total">แสดงความคิดเห็น ` + value.commentCount +` คน</div>
+                                    <div class="comment-total">แสดงความคิดเห็น ` + value.commentCount + ` คน</div>
                                 </div>
                             </div>
                         </div>
@@ -56,11 +65,12 @@ $(document).ready(function () {
                 </a>
             </li >`
         });
-        $("#ul-search-events-result").append(items);
+        $("#ul-search-events-result").html(items);
     };
     options.error = function (a, b, c) {
         console.log("Error while calling the Web API!(" + b + " - " + c + ")");
     };
     $.ajax(options);
-});
+}
+
 

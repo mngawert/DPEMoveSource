@@ -128,6 +128,7 @@ namespace DPEMoveDAL.ViewModels
 
         public MEventObjectiveViewModel[] MEventObjective { get; set; }
         public int[] MEventObjectiveIds { get; set; }
+        public string[] EventFacilityName { get; set; }
 
     }
 

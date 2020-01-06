@@ -195,11 +195,11 @@ namespace DPEMoveDAL.Services
                 });
 
 
-            if (model.EventCode != null)
+            if (!string.IsNullOrEmpty(model.EventCode))
             {
                 q = q.Where(a => a.EventCode.Contains(model.EventCode));
             }
-            if (model.EventName != null)
+            if (!string.IsNullOrEmpty(model.EventName))
             {
                 q = q.Where(a => a.EventName.Contains(model.EventName));
             }
@@ -255,7 +255,7 @@ namespace DPEMoveDAL.Services
             ev.ResponsiblePerson = model.ResponsiblePerson;
             //ev.ResponsiblePersonCode = model.ResponsiblePersonCode;
             //ev.EventShortDescription = model.EventShortDescription;
-            //ev.EventDescription = model.EventDescription;
+            ev.EventDescription = model.EventDescription;
             ev.EventStartTimestamp = model.EventStartTimestamp;
             ev.EventFinishTimestamp = model.EventFinishTimestamp;
             ev.ContactPersonName = model.ContactPersonName;
@@ -272,7 +272,7 @@ namespace DPEMoveDAL.Services
             _context.SaveChanges();
 
 
-            /* EVENTOBJECTIVE */
+            /* EVENT_OBJECTIVE */
             var evObjective = _context.EventObjective.Where(a => a.EventId == ev.EventId);
             foreach (var x in evObjective)
             {
@@ -294,9 +294,6 @@ namespace DPEMoveDAL.Services
                 _context.Entry(obj).State = EntityState.Added;
             }
             _context.SaveChanges();
-
-
-
         }
     }
 }

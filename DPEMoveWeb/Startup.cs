@@ -78,6 +78,12 @@ namespace DPEMoveWeb
                 return smtpClient;
             });
 
+            services.AddDistributedMemoryCache();
+            services.AddSession(options => 
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(1);
+            });
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
                 .AddJsonOptions(a => a.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
@@ -144,9 +150,8 @@ namespace DPEMoveWeb
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
-
             app.UseAuthentication();
-
+            app.UseSession();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

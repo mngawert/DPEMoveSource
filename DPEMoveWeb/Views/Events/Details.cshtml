@@ -92,8 +92,8 @@
                                         </div>
                                         <div class="c field">
                                             @*<input type="text" asp-for="ResponsiblePerson" value="@Model.ResponsiblePerson" class="input-field" />*@
-                                            <input type="radio" asp-for="ResponsiblePersonType" value="1" /> ภาครัฐ
-                                            <input type="radio" asp-for="ResponsiblePersonType" value="2" /> เอกชน
+                                            <input type="radio" name="ResponsiblePersonType" value="1" checked="@Model.ResponsiblePersonType?.Equals("1")" /> ภาครัฐ
+                                            <input type="radio" name="ResponsiblePersonType" value="2" checked="@Model.ResponsiblePersonType?.Equals("2")" /> เอกชน
                                         </div>
                                     </div>
                                 </div>
@@ -125,8 +125,8 @@
                                         <div class="c field">
                                             <input type="date" asp-for="EventStartTimestamp" />
                                             @*<select class="input-field">
-                                                <option value="">dd/mm/yyyy</option>
-                                            </select>*@
+                                                    <option value="">dd/mm/yyyy</option>
+                                                </select>*@
                                         </div>
                                     </div>
                                 </div>
@@ -235,11 +235,11 @@
                                         <div class="c lbl" style="text-align: left;">
 
                                             @*<div><input type="checkbox" name="" value="" /> เพื่อแข่งขันกีฬา</div>
-                                            <div><input type="checkbox" name="" value="" /> เพื่อการสร้างสัมพันธ์</div>
-                                            <div><input type="checkbox" name="" value="" /> เพื่อสุขภาพ</div>
-                                            <div><input type="checkbox" name="" value="" /> เพื่อความเป็นอาชีพ</div>
-                                            <div><input type="checkbox" name="" value="" /> กีฬาเพื่อการท่องเที่ยว</div>
-                                            <div><input type="checkbox" name="" value="" /> อื่นๆ โปรดระบุ <input type="text" name="" value="" class="input-field" /></div>*@
+                                                <div><input type="checkbox" name="" value="" /> เพื่อการสร้างสัมพันธ์</div>
+                                                <div><input type="checkbox" name="" value="" /> เพื่อสุขภาพ</div>
+                                                <div><input type="checkbox" name="" value="" /> เพื่อความเป็นอาชีพ</div>
+                                                <div><input type="checkbox" name="" value="" /> กีฬาเพื่อการท่องเที่ยว</div>
+                                                <div><input type="checkbox" name="" value="" /> อื่นๆ โปรดระบุ <input type="text" name="" value="" class="input-field" /></div>*@
 
                                             @for (var i = 0; i < Model.MEventObjective.Length; i++)
                                             {
@@ -433,30 +433,70 @@
                     </div>
                 </div>
                 <div class="tab_item">
+                    @foreach (var topic in ViewBag.MEventFacilitiesTopic as List<MEventFacilitiesTopic>)
+                    {
                     <div class="block-group">
-                        <div class="heading">Topic 1 <div class="button-container"><a href="#" class="button small darkgreen">+เพิ่มรายการ</a></div></div>
+                        <div class="heading">@topic.EventFacilitiesTopicName<div class="button-container"><button type="button" class="button small darkgreen" data-toggle="modal" data-target="#ModalTopic_@topic.EventFacilitiesTopicId">+เพิ่มรายการ</button></div></div>
                         <div class="entry-data">
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <table cellspacing="0" class="tbl-data" width="100%">
-                                        <tr>
-                                            <th class="name">ชื่อ</th>
-                                            <th class="amount">จำนวน</th>
-                                            <th class="unit">หน่วย</th>
-                                            <th class="manage center">จัดการ</th>
-                                        </tr>
-                                        <tr>
-                                            <td>ห้องน้ำ</td>
-                                            <td>20</td>
-                                            <td>ห้อง</td>
-                                            <td class="center"><a href="#" class="button small red">&nbsp;ลบ&nbsp;</a> <a href="#" class="button small darkgreen">แก้ไข</a></td>
-                                        </tr>
+                                    <table cellspacing="0" class="tbl-data" width="100%" id="tblTopic_@topic.EventFacilitiesTopicId">
+                                        <thead>
+                                            <tr>
+                                                <th class="name">ชื่อ</th>
+                                                <th class="amount">จำนวน</th>
+                                                <th class="unit">หน่วย</th>
+                                                <th class="manage center">จัดการ</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
                                     </table>
                                 </div>
                             </div>
                         </div>
+
+
+                        <div class="modal fade bd-example-modal-lg" id="ModalTopic_@topic.EventFacilitiesTopicId" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <table cellspacing="0" class="tbl-data" width="100%">
+                                                    <tr>
+                                                        <th class="name">ชื่อ</th>
+                                                        <th class="amount">จำนวน</th>
+                                                        <th class="unit">หน่วย</th>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><input type="text" id="txtFacilityName_@topic.EventFacilitiesTopicId" name="" value="" class="input-field" /></td>
+                                                        <td><input type="text" id="txtFacilityAmount_@topic.EventFacilitiesTopicId" name="" value="" class="input-field" /></td>
+                                                        <td><input type="text" id="txtFacilityUnit_@topic.EventFacilitiesTopicId" name="" value="" class="input-field" /></td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="AddEventFacilitiesToSession(@Model.EventId, @topic.EventFacilitiesTopicId)">เพิ่ม</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
                     </div>
-                    <div class="block-group">
+                    }
+
+
+                    @*<div class="block-group">
                         <div class="heading">Topic 2 <div class="button-container"><a href="#" class="button small darkgreen">+เพิ่มรายการ</a></div></div>
                         <div class="entry-data">
                             <div class="row">
@@ -530,7 +570,9 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div>*@
+
+
                 </div>
                 <div class="tab_item">
                     <div class="block-group">
@@ -538,7 +580,7 @@
                         <div class="entry-data">
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <textarea name=""> @Model.EventDescription </textarea>
+                                    <textarea name="EventDescription"> @Model.EventDescription </textarea>
                                 </div>
                             </div>
                         </div>
@@ -561,3 +603,15 @@
     </div>
 
 </form>
+
+
+@section Scripts {
+
+    <script type="text/javascript">
+        var routeId = @ViewBag.routeId;
+        console.log('routeid=', routeId);
+    </script>
+
+    <script src="~/js/pages/events-details.js"></script>
+
+}

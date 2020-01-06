@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 using DPEMoveDAL.ViewModels;
 using Microsoft.Extensions.Logging;
 using DPEMoveDAL.Services;
+using DPEMoveWeb.Helper;
 
 namespace DPEMoveWeb.Controllers
 {
@@ -39,12 +40,22 @@ namespace DPEMoveWeb.Controllers
                 .Include(a => a.EventUploadedFile)
                     .ThenInclude(b => b.UploadedFile)
                 ;
+
+            if (HttpContext.Session.Get<DateTime>("SessionTime") == null)
+            {
+                HttpContext.Session.Set<DateTime>("SessionTime", DateTime.Now);
+            }
+
+            ViewBag.SessionTime = HttpContext.Session.Get<DateTime>("SessionTime");
+
             return View(await appDbContext.ToListAsync());
         }
 
         // GET: Events/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+            ViewBag.routeId = id;
+
             if (id == null)
             {
                 return NotFound();
@@ -56,6 +67,8 @@ namespace DPEMoveWeb.Controllers
             {
                 return NotFound();
             }
+
+            ViewBag.MEventFacilitiesTopic = _context.MEventFacilitiesTopic.ToList();
 
             return View(eventVM);
         }
@@ -119,6 +132,38 @@ namespace DPEMoveWeb.Controllers
             }
 
             _eventService.UpdateEvent(model);
+
+
+            // EventFacilities
+
+            var eventFacilities = HttpContext.Session.Get<List<EventFacilities>>("Session_EventFacilities_" + model.EventId);
+            if (eventFacilities != null)
+            {
+                var ddEventFacilities = _context.EventFacilities.Where(a => a.EventId == model.EventId);
+                foreach (var k in ddEventFacilities)
+                {
+                    _context.Entry(k).State = EntityState.Deleted;
+                    _context.SaveChanges();
+                }
+
+                foreach (var k in eventFacilities)
+                {
+                    var qq = new EventFacilities
+                    {
+                        EventId = k.EventId,
+                        MEventFacilitiesTopicId = k.MEventFacilitiesTopicId,
+                        EventFacilitiesName = k.EventFacilitiesName,
+                        FacilitiesAmount = k.FacilitiesAmount,
+                        FacilitiesUnit = k.FacilitiesUnit,
+                        Status = k.Status,
+                        CreatedBy = k.CreatedBy,
+                        CreatedDate = k.CreatedDate
+                    };
+
+                    _context.Entry(qq).State = EntityState.Added;
+                }
+                _context.SaveChanges();
+            }
 
             return RedirectToAction("Index");
         }

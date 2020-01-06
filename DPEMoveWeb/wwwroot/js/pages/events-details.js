@@ -1,66 +1,131 @@
 ﻿
 
-$(document).ready(function () {
+function GetMEventFacilitiesTopic() {
 
+    console.log('start GetMEventFacilitiesTopic');
     var options = {};
 
-    var input = {};
-    input.limitStart = "1";
-    input.limitSiz = "10";
-
-    options.data = JSON.stringify(input);
-
-    options.url = "webapi/Events/GetEvent";
+    options.url = "/webapi/Events/GetMEventFacilitiesTopic";
     options.contentType = "application/json";
-    options.method = "POST";
-
-    //options.beforeSend = function (request) {
-    //    request.setRequestHeader("Authorization", "Bearer " + sessionStorage.getItem("token"));
-    //};
+    options.method = "GET";
 
     options.success = function (data) {
-        var items = '';
         $.each(data, function (index, value) {
-            items += 
-            `
-            <li>
-                <a href="Events/Details/` + value.eventId +`">
-                    <div class="row event">
-                        <div class="col-12 col-sm-5 col-md-4">
-                            <div class="event-thumb"><img src="images/thumb_event1.jpg" /></div>
-                        </div>
-                        <div class="col-12 col-sm-7 col-md-8">
-                            <div class="rating">
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star-half-o checked"></span>
-                                <span class="fa fa-star"></span>
-                                <span class="fa fa-star"></span>
-                            </div>
-                            <div class="event-date">17 พ.ย. 62</div>
-                            <h4>` + value.eventName + `</h4>
-                            <div class="event-place">
-                                ` + value.address.description + `<br />
-                                จ.นนทบุรี
-                            </div>
-                            <div class="row read-comment">
-                                <div class="col-sm-12 col-md-6">
-                                    <div class="read-total">อ่านแล้ว ` + value.readCount +` คน</div>
-                                </div>
-                                <div class="col-sm-12 col-md-6">
-                                    <div class="comment-total">แสดงความคิดเห็น 120 คน</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </li >`
+
+            var obj = {};
+            obj.eventId = routeId;
+            obj.mEventFacilitiesTopicId = value.eventFacilitiesTopicId;
+            options.data = JSON.stringify(obj);
+            console.log("input", options.data);
+
+            GetEventFacilitiesFromSession(obj)
         });
-        $("#ul-search-events-result").append(items);
     };
     options.error = function (a, b, c) {
         console.log("Error while calling the Web API!(" + b + " - " + c + ")");
     };
     $.ajax(options);
+}
+
+function GetEventFacilitiesFromSession(obj) {
+
+    console.log('start GetEventFacilitiesFromSession');
+    var options = {};
+    var input = {};
+    input.eventId = obj.eventId;
+    input.mEventFacilitiesTopicId = obj.mEventFacilitiesTopicId;
+    options.data = JSON.stringify(input);
+    console.log("input", options.data);
+
+    options.url = "/webapi/Events/GetEventFacilitiesFromSession";
+    options.contentType = "application/json";
+    options.method = "POST";
+
+    options.success = function (data) {
+        var items = '';
+        $.each(data, function (index, value) {
+            items +=
+                `
+                <tr>
+                    <td>` + value.eventFacilitiesName + `</td>
+                    <td>` + value.facilitiesAmount + `</td>
+                    <td>` + value.facilitiesUnit + `</td>
+                    <td class="center"><button type="button" onclick="DeleteEventFacilitiesFromSession(` + value.eventId + `,` + value.mEventFacilitiesTopicId + `,` + value.eventFacilitiesId + `)" class="button small red">&nbsp;ลบ&nbsp;</button></td>
+                </tr>
+                `
+        });
+
+        $("#tblTopic_" + obj.mEventFacilitiesTopicId +" > tbody").html(items);
+    };
+    options.error = function (a, b, c) {
+        console.log("Error while calling the Web API!(" + b + " - " + c + ")");
+    };
+    $.ajax(options);
+}
+
+function AddEventFacilitiesToSession(eventId, mEventFacilitiesTopicId) {
+    console.log('start AddEventFacilitiesToSession ');
+
+    var options = {};
+
+    var input = {};
+    input.eventId = eventId;
+    input.mEventFacilitiesTopicId = mEventFacilitiesTopicId;
+    input.eventFacilitiesName = $("#txtFacilityName_" + mEventFacilitiesTopicId).val();
+    input.facilitiesAmount = $("#txtFacilityAmount_" + mEventFacilitiesTopicId).val();
+    input.facilitiesUnit = $("#txtFacilityUnit_" + mEventFacilitiesTopicId).val();
+    input.createdBy = "0";
+    options.data = JSON.stringify(input);
+    console.log("input", options.data);
+
+    options.url = "/webapi/Events/AddEventFacilitiesToSession";
+    options.contentType = "application/json";
+    options.method = "POST";
+    options.success = function (data) {
+        console.log("success add");
+        // re-load data from session.
+        var obj = {};
+        obj.eventId = eventId;
+        obj.mEventFacilitiesTopicId = mEventFacilitiesTopicId;
+        GetEventFacilitiesFromSession(obj);
+    };
+    options.error = function (a, b, c) {
+        console.log("Error while calling the Web API!(" + b + " - " + c + ")");
+    };
+    $.ajax(options);
+}
+
+
+function DeleteEventFacilitiesFromSession(eventId, mEventFacilitiesTopicId, eventFacilitiesId) {
+    console.log('start DeleteEventFacilitiesFromSession ');
+
+    var options = {};
+
+    var input = {};
+    input.eventId = eventId;
+    input.mEventFacilitiesTopicId = mEventFacilitiesTopicId;
+    input.eventFacilitiesId = eventFacilitiesId;
+
+    options.data = JSON.stringify(input);
+    console.log("input", options.data);
+
+    options.url = "/webapi/Events/DeleteEventFacilitiesFromSession";
+    options.contentType = "application/json";
+    options.method = "POST";
+    options.success = function (data) {
+        console.log("success add");
+        var obj = {};
+        obj.eventId = eventId;
+        obj.mEventFacilitiesTopicId = mEventFacilitiesTopicId;
+        GetEventFacilitiesFromSession(obj);
+    };
+    options.error = function (a, b, c) {
+        console.log("Error while calling the Web API!(" + b + " - " + c + ")");
+    };
+    $.ajax(options);
+}
+
+$(document).ready(function () {
+    GetMEventFacilitiesTopic();
 });
 
