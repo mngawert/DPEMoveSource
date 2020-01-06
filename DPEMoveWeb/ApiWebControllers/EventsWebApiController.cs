@@ -44,6 +44,12 @@ namespace DPEMoveWeb.ApiWebControllers
         {
             var q = _eventService.GetEvent2(model);
 
+            foreach (var x in q)
+            {
+                var date = x.EventStartTimestamp.ToString("d MMM yy", new System.Globalization.CultureInfo("th-TH"));
+                x.EventStartTH = date;
+            }
+
             return q;
         }
 

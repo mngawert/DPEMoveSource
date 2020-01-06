@@ -48,7 +48,7 @@ function GetEvent() {
                                 <span class="fa fa-star"></span>
                                 <span class="fa fa-star"></span>
                             </div>
-                            <div class="event-date">17 พ.ย. 62</div>
+                            <div class="event-date">` + value.eventStartTH +`</div>
                             <h4>` + value.eventName + `</h4>
                             <div class="event-place">
                                 ` + value.addressDescription + `<br />

@@ -79,6 +79,7 @@ namespace DPEMoveDAL.ViewModels
         public string EventShortDescription { get; set; }
         public string EventDescription { get; set; }
         public DateTime EventStartTimestamp { get; set; }
+        public string EventStartTH { get; set; }
         public DateTime? EventFinishTimestamp { get; set; }
         public string PublishUrl { get; set; }
         public string FileUrl { get; set; }
