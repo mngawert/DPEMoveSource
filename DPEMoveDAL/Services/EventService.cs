@@ -65,20 +65,40 @@ namespace DPEMoveDAL.Services
         public async Task<EventViewModel2> GetEventDetails2(int id)
         {
             var @event = await GetEventDetails(id);
-            var eventVM = _mapper.Map<EventViewModel2>(@event);
+            var ev = _mapper.Map<EventViewModel2>(@event);
+
+            var a = @event.Address;
+
+            if (a != null)
+            {
+                ev.BuildingName = a.BuildingName;
+                ev.Moo = a.Moo;
+                ev.No = a.No;
+                ev.HousePropertyName = a.HousePropertyName;
+                ev.Lane = a.Lane;
+                ev.Floor = a.Floor;
+                ev.Soi = a.Soi;
+                ev.Road = a.Road;
+                ev.ProvinceCode = a.ProvinceCode;
+                ev.AmphurCode = a.AmphurCode;
+                ev.TambonCode = a.TambonCode;
+                ev.Postcode = a.Postcode;
+                ev.Latitude = a.Latitude;
+                ev.Longitude = a.Longitude;
+            }
 
             var listMEventObjective = _context.MEventObjective
-                .Select(a => new MEventObjectiveViewModel
+                .Select(aa => new MEventObjectiveViewModel
                 {
-                    MEventObjectiveId = a.MEventObjectiveId,
-                    EventObjectiveName = a.EventObjectiveName,
-                    Selected = @event.EventObjective.Any(b => b.MEventObjectiveId == a.MEventObjectiveId)
+                    MEventObjectiveId = aa.MEventObjectiveId,
+                    EventObjectiveName = aa.EventObjectiveName,
+                    Selected = @event.EventObjective.Any(b => b.MEventObjectiveId == aa.MEventObjectiveId)
                 })
                 .ToList();
 
-            eventVM.MEventObjective = listMEventObjective.ToArray();
+            ev.MEventObjective = listMEventObjective.ToArray();
 
-            return eventVM;
+            return ev;
         }
 
 
@@ -180,6 +200,7 @@ namespace DPEMoveDAL.Services
                     EventShortDescription = a.EventShortDescription,
                     EventDescription = a.EventShortDescription,
                     EventStartTimestamp = a.EventStartTimestamp,
+                    EventStartTH = a.EventStartTimestamp.ToString("d MMM yy"),
                     EventFinishTimestamp = a.EventFinishTimestamp,
                     Budget = a.Budget,
                     Budgetused = a.Budgetused,
@@ -189,9 +210,12 @@ namespace DPEMoveDAL.Services
                     AddressDescription = a.Address.Description,
                     Latitude = a.Address.Latitude,
                     Longitude = a.Address.Longitude,
-                    FileUrl = a.EventUploadedFile.FirstOrDefault().UploadedFile.FileUrl
+                    FileUrl = a.EventUploadedFile.FirstOrDefault().UploadedFile.FileUrl,
+                    AmphurCode = a.Address.AmphurCode,
+                    TambonCode = a.Address.TambonCode,
+                    ProvinceCode = a.Address.ProvinceCode,
+                    VoteAvg = _context.Vote.Where(b => b.EventCode == a.EventCode).Count() == 0 ? 0: _context.Vote.Where(b => b.EventCode == a.EventCode).Average(c => c.VoteValue)
                 });
-
 
             if (!string.IsNullOrEmpty(model.EventCode))
             {
@@ -203,16 +227,35 @@ namespace DPEMoveDAL.Services
             }
             if (!string.IsNullOrEmpty(model.EventStart))
             {
-                ThaiBuddhistCalendar cal = new ThaiBuddhistCalendar();
-                var dateStart = cal.ToDateTime(int.Parse(model.EventStart.Substring(6, 4)), int.Parse(model.EventStart.Substring(3, 2)), int.Parse(model.EventStart.Substring(0, 2)), 0, 0, 0, 0);
+                //ThaiBuddhistCalendar cal = new ThaiBuddhistCalendar();
+                //var dateStart = cal.ToDateTime(int.Parse(model.EventStart.Substring(6, 4)), int.Parse(model.EventStart.Substring(3, 2)), int.Parse(model.EventStart.Substring(0, 2)), 0, 0, 0, 0);
+
+                var dateStart = DateTime.Parse(model.EventStart);
                 q = q.Where(a => dateStart.ToString("yyyyMMdd").CompareTo(a.EventFinishTimestamp.Value.ToString("yyyyMMdd")) <= 0);
             }
             if (!string.IsNullOrEmpty(model.EventFinish))
             {
-                ThaiBuddhistCalendar cal = new ThaiBuddhistCalendar();
-                var dateFinish = cal.ToDateTime(int.Parse(model.EventFinish.Substring(6, 4)), int.Parse(model.EventFinish.Substring(3, 2)), int.Parse(model.EventFinish.Substring(0, 2)), 0, 0, 0, 0);
+                //ThaiBuddhistCalendar cal = new ThaiBuddhistCalendar();
+                //var dateFinish = cal.ToDateTime(int.Parse(model.EventFinish.Substring(6, 4)), int.Parse(model.EventFinish.Substring(3, 2)), int.Parse(model.EventFinish.Substring(0, 2)), 0, 0, 0, 0);
+                var dateFinish = DateTime.Parse(model.EventStart);
                 q = q.Where(a => a.EventStartTimestamp.ToString("yyyyMMdd").CompareTo(dateFinish.ToString("yyyyMMdd")) <= 0);
             }
+
+            if (!string.IsNullOrEmpty(model.ProvinceCode))
+            {
+                q = q.Where(a => a.ProvinceCode == model.ProvinceCode);
+            }
+            if (!string.IsNullOrEmpty(model.AmphurCode))
+            {
+                q = q.Where(a => a.AmphurCode == model.AmphurCode);
+            }
+            if (!string.IsNullOrEmpty(model.TambonCode))
+            {
+                q = q.Where(a => a.TambonCode == model.TambonCode);
+            }
+
+
+            q = q.OrderByDescending(a => a.EventStartTimestamp);
 
             _logger.LogDebug("GetEvent q before Latitude,Longitude = {0},{1}", model.Latitude, model.Longitude);
 
@@ -276,7 +319,8 @@ namespace DPEMoveDAL.Services
             //ev.ProjectCode = model.ProjectCode;
             ev.ProjectSelect = model.ProjectSelect;
             //ev.PublishUrl = model.PublishUrl;
-
+            ev.EventLevelId = model.EventLevelId;
+            ev.EventLevelEtc = model.EventLevelEtc;
 
             _context.Update(ev).State = EntityState.Modified;
             _context.SaveChanges();

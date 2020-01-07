@@ -39,7 +39,7 @@
                                         </div>
                                         <div class="c field">
                                             <input type="hidden" asp-for="EventId" value="@Model.EventId" />
-                                            <input type="text" asp-for="EventName" value="@Model.EventName" class="input-field" />
+                                            <input type="text" asp-for="EventName" value="@Model.EventName" class="input-field w-100" />
                                         </div>
                                     </div>
                                 </div>
@@ -244,7 +244,6 @@
                                             @for (var i = 0; i < Model.MEventObjective.Length; i++)
                                             {
                                                 <div><input type="checkbox" checked="@Model.MEventObjective[i].Selected" name="MEventObjectiveIds" value="@Model.MEventObjective[i].MEventObjectiveId" /> @Model.MEventObjective[i].EventObjectiveName </div>
-                                                @*<div><input type="checkbox" asp-for="@Model.MEventObjective[i].Selected"  /> @Model.MEventObjective[i].EventObjectiveName </div>*@
                                             }
                                         </div>
                                     </div>
@@ -288,10 +287,22 @@
                                 <div class="col-sm-12">
                                     <div class="row-field clearfix">
                                         <div class="c field">
-                                            <div><input type="radio" name="" value="" class="input-field" /> ระดับท้องถิ่น / ระดับจังหวัด</div>
+
+                                            @foreach (var x in ViewBag.MEventLevel as List<MEventLevel>)
+                                            {
+                                            <div>
+                                                <input type="radio" name="EventLevelId" value="@x.EventLevelId" class="input-field" checked="@(Model.EventLevelId == x.EventLevelId)" /> @x.EventLevelName
+                                                @if (x.EventLevelId == 4)
+                                                {
+                                                    <input type="text" name="EventLevelEtc" value="@Model.EventLevelEtc" class="input-field" />
+                                                }
+                                            </div>
+                                            }
+
+                                            @*<div><input type="radio" name="" value="" class="input-field" /> ระดับท้องถิ่น / ระดับจังหวัด</div>
                                             <div><input type="radio" name="" value="" class="input-field" /> ระดับชาติ / ระดับประเทศ</div>
                                             <div><input type="radio" name="" value="" class="input-field" /> ระดับนานาชาติ</div>
-                                            <div><input type="radio" name="" value="" class="input-field" /> อื่นๆ โปรดระบุ <input type="text" name="" value="" class="input-field" /></div>
+                                            <div><input type="radio" name="" value="" class="input-field" /> อื่นๆ โปรดระบุ <input type="text" name="" value="" class="input-field" /></div>*@
                                         </div>
                                     </div>
                                 </div>
@@ -327,7 +338,7 @@
                                             ชื่อสถานที่ <span class="req">*</span>
                                         </div>
                                         <div class="c field">
-                                            <input type="text" name="" value="" class="input-field" />
+                                            <input type="text" name="BuildingName" value="@Model.BuildingName" class="input-field" />
                                         </div>
                                     </div>
                                     <div class="row-field clearfix">
@@ -335,13 +346,13 @@
                                             เลขที่ <span class="req">*</span>
                                         </div>
                                         <div class="c field">
-                                            <input type="text" name="" value="" class="input-field" />
+                                            <input type="text" name="No" value="@Model.No" class="input-field" />
                                         </div>
                                         <div class="c lbl">
                                             หมู่
                                         </div>
                                         <div class="c field">
-                                            <input type="text" name="" value="" class="input-field" />
+                                            <input type="text" name="Moo" value="@Model.Moo" class="input-field" />
                                         </div>
                                     </div>
                                     <div class="row-field clearfix">
@@ -349,7 +360,7 @@
                                             ซอย <span class="req">*</span>
                                         </div>
                                         <div class="c field">
-                                            <input type="text" name="" value="" class="input-field" />
+                                            <input type="text" name="Soi" value="@Model.Soi" class="input-field" />
                                         </div>
                                     </div>
                                     <div class="row-field clearfix">
@@ -357,7 +368,7 @@
                                             ถนน <span class="req">*</span>
                                         </div>
                                         <div class="c field">
-                                            <input type="text" name="" value="" class="input-field" />
+                                            <input type="text" name="Road" value="@Model.Road" class="input-field" />
                                         </div>
                                     </div>
                                 </div>
@@ -367,7 +378,7 @@
                                             จังหวัด <span class="req">*</span>
                                         </div>
                                         <div class="c field">
-                                            <select class="input-field">
+                                            <select class="input-field" id="ddlProvince" name="ProvinceCode">
                                                 <option value="">กรุณาเลือก</option>
                                             </select>
                                         </div>
@@ -377,7 +388,7 @@
                                             อำเภอ <span class="req">*</span>
                                         </div>
                                         <div class="c field">
-                                            <select class="input-field">
+                                            <select class="input-field" id="ddlAmphur" name="AmphurCode">
                                                 <option value="">กรุณาเลือก</option>
                                             </select>
                                         </div>
@@ -387,7 +398,7 @@
                                             ตำบล <span class="req">*</span>
                                         </div>
                                         <div class="c field">
-                                            <select class="input-field">
+                                            <select class="input-field" id="ddlTambon" name="TambonCode">
                                                 <option value="">กรุณาเลือก</option>
                                             </select>
                                         </div>
@@ -397,7 +408,7 @@
                                             รหัสไปรษณีย์ <span class="req">*</span>
                                         </div>
                                         <div class="c field">
-                                            <input type="text" name="" value="" class="input-field" />
+                                            <input type="text" name="Postcode" value="@Model.Postcode" class="input-field" id="txtPostcode" />
                                         </div>
                                     </div>
                                 </div>
@@ -414,7 +425,7 @@
                                             ละติจูด
                                         </div>
                                         <div class="c field">
-                                            <input type="text" name="" value="" class="input-field" />
+                                            <input type="text" name="Latitude" value="@Model.Latitude" class="input-field" />
                                         </div>
                                     </div>
                                 </div>
@@ -424,7 +435,7 @@
                                             ลองติจูด <span class="req">*</span>
                                         </div>
                                         <div class="c field">
-                                            <input type="text" name="" value="" class="input-field" />
+                                            <input type="text" name="Longitude" value="@Model.Longitude" class="input-field" />
                                         </div>
                                     </div>
                                 </div>
@@ -609,7 +620,14 @@
 
     <script type="text/javascript">
         var routeId = @ViewBag.routeId;
+
+        var model = @Html.Raw(Json.Serialize(Model));
+
+        var address = @Html.Raw(Json.Serialize(ViewBag.Address as Address));
+
         console.log('routeid=', routeId);
+        console.log('model=', model);
+        console.log('address=', address);
     </script>
 
     <script src="~/js/pages/events-details.js"></script>

@@ -92,6 +92,10 @@ namespace DPEMoveDAL.ViewModels
         public decimal? Longitude { get; set; }
         public string AddressDescription { get; set; }
         public double? Distance { get; set; }
+        public string AmphurCode { get; set; }
+        public string ProvinceCode { get; set; }
+        public string TambonCode { get; set; }
+        public double? VoteAvg { get; set; }
     }
 
     public class EventViewModel2
@@ -133,6 +137,24 @@ namespace DPEMoveDAL.ViewModels
         public int[] MEventObjectiveIds { get; set; }
         public string[] EventFacilityName { get; set; }
 
+        /* address */
+        public string AmphurCode { get; set; }
+        public string ProvinceCode { get; set; }
+        public string TambonCode { get; set; }
+        public string BuildingName { get; set; }
+        public int? AddressTypeId { get; set; }
+        public string Moo { get; set; }
+        public string HousePropertyName { get; set; }
+        public string No { get; set; }
+        public string Road { get; set; }
+        public string Soi { get; set; }
+        public string Floor { get; set; }
+        public string Postcode { get; set; }
+        public string Lane { get; set; }
+        public string RoomNo { get; set; }
+        public string Description { get; set; }
+        public decimal? Latitude { get; set; }
+        public decimal? Longitude { get; set; }
     }
 
 }

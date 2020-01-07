@@ -41,13 +41,6 @@ namespace DPEMoveWeb.Controllers
                     .ThenInclude(b => b.UploadedFile)
                 ;
 
-            if (HttpContext.Session.Get<DateTime>("SessionTime") == null)
-            {
-                HttpContext.Session.Set<DateTime>("SessionTime", DateTime.Now);
-            }
-
-            ViewBag.SessionTime = HttpContext.Session.Get<DateTime>("SessionTime");
-
             return View(await appDbContext.ToListAsync());
         }
 
@@ -69,55 +62,10 @@ namespace DPEMoveWeb.Controllers
             }
 
             ViewBag.MEventFacilitiesTopic = _context.MEventFacilitiesTopic.ToList();
+            ViewBag.MEventLevel = _context.MEventLevel.ToList();
+            ViewBag.Address = _context.Event.Where(a => a.EventId == id).FirstOrDefault()?.Address;
 
             return View(eventVM);
-        }
-
-        // GET: Events/Create
-        public IActionResult Create()
-        {
-            ViewData["AddressId"] = new SelectList(_context.Address, "AddressId", "AddressId");
-            ViewData["EventLevelId"] = new SelectList(_context.MEventLevel, "EventLevelId", "EventLevelCode");
-            ViewData["EventTypeId"] = new SelectList(_context.MEventType, "EventTypeId", "EventTypeCode");
-            return View();
-        }
-
-        // POST: Events/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("EventId,EventCode,EventName,EventShortDescription,EventDescription,EventStartTimestamp,EventFinishTimestamp,AddressId,StadiumCode,PublishUrl,ResponsiblePerson,ResponsiblePersonCode,ReadCount,EventLevelId,EventLevelEtc,EventObjectivePersonId,Status,CreatedDate,CreatedBy,UpdatedDate,UpdatedBy,Budget,Budgetused,EventTypeId,ProjectSelect,ProjectCode,ResponsiblePersonType,ContactPersonName,ContactPersonEmail,ContactPersonMobile,ContactPersonFax,ContactPersonLineid")] Event @event)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(@event);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["AddressId"] = new SelectList(_context.Address, "AddressId", "AddressId", @event.AddressId);
-            ViewData["EventLevelId"] = new SelectList(_context.MEventLevel, "EventLevelId", "EventLevelCode", @event.EventLevelId);
-            ViewData["EventTypeId"] = new SelectList(_context.MEventType, "EventTypeId", "EventTypeCode", @event.EventTypeId);
-            return View(@event);
-        }
-
-        // GET: Events/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var @event = await _context.Event.FindAsync(id);
-            if (@event == null)
-            {
-                return NotFound();
-            }
-            ViewData["AddressId"] = new SelectList(_context.Address, "AddressId", "AddressId", @event.AddressId);
-            ViewData["EventLevelId"] = new SelectList(_context.MEventLevel, "EventLevelId", "EventLevelCode", @event.EventLevelId);
-            ViewData["EventTypeId"] = new SelectList(_context.MEventType, "EventTypeId", "EventTypeCode", @event.EventTypeId);
-            return View(@event);
         }
 
         [HttpPost]
@@ -125,17 +73,17 @@ namespace DPEMoveWeb.Controllers
         {
             _logger.LogDebug("model.EventId={0}", model.EventId);
             _logger.LogDebug("model.EventName={0}", model.EventName);
+            _logger.LogDebug("model.EventLevelId={0}", model.EventLevelId);
             _logger.LogDebug("model.MEventObjectiveIds.Length={0}", model.MEventObjectiveIds?.Length);
             foreach (var x in model.MEventObjectiveIds ?? new int[] { })
             {
                 _logger.LogDebug("MEventObjectiveId={0}", x);
             }
 
+
             _eventService.UpdateEvent(model);
 
-
             // EventFacilities
-
             var eventFacilities = HttpContext.Session.Get<List<EventFacilities>>("Session_EventFacilities_" + model.EventId);
             if (eventFacilities != null)
             {
@@ -165,83 +113,32 @@ namespace DPEMoveWeb.Controllers
                 _context.SaveChanges();
             }
 
+            /* ADDRESS */
+            _logger.LogDebug("model.EventId={0}", model.EventId);
+
+            var addressFromDB = _context.Event.Include(b => b.Address).Where(a => a.EventId == model.EventId).FirstOrDefault()?.Address;
+            _logger.LogDebug("addressFromDB={0}", addressFromDB);
+            if (addressFromDB == null)
+            {
+                addressFromDB = new Address();
+            }
+            _logger.LogDebug("addressFromDB.AddressId={0}", addressFromDB.AddressId);
+
+            addressFromDB.BuildingName = model.BuildingName;
+            addressFromDB.No = model.No;
+            addressFromDB.Moo = model.Moo;
+            addressFromDB.Soi = model.Soi;
+            addressFromDB.Road = model.Road;
+            addressFromDB.ProvinceCode = model.ProvinceCode;
+            addressFromDB.AmphurCode = model.AmphurCode;
+            addressFromDB.TambonCode = model.TambonCode;
+            addressFromDB.Postcode = model.Postcode;
+
+            _context.Entry(addressFromDB).State = addressFromDB.AddressId == 0 ? EntityState.Added : EntityState.Modified;
+            _context.SaveChanges();
+
+
             return RedirectToAction("Index");
-        }
-
-
-        // POST: Events/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("EventId,EventCode,EventName,EventShortDescription,EventDescription,EventStartTimestamp,EventFinishTimestamp,AddressId,StadiumCode,PublishUrl,ResponsiblePerson,ResponsiblePersonCode,ReadCount,EventLevelId,EventLevelEtc,EventObjectivePersonId,Status,CreatedDate,CreatedBy,UpdatedDate,UpdatedBy,Budget,Budgetused,EventTypeId,ProjectSelect,ProjectCode,ResponsiblePersonType,ContactPersonName,ContactPersonEmail,ContactPersonMobile,ContactPersonFax,ContactPersonLineid")] Event @event)
-        {
-            if (id != @event.EventId)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(@event);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!EventExists(@event.EventId))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["AddressId"] = new SelectList(_context.Address, "AddressId", "AddressId", @event.AddressId);
-            ViewData["EventLevelId"] = new SelectList(_context.MEventLevel, "EventLevelId", "EventLevelCode", @event.EventLevelId);
-            ViewData["EventTypeId"] = new SelectList(_context.MEventType, "EventTypeId", "EventTypeCode", @event.EventTypeId);
-            return View(@event);
-        }
-
-        // GET: Events/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var @event = await _context.Event
-                .Include(@a => @a.Address)
-                .Include(@a => @a.EventLevel)
-                .Include(@a => @a.EventType)
-                .FirstOrDefaultAsync(m => m.EventId == id);
-            if (@event == null)
-            {
-                return NotFound();
-            }
-
-            return View(@event);
-        }
-
-        // POST: Events/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var @event = await _context.Event.FindAsync(id);
-            _context.Event.Remove(@event);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
-
-        private bool EventExists(int id)
-        {
-            return _context.Event.Any(e => e.EventId == id);
         }
     }
 }
