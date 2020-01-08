@@ -255,13 +255,11 @@ function UploadFile(fileId, eventId) {
         processData: false, // Not to process data
         data: fileData,
         success: function (result, status, xhr) {
-            alert(result);
-
             var fileName = result;
             AddUploadedFileToDatabase(fileName, eventId);
         },
         error: function (xhr, status, error) {
-            alert(status);
+            console.log("uploadfile error")
         }
     });
 }

@@ -153,11 +153,13 @@ namespace DPEMoveWeb.ApiWebControllers
         {
             _logger.LogDebug("model.FileName={0}", model.FileName);
 
+            var basePath = $"{this.Request.Scheme}://{this.Request.Host}{this.Request.PathBase}";
+
             var q = new UploadedFile
             {
                 UploadedFileCode = "n/a",
                 FileType = Path.GetExtension(model.FileName),
-                FileUrl = Path.Combine(_hostingEnvironment.WebRootPath, model.FileName),
+                FileUrl = basePath + "/Uploads/" + model.FileName,
                 FileName = model.FileName,
                 CreatedBy = 0,
                 CreatedDate = DateTime.Now,                
