@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -8,9 +9,11 @@ using DPEMoveDAL.Services;
 using DPEMoveDAL.ViewModels;
 using DPEMoveWeb.Helper;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace DPEMoveWeb.ApiWebControllers
 {
@@ -21,12 +24,16 @@ namespace DPEMoveWeb.ApiWebControllers
         private readonly AppDbContext _context;
         private readonly IMapper _mapper;
         private readonly IEventService _eventService;
+        private readonly ILogger<EventsWebApiController> _logger;
+        private readonly IHostingEnvironment _hostingEnvironment;
 
-        public EventsWebApiController(AppDbContext context, IMapper mapper, IEventService eventService)
+        public EventsWebApiController(AppDbContext context, IMapper mapper, IEventService eventService, ILogger<EventsWebApiController> logger, IHostingEnvironment hostingEnvironment)
         {
             _context = context;
             _mapper = mapper;
             _eventService = eventService;
+            _logger = logger;
+            _hostingEnvironment = hostingEnvironment;
         }
 
         [HttpGet]
@@ -141,6 +148,40 @@ namespace DPEMoveWeb.ApiWebControllers
             return Ok();
         }
 
+        [HttpPost]
+        public ActionResult AddUploadedFileToDatabase(UploadedFileViewModel model)
+        {
+            _logger.LogDebug("model.FileName={0}", model.FileName);
+
+            var q = new UploadedFile
+            {
+                UploadedFileCode = "n/a",
+                FileType = Path.GetExtension(model.FileName),
+                FileUrl = Path.Combine(_hostingEnvironment.WebRootPath, model.FileName),
+                FileName = model.FileName,
+                CreatedBy = 0,
+                CreatedDate = DateTime.Now,                
+            };
+
+            _context.Entry(q).State = EntityState.Added;
+            _context.SaveChanges();
+
+            var eup = new EventUploadedFile
+            {
+                EventId = model.EventId,
+                UploadedFileId = q.UploadedFileId,
+                EventUploadedFileCode = "n/a",
+                Order = _context.EventUploadedFile.Where(a => a.EventId == model.EventId).Count()+1,
+                CreatedBy = 0,
+                CreatedDate = DateTime.Now,
+                Status = 1
+            };
+
+            _context.Entry(eup).State = EntityState.Added;
+            _context.SaveChanges();
+
+            return Ok();
+        }
 
     }
 }

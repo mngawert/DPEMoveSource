@@ -239,6 +239,55 @@ function GetTambon(provinceId, amphurId) {
     $.ajax(options);
 }
 
+function UploadFile(fileId, eventId) {
+
+    var files = $("#" + fileId).get(0).files;
+    var fileData = new FormData();
+    for (var i = 0; i < files.length; i++) {
+        fileData.append("file", files[i]);
+    }
+
+    $.ajax({
+        type: "POST",
+        url: "/Events/UploadFiles",
+        dataType: "json",
+        contentType: false, // Not to set any content header
+        processData: false, // Not to process data
+        data: fileData,
+        success: function (result, status, xhr) {
+            alert(result);
+
+            var fileName = result;
+            AddUploadedFileToDatabase(fileName, eventId);
+        },
+        error: function (xhr, status, error) {
+            alert(status);
+        }
+    });
+}
+
+function AddUploadedFileToDatabase(fileName, eventId) {
+
+    var options = {};
+
+    var input = {};
+    input.fileName = fileName;
+    input.eventId = eventId;
+    options.data = JSON.stringify(input);
+    console.log("input", options.data);
+
+    options.url = "/webapi/Events/AddUploadedFileToDatabase";
+    options.contentType = "application/json";
+    options.method = "POST";
+    options.success = function (data) {
+        console.log("AddUploadedFileToDatabase success");
+    };
+    options.error = function (a, b, c) {
+        console.log("Error while calling the Web API!(" + b + " - " + c + ")");
+    };
+    $.ajax(options);
+}
+
 
 $(document).ready(function () {
 

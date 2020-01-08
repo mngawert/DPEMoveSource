@@ -11,6 +11,9 @@ using DPEMoveDAL.ViewModels;
 using Microsoft.Extensions.Logging;
 using DPEMoveDAL.Services;
 using DPEMoveWeb.Helper;
+using Microsoft.AspNetCore.Http;
+using System.IO;
+using Microsoft.AspNetCore.Hosting;
 
 namespace DPEMoveWeb.Controllers
 {
@@ -19,15 +22,15 @@ namespace DPEMoveWeb.Controllers
         private readonly AppDbContext _context;
         private readonly ILogger<EventsController> _logger;
         private readonly IEventService _eventService;
+        private readonly IHostingEnvironment _hostingEnvironment;
 
-        public EventsController(AppDbContext context, ILogger<EventsController> logger, IEventService eventService)
+        public EventsController(AppDbContext context, ILogger<EventsController> logger, IEventService eventService, IHostingEnvironment hostingEnvironment)
         {
             _context = context;
             _logger = logger;
             _eventService = eventService;
+            _hostingEnvironment = hostingEnvironment;
         }
-
-
 
         // GET: Events
         [Authorize]
@@ -166,5 +169,86 @@ namespace DPEMoveWeb.Controllers
 
             return RedirectToAction("Index");
         }
+
+        public IActionResult Upload()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Upload(IFormFile file)
+        {
+            var fileName = System.IO.Path.GetFileName(file.FileName);
+            fileName += Guid.NewGuid().ToString().Substring(0, 4) + "_" + fileName;
+
+            if (System.IO.File.Exists(fileName))
+            {
+                System.IO.File.Delete(fileName);
+            }
+
+            var uploads = Path.Combine(_hostingEnvironment.WebRootPath, "Uploads");
+            var filePath = Path.Combine(uploads, fileName);
+
+            using (var localFile = new FileStream(filePath, FileMode.Create))
+            {
+                using (var uploadedFile = file.OpenReadStream())
+                {
+                    uploadedFile.CopyTo(localFile);
+                }
+            }
+
+            ViewBag.Message = "File successfully uploaded";
+
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult UploadFiles(IFormFile file)
+        {
+            if (file?.Length > 0)
+            {
+                var fileName = Guid.NewGuid().ToString().Substring(0, 4) + "_" + System.IO.Path.GetFileName(file.FileName);
+
+                if (System.IO.File.Exists(fileName))
+                {
+                    System.IO.File.Delete(fileName);
+                }
+
+                var uploads = Path.Combine(_hostingEnvironment.WebRootPath, "Uploads");
+                var filePath = Path.Combine(uploads, fileName);
+
+                using (var localFile = new FileStream(filePath, FileMode.Create))
+                {
+                    using (var uploadedFile = file.OpenReadStream())
+                    {
+                        uploadedFile.CopyTo(localFile);
+                    }
+                }
+                return Json(fileName);
+            }
+            return BadRequest();
+        }
+
+        [HttpPost]
+        public ActionResult AddUploadedFileToDatabase(UploadedFileViewModel model)
+        {
+            _logger.LogDebug("model.FileName={0}", model.FileName);
+
+            var q = new UploadedFile
+            {
+                UploadedFileCode = "n/a",
+                FileType = "n/1", //Path.GetExtension(model.FileName),
+                FileUrl =  "n/q", //Path.Combine(_hostingEnvironment.WebRootPath, model.FileName),
+                FileName = model.FileName,
+                CreatedBy = 0,
+                CreatedDate = DateTime.Now,
+            };
+
+            _context.Entry(q).State = EntityState.Added;
+            _context.SaveChanges();
+
+            return Ok();
+        }
+
     }
 }

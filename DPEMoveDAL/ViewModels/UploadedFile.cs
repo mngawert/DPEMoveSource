@@ -15,6 +15,7 @@ namespace DPEMoveDAL.ViewModels
         public int CreatedBy { get; set; }
         public DateTime? UpdatedDate { get; set; }
         public int? UpdatedBy { get; set; }
+        public int EventId { get; set; }
 
         [JsonIgnore]
         public ICollection<EventUploadedFileViewModel> EventUploadedFile { get; set; }
