@@ -1158,11 +1158,6 @@ namespace DPEMoveDAL.Models
 
                 entity.Property(e => e.EventId).HasColumnName("EVENT_ID");
 
-                entity.Property(e => e.EventSportCode)
-                    .IsRequired()
-                    .HasColumnName("EVENT_SPORT_CODE")
-                    .HasColumnType("VARCHAR2(32)");
-
                 entity.Property(e => e.SportEtc)
                     .HasColumnName("SPORT_ETC")
                     .HasColumnType("VARCHAR2(255)");

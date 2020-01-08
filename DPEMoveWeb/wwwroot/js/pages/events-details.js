@@ -67,6 +67,13 @@ function GetEventFacilitiesFromSession(obj) {
 function AddEventFacilitiesToSession(eventId, mEventFacilitiesTopicId) {
     console.log('start AddEventFacilitiesToSession ');
 
+    if ($("#txtFacilityName_" + mEventFacilitiesTopicId).val() == "")
+        return false;
+    if ($("#txtFacilityAmount_" + mEventFacilitiesTopicId).val() == "")
+        return false;
+    if ($("#txtFacilityUnit_" + mEventFacilitiesTopicId).val() == "")
+        return false;
+
     var options = {};
 
     var input = {};

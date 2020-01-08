@@ -270,11 +270,22 @@
                                     <div class="row-field clearfix">
                                         <div class="c field">
                                             ชนิดกีฬา
-                                            <div><input type="checkbox" name="" value="" class="input-field" /> ฟุตบอล</div>
-                                            <div><input type="checkbox" name="" value="" class="input-field" /> วอลเล่บอล</div>
-                                            <div><input type="checkbox" name="" value="" class="input-field" /> บาสเก็ตบอล</div>
-                                            <div><input type="checkbox" name="" value="" class="input-field" /> อื่นๆ โปรดระบุ <input type="text" name="" value="" class="input-field" /></div>
-                                        </div>
+                                            @foreach (var x in ViewBag.MSport as List<MSport>)
+                                            {
+                                                @if (x.SportId != 4)
+                                                {
+                                                    <div><input type="checkbox" name="SportIds" value="@x.SportId" class="input-field" checked="@(Model.EventSport.Any(b => b.SportId == x.SportId))" /> @x.SportName</div>
+                                                }
+                                                else
+                                                {
+                                                    <div><input type="checkbox" name="SportIds" value="@x.SportId" class="input-field" checked="@(Model.EventSport.Any(b => b.SportId == x.SportId))" /> อื่นๆ โปรดระบุ <input type="text" name="SportEtc" value="" class="input-field" /></div>
+                                                }
+                                            }
+                                                @*<div><input type="checkbox" name="" value="" class="input-field" /> ฟุตบอล</div>
+                                                <div><input type="checkbox" name="" value="" class="input-field" /> วอลเล่บอล</div>
+                                                <div><input type="checkbox" name="" value="" class="input-field" /> บาสเก็ตบอล</div>
+                                                <div><input type="checkbox" name="" value="" class="input-field" /> อื่นๆ โปรดระบุ <input type="text" name="" value="" class="input-field" /></div>*@
+                                            </div>
                                     </div>
                                 </div>
                             </div>
@@ -467,20 +478,22 @@
                             </div>
                         </div>
 
-
                         <div class="modal fade bd-example-modal-lg" id="ModalTopic_@topic.EventFacilitiesTopicId" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-lg">
                                 <div class="modal-content">
+                                    
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
+                                        <div class="heading">เพิ่ม @topic.EventFacilitiesTopicName</div>
                                     </div>
+
                                     <div class="modal-body">
                                         <div class="row">
-                                            <div class="col-sm-12">
-                                                <table cellspacing="0" class="tbl-data" width="100%">
+                                            <div class="col-12">
+                                                <table cellspacing="0" class="tbl-data">
                                                     <tr>
                                                         <th class="name">ชื่อ</th>
                                                         <th class="amount">จำนวน</th>
@@ -494,14 +507,18 @@
                                                 </table>
                                             </div>
                                         </div>
+                                        <div class="row">
+                                            <div class="col-12 text-right">
+                                                <button type="button" class="button darkgreen" data-dismiss="modal" onclick="AddEventFacilitiesToSession(@Model.EventId, @topic.EventFacilitiesTopicId)">เพิ่ม</button>
+                                            </div>
+                                        </div>
+
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="AddEventFacilitiesToSession(@Model.EventId, @topic.EventFacilitiesTopicId)">เพิ่ม</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
 
                     </div>
                     }

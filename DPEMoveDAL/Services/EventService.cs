@@ -67,24 +67,24 @@ namespace DPEMoveDAL.Services
             var @event = await GetEventDetails(id);
             var ev = _mapper.Map<EventViewModel2>(@event);
 
-            var a = @event.Address;
+            var addr = @event.Address;
 
-            if (a != null)
+            if (addr != null)
             {
-                ev.BuildingName = a.BuildingName;
-                ev.Moo = a.Moo;
-                ev.No = a.No;
-                ev.HousePropertyName = a.HousePropertyName;
-                ev.Lane = a.Lane;
-                ev.Floor = a.Floor;
-                ev.Soi = a.Soi;
-                ev.Road = a.Road;
-                ev.ProvinceCode = a.ProvinceCode;
-                ev.AmphurCode = a.AmphurCode;
-                ev.TambonCode = a.TambonCode;
-                ev.Postcode = a.Postcode;
-                ev.Latitude = a.Latitude;
-                ev.Longitude = a.Longitude;
+                ev.BuildingName = addr.BuildingName;
+                ev.Moo = addr.Moo;
+                ev.No = addr.No;
+                ev.HousePropertyName = addr.HousePropertyName;
+                ev.Lane = addr.Lane;
+                ev.Floor = addr.Floor;
+                ev.Soi = addr.Soi;
+                ev.Road = addr.Road;
+                ev.ProvinceCode = addr.ProvinceCode;
+                ev.AmphurCode = addr.AmphurCode;
+                ev.TambonCode = addr.TambonCode;
+                ev.Postcode = addr.Postcode;
+                ev.Latitude = addr.Latitude;
+                ev.Longitude = addr.Longitude;
             }
 
             var listMEventObjective = _context.MEventObjective
@@ -97,6 +97,7 @@ namespace DPEMoveDAL.Services
                 .ToList();
 
             ev.MEventObjective = listMEventObjective.ToArray();
+            ev.EventSport = _context.EventSport.Where(a => a.EventId == id).ToList();
 
             return ev;
         }
@@ -320,8 +321,8 @@ namespace DPEMoveDAL.Services
             ev.Budgetused = model.Budgetused;
             ev.ResponsiblePersonType = model.ResponsiblePersonType;
             ev.ResponsiblePerson = model.ResponsiblePerson;
-            //ev.ResponsiblePersonCode = model.ResponsiblePersonCode;
-            //ev.EventShortDescription = model.EventShortDescription;
+            ev.ResponsiblePersonCode = model.ResponsiblePersonCode;
+            ev.EventShortDescription = model.EventShortDescription;
             ev.EventDescription = model.EventDescription;
             ev.EventStartTimestamp = model.EventStartTimestamp;
             ev.EventFinishTimestamp = model.EventFinishTimestamp;
@@ -329,10 +330,9 @@ namespace DPEMoveDAL.Services
             ev.ContactPersonEmail = model.ContactPersonEmail;
             ev.ContactPersonMobile = model.ContactPersonMobile;
             ev.ContactPersonFax = model.ContactPersonFax;
-            //ev.EventLevelEtc = model.EventLevelEtc;
             //ev.ProjectCode = model.ProjectCode;
             ev.ProjectSelect = model.ProjectSelect;
-            //ev.PublishUrl = model.PublishUrl;
+            ev.PublishUrl = model.PublishUrl;
             ev.EventLevelId = model.EventLevelId;
             ev.EventLevelEtc = model.EventLevelEtc;
 

@@ -64,6 +64,7 @@ namespace DPEMoveWeb.Controllers
             ViewBag.MEventFacilitiesTopic = _context.MEventFacilitiesTopic.ToList();
             ViewBag.MEventLevel = _context.MEventLevel.ToList();
             ViewBag.Address = _context.Event.Where(a => a.EventId == id).FirstOrDefault()?.Address;
+            ViewBag.MSport = _context.MSport.ToList();
 
             return View(eventVM);
         }
@@ -133,10 +134,35 @@ namespace DPEMoveWeb.Controllers
             addressFromDB.AmphurCode = model.AmphurCode;
             addressFromDB.TambonCode = model.TambonCode;
             addressFromDB.Postcode = model.Postcode;
+            addressFromDB.Latitude = model.Latitude;
+            addressFromDB.Longitude = model.Longitude;
 
             _context.Entry(addressFromDB).State = addressFromDB.AddressId == 0 ? EntityState.Added : EntityState.Modified;
             _context.SaveChanges();
 
+
+            /* EVENT_SPORT*/
+            var esDb = _context.EventSport.Where(a => a.EventId == model.EventId);
+            foreach (var x in esDb)
+            {
+                _context.Remove(x).State = EntityState.Deleted;
+            }
+            _context.SaveChanges();
+
+            foreach (var id in model.SportIds ?? new int[] { })
+            {
+                var obj = new EventSport
+                {
+                    EventId = model.EventId,
+                    SportId = id,
+                    Status = 1,
+                    CreatedBy = 0,
+                    CreatedDate = DateTime.Now
+                };
+
+                _context.Entry(obj).State = EntityState.Added;
+            }
+            _context.SaveChanges();
 
             return RedirectToAction("Index");
         }

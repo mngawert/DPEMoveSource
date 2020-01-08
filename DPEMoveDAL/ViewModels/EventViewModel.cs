@@ -133,6 +133,9 @@ namespace DPEMoveDAL.ViewModels
         public string ContactPersonFax { get; set; }
         public string ContactPersonLineid { get; set; }
 
+        public List<EventSport> EventSport { get; set; }
+        public int[] SportIds { get; set; }
+        public string SportEtc { get; set; }
         public MEventObjectiveViewModel[] MEventObjective { get; set; }
         public int[] MEventObjectiveIds { get; set; }
         public string[] EventFacilityName { get; set; }

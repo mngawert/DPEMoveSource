@@ -6,7 +6,6 @@ namespace DPEMoveDAL.Models
     public partial class EventSport
     {
         public int EventSportId { get; set; }
-        public string EventSportCode { get; set; }
         public int EventId { get; set; }
         public int SportId { get; set; }
         public string SportEtc { get; set; }

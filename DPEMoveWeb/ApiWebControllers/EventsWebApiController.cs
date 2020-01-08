@@ -66,7 +66,6 @@ namespace DPEMoveWeb.ApiWebControllers
             return Ok(@event);
         }
 
-
         //[Authorize]
         public IActionResult GetMEventFacilitiesTopic()
         {
@@ -89,7 +88,6 @@ namespace DPEMoveWeb.ApiWebControllers
             
             return q;
         }
-
 
         [HttpPost]
         //[Authorize]
@@ -142,6 +140,7 @@ namespace DPEMoveWeb.ApiWebControllers
 
             return Ok();
         }
+
 
     }
 }
