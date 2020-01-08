@@ -30,7 +30,7 @@ function GetEvent() {
             items +=
                 `
             <li>
-                <a href="Events/Details/` + value.eventId + `">
+                <a href="/Events/Details/` + value.eventId + `">
                     <div class="row event">
                         <div class="col-12 col-sm-5 col-md-4">
                             <div class="event-thumb"><img src="` + value.fileUrl + `" /></div>

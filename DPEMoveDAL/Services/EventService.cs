@@ -123,19 +123,27 @@ namespace DPEMoveDAL.Services
                 //})
                 ;
 
-            if (model.EventCode != null)
+            if (!string.IsNullOrEmpty(model.EventCode))
             {
                 q = q.Where(a => a.EventCode.Contains(model.EventCode));
             }
-            if (model.EventName != null)
+            if (!string.IsNullOrEmpty(model.EventName))
             {
                 q = q.Where(a => a.EventName.Contains(model.EventName));
+            }
+            if (model.EventStartTimestamp != null)
+            {
+                q = q.Where(a => model.EventStartTimestamp.CompareTo(a.EventFinishTimestamp) <= 0);
+            }
+            if (model.EventFinishTimestamp != null)
+            {
+                q = q.Where(a => a.EventStartTimestamp.CompareTo(model.EventFinishTimestamp) <= 0);
             }
 
             //return q;
 
             /* Order by*/
-            //q = q.OrderBy(a => a.CreatedDate);
+
             //if (!string.IsNullOrWhiteSpace(model.OrderBy))
             //{
             //    if (model.OrderBy == "EventCode")
@@ -181,12 +189,18 @@ namespace DPEMoveDAL.Services
                         }
                     }
                     _logger.LogDebug("eventsNearby = ", eventsNearby);
-                    return PaginatedList<EventViewModel>.Create(eventsNearby.ToList(), model.LimitStart ?? 1, model.LimitSize ?? 10000); ;
+
+                    var nn = eventsNearby.OrderByDescending(a => a.EventStartTimestamp);
+
+                    return PaginatedList<EventViewModel>.Create(nn, model.LimitStart ?? 1, model.LimitSize ?? 10000); ;
                 }
             }
 
             _logger.LogDebug("q = ", q);
-            return PaginatedList<EventViewModel>.Create(q, model.LimitStart ?? 1, model.LimitSize ?? 10000);
+
+            var qq = q.OrderByDescending(a => a.EventStartTimestamp);
+
+            return PaginatedList<EventViewModel>.Create(qq, model.LimitStart ?? 1, model.LimitSize ?? 10000);
         }
 
         public IEnumerable<EventDbQuery> GetEvent2(EventRequestViewModel model)

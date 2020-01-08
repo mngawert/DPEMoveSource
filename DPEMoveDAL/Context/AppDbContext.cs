@@ -810,7 +810,6 @@ namespace DPEMoveDAL.Models
                 entity.Property(e => e.EventObjectivePersonId).HasColumnName("EVENT_OBJECTIVE_PERSON_ID");
 
                 entity.Property(e => e.EventShortDescription)
-                    .IsRequired()
                     .HasColumnName("EVENT_SHORT_DESCRIPTION")
                     .HasColumnType("VARCHAR2(255)");
 
@@ -829,7 +828,6 @@ namespace DPEMoveDAL.Models
                     .HasColumnType("CHAR(1)");
 
                 entity.Property(e => e.PublishUrl)
-                    .IsRequired()
                     .HasColumnName("PUBLISH_URL")
                     .HasColumnType("VARCHAR2(255)");
 
