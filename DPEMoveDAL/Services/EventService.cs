@@ -248,14 +248,14 @@ namespace DPEMoveDAL.Services
                 //var dateStart = cal.ToDateTime(int.Parse(model.EventStart.Substring(6, 4)), int.Parse(model.EventStart.Substring(3, 2)), int.Parse(model.EventStart.Substring(0, 2)), 0, 0, 0, 0);
 
                 var dateStart = DateTime.Parse(model.EventStart);
-                q = q.Where(a => dateStart.ToString("yyyyMMdd").CompareTo(a.EventFinishTimestamp.Value.ToString("yyyyMMdd")) <= 0);
+                q = q.Where(a => dateStart.CompareTo(a.EventFinishTimestamp) <= 0);
             }
             if (!string.IsNullOrEmpty(model.EventFinish))
             {
                 //ThaiBuddhistCalendar cal = new ThaiBuddhistCalendar();
                 //var dateFinish = cal.ToDateTime(int.Parse(model.EventFinish.Substring(6, 4)), int.Parse(model.EventFinish.Substring(3, 2)), int.Parse(model.EventFinish.Substring(0, 2)), 0, 0, 0, 0);
-                var dateFinish = DateTime.Parse(model.EventStart);
-                q = q.Where(a => a.EventStartTimestamp.ToString("yyyyMMdd").CompareTo(dateFinish.ToString("yyyyMMdd")) <= 0);
+                var dateFinish = DateTime.Parse(model.EventFinish);
+                q = q.Where(a => a.EventStartTimestamp.CompareTo(dateFinish) <= 0);
             }
 
             if (!string.IsNullOrEmpty(model.ProvinceCode))

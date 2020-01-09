@@ -5,7 +5,7 @@ function GetEvent() {
 
     var input = {};
     input.limitStart = "1";
-    input.limitSize = "10";
+    input.limitSize = "100";
     input.eventName = $("#txtEventName").val();
     input.eventStart = $("#txtEventStart").val();
     input.eventFinish = $("#txtEventFinish").val();
@@ -71,6 +71,9 @@ function GetEvent() {
 }
 
 function GetProvinceNameById(provinceId) {
+
+    if (provinceId == null)
+        return "";
 
     console.log("call GetProvinceNameById", provinceId);
     var provinceName = "n/a";
