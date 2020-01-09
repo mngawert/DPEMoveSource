@@ -1,6 +1,7 @@
 ﻿using DPEMoveDAL.Models;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace DPEMoveDAL.ViewModels
 {
@@ -86,6 +87,8 @@ namespace DPEMoveDAL.ViewModels
         public int ReadCount { get; set; }
         public int CommentCount { get; set; }
         public int Status { get; set; }
+        public DateTime CreatedDate { get; set; }
+        public int CreatedBy { get; set; }
         public decimal? Budget { get; set; }
         public decimal? Budgetused { get; set; }
         public decimal? Latitude { get; set; }
@@ -102,6 +105,9 @@ namespace DPEMoveDAL.ViewModels
     {
         public int EventId { get; set; }
         public string EventCode { get; set; }
+ 
+        [Required]
+        [StringLength(1000)]
         public string EventName { get; set; }
         public string EventShortDescription { get; set; }
         public string EventDescription { get; set; }

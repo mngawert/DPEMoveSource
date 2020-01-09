@@ -76,24 +76,31 @@ namespace DPEMoveWeb.Controllers
         [HttpPost]
         public IActionResult CreateEvent([FromForm] EventViewModel2 model)
         {
-            var q = new Event
+            if (ModelState.IsValid)
             {
-                EventName = model.EventName,
-                EventCode = "EVT" + DateTime.Now.ToString("yyyyMMdd") + (_context.Event.Max(a => a.EventId)+1).ToString().PadLeft(4,'0'),
-                EventDescription = "...", //model.EventDescription,
-                EventStartTimestamp = model.EventStartTimestamp,
-                EventFinishTimestamp = model.EventFinishTimestamp,
-                ReadCount = 0,
-                EventLevelId = 1,
-                Status = 1,
-                CreatedBy = 0, //model.CreatedBy,
-                CreatedDate = DateTime.Now,
-            };
+                var q = new Event
+                {
+                    EventName = model.EventName,
+                    EventCode = "EVT" + DateTime.Now.ToString("yyyyMMdd") + (_context.Event.Max(a => a.EventId) + 1).ToString().PadLeft(4, '0'),
+                    EventDescription = "...", //model.EventDescription,
+                    EventStartTimestamp = model.EventStartTimestamp,
+                    EventFinishTimestamp = model.EventFinishTimestamp,
+                    ReadCount = 0,
+                    EventLevelId = 1,
+                    Status = 1,
+                    CreatedBy = 0, //model.CreatedBy,
+                    CreatedDate = DateTime.Now,
+                };
 
-            _context.Entry(q).State = EntityState.Added;
-            _context.SaveChanges();
+                _context.Entry(q).State = EntityState.Added;
+                _context.SaveChanges();
 
-            return RedirectToAction("Details", new { id = q.EventId });
+                return RedirectToAction("Details", new { id = q.EventId });
+            }
+            else
+            {
+                return BadRequest();
+            }
         }
 
 

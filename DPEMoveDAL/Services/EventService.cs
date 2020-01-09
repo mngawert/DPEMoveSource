@@ -126,6 +126,8 @@ namespace DPEMoveDAL.Services
                 //})
                 ;
 
+            q = q.Where(a => a.Status == 1);
+
             if (!string.IsNullOrEmpty(model.EventCode))
             {
                 q = q.Where(a => a.EventCode.Contains(model.EventCode));
@@ -219,6 +221,9 @@ namespace DPEMoveDAL.Services
                     EventStartTimestamp = a.EventStartTimestamp,
                     EventStartTH = a.EventStartTimestamp.ToString("d MMM yy"),
                     EventFinishTimestamp = a.EventFinishTimestamp,
+                    Status = a.Status,
+                    CreatedDate = a.CreatedDate,
+                    CreatedBy = a.CreatedBy,
                     Budget = a.Budget,
                     Budgetused = a.Budgetused,
                     PublishUrl = a.PublishUrl,
@@ -233,6 +238,8 @@ namespace DPEMoveDAL.Services
                     ProvinceCode = a.Address.ProvinceCode,
                     VoteAvg = _context.Vote.Where(b => b.EventCode == a.EventCode).Count() == 0 ? 0: _context.Vote.Where(b => b.EventCode == a.EventCode).Average(c => c.VoteValue)
                 });
+
+            q = q.Where(a => a.Status == 1);
 
             if (!string.IsNullOrEmpty(model.EventCode))
             {
