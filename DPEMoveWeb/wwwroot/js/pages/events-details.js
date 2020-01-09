@@ -286,6 +286,26 @@ function AddUploadedFileToDatabase(fileName, eventId) {
     $.ajax(options);
 }
 
+function DeleteUploadedFile(eventId, uploadedFileId) {
+    var options = {};
+
+    var input = {};
+    input.eventId = eventId;
+    input.uploadedFileId = uploadedFileId;
+    options.data = JSON.stringify(input);
+    console.log("input", options.data);
+
+    options.url = "/webapi/Events/DeleteUploadedFile";
+    options.contentType = "application/json";
+    options.method = "POST";
+    options.success = function (data) {
+        console.log("DeleteUploadedFile success");
+    };
+    options.error = function (a, b, c) {
+        console.log("Error while calling the Web API!(" + b + " - " + c + ")");
+    };
+    $.ajax(options);
+}
 
 $(document).ready(function () {
 

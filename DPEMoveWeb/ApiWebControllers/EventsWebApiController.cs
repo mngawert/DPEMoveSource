@@ -185,5 +185,28 @@ namespace DPEMoveWeb.ApiWebControllers
             return Ok();
         }
 
+
+        [HttpPost]
+        public ActionResult DeleteUploadedFile(UploadedFileViewModel model)
+        {
+            _logger.LogDebug("model.EventId={0}, model.UploadedFileId={1}", model.EventId, model.UploadedFileId);
+
+            var dd_1 = _context.EventUploadedFile.Where(a => a.EventId == model.EventId && a.UploadedFileId == model.UploadedFileId);
+            foreach (var x in dd_1)
+            {
+                _context.Entry(x).State = EntityState.Deleted;
+                _context.SaveChanges();
+            }
+
+            var dd_2 = _context.UploadedFile.Where(a => a.UploadedFileId == model.UploadedFileId);
+            foreach (var x in dd_2)
+            {
+                _context.Entry(x).State = EntityState.Deleted;
+                _context.SaveChanges();
+            }
+
+            return Ok();
+        }
+
     }
 }

@@ -600,7 +600,6 @@
                         </div>
                     </div>*@
 
-
                 </div>
                 <div class="tab_item">
                     <div class="block-group">
@@ -619,16 +618,28 @@
                         <div class="heading">ภาพประกอบ</div>
                         <div class="entry-data">
                             <div class="row">
-                                <div class="col-sm-12">
+                                <input type="file" id="fileInput" multiple onchange="UploadFile('fileInput', @Model.EventId);" />
+                            </div>
+                            <div class="row search-events-result">
+                                <div class="col-12">
                                     <ul>
                                         @foreach (var x in Model.UploadedFile)
                                         {
-                                            <li><div class="event-thumb"><img src="@x.FileUrl" /></div></li>
+                                            <li>
+                                                <div class="row event">
+                                                    <div class="col-12 col-sm-5 col-md-4">
+                                                        <div class="event-thumb"><img src="@x.FileUrl" /></div>
+                                                    </div>
+                                                    <div class="col-12 col-sm-7 col-md-8">
+                                                        <button type="button" onclick="DeleteUploadedFile(@Model.EventId, @x.UploadedFileId)" class="button small red">&nbsp;ลบ&nbsp;</button>
+                                                    </div>
+                                                </div>
+                                            </li>
                                         }
                                     </ul>
-                                    <input type="file" id="fileInput" multiple onchange="UploadFile('fileInput', @Model.EventId);" />
                                 </div>
                             </div>
+
                         </div>
                     </div>
                 </div>
