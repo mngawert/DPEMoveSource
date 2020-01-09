@@ -46,7 +46,7 @@ function GetEvent() {
                             <div class="event-date">` + value.eventStartTH +`</div>
                             <h4>` + value.eventName + `</h4>
                             <div class="event-place">
-                                ` + value.addressDescription + `<br />
+                                ` + value.eventDescription + `<br />
                                 ` + GetProvinceNameById(value.provinceCode) +  `
                             </div>
                             <div class="row read-comment">

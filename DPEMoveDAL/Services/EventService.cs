@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace DPEMoveDAL.Services
@@ -214,7 +215,7 @@ namespace DPEMoveDAL.Services
                     EventCode = a.EventCode,
                     EventName = a.EventName,
                     EventShortDescription = a.EventShortDescription,
-                    EventDescription = a.EventShortDescription,
+                    EventDescription = a.EventDescription,
                     EventStartTimestamp = a.EventStartTimestamp,
                     EventStartTH = a.EventStartTimestamp.ToString("d MMM yy"),
                     EventFinishTimestamp = a.EventFinishTimestamp,

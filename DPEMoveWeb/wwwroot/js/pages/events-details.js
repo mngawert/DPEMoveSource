@@ -239,6 +239,48 @@ function GetTambon(provinceId, amphurId) {
     $.ajax(options);
 }
 
+
+function GetUploadedFile(eventId) {
+
+    var options = {};
+
+    var input = {};
+    input.eventId = eventId;
+    options.data = JSON.stringify(input);
+    console.log("input", options.data);
+
+    options.url = "/webapi/Events/GetUploadedFile";
+    options.contentType = "application/json";
+    options.method = "POST";
+    options.success = function (data) {
+        console.log("GetUploadedFile success");
+
+        var items = "";
+        $.each(data, function (index, value) {
+            items +=
+                `
+                <li>
+                    <div class="row event">
+                        <div class="col-md-4">
+                            <div class="event-thumb"><img src="` +value.fileUrl + `" /></div>
+                        </div>
+                        <div class="col-md-2">
+                            <button type="button" onclick="DeleteUploadedFile(` + eventId + `, ` + value.uploadedFileId + `)" class="button small red">&nbsp;ลบ&nbsp;</button>
+                        </div>
+                    </div>
+                </li>
+                `
+        });
+        $("#ul-UploadedFile").html(items);
+
+    };
+    options.error = function (a, b, c) {
+        console.log("Error while calling the Web API!(" + b + " - " + c + ")");
+    };
+    $.ajax(options);
+}
+
+
 function UploadFile(fileId, eventId) {
 
     var files = $("#" + fileId).get(0).files;
@@ -279,6 +321,7 @@ function AddUploadedFileToDatabase(fileName, eventId) {
     options.method = "POST";
     options.success = function (data) {
         console.log("AddUploadedFileToDatabase success");
+        GetUploadedFile(eventId);
     };
     options.error = function (a, b, c) {
         console.log("Error while calling the Web API!(" + b + " - " + c + ")");
@@ -300,6 +343,7 @@ function DeleteUploadedFile(eventId, uploadedFileId) {
     options.method = "POST";
     options.success = function (data) {
         console.log("DeleteUploadedFile success");
+        GetUploadedFile(eventId);
     };
     options.error = function (a, b, c) {
         console.log("Error while calling the Web API!(" + b + " - " + c + ")");
@@ -313,7 +357,7 @@ $(document).ready(function () {
     console.log("eventId=", eventId);
 
     GetMEventFacilitiesTopic();
-
+    GetUploadedFile(eventId);
     GetProvince();
 
     $("#ddlProvince").change(function () {

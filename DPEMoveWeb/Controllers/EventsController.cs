@@ -72,6 +72,31 @@ namespace DPEMoveWeb.Controllers
             return View(eventVM);
         }
 
+
+        [HttpPost]
+        public IActionResult CreateEvent([FromForm] EventViewModel2 model)
+        {
+            var q = new Event
+            {
+                EventName = model.EventName,
+                EventCode = "EVT" + DateTime.Now.ToString("yyyyMMdd") + (_context.Event.Max(a => a.EventId)+1).ToString().PadLeft(4,'0'),
+                EventDescription = "...", //model.EventDescription,
+                EventStartTimestamp = model.EventStartTimestamp,
+                EventFinishTimestamp = model.EventFinishTimestamp,
+                ReadCount = 0,
+                EventLevelId = 1,
+                Status = 1,
+                CreatedBy = 0, //model.CreatedBy,
+                CreatedDate = DateTime.Now,
+            };
+
+            _context.Entry(q).State = EntityState.Added;
+            _context.SaveChanges();
+
+            return RedirectToAction("Details", new { id = q.EventId });
+        }
+
+
         [HttpPost]
         public IActionResult EditEvent([FromForm] EventViewModel2 model)
         {
@@ -115,6 +140,9 @@ namespace DPEMoveWeb.Controllers
                     _context.Entry(qq).State = EntityState.Added;
                 }
                 _context.SaveChanges();
+
+                // Clear session after Saved.
+                HttpContext.Session.Set<List<EventFacilities>>("Session_EventFacilities_" + model.EventId, null);
             }
 
             /* ADDRESS */
@@ -158,6 +186,7 @@ namespace DPEMoveWeb.Controllers
                 {
                     EventId = model.EventId,
                     SportId = id,
+                    SportEtc = model.SportEtc,
                     Status = 1,
                     CreatedBy = 0,
                     CreatedDate = DateTime.Now
@@ -172,33 +201,6 @@ namespace DPEMoveWeb.Controllers
 
         public IActionResult Upload()
         {
-            return View();
-        }
-
-        [HttpPost]
-        public IActionResult Upload(IFormFile file)
-        {
-            var fileName = System.IO.Path.GetFileName(file.FileName);
-            fileName += Guid.NewGuid().ToString().Substring(0, 4) + "_" + fileName;
-
-            if (System.IO.File.Exists(fileName))
-            {
-                System.IO.File.Delete(fileName);
-            }
-
-            var uploads = Path.Combine(_hostingEnvironment.WebRootPath, "Uploads");
-            var filePath = Path.Combine(uploads, fileName);
-
-            using (var localFile = new FileStream(filePath, FileMode.Create))
-            {
-                using (var uploadedFile = file.OpenReadStream())
-                {
-                    uploadedFile.CopyTo(localFile);
-                }
-            }
-
-            ViewBag.Message = "File successfully uploaded";
-
             return View();
         }
 

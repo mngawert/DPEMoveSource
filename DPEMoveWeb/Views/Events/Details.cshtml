@@ -136,13 +136,14 @@
                                             เวลา
                                         </div>
                                         <div class="c field">
-                                            <select class="input-field">
+                                            <input type="time" name="EventStartTime" />
+                                            @*<select class="input-field">
                                                 <option value="">HH</option>
                                             </select>
                                             :
                                             <select class="input-field">
                                                 <option value="">mm</option>
-                                            </select>
+                                            </select>*@
                                         </div>
                                     </div>
                                 </div>
@@ -164,13 +165,14 @@
                                             เวลา
                                         </div>
                                         <div class="c field">
-                                            <select class="input-field">
+                                            <input type="time" name="EventFinishTime" />
+                                            @*<select class="input-field">
                                                 <option value="">HH</option>
                                             </select>
                                             :
                                             <select class="input-field">
                                                 <option value="">mm</option>
-                                            </select>
+                                            </select>*@
                                         </div>
                                     </div>
                                 </div>
@@ -615,33 +617,63 @@
                 </div>
                 <div class="tab_item">
                     <div class="block-group">
-                        <div class="heading">ภาพประกอบ</div>
+                        <div class="heading">ภาพประกอบ<div class="button-container"><button type="button" class="button small darkgreen" data-toggle="modal" data-target="#Modal_UploadedFile">+เพิ่ม</button></div></div>
                         <div class="entry-data">
-                            <div class="row">
-                                <input type="file" id="fileInput" multiple onchange="UploadFile('fileInput', @Model.EventId);" />
-                            </div>
                             <div class="row search-events-result">
                                 <div class="col-12">
-                                    <ul>
-                                        @foreach (var x in Model.UploadedFile)
+                                    <ul id="ul-UploadedFile">
+                                        @*@foreach (var x in Model.UploadedFile)
                                         {
                                             <li>
                                                 <div class="row event">
-                                                    <div class="col-12 col-sm-5 col-md-4">
+                                                    <div class="col-md-4">
                                                         <div class="event-thumb"><img src="@x.FileUrl" /></div>
                                                     </div>
-                                                    <div class="col-12 col-sm-7 col-md-8">
+                                                    <div class="col-md-2">
                                                         <button type="button" onclick="DeleteUploadedFile(@Model.EventId, @x.UploadedFileId)" class="button small red">&nbsp;ลบ&nbsp;</button>
                                                     </div>
                                                 </div>
                                             </li>
-                                        }
+                                        }*@
                                     </ul>
                                 </div>
                             </div>
 
                         </div>
                     </div>
+
+                    <div class="modal fade bd-example-modal-lg" id="Modal_UploadedFile" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+
+                                <div class="modal-header">
+
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    <div class="heading">เพิ่มภาพประกอบ</div>
+                                </div>
+
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="col-12">
+
+                                            <input type="file" id="fileInput" multiple />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12 text-right">
+                                            <button type="button" class="button darkgreen" data-dismiss="modal" onclick="UploadFile('fileInput', @Model.EventId)">เพิ่ม</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
                 </div>
             </div>
         </div>

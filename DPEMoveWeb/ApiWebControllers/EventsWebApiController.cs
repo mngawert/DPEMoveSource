@@ -82,7 +82,7 @@ namespace DPEMoveWeb.ApiWebControllers
         }
 
         [HttpPost]
-        //[Authorize]
+        [Authorize]
         public List<EventFacilities> GetEventFacilitiesFromSession(EventFacilities model)
         {
             if (HttpContext.Session.Get<List<EventFacilities>>("Session_EventFacilities_" + model.EventId + "_" + model.MEventFacilitiesTopicId) == null)
@@ -97,7 +97,7 @@ namespace DPEMoveWeb.ApiWebControllers
         }
 
         [HttpPost]
-        //[Authorize]
+        [Authorize]
         public IActionResult AddEventFacilitiesToSession(EventFacilities model)
         {
             if (!ModelState.IsValid)
@@ -129,7 +129,7 @@ namespace DPEMoveWeb.ApiWebControllers
 
 
         [HttpPost]
-        //[Authorize]
+        [Authorize]
         public IActionResult DeleteEventFacilitiesFromSession(EventFacilities model)
         {
             if (!ModelState.IsValid)
@@ -149,6 +149,36 @@ namespace DPEMoveWeb.ApiWebControllers
         }
 
         [HttpPost]
+        [Authorize]
+        public List<UploadedFile> GetUploadedFileSession(UploadedFileViewModel model)
+        {
+            _logger.LogDebug("model.FileName={0}", model.EventId);
+
+            string sessionName = "Session_UploadedFileId_" + model.EventId;
+            if (HttpContext.Session.Get<List<UploadedFile>>(sessionName) == null)
+            {
+                var data = _context.EventUploadedFile.Where(a => a.EventId == model.EventId).Select(b => b.UploadedFile).ToList();
+                HttpContext.Session.Set<List<UploadedFile>>(sessionName, data);
+            }
+
+            var q = HttpContext.Session.Get<List<UploadedFile>>(sessionName);
+
+            return q;
+        }
+
+        [HttpPost]
+        [Authorize]
+        public List<UploadedFile> GetUploadedFile(UploadedFileViewModel model)
+        {
+            _logger.LogDebug("model.FileName={0}", model.EventId);
+            
+            return _context.EventUploadedFile.Where(a => a.EventId == model.EventId).Select(b => b.UploadedFile).ToList();
+            ;
+        }
+
+
+        [HttpPost]
+        [Authorize]
         public ActionResult AddUploadedFileToDatabase(UploadedFileViewModel model)
         {
             _logger.LogDebug("model.FileName={0}", model.FileName);
@@ -185,13 +215,13 @@ namespace DPEMoveWeb.ApiWebControllers
             return Ok();
         }
 
-
         [HttpPost]
+        [Authorize]
         public ActionResult DeleteUploadedFile(UploadedFileViewModel model)
         {
             _logger.LogDebug("model.EventId={0}, model.UploadedFileId={1}", model.EventId, model.UploadedFileId);
 
-            var dd_1 = _context.EventUploadedFile.Where(a => a.EventId == model.EventId && a.UploadedFileId == model.UploadedFileId);
+            var dd_1 = _context.EventUploadedFile.Where(a => a.UploadedFileId == model.UploadedFileId);
             foreach (var x in dd_1)
             {
                 _context.Entry(x).State = EntityState.Deleted;
