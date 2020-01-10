@@ -85,13 +85,15 @@ namespace DPEMoveWeb.ApiWebControllers
         [Authorize]
         public List<EventFacilities> GetEventFacilitiesFromSession(EventFacilities model)
         {
-            if (HttpContext.Session.Get<List<EventFacilities>>("Session_EventFacilities_" + model.EventId + "_" + model.MEventFacilitiesTopicId) == null)
+            string SessionName = "Session_EventFacilities_" + model.EventId + "_" + model.MEventFacilitiesTopicId;
+
+            if (HttpContext.Session.Get<List<EventFacilities>>(SessionName) == null)
             {
                 var data = _context.EventFacilities.Where(a => a.EventId == model.EventId && a.MEventFacilitiesTopicId == model.MEventFacilitiesTopicId).ToList();
-                HttpContext.Session.Set<List<EventFacilities>>("Session_EventFacilities_" + model.EventId + "_" + model.MEventFacilitiesTopicId, data);
+                HttpContext.Session.Set<List<EventFacilities>>(SessionName, data);
             }
             
-            var q = HttpContext.Session.Get<List<EventFacilities>>("Session_EventFacilities_" + model.EventId + "_" + model.MEventFacilitiesTopicId);
+            var q = HttpContext.Session.Get<List<EventFacilities>>(SessionName);
             
             return q;
         }
@@ -115,14 +117,15 @@ namespace DPEMoveWeb.ApiWebControllers
                 EventFacilitiesName = model.EventFacilitiesName,
                 FacilitiesAmount = model.FacilitiesAmount,
                 FacilitiesUnit = model.FacilitiesUnit,
-                Status = model.Status,
+                Status = 1,
                 CreatedBy = model.CreatedBy,
                 CreatedDate = DateTime.Now
             };
 
             data.Add(q);
 
-            HttpContext.Session.Set<List<EventFacilities>>("Session_EventFacilities_" + model.EventId + "_" + model.MEventFacilitiesTopicId, data);
+            string sessionName = "Session_EventFacilities_" + model.EventId + "_" + model.MEventFacilitiesTopicId;
+            HttpContext.Session.Set<List<EventFacilities>>(sessionName, data);
 
             return Ok();
         }
@@ -143,7 +146,8 @@ namespace DPEMoveWeb.ApiWebControllers
 
             data.Remove(q);
 
-            HttpContext.Session.Set<List<EventFacilities>>("Session_EventFacilities_" + model.EventId + "_" + model.MEventFacilitiesTopicId, data);
+            string sessionName = "Session_EventFacilities_" + model.EventId + "_" + model.MEventFacilitiesTopicId;
+            HttpContext.Session.Set<List<EventFacilities>>(sessionName, data);
 
             return Ok();
         }

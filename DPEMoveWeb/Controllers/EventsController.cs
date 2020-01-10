@@ -116,92 +116,102 @@ namespace DPEMoveWeb.Controllers
                 _logger.LogDebug("MEventObjectiveId={0}", x);
             }
 
-
-            _eventService.UpdateEvent(model);
-
-            // EventFacilities
-            var eventFacilities = HttpContext.Session.Get<List<EventFacilities>>("Session_EventFacilities_" + model.EventId);
-            if (eventFacilities != null)
+            var q_ev = _context.Event.Where(a => a.EventId == model.EventId).FirstOrDefault();
+            if (q_ev != null)
             {
-                var ddEventFacilities = _context.EventFacilities.Where(a => a.EventId == model.EventId);
-                foreach (var k in ddEventFacilities)
+                _eventService.UpdateEvent(model);
+
+                /* EVENT_FACILITIES */
+                foreach (var topic in _context.MEventFacilitiesTopic)
                 {
-                    _context.Entry(k).State = EntityState.Deleted;
-                    _context.SaveChanges();
+                    string sessionName = "Session_EventFacilities_" + model.EventId + "_" + topic.EventFacilitiesTopicId;
+                    var eventFacilitiesSession = HttpContext.Session.Get<List<EventFacilities>>(sessionName);
+                    if (eventFacilitiesSession != null)
+                    {
+                        var existingEventFacilities = _context.EventFacilities.Where(a => a.EventId == model.EventId && a.MEventFacilitiesTopicId == topic.EventFacilitiesTopicId);
+                        foreach (var k in existingEventFacilities)
+                        {
+                            _context.Entry(k).State = EntityState.Deleted;
+                            _context.SaveChanges();
+                        }
+
+                        foreach (var k in eventFacilitiesSession)
+                        {
+                            var qq = new EventFacilities
+                            {
+                                EventId = k.EventId,
+                                MEventFacilitiesTopicId = k.MEventFacilitiesTopicId,
+                                EventFacilitiesName = k.EventFacilitiesName,
+                                FacilitiesAmount = k.FacilitiesAmount,
+                                FacilitiesUnit = k.FacilitiesUnit,
+                                Status = k.Status,
+                                CreatedBy = k.CreatedBy,
+                                CreatedDate = k.CreatedDate
+                            };
+
+                            _context.Entry(qq).State = EntityState.Added;
+                        }
+                        _context.SaveChanges();
+
+                        // Clear session after Saved.
+                        HttpContext.Session.Set<List<EventFacilities>>(sessionName, null);
+                    }
                 }
 
-                foreach (var k in eventFacilities)
-                {
-                    var qq = new EventFacilities
-                    {
-                        EventId = k.EventId,
-                        MEventFacilitiesTopicId = k.MEventFacilitiesTopicId,
-                        EventFacilitiesName = k.EventFacilitiesName,
-                        FacilitiesAmount = k.FacilitiesAmount,
-                        FacilitiesUnit = k.FacilitiesUnit,
-                        Status = k.Status,
-                        CreatedBy = k.CreatedBy,
-                        CreatedDate = k.CreatedDate
-                    };
+                /* ADDRESS */
+                _logger.LogDebug("model.EventId={0}", model.EventId);
 
-                    _context.Entry(qq).State = EntityState.Added;
+                var addressFromDB = _context.Event.Include(b => b.Address).Where(a => a.EventId == model.EventId).FirstOrDefault()?.Address;
+                _logger.LogDebug("addressFromDB={0}", addressFromDB);
+                if (addressFromDB == null)
+                {
+                    addressFromDB = new Address();
+                }
+                _logger.LogDebug("addressFromDB.AddressId={0}", addressFromDB.AddressId);
+
+                addressFromDB.BuildingName = model.BuildingName;
+                addressFromDB.No = model.No;
+                addressFromDB.Moo = model.Moo;
+                addressFromDB.Soi = model.Soi;
+                addressFromDB.Road = model.Road;
+                addressFromDB.ProvinceCode = model.ProvinceCode;
+                addressFromDB.AmphurCode = model.AmphurCode;
+                addressFromDB.TambonCode = model.TambonCode;
+                addressFromDB.Postcode = model.Postcode;
+                addressFromDB.Latitude = model.Latitude;
+                addressFromDB.Longitude = model.Longitude;
+
+                _context.Entry(addressFromDB).State = addressFromDB.AddressId == 0 ? EntityState.Added : EntityState.Modified;
+                _context.SaveChanges();
+
+                _logger.LogDebug("addressFromDB.AddressId={0}", addressFromDB.AddressId);
+                q_ev.AddressId = addressFromDB.AddressId;
+                _context.SaveChanges();
+
+                /* EVENT_SPORT*/
+                var esDb = _context.EventSport.Where(a => a.EventId == model.EventId);
+                foreach (var x in esDb)
+                {
+                    _context.Remove(x).State = EntityState.Deleted;
                 }
                 _context.SaveChanges();
 
-                // Clear session after Saved.
-                HttpContext.Session.Set<List<EventFacilities>>("Session_EventFacilities_" + model.EventId, null);
-            }
-
-            /* ADDRESS */
-            _logger.LogDebug("model.EventId={0}", model.EventId);
-
-            var addressFromDB = _context.Event.Include(b => b.Address).Where(a => a.EventId == model.EventId).FirstOrDefault()?.Address;
-            _logger.LogDebug("addressFromDB={0}", addressFromDB);
-            if (addressFromDB == null)
-            {
-                addressFromDB = new Address();
-            }
-            _logger.LogDebug("addressFromDB.AddressId={0}", addressFromDB.AddressId);
-
-            addressFromDB.BuildingName = model.BuildingName;
-            addressFromDB.No = model.No;
-            addressFromDB.Moo = model.Moo;
-            addressFromDB.Soi = model.Soi;
-            addressFromDB.Road = model.Road;
-            addressFromDB.ProvinceCode = model.ProvinceCode;
-            addressFromDB.AmphurCode = model.AmphurCode;
-            addressFromDB.TambonCode = model.TambonCode;
-            addressFromDB.Postcode = model.Postcode;
-            addressFromDB.Latitude = model.Latitude;
-            addressFromDB.Longitude = model.Longitude;
-
-            _context.Entry(addressFromDB).State = addressFromDB.AddressId == 0 ? EntityState.Added : EntityState.Modified;
-            _context.SaveChanges();
-
-
-            /* EVENT_SPORT*/
-            var esDb = _context.EventSport.Where(a => a.EventId == model.EventId);
-            foreach (var x in esDb)
-            {
-                _context.Remove(x).State = EntityState.Deleted;
-            }
-            _context.SaveChanges();
-
-            foreach (var id in model.SportIds ?? new int[] { })
-            {
-                var obj = new EventSport
+                foreach (var id in model.SportIds ?? new int[] { })
                 {
-                    EventId = model.EventId,
-                    SportId = id,
-                    SportEtc = model.SportEtc,
-                    Status = 1,
-                    CreatedBy = 0,
-                    CreatedDate = DateTime.Now
-                };
+                    var obj = new EventSport
+                    {
+                        EventId = model.EventId,
+                        SportId = id,
+                        SportEtc = model.SportEtc,
+                        Status = 1,
+                        CreatedBy = 0,
+                        CreatedDate = DateTime.Now
+                    };
 
-                _context.Entry(obj).State = EntityState.Added;
+                    _context.Entry(obj).State = EntityState.Added;
+                }
+                _context.SaveChanges();
             }
-            _context.SaveChanges();
 
             return RedirectToAction("Index");
         }
