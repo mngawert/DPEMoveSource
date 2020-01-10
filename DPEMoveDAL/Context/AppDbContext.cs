@@ -39,6 +39,7 @@ namespace DPEMoveDAL.Models
         public virtual DbSet<EventLevel> EventLevel { get; set; }
         public virtual DbSet<EventNearby> EventNearby { get; set; }
         public virtual DbSet<EventObjective> EventObjective { get; set; }
+        public virtual DbSet<EventObjectivePerson> EventObjectivePerson { get; set; }
         public virtual DbSet<EventSport> EventSport { get; set; }
         public virtual DbSet<EventUploadedFile> EventUploadedFile { get; set; }
         public virtual DbSet<GenerateCode> GenerateCode { get; set; }
@@ -50,12 +51,12 @@ namespace DPEMoveDAL.Models
         public virtual DbSet<MEventGoal> MEventGoal { get; set; }
         public virtual DbSet<MEventLevel> MEventLevel { get; set; }
         public virtual DbSet<MEventObjective> MEventObjective { get; set; }
-        public virtual DbSet<MEventObjectivePerson> MEventObjectivePerson { get; set; }
         public virtual DbSet<MEventType> MEventType { get; set; }
         public virtual DbSet<MGroup> MGroup { get; set; }
         public virtual DbSet<MGroupRole> MGroupRole { get; set; }
         public virtual DbSet<MIdcardType> MIdcardType { get; set; }
         public virtual DbSet<MJoinPersonType> MJoinPersonType { get; set; }
+        public virtual DbSet<MObjectivePerson> MObjectivePerson { get; set; }
         public virtual DbSet<MPermissionGroup> MPermissionGroup { get; set; }
         public virtual DbSet<MPermissiongroupProgram> MPermissiongroupProgram { get; set; }
         public virtual DbSet<MPhoneNumberType> MPhoneNumberType { get; set; }
@@ -1140,6 +1141,39 @@ namespace DPEMoveDAL.Models
                     .HasConstraintName("SYS_C00111023");
             });
 
+            modelBuilder.Entity<EventObjectivePerson>(entity =>
+            {
+                entity.ToTable("EVENT_OBJECTIVE_PERSON");
+
+                entity.HasIndex(e => e.EventObjectivePersonId)
+                    .HasName("EVENT_OBJECTIVE_PERSON_PK")
+                    .IsUnique();
+
+                entity.Property(e => e.EventObjectivePersonId).HasColumnName("EVENT_OBJECTIVE_PERSON_ID");
+
+                entity.Property(e => e.CreatedBy).HasColumnName("CREATED_BY");
+
+                entity.Property(e => e.CreatedDate)
+                    .HasColumnName("CREATED_DATE")
+                    .HasColumnType("TIMESTAMP(6)");
+
+                entity.Property(e => e.EventId).HasColumnName("EVENT_ID");
+
+                entity.Property(e => e.ObjectivePersonEtc)
+                    .HasColumnName("OBJECTIVE_PERSON_ETC")
+                    .HasColumnType("VARCHAR2(255)");
+
+                entity.Property(e => e.ObjectivePersonId).HasColumnName("OBJECTIVE_PERSON_ID");
+
+                entity.Property(e => e.Status).HasColumnName("STATUS");
+
+                entity.Property(e => e.UpdatedBy).HasColumnName("UPDATED_BY");
+
+                entity.Property(e => e.UpdatedDate)
+                    .HasColumnName("UPDATED_DATE")
+                    .HasColumnType("TIMESTAMP(6)");
+            });
+
             modelBuilder.Entity<EventSport>(entity =>
             {
                 entity.ToTable("EVENT_SPORT");
@@ -1563,42 +1597,6 @@ namespace DPEMoveDAL.Models
                     .HasColumnType("TIMESTAMP(6)");
             });
 
-            modelBuilder.Entity<MEventObjectivePerson>(entity =>
-            {
-                entity.HasKey(e => e.EventObjectivePersonId);
-
-                entity.ToTable("M_EVENT_OBJECTIVE_PERSON");
-
-                entity.HasIndex(e => e.EventObjectivePersonId)
-                    .HasName("PK_M_EVENT_OBJECTIVE_PERSON")
-                    .IsUnique();
-
-                entity.Property(e => e.EventObjectivePersonId).HasColumnName("EVENT_OBJECTIVE_PERSON_ID");
-
-                entity.Property(e => e.CreatedBy).HasColumnName("CREATED_BY");
-
-                entity.Property(e => e.CreatedDate)
-                    .HasColumnName("CREATED_DATE")
-                    .HasColumnType("TIMESTAMP(6)");
-
-                entity.Property(e => e.EventObjectivePersonCode)
-                    .IsRequired()
-                    .HasColumnName("EVENT_OBJECTIVE_PERSON_CODE")
-                    .HasColumnType("VARCHAR2(32)");
-
-                entity.Property(e => e.EventObjectivePersonName)
-                    .HasColumnName("EVENT_OBJECTIVE_PERSON_NAME")
-                    .HasColumnType("VARCHAR2(255)");
-
-                entity.Property(e => e.Status).HasColumnName("STATUS");
-
-                entity.Property(e => e.UpdatedBy).HasColumnName("UPDATED_BY");
-
-                entity.Property(e => e.UpdatedDate)
-                    .HasColumnName("UPDATED_DATE")
-                    .HasColumnType("TIMESTAMP(6)");
-            });
-
             modelBuilder.Entity<MEventType>(entity =>
             {
                 entity.HasKey(e => e.EventTypeId);
@@ -1734,6 +1732,42 @@ namespace DPEMoveDAL.Models
                 entity.Property(e => e.JoinPersonTypeCode)
                     .HasColumnName("JOIN_PERSON_TYPE_CODE")
                     .HasColumnType("VARCHAR2(32)");
+
+                entity.Property(e => e.Status).HasColumnName("STATUS");
+
+                entity.Property(e => e.UpdatedBy).HasColumnName("UPDATED_BY");
+
+                entity.Property(e => e.UpdatedDate)
+                    .HasColumnName("UPDATED_DATE")
+                    .HasColumnType("TIMESTAMP(6)");
+            });
+
+            modelBuilder.Entity<MObjectivePerson>(entity =>
+            {
+                entity.HasKey(e => e.ObjectivePersonId);
+
+                entity.ToTable("M_OBJECTIVE_PERSON");
+
+                entity.HasIndex(e => e.ObjectivePersonId)
+                    .HasName("PK_M_EVENT_OBJECTIVE_PERSON")
+                    .IsUnique();
+
+                entity.Property(e => e.ObjectivePersonId).HasColumnName("OBJECTIVE_PERSON_ID");
+
+                entity.Property(e => e.CreatedBy).HasColumnName("CREATED_BY");
+
+                entity.Property(e => e.CreatedDate)
+                    .HasColumnName("CREATED_DATE")
+                    .HasColumnType("TIMESTAMP(6)");
+
+                entity.Property(e => e.ObjectivePersonCode)
+                    .IsRequired()
+                    .HasColumnName("OBJECTIVE_PERSON_CODE")
+                    .HasColumnType("VARCHAR2(32)");
+
+                entity.Property(e => e.ObjectivePersonName)
+                    .HasColumnName("OBJECTIVE_PERSON_NAME")
+                    .HasColumnType("VARCHAR2(255)");
 
                 entity.Property(e => e.Status).HasColumnName("STATUS");
 
@@ -3010,6 +3044,8 @@ namespace DPEMoveDAL.Models
 
             modelBuilder.HasSequence("SQ_EVENT_OBJECTIVE");
 
+            modelBuilder.HasSequence("SQ_EVENT_OBJECTIVE_PERSON");
+
             modelBuilder.HasSequence("SQ_EVENT_SPORT");
 
             modelBuilder.HasSequence("SQ_EVENT_UPLOADED_FILE");
@@ -3022,11 +3058,11 @@ namespace DPEMoveDAL.Models
 
             modelBuilder.HasSequence("SQ_M_EVENT_LEVEL");
 
-            modelBuilder.HasSequence("SQ_M_EVENT_OBJECTIVE_PERSON");
-
             modelBuilder.HasSequence("SQ_M_GROUP");
 
             modelBuilder.HasSequence("SQ_M_JOIN_PERSON_TYPE");
+
+            modelBuilder.HasSequence("SQ_M_OBJECTIVE_PERSON");
 
             modelBuilder.HasSequence("SQ_M_PERMISSION_GROUP");
 

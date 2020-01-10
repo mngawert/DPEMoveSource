@@ -46,7 +46,7 @@ function GetEvent() {
                             <div class="event-date">` + value.eventStartTH +`</div>
                             <h4>` + value.eventName + `</h4>
                             <div class="event-place">
-                                ` + value.eventDescription + `<br />
+                                ` + $("<div />").html(value.eventDescription).text().substring(0,100) + `<br />
                                 ` + GetProvinceNameById(value.provinceCode) +  `
                             </div>
                             <div class="row read-comment">
@@ -110,6 +110,7 @@ function GetProvince() {
                 `
         });
         $("#ddlProvince").html(items);
+        GetEvent();
     };
     options.error = function (a, b, c) {
         console.log("Error while calling the Web API!(" + b + " - " + c + ")");

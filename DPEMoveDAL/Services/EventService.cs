@@ -99,6 +99,7 @@ namespace DPEMoveDAL.Services
 
             ev.MEventObjective = listMEventObjective.ToArray();
             ev.EventSport = _context.EventSport.Where(a => a.EventId == id).ToList();
+            ev.EventObjectivePerson = _context.EventObjectivePerson.Where(a => a.EventId == id).ToList();
             ev.UploadedFile = _context.EventUploadedFile.Where(a => a.EventId == id).Select(b => b.UploadedFile).ToList();
 
             return ev;

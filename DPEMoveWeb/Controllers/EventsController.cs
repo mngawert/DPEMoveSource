@@ -68,6 +68,7 @@ namespace DPEMoveWeb.Controllers
             ViewBag.MEventLevel = _context.MEventLevel.ToList();
             ViewBag.Address = _context.Event.Where(a => a.EventId == id).FirstOrDefault()?.Address;
             ViewBag.MSport = _context.MSport.ToList();
+            ViewBag.MObjectivePerson = _context.MObjectivePerson.ToList();
 
             return View(eventVM);
         }
@@ -211,6 +212,31 @@ namespace DPEMoveWeb.Controllers
                     _context.Entry(obj).State = EntityState.Added;
                 }
                 _context.SaveChanges();
+
+
+                /* EVENT_OBJECTIVE_PERSON */
+                foreach (var x in _context.EventObjectivePerson.Where(a => a.EventId == model.EventId))
+                {
+                    _context.Remove(x).State = EntityState.Deleted;
+                }
+                _context.SaveChanges();
+
+                foreach (var id in model.ObjectivePersonIds ?? new int[] { })
+                {
+                    var obj = new EventObjectivePerson
+                    {
+                        EventId = model.EventId,
+                        ObjectivePersonId = id,
+                        ObjectivePersonEtc = model.ObjectivePersonEtc,
+                        Status = 1,
+                        CreatedBy = 0,
+                        CreatedDate = DateTime.Now
+                    };
+
+                    _context.Entry(obj).State = EntityState.Added;
+                }
+                _context.SaveChanges();
+
             }
 
             return RedirectToAction("Index");

@@ -144,6 +144,12 @@ namespace DPEMoveDAL.ViewModels
         public List<EventSport> EventSport { get; set; }
         public int[] SportIds { get; set; }
         public string SportEtc { get; set; }
+
+        public List<EventObjectivePerson> EventObjectivePerson { get; set; }
+        public int[] ObjectivePersonIds { get; set; }
+        public string ObjectivePersonEtc { get; set; }
+
+
         public MEventObjectiveViewModel[] MEventObjective { get; set; }
         public int[] MEventObjectiveIds { get; set; }
         public string[] EventFacilityName { get; set; }

@@ -280,7 +280,7 @@
                                                 }
                                                 else
                                                 {
-                                                    <div><input type="checkbox" name="SportIds" value="@x.SportId" class="input-field" checked="@(Model.EventSport.Any(b => b.SportId == x.SportId))" /> อื่นๆ โปรดระบุ <input type="text" name="SportEtc" value="" class="input-field" /></div>
+                                                    <div><input type="checkbox" name="SportIds" value="@x.SportId" class="input-field" checked="@(Model.EventSport.Any(b => b.SportId == x.SportId))" /> อื่นๆ โปรดระบุ <input type="text" name="SportEtc" value="@(Model.EventSport.Where(b => b.SportId == x.SportId).FirstOrDefault()?.SportEtc )" class="input-field" /></div>
                                                 }
                                             }
                                                 @*<div><input type="checkbox" name="" value="" class="input-field" /> ฟุตบอล</div>
@@ -329,10 +329,22 @@
                                 <div class="col-sm-12">
                                     <div class="row-field clearfix">
                                         <div class="c field">
-                                            <div><input type="checkbox" name="" value="" class="input-field" /> กีฬาพื้นฐานสำหรับนักเรียนนักศึกษา</div>
+
+                                            @foreach (var x in ViewBag.MObjectivePerson as List<MObjectivePerson>)
+                                            {
+                                                @if (x.ObjectivePersonId != 4)
+                                                {
+                                                    <div><input type="checkbox" name="ObjectivePersonIds" value="@x.ObjectivePersonId" class="input-field" checked="@(Model.EventObjectivePerson.Any(b => b.ObjectivePersonId == x.ObjectivePersonId))" /> @x.ObjectivePersonName</div>
+                                                }
+                                                else
+                                                {
+                                                    <div><input type="checkbox" name="ObjectivePersonIds" value="@x.ObjectivePersonId" class="input-field" checked="@(Model.EventObjectivePerson.Any(b => b.ObjectivePersonId == x.ObjectivePersonId))" /> อื่นๆ โปรดระบุ <input type="text" name="ObjectivePersonEtc" value="@(Model.EventObjectivePerson.Where(b => b.ObjectivePersonId == x.ObjectivePersonId).FirstOrDefault()?.ObjectivePersonEtc)" class="input-field" /></div>
+                                                }
+                                            }
+                                            @*<div><input type="checkbox" name="" value="" class="input-field" /> กีฬาพื้นฐานสำหรับนักเรียนนักศึกษา</div>
                                             <div><input type="checkbox" name="" value="" class="input-field" /> กีฬาพื้นฐานสำหรับประชาชน</div>
                                             <div><input type="checkbox" name="" value="" class="input-field" /> กีฬาเพื่อมวลชน</div>
-                                            <div><input type="checkbox" name="" value="" class="input-field" /> อื่นๆ โปรดระบุ <input type="text" name="" value="" class="input-field" /></div>
+                                            <div><input type="checkbox" name="" value="" class="input-field" /> อื่นๆ โปรดระบุ <input type="text" name="" value="" class="input-field" /></div>*@
                                         </div>
                                     </div>
                                 </div>
