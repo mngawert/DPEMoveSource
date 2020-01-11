@@ -1,7 +1,4 @@
-﻿@{
-    Layout = "_LayoutAdmin";
-}
-
+﻿
 @if (ViewBag.ErrorTitle == null)
 {
     <h3>
@@ -10,6 +7,6 @@
 }
 else
 {
-    <h1 class="text-danger">@ViewBag.ErrorTitle</h1>
-    <h6 class="text-danger">@ViewBag.ErrorMessage</h6>
+    <h5 class="text-danger text-center">@ViewBag.ErrorTitle</h5>
+    <h6 class="text-danger text-center">@ViewBag.ErrorMessage</h6>
 }

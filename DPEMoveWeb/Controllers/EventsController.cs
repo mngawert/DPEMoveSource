@@ -14,6 +14,8 @@ using DPEMoveWeb.Helper;
 using Microsoft.AspNetCore.Http;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Identity;
 
 namespace DPEMoveWeb.Controllers
 {
@@ -23,20 +25,23 @@ namespace DPEMoveWeb.Controllers
         private readonly ILogger<EventsController> _logger;
         private readonly IEventService _eventService;
         private readonly IHostingEnvironment _hostingEnvironment;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public EventsController(AppDbContext context, ILogger<EventsController> logger, IEventService eventService, IHostingEnvironment hostingEnvironment)
+        public EventsController(AppDbContext context, ILogger<EventsController> logger, IEventService eventService, IHostingEnvironment hostingEnvironment, UserManager<ApplicationUser> userManager)
         {
             _context = context;
             _logger = logger;
             _eventService = eventService;
             _hostingEnvironment = hostingEnvironment;
+            _userManager = userManager;
         }
+
 
         // GET: Events
         [Authorize]
         public async Task<IActionResult> Index()
         {
-            var appDbContext = _context.Event
+            var appDbContext = _context.Event.Where(a => a.Status == 1)
                 .Include(@a => @a.Address)
                 .Include(@a => @a.EventLevel)
                 .Include(@a => @a.EventType)
@@ -47,8 +52,32 @@ namespace DPEMoveWeb.Controllers
             return View(await appDbContext.ToListAsync());
         }
 
-        // GET: Events/Details/5
         public async Task<IActionResult> Details(int? id)
+        {
+            ViewBag.routeId = id;
+
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var eventVM = await _eventService.GetEventDetails2(id.Value);
+
+            if (eventVM == null)
+            {
+                return NotFound();
+            }
+
+            //ViewBag.MEventFacilitiesTopic = _context.MEventFacilitiesTopic.ToList();
+            //ViewBag.MEventLevel = _context.MEventLevel.ToList();
+            //ViewBag.Address = _context.Event.Where(a => a.EventId == id).FirstOrDefault()?.Address;
+            //ViewBag.MSport = _context.MSport.ToList();
+            //ViewBag.MObjectivePerson = _context.MObjectivePerson.ToList();
+
+            return View(eventVM);
+        }
+
+        public async Task<IActionResult> Edit(int? id)
         {
             ViewBag.routeId = id;
 
@@ -62,6 +91,20 @@ namespace DPEMoveWeb.Controllers
             if (eventVM == null)
             {
                 return NotFound();
+            }
+
+            var userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user != null)
+            {
+                _logger.LogDebug("user.AppUserId={0}", user.AppUserId);
+
+                if (user.AppUserId != eventVM.CreatedBy)
+                {
+                    ViewBag.ErrorTitle = "Permission Denied";
+                    ViewBag.Message = "This event does not create by you!";
+                    return View("Error");
+                }
             }
 
             ViewBag.MEventFacilitiesTopic = _context.MEventFacilitiesTopic.ToList();
@@ -103,7 +146,6 @@ namespace DPEMoveWeb.Controllers
                 return BadRequest();
             }
         }
-
 
         [HttpPost]
         public IActionResult EditEvent([FromForm] EventViewModel2 model)
@@ -239,6 +281,21 @@ namespace DPEMoveWeb.Controllers
 
             }
 
+            return RedirectToAction("Index");
+        }
+
+
+        [HttpPost]
+        public IActionResult DeleteEvent([FromForm] EventViewModel2 model)
+        {
+            var q_ev = _context.Event.Where(a => a.EventId == model.EventId).FirstOrDefault();
+            if (q_ev != null)
+            {
+                q_ev.Status = 2;
+
+                _context.Entry(q_ev).State = EntityState.Modified;
+                _context.SaveChanges();
+            }
             return RedirectToAction("Index");
         }
 

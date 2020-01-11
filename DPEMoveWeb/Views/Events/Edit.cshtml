@@ -1,181 +1,715 @@
-﻿@model DPEMoveDAL.Models.Event
-
+﻿@model DPEMoveDAL.ViewModels.EventViewModel2
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "ข้อมูลกิจกรรม";
 }
 
-<h2>Edit</h2>
+@*<h4>@Model.EventStartTimestamp.ToString() - @Model.EventFinishTimestamp.ToString()</h4>
 
-<h4>Event</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="EventId" />
-            <div class="form-group">
-                <label asp-for="EventCode" class="control-label"></label>
-                <input asp-for="EventCode" class="form-control" />
-                <span asp-validation-for="EventCode" class="text-danger"></span>
+<h4>@Model.EventStartTimestamp.ToString("dd/MM/yyyy HH:mm") - @Model.EventFinishTimestamp?.ToString("dd/MM/yyyy HH:mm")</h4>
+
+<h4>@Model.EventStartTimestamp.TimeOfDay - @Model.EventFinishTimestamp?.TimeOfDay</h4>*@
+
+<form asp-action="EditEvent" enctype="multipart/form-data">
+
+    <div class="row breadcrumbs-container">
+        <div class="col-12">
+            <div class="breadcrumbs">
+                <a href="/Events">กิจกรรม</a> > <a href="#">ข้อมูลกิจกรรม</a> > เพิ่ม/แก้ไข
             </div>
-            <div class="form-group">
-                <label asp-for="EventName" class="control-label"></label>
-                <input asp-for="EventName" class="form-control" />
-                <span asp-validation-for="EventName" class="text-danger"></span>
+            <div class="button-container">
+                @*<a href="#" class="button green">บันทึก</a>*@
+                <button type="submit" class="button green">บันทึก</button>
             </div>
-            <div class="form-group">
-                <label asp-for="EventShortDescription" class="control-label"></label>
-                <input asp-for="EventShortDescription" class="form-control" />
-                <span asp-validation-for="EventShortDescription" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="EventDescription" class="control-label"></label>
-                <input asp-for="EventDescription" class="form-control" />
-                <span asp-validation-for="EventDescription" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="EventStartTimestamp" class="control-label"></label>
-                <input asp-for="EventStartTimestamp" class="form-control" />
-                <span asp-validation-for="EventStartTimestamp" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="EventFinishTimestamp" class="control-label"></label>
-                <input asp-for="EventFinishTimestamp" class="form-control" />
-                <span asp-validation-for="EventFinishTimestamp" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="AddressId" class="control-label"></label>
-                <select asp-for="AddressId" class="form-control" asp-items="ViewBag.AddressId"></select>
-                <span asp-validation-for="AddressId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="StadiumCode" class="control-label"></label>
-                <input asp-for="StadiumCode" class="form-control" />
-                <span asp-validation-for="StadiumCode" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PublishUrl" class="control-label"></label>
-                <input asp-for="PublishUrl" class="form-control" />
-                <span asp-validation-for="PublishUrl" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ResponsiblePerson" class="control-label"></label>
-                <input asp-for="ResponsiblePerson" class="form-control" />
-                <span asp-validation-for="ResponsiblePerson" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ResponsiblePersonCode" class="control-label"></label>
-                <input asp-for="ResponsiblePersonCode" class="form-control" />
-                <span asp-validation-for="ResponsiblePersonCode" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ReadCount" class="control-label"></label>
-                <input asp-for="ReadCount" class="form-control" />
-                <span asp-validation-for="ReadCount" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="EventLevelId" class="control-label"></label>
-                <select asp-for="EventLevelId" class="form-control" asp-items="ViewBag.EventLevelId"></select>
-                <span asp-validation-for="EventLevelId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="EventLevelEtc" class="control-label"></label>
-                <input asp-for="EventLevelEtc" class="form-control" />
-                <span asp-validation-for="EventLevelEtc" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="EventObjectivePersonId" class="control-label"></label>
-                <input asp-for="EventObjectivePersonId" class="form-control" />
-                <span asp-validation-for="EventObjectivePersonId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Status" class="control-label"></label>
-                <input asp-for="Status" class="form-control" />
-                <span asp-validation-for="Status" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CreatedDate" class="control-label"></label>
-                <input asp-for="CreatedDate" class="form-control" />
-                <span asp-validation-for="CreatedDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CreatedBy" class="control-label"></label>
-                <input asp-for="CreatedBy" class="form-control" />
-                <span asp-validation-for="CreatedBy" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="UpdatedDate" class="control-label"></label>
-                <input asp-for="UpdatedDate" class="form-control" />
-                <span asp-validation-for="UpdatedDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="UpdatedBy" class="control-label"></label>
-                <input asp-for="UpdatedBy" class="form-control" />
-                <span asp-validation-for="UpdatedBy" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Budget" class="control-label"></label>
-                <input asp-for="Budget" class="form-control" />
-                <span asp-validation-for="Budget" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Budgetused" class="control-label"></label>
-                <input asp-for="Budgetused" class="form-control" />
-                <span asp-validation-for="Budgetused" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="EventTypeId" class="control-label"></label>
-                <select asp-for="EventTypeId" class="form-control" asp-items="ViewBag.EventTypeId"></select>
-                <span asp-validation-for="EventTypeId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ProjectSelect" class="control-label"></label>
-                <input asp-for="ProjectSelect" class="form-control" />
-                <span asp-validation-for="ProjectSelect" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ProjectCode" class="control-label"></label>
-                <input asp-for="ProjectCode" class="form-control" />
-                <span asp-validation-for="ProjectCode" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ResponsiblePersonType" class="control-label"></label>
-                <input asp-for="ResponsiblePersonType" class="form-control" />
-                <span asp-validation-for="ResponsiblePersonType" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ContactPersonName" class="control-label"></label>
-                <input asp-for="ContactPersonName" class="form-control" />
-                <span asp-validation-for="ContactPersonName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ContactPersonEmail" class="control-label"></label>
-                <input asp-for="ContactPersonEmail" class="form-control" />
-                <span asp-validation-for="ContactPersonEmail" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ContactPersonMobile" class="control-label"></label>
-                <input asp-for="ContactPersonMobile" class="form-control" />
-                <span asp-validation-for="ContactPersonMobile" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ContactPersonFax" class="control-label"></label>
-                <input asp-for="ContactPersonFax" class="form-control" />
-                <span asp-validation-for="ContactPersonFax" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ContactPersonLineid" class="control-label"></label>
-                <input asp-for="ContactPersonLineid" class="form-control" />
-                <span asp-validation-for="ContactPersonLineid" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
-        </form>
+        </div>
     </div>
-</div>
+    <div class="row event-manipulate">
+        <div class="col-12">
+            <div class="tabs">
+                <span class="tab">ข้อมูลทั่วไป</span>
+                <span class="tab">ประเภทกิจกรรม</span>
+                <span class="tab">สถานที่</span>
+                <span class="tab">สิ่งอำนวยความสะดวก</span>
+                <span class="tab">รายละเอียด</span>
+                <span class="tab">ภาพประกอบ</span>
+            </div>
+            <div class="tab_content">
+                <div class="tab_item">
+                    <div class="block-group">
+                        <div class="heading">กิจกรรม</div>
+                        <div class="entry-data">
+                            <div class="row">
+                                <div class="col-sm-12 col-lg-6">
+                                    <div class="row-field clearfix">
+                                        <div class="c lbl">
+                                            ชื่อกิจกรรม <span class="req">*</span>
+                                        </div>
+                                        <div class="c field">
+                                            <input type="hidden" asp-for="EventId" value="@Model.EventId" />
+                                            <input type="text" asp-for="EventName" value="@Model.EventName" class="input-field w-100" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-lg-6">
+                                    <div class="row-field clearfix">
+                                        <div class="c lbl">
+                                            งบประมาณ
+                                        </div>
+                                        <div class="c field">
+                                            <input type="text" asp-for="Budget" value="@Model.Budget" class="input-field" /> บาท
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12 col-lg-6">
+                                    <div class="row-field clearfix">
+                                        <div class="c lbl">
+                                            <input type="checkbox" name="ProjectSelect" value="1" checked="@Model.ProjectSelect?.Equals("1")" /> โครงการ
+                                        </div>
+                                        <div class="c field">
+                                            <select class="input-field">
+                                                <option value="">กรุณาเลือก</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-lg-6">
+                                    <div class="row-field clearfix">
+                                        <div class="c lbl">
+                                            จ่ายจริง
+                                        </div>
+                                        <div class="c field">
+                                            <input type="text" name="Budgetused" value="@Model.Budgetused" class="input-field" /> บาท
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="block-group">
+                        <div class="heading">ผู้รับผิดชอบ</div>
+                        <div class="entry-data">
+                            <div class="row">
+                                <div class="col-sm-12 col-lg-6">
+                                    <div class="row-field clearfix">
+                                        <div class="c lbl">
+                                            ชื่อผู้รับผิดชอบ
+                                            @*โปรดระบุ*@
+                                        </div>
+                                        <div class="c field">
+                                            @*<input type="text" asp-for="ResponsiblePerson" value="@Model.ResponsiblePerson" class="input-field" />*@
+                                            <input type="radio" name="ResponsiblePersonType" value="1" checked="@Model.ResponsiblePersonType?.Equals("1")" /> ภาครัฐ
+                                            <input type="radio" name="ResponsiblePersonType" value="2" checked="@Model.ResponsiblePersonType?.Equals("2")" /> เอกชน
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12 col-lg-6">
+                                    <div class="row-field clearfix">
+                                        <div class="c lbl">
+                                            @*<input type="radio" asp-for="ResponsiblePersonType" value="2" /> เอกชน โปรดระบุ*@
+                                            โปรดระบุ
+                                        </div>
+                                        <div class="c field">
+                                            <input type="text" asp-for="ResponsiblePerson" value="@Model.ResponsiblePerson" class="input-field" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="block-group">
+                        <div class="heading">วันที่จัดกิจกรรม</div>
+                        <div class="entry-data">
+                            <div class="row">
+                                <div class="col-sm-12 col-lg-4">
+                                    <div class="row-field clearfix">
+                                        <div class="c lbl">
+                                            วันที่เริ่ม <span class="req">*</span>
+                                        </div>
+                                        <div class="c field">
+                                            <input type="text" name="EventStartTimestamp" value="@(Model.EventStartTimestamp.ToString("dd/MM/yyyy"))" data-provide="datepicker" data-date-language="th-th" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-lg-4">
+                                    <div class="row-field clearfix">
+                                        <div class="c lbl">
+                                            เวลา
+                                        </div>
+                                        <div class="c field">
+                                            <input type="time" name="EventStartTime" value="@Model.EventStartTimestamp.TimeOfDay" />
+                                                @*<select class="input-field">
+                                                    <option value="">HH</option>
+                                                </select>
+                                                :
+                                                <select class="input-field">
+                                                    <option value="">mm</option>
+                                                </select>*@
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12 col-lg-4">
+                                    <div class="row-field clearfix">
+                                        <div class="c lbl">
+                                            วันที่สิ้นสุด <span class="req">*</span>
+                                        </div>
+                                        <div class="c field">
+                                            <input type="text" name="EventFinishTimestamp" value="@(Model.EventFinishTimestamp?.ToString("dd/MM/yyyy"))" data-provide="datepicker" data-date-language="th-th" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-lg-4">
+                                    <div class="row-field clearfix">
+                                        <div class="c lbl">
+                                            เวลา
+                                        </div>
+                                        <div class="c field">
+                                            <input type="time" name="EventFinishTime" value="@Model.EventFinishTimestamp?.TimeOfDay" />
+                                            @*<select class="input-field">
+                                                    <option value="">HH</option>
+                                                </select>
+                                                :
+                                                <select class="input-field">
+                                                    <option value="">mm</option>
+                                                </select>*@
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="block-group">
+                        <div class="heading">ข้อมูลติดต่อ</div>
+                        <div class="entry-data">
+                            <div class="row">
+                                <div class="col-sm-12 col-lg-4">
+                                    <div class="row-field clearfix">
+                                        <div class="c lbl">
+                                            ชื่อผู้ติดต่อ
+                                        </div>
+                                        <div class="c field">
+                                            <input type="text" asp-for="ContactPersonName" class="input-field" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-lg-4">
+                                    <div class="row-field clearfix">
+                                        <div class="c lbl">
+                                            อีเมล์
+                                        </div>
+                                        <div class="c field">
+                                            <input type="text" asp-for="ContactPersonEmail" class="input-field" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12 col-lg-4">
+                                    <div class="row-field clearfix">
+                                        <div class="c lbl">
+                                            โทรศัพท์
+                                        </div>
+                                        <div class="c field">
+                                            <input type="text" asp-for="ContactPersonMobile" class="input-field" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-lg-4">
+                                    <div class="row-field clearfix">
+                                        <div class="c lbl">
+                                            โทรสาร
+                                        </div>
+                                        <div class="c field">
+                                            <input type="text" asp-for="ContactPersonFax" class="input-field" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="block-group">
+                        <div class="heading">วัตถุประสงค์ของกิจกรรม</div>
+                        <div class="entry-data">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="row-field clearfix">
+                                        <div class="c lbl" style="text-align: left;">
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+                                            @*<div><input type="checkbox" name="" value="" /> เพื่อแข่งขันกีฬา</div>
+                                                <div><input type="checkbox" name="" value="" /> เพื่อการสร้างสัมพันธ์</div>
+                                                <div><input type="checkbox" name="" value="" /> เพื่อสุขภาพ</div>
+                                                <div><input type="checkbox" name="" value="" /> เพื่อความเป็นอาชีพ</div>
+                                                <div><input type="checkbox" name="" value="" /> กีฬาเพื่อการท่องเที่ยว</div>
+                                                <div><input type="checkbox" name="" value="" /> อื่นๆ โปรดระบุ <input type="text" name="" value="" class="input-field" /></div>*@
 
+                                            @for (var i = 0; i < Model.MEventObjective.Length; i++)
+                                            {
+                                                <div><input type="checkbox" checked="@Model.MEventObjective[i].Selected" name="MEventObjectiveIds" value="@Model.MEventObjective[i].MEventObjectiveId" /> @Model.MEventObjective[i].EventObjectiveName </div>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab_item">
+                    <div class="block-group">
+                        <div class="heading">ประเภทกิจกรรม</div>
+                        <div class="entry-data">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="row-field clearfix">
+                                        <div class="c field">
+                                            ด้าน
+                                            <select class="input-field">
+                                                <option value="">กีฬา</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div class="row-field clearfix">
+                                        <div class="c field">
+                                            ชนิดกีฬา
+                                            @foreach (var x in ViewBag.MSport as List<MSport>)
+                                            {
+                                                @if (x.SportId != 4)
+                                                {
+                                                    <div><input type="checkbox" name="SportIds" value="@x.SportId" class="input-field" checked="@(Model.EventSport.Any(b => b.SportId == x.SportId))" /> @x.SportName</div>
+                                                }
+                                                else
+                                                {
+                                                    <div><input type="checkbox" name="SportIds" value="@x.SportId" class="input-field" checked="@(Model.EventSport.Any(b => b.SportId == x.SportId))" /> อื่นๆ โปรดระบุ <input type="text" name="SportEtc" value="@(Model.EventSport.Where(b => b.SportId == x.SportId).FirstOrDefault()?.SportEtc )" class="input-field" /></div>
+                                                }
+                                            }
+                                            @*<div><input type="checkbox" name="" value="" class="input-field" /> ฟุตบอล</div>
+                                                <div><input type="checkbox" name="" value="" class="input-field" /> วอลเล่บอล</div>
+                                                <div><input type="checkbox" name="" value="" class="input-field" /> บาสเก็ตบอล</div>
+                                                <div><input type="checkbox" name="" value="" class="input-field" /> อื่นๆ โปรดระบุ <input type="text" name="" value="" class="input-field" /></div>*@
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="block-group">
+                        <div class="heading">ระดับกิจกรรม</div>
+                        <div class="entry-data">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="row-field clearfix">
+                                        <div class="c field">
+
+                                            @foreach (var x in ViewBag.MEventLevel as List<MEventLevel>)
+                                            {
+                                                <div>
+                                                    <input type="radio" name="EventLevelId" value="@x.EventLevelId" class="input-field" checked="@(Model.EventLevelId == x.EventLevelId)" /> @x.EventLevelName
+                                                    @if (x.EventLevelId == 4)
+                                                    {
+                                                        <input type="text" name="EventLevelEtc" value="@Model.EventLevelEtc" class="input-field" />
+                                                    }
+                                                </div>
+                                            }
+
+                                            @*<div><input type="radio" name="" value="" class="input-field" /> ระดับท้องถิ่น / ระดับจังหวัด</div>
+                                                <div><input type="radio" name="" value="" class="input-field" /> ระดับชาติ / ระดับประเทศ</div>
+                                                <div><input type="radio" name="" value="" class="input-field" /> ระดับนานาชาติ</div>
+                                                <div><input type="radio" name="" value="" class="input-field" /> อื่นๆ โปรดระบุ <input type="text" name="" value="" class="input-field" /></div>*@
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="block-group">
+                        <div class="heading">กลุ่มเป้าหมายกิจกรรม</div>
+                        <div class="entry-data">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="row-field clearfix">
+                                        <div class="c field">
+
+                                            @foreach (var x in ViewBag.MObjectivePerson as List<MObjectivePerson>)
+                                            {
+                                                @if (x.ObjectivePersonId != 4)
+                                                {
+                                                    <div><input type="checkbox" name="ObjectivePersonIds" value="@x.ObjectivePersonId" class="input-field" checked="@(Model.EventObjectivePerson.Any(b => b.ObjectivePersonId == x.ObjectivePersonId))" /> @x.ObjectivePersonName</div>
+                                                }
+                                                else
+                                                {
+                                                    <div><input type="checkbox" name="ObjectivePersonIds" value="@x.ObjectivePersonId" class="input-field" checked="@(Model.EventObjectivePerson.Any(b => b.ObjectivePersonId == x.ObjectivePersonId))" /> อื่นๆ โปรดระบุ <input type="text" name="ObjectivePersonEtc" value="@(Model.EventObjectivePerson.Where(b => b.ObjectivePersonId == x.ObjectivePersonId).FirstOrDefault()?.ObjectivePersonEtc)" class="input-field" /></div>
+                                                }
+                                            }
+                                            @*<div><input type="checkbox" name="" value="" class="input-field" /> กีฬาพื้นฐานสำหรับนักเรียนนักศึกษา</div>
+                                                <div><input type="checkbox" name="" value="" class="input-field" /> กีฬาพื้นฐานสำหรับประชาชน</div>
+                                                <div><input type="checkbox" name="" value="" class="input-field" /> กีฬาเพื่อมวลชน</div>
+                                                <div><input type="checkbox" name="" value="" class="input-field" /> อื่นๆ โปรดระบุ <input type="text" name="" value="" class="input-field" /></div>*@
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab_item">
+                    <div class="block-group">
+                        <div class="heading">สถานที่จัดกิจกรรม</div>
+                        <div class="entry-data">
+                            <div class="row">
+                                <div class="col-sm-12 col-lg-6">
+                                    <div class="row-field clearfix">
+                                        <div class="c lbl">
+                                            ชื่อสถานที่ <span class="req">*</span>
+                                        </div>
+                                        <div class="c field">
+                                            <input type="text" name="BuildingName" value="@Model.BuildingName" class="input-field" />
+                                        </div>
+                                    </div>
+                                    <div class="row-field clearfix">
+                                        <div class="c lbl">
+                                            เลขที่ <span class="req">*</span>
+                                        </div>
+                                        <div class="c field">
+                                            <input type="text" name="No" value="@Model.No" class="input-field" />
+                                        </div>
+                                        <div class="c lbl">
+                                            หมู่
+                                        </div>
+                                        <div class="c field">
+                                            <input type="text" name="Moo" value="@Model.Moo" class="input-field" />
+                                        </div>
+                                    </div>
+                                    <div class="row-field clearfix">
+                                        <div class="c lbl">
+                                            ซอย <span class="req">*</span>
+                                        </div>
+                                        <div class="c field">
+                                            <input type="text" name="Soi" value="@Model.Soi" class="input-field" />
+                                        </div>
+                                    </div>
+                                    <div class="row-field clearfix">
+                                        <div class="c lbl">
+                                            ถนน <span class="req">*</span>
+                                        </div>
+                                        <div class="c field">
+                                            <input type="text" name="Road" value="@Model.Road" class="input-field" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-lg-6">
+                                    <div class="row-field clearfix">
+                                        <div class="c lbl">
+                                            จังหวัด <span class="req">*</span>
+                                        </div>
+                                        <div class="c field">
+                                            <select class="input-field" id="ddlProvince" name="ProvinceCode">
+                                                <option value="">กรุณาเลือก</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row-field clearfix">
+                                        <div class="c lbl">
+                                            อำเภอ <span class="req">*</span>
+                                        </div>
+                                        <div class="c field">
+                                            <select class="input-field" id="ddlAmphur" name="AmphurCode">
+                                                <option value="">กรุณาเลือก</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row-field clearfix">
+                                        <div class="c lbl">
+                                            ตำบล <span class="req">*</span>
+                                        </div>
+                                        <div class="c field">
+                                            <select class="input-field" id="ddlTambon" name="TambonCode">
+                                                <option value="">กรุณาเลือก</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row-field clearfix">
+                                        <div class="c lbl">
+                                            รหัสไปรษณีย์ <span class="req">*</span>
+                                        </div>
+                                        <div class="c field">
+                                            <input type="text" name="Postcode" value="@Model.Postcode" class="input-field" id="txtPostcode" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="block-group">
+                        <div class="heading">พิกัด</div>
+                        <div class="entry-data">
+                            <div class="row">
+                                <div class="col-sm-12 col-lg-6">
+                                    <div class="row-field clearfix">
+                                        <div class="c lbl">
+                                            ละติจูด
+                                        </div>
+                                        <div class="c field">
+                                            <input type="text" name="Latitude" value="@Model.Latitude" class="input-field" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-lg-6">
+                                    <div class="row-field clearfix">
+                                        <div class="c lbl">
+                                            ลองติจูด <span class="req">*</span>
+                                        </div>
+                                        <div class="c field">
+                                            <input type="text" name="Longitude" value="@Model.Longitude" class="input-field" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab_item">
+                    @foreach (var topic in ViewBag.MEventFacilitiesTopic as List<MEventFacilitiesTopic>)
+                    {
+                        <div class="block-group">
+                            <div class="heading">@topic.EventFacilitiesTopicName<div class="button-container"><button type="button" class="button small darkgreen" data-toggle="modal" data-target="#ModalTopic_@topic.EventFacilitiesTopicId">+เพิ่มรายการ</button></div></div>
+                            <div class="entry-data">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <table cellspacing="0" class="tbl-data" width="100%" id="tblTopic_@topic.EventFacilitiesTopicId">
+                                            <thead>
+                                                <tr>
+                                                    <th class="name">ชื่อ</th>
+                                                    <th class="amount">จำนวน</th>
+                                                    <th class="unit">หน่วย</th>
+                                                    <th class="manage center">จัดการ</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="modal fade bd-example-modal-lg" id="ModalTopic_@topic.EventFacilitiesTopicId" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+
+                                        <div class="modal-header">
+
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                            <div class="heading">เพิ่ม @topic.EventFacilitiesTopicName</div>
+                                        </div>
+
+                                        <div class="modal-body">
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <table cellspacing="0" class="tbl-data">
+                                                        <tr>
+                                                            <th class="name">ชื่อ</th>
+                                                            <th class="amount">จำนวน</th>
+                                                            <th class="unit">หน่วย</th>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><input type="text" id="txtFacilityName_@topic.EventFacilitiesTopicId" name="" value="" class="input-field" /></td>
+                                                            <td><input type="text" id="txtFacilityAmount_@topic.EventFacilitiesTopicId" name="" value="" class="input-field" /></td>
+                                                            <td><input type="text" id="txtFacilityUnit_@topic.EventFacilitiesTopicId" name="" value="" class="input-field" /></td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-12 text-right">
+                                                    <button type="button" class="button darkgreen" data-dismiss="modal" onclick="AddEventFacilitiesToSession(@Model.EventId, @topic.EventFacilitiesTopicId)">เพิ่ม</button>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="modal-footer">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    }
+
+
+                    @*<div class="block-group">
+                            <div class="heading">Topic 2 <div class="button-container"><a href="#" class="button small darkgreen">+เพิ่มรายการ</a></div></div>
+                            <div class="entry-data">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <table cellspacing="0" class="tbl-data" width="100%">
+                                            <tr>
+                                                <th class="name">ชื่อ</th>
+                                                <th class="amount">จำนวน</th>
+                                                <th class="unit">หน่วย</th>
+                                                <th class="manage center">จัดการ</th>
+                                            </tr>
+                                            <tr>
+                                                <td>ที่จอดรถ</td>
+                                                <td>200</td>
+                                                <td>คัน</td>
+                                                <td class="center"><a href="#" class="button small red">&nbsp;ลบ&nbsp;</a> <a href="#" class="button small darkgreen">แก้ไข</a></td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="block-group">
+                            <div class="heading">Topic 3 <div class="button-container"><a href="#" class="button small darkgreen">+เพิ่มรายการ</a></div></div>
+                            <div class="entry-data">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <table cellspacing="0" class="tbl-data" width="100%">
+                                            <tr>
+                                                <th class="name">ชื่อ</th>
+                                                <th class="amount">จำนวน</th>
+                                                <th class="unit">หน่วย</th>
+                                                <th class="manage center">จัดการ</th>
+                                            </tr>
+                                            <tr>
+                                                <td>ร้านอาหารและเครื่องดื่ม</td>
+                                                <td>20</td>
+                                                <td>ร้านค้า</td>
+                                                <td class="center"><a href="#" class="button small red">&nbsp;ลบ&nbsp;</a> <a href="#" class="button small darkgreen">แก้ไข</a></td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="block-group">
+                            <div class="heading">Topic 4 <div class="button-container"><a href="#" class="button small darkgreen">+เพิ่มรายการ</a></div></div>
+                            <div class="entry-data">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <table cellspacing="0" class="tbl-data" width="100%">
+                                            <tr>
+                                                <th class="name">ชื่อ</th>
+                                                <th class="amount">จำนวน</th>
+                                                <th class="unit">หน่วย</th>
+                                                <th class="manage">จัดการ</th>
+                                            </tr>
+                                            <tr>
+                                                <td>ห้องปฐมพยาบาล</td>
+                                                <td>12</td>
+                                                <td>ห้อง</td>
+                                                <td class="center"><a href="#" class="button small red">&nbsp;ลบ&nbsp;</a> <a href="#" class="button small darkgreen">แก้ไข</a></td>
+                                            </tr>
+                                            <tr>
+                                                <td>ห้องน้ำ</td>
+                                                <td>24</td>
+                                                <td>ห้อง</td>
+                                                <td class="center"><a href="#" class="button small red">&nbsp;ลบ&nbsp;</a> <a href="#" class="button small darkgreen">แก้ไข</a></td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>*@
+
+                </div>
+                <div class="tab_item">
+                    <div class="block-group">
+                        <div class="heading">รายละเอียดกิจกรรม</div>
+                        <div class="entry-data">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <textarea name="EventDescription"> @Model.EventDescription </textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab_item">
+                    <div class="block-group">
+                        <div class="heading">ภาพประกอบ<div class="button-container"><button type="button" class="button small darkgreen" data-toggle="modal" data-target="#Modal_UploadedFile">+เพิ่ม</button></div></div>
+                        <div class="entry-data">
+                            <div class="row search-events-result">
+                                <div class="col-12">
+                                    <ul id="ul-UploadedFile">
+                                        @*@foreach (var x in Model.UploadedFile)
+                                            {
+                                                <li>
+                                                    <div class="row event">
+                                                        <div class="col-md-4">
+                                                            <div class="event-thumb"><img src="@x.FileUrl" /></div>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <button type="button" onclick="DeleteUploadedFile(@Model.EventId, @x.UploadedFileId)" class="button small red">&nbsp;ลบ&nbsp;</button>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            }*@
+                                    </ul>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="modal fade bd-example-modal-lg" id="Modal_UploadedFile" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+
+                                <div class="modal-header">
+
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    <div class="heading">เพิ่มภาพประกอบ</div>
+                                </div>
+
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="col-12">
+
+                                            <input type="file" id="fileInput" multiple />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12 text-right">
+                                            <button type="button" class="button darkgreen" data-dismiss="modal" onclick="UploadFile('fileInput', @Model.EventId)">เพิ่ม</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</form>
+
+
+@section Scripts {
+
+    <script type="text/javascript">
+        var routeId = @ViewBag.routeId;
+
+        var model = @Html.Raw(Json.Serialize(Model));
+
+        var address = @Html.Raw(Json.Serialize(ViewBag.Address as Address));
+
+        console.log('routeid=', routeId);
+        console.log('model=', model);
+        console.log('address=', address);
+    </script>
+
+    <script src="~/js/pages/events-edit.js"></script>
+}
