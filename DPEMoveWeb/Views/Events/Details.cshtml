@@ -3,6 +3,12 @@
     ViewData["Title"] = "ข้อมูลกิจกรรม";
 }
 
+<h4>@Model.EventStartTimestamp.ToString() - @Model.EventFinishTimestamp.ToString()</h4>
+
+<h4>@Model.EventStartTimestamp.ToString("dd/MM/yyyy HH:mm") - @Model.EventFinishTimestamp?.ToString("dd/MM/yyyy HH:mm")</h4>
+
+<h4>@Model.EventStartTimestamp.TimeOfDay - @Model.EventFinishTimestamp?.TimeOfDay</h4>
+
 <form asp-action="EditEvent" enctype="multipart/form-data">
 
     <div class="row breadcrumbs-container">
@@ -123,10 +129,7 @@
                                             วันที่เริ่ม <span class="req">*</span>
                                         </div>
                                         <div class="c field">
-                                            <input type="date" asp-for="EventStartTimestamp" />
-                                            @*<select class="input-field">
-                                                    <option value="">dd/mm/yyyy</option>
-                                                </select>*@
+                                            <input type="text" name="EventStartTimestamp" value="@(Model.EventStartTimestamp.ToString("dd/MM/yyyy"))" data-provide="datepicker" data-date-language="th-th" />
                                         </div>
                                     </div>
                                 </div>
@@ -136,14 +139,14 @@
                                             เวลา
                                         </div>
                                         <div class="c field">
-                                            <input type="time" name="EventStartTime" />
-                                            @*<select class="input-field">
-                                                <option value="">HH</option>
-                                            </select>
-                                            :
-                                            <select class="input-field">
-                                                <option value="">mm</option>
-                                            </select>*@
+                                            <input type="time" name="EventStartTime" value="@Model.EventStartTimestamp.TimeOfDay" />
+                                                @*<select class="input-field">
+                                                    <option value="">HH</option>
+                                                </select>
+                                                :
+                                                <select class="input-field">
+                                                    <option value="">mm</option>
+                                                </select>*@
                                         </div>
                                     </div>
                                 </div>
@@ -155,7 +158,7 @@
                                             วันที่สิ้นสุด <span class="req">*</span>
                                         </div>
                                         <div class="c field">
-                                            <input type="date" asp-for="EventFinishTimestamp" />
+                                            <input type="text" name="EventFinishTimestamp" value="@(Model.EventFinishTimestamp?.ToString("dd/MM/yyyy"))" data-provide="datepicker" data-date-language="th-th" />
                                         </div>
                                     </div>
                                 </div>
@@ -165,14 +168,14 @@
                                             เวลา
                                         </div>
                                         <div class="c field">
-                                            <input type="time" name="EventFinishTime" />
+                                            <input type="time" name="EventFinishTime" value="@Model.EventFinishTimestamp?.TimeOfDay" />
                                             @*<select class="input-field">
-                                                <option value="">HH</option>
-                                            </select>
-                                            :
-                                            <select class="input-field">
-                                                <option value="">mm</option>
-                                            </select>*@
+                                                    <option value="">HH</option>
+                                                </select>
+                                                :
+                                                <select class="input-field">
+                                                    <option value="">mm</option>
+                                                </select>*@
                                         </div>
                                     </div>
                                 </div>
@@ -283,11 +286,11 @@
                                                     <div><input type="checkbox" name="SportIds" value="@x.SportId" class="input-field" checked="@(Model.EventSport.Any(b => b.SportId == x.SportId))" /> อื่นๆ โปรดระบุ <input type="text" name="SportEtc" value="@(Model.EventSport.Where(b => b.SportId == x.SportId).FirstOrDefault()?.SportEtc )" class="input-field" /></div>
                                                 }
                                             }
-                                                @*<div><input type="checkbox" name="" value="" class="input-field" /> ฟุตบอล</div>
+                                            @*<div><input type="checkbox" name="" value="" class="input-field" /> ฟุตบอล</div>
                                                 <div><input type="checkbox" name="" value="" class="input-field" /> วอลเล่บอล</div>
                                                 <div><input type="checkbox" name="" value="" class="input-field" /> บาสเก็ตบอล</div>
                                                 <div><input type="checkbox" name="" value="" class="input-field" /> อื่นๆ โปรดระบุ <input type="text" name="" value="" class="input-field" /></div>*@
-                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -303,19 +306,19 @@
 
                                             @foreach (var x in ViewBag.MEventLevel as List<MEventLevel>)
                                             {
-                                            <div>
-                                                <input type="radio" name="EventLevelId" value="@x.EventLevelId" class="input-field" checked="@(Model.EventLevelId == x.EventLevelId)" /> @x.EventLevelName
-                                                @if (x.EventLevelId == 4)
-                                                {
-                                                    <input type="text" name="EventLevelEtc" value="@Model.EventLevelEtc" class="input-field" />
-                                                }
-                                            </div>
+                                                <div>
+                                                    <input type="radio" name="EventLevelId" value="@x.EventLevelId" class="input-field" checked="@(Model.EventLevelId == x.EventLevelId)" /> @x.EventLevelName
+                                                    @if (x.EventLevelId == 4)
+                                                    {
+                                                        <input type="text" name="EventLevelEtc" value="@Model.EventLevelEtc" class="input-field" />
+                                                    }
+                                                </div>
                                             }
 
                                             @*<div><input type="radio" name="" value="" class="input-field" /> ระดับท้องถิ่น / ระดับจังหวัด</div>
-                                            <div><input type="radio" name="" value="" class="input-field" /> ระดับชาติ / ระดับประเทศ</div>
-                                            <div><input type="radio" name="" value="" class="input-field" /> ระดับนานาชาติ</div>
-                                            <div><input type="radio" name="" value="" class="input-field" /> อื่นๆ โปรดระบุ <input type="text" name="" value="" class="input-field" /></div>*@
+                                                <div><input type="radio" name="" value="" class="input-field" /> ระดับชาติ / ระดับประเทศ</div>
+                                                <div><input type="radio" name="" value="" class="input-field" /> ระดับนานาชาติ</div>
+                                                <div><input type="radio" name="" value="" class="input-field" /> อื่นๆ โปรดระบุ <input type="text" name="" value="" class="input-field" /></div>*@
                                         </div>
                                     </div>
                                 </div>
@@ -342,9 +345,9 @@
                                                 }
                                             }
                                             @*<div><input type="checkbox" name="" value="" class="input-field" /> กีฬาพื้นฐานสำหรับนักเรียนนักศึกษา</div>
-                                            <div><input type="checkbox" name="" value="" class="input-field" /> กีฬาพื้นฐานสำหรับประชาชน</div>
-                                            <div><input type="checkbox" name="" value="" class="input-field" /> กีฬาเพื่อมวลชน</div>
-                                            <div><input type="checkbox" name="" value="" class="input-field" /> อื่นๆ โปรดระบุ <input type="text" name="" value="" class="input-field" /></div>*@
+                                                <div><input type="checkbox" name="" value="" class="input-field" /> กีฬาพื้นฐานสำหรับประชาชน</div>
+                                                <div><input type="checkbox" name="" value="" class="input-field" /> กีฬาเพื่อมวลชน</div>
+                                                <div><input type="checkbox" name="" value="" class="input-field" /> อื่นๆ โปรดระบุ <input type="text" name="" value="" class="input-field" /></div>*@
                                         </div>
                                     </div>
                                 </div>
@@ -471,148 +474,148 @@
                 <div class="tab_item">
                     @foreach (var topic in ViewBag.MEventFacilitiesTopic as List<MEventFacilitiesTopic>)
                     {
-                    <div class="block-group">
-                        <div class="heading">@topic.EventFacilitiesTopicName<div class="button-container"><button type="button" class="button small darkgreen" data-toggle="modal" data-target="#ModalTopic_@topic.EventFacilitiesTopicId">+เพิ่มรายการ</button></div></div>
-                        <div class="entry-data">
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <table cellspacing="0" class="tbl-data" width="100%" id="tblTopic_@topic.EventFacilitiesTopicId">
-                                        <thead>
+                        <div class="block-group">
+                            <div class="heading">@topic.EventFacilitiesTopicName<div class="button-container"><button type="button" class="button small darkgreen" data-toggle="modal" data-target="#ModalTopic_@topic.EventFacilitiesTopicId">+เพิ่มรายการ</button></div></div>
+                            <div class="entry-data">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <table cellspacing="0" class="tbl-data" width="100%" id="tblTopic_@topic.EventFacilitiesTopicId">
+                                            <thead>
+                                                <tr>
+                                                    <th class="name">ชื่อ</th>
+                                                    <th class="amount">จำนวน</th>
+                                                    <th class="unit">หน่วย</th>
+                                                    <th class="manage center">จัดการ</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="modal fade bd-example-modal-lg" id="ModalTopic_@topic.EventFacilitiesTopicId" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+
+                                        <div class="modal-header">
+
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                            <div class="heading">เพิ่ม @topic.EventFacilitiesTopicName</div>
+                                        </div>
+
+                                        <div class="modal-body">
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <table cellspacing="0" class="tbl-data">
+                                                        <tr>
+                                                            <th class="name">ชื่อ</th>
+                                                            <th class="amount">จำนวน</th>
+                                                            <th class="unit">หน่วย</th>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><input type="text" id="txtFacilityName_@topic.EventFacilitiesTopicId" name="" value="" class="input-field" /></td>
+                                                            <td><input type="text" id="txtFacilityAmount_@topic.EventFacilitiesTopicId" name="" value="" class="input-field" /></td>
+                                                            <td><input type="text" id="txtFacilityUnit_@topic.EventFacilitiesTopicId" name="" value="" class="input-field" /></td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-12 text-right">
+                                                    <button type="button" class="button darkgreen" data-dismiss="modal" onclick="AddEventFacilitiesToSession(@Model.EventId, @topic.EventFacilitiesTopicId)">เพิ่ม</button>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="modal-footer">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    }
+
+
+                    @*<div class="block-group">
+                            <div class="heading">Topic 2 <div class="button-container"><a href="#" class="button small darkgreen">+เพิ่มรายการ</a></div></div>
+                            <div class="entry-data">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <table cellspacing="0" class="tbl-data" width="100%">
                                             <tr>
                                                 <th class="name">ชื่อ</th>
                                                 <th class="amount">จำนวน</th>
                                                 <th class="unit">หน่วย</th>
                                                 <th class="manage center">จัดการ</th>
                                             </tr>
-                                        </thead>
-                                        <tbody>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="modal fade bd-example-modal-lg" id="ModalTopic_@topic.EventFacilitiesTopicId" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-lg">
-                                <div class="modal-content">
-                                    
-                                    <div class="modal-header">
-
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                        <div class="heading">เพิ่ม @topic.EventFacilitiesTopicName</div>
-                                    </div>
-
-                                    <div class="modal-body">
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <table cellspacing="0" class="tbl-data">
-                                                    <tr>
-                                                        <th class="name">ชื่อ</th>
-                                                        <th class="amount">จำนวน</th>
-                                                        <th class="unit">หน่วย</th>
-                                                    </tr>
-                                                    <tr>
-                                                        <td><input type="text" id="txtFacilityName_@topic.EventFacilitiesTopicId" name="" value="" class="input-field" /></td>
-                                                        <td><input type="text" id="txtFacilityAmount_@topic.EventFacilitiesTopicId" name="" value="" class="input-field" /></td>
-                                                        <td><input type="text" id="txtFacilityUnit_@topic.EventFacilitiesTopicId" name="" value="" class="input-field" /></td>
-                                                    </tr>
-                                                </table>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-12 text-right">
-                                                <button type="button" class="button darkgreen" data-dismiss="modal" onclick="AddEventFacilitiesToSession(@Model.EventId, @topic.EventFacilitiesTopicId)">เพิ่ม</button>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                    <div class="modal-footer">
+                                            <tr>
+                                                <td>ที่จอดรถ</td>
+                                                <td>200</td>
+                                                <td>คัน</td>
+                                                <td class="center"><a href="#" class="button small red">&nbsp;ลบ&nbsp;</a> <a href="#" class="button small darkgreen">แก้ไข</a></td>
+                                            </tr>
+                                        </table>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
-                    </div>
-                    }
-
-
-                    @*<div class="block-group">
-                        <div class="heading">Topic 2 <div class="button-container"><a href="#" class="button small darkgreen">+เพิ่มรายการ</a></div></div>
-                        <div class="entry-data">
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <table cellspacing="0" class="tbl-data" width="100%">
-                                        <tr>
-                                            <th class="name">ชื่อ</th>
-                                            <th class="amount">จำนวน</th>
-                                            <th class="unit">หน่วย</th>
-                                            <th class="manage center">จัดการ</th>
-                                        </tr>
-                                        <tr>
-                                            <td>ที่จอดรถ</td>
-                                            <td>200</td>
-                                            <td>คัน</td>
-                                            <td class="center"><a href="#" class="button small red">&nbsp;ลบ&nbsp;</a> <a href="#" class="button small darkgreen">แก้ไข</a></td>
-                                        </tr>
-                                    </table>
+                        <div class="block-group">
+                            <div class="heading">Topic 3 <div class="button-container"><a href="#" class="button small darkgreen">+เพิ่มรายการ</a></div></div>
+                            <div class="entry-data">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <table cellspacing="0" class="tbl-data" width="100%">
+                                            <tr>
+                                                <th class="name">ชื่อ</th>
+                                                <th class="amount">จำนวน</th>
+                                                <th class="unit">หน่วย</th>
+                                                <th class="manage center">จัดการ</th>
+                                            </tr>
+                                            <tr>
+                                                <td>ร้านอาหารและเครื่องดื่ม</td>
+                                                <td>20</td>
+                                                <td>ร้านค้า</td>
+                                                <td class="center"><a href="#" class="button small red">&nbsp;ลบ&nbsp;</a> <a href="#" class="button small darkgreen">แก้ไข</a></td>
+                                            </tr>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="block-group">
-                        <div class="heading">Topic 3 <div class="button-container"><a href="#" class="button small darkgreen">+เพิ่มรายการ</a></div></div>
-                        <div class="entry-data">
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <table cellspacing="0" class="tbl-data" width="100%">
-                                        <tr>
-                                            <th class="name">ชื่อ</th>
-                                            <th class="amount">จำนวน</th>
-                                            <th class="unit">หน่วย</th>
-                                            <th class="manage center">จัดการ</th>
-                                        </tr>
-                                        <tr>
-                                            <td>ร้านอาหารและเครื่องดื่ม</td>
-                                            <td>20</td>
-                                            <td>ร้านค้า</td>
-                                            <td class="center"><a href="#" class="button small red">&nbsp;ลบ&nbsp;</a> <a href="#" class="button small darkgreen">แก้ไข</a></td>
-                                        </tr>
-                                    </table>
+                        <div class="block-group">
+                            <div class="heading">Topic 4 <div class="button-container"><a href="#" class="button small darkgreen">+เพิ่มรายการ</a></div></div>
+                            <div class="entry-data">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <table cellspacing="0" class="tbl-data" width="100%">
+                                            <tr>
+                                                <th class="name">ชื่อ</th>
+                                                <th class="amount">จำนวน</th>
+                                                <th class="unit">หน่วย</th>
+                                                <th class="manage">จัดการ</th>
+                                            </tr>
+                                            <tr>
+                                                <td>ห้องปฐมพยาบาล</td>
+                                                <td>12</td>
+                                                <td>ห้อง</td>
+                                                <td class="center"><a href="#" class="button small red">&nbsp;ลบ&nbsp;</a> <a href="#" class="button small darkgreen">แก้ไข</a></td>
+                                            </tr>
+                                            <tr>
+                                                <td>ห้องน้ำ</td>
+                                                <td>24</td>
+                                                <td>ห้อง</td>
+                                                <td class="center"><a href="#" class="button small red">&nbsp;ลบ&nbsp;</a> <a href="#" class="button small darkgreen">แก้ไข</a></td>
+                                            </tr>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="block-group">
-                        <div class="heading">Topic 4 <div class="button-container"><a href="#" class="button small darkgreen">+เพิ่มรายการ</a></div></div>
-                        <div class="entry-data">
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <table cellspacing="0" class="tbl-data" width="100%">
-                                        <tr>
-                                            <th class="name">ชื่อ</th>
-                                            <th class="amount">จำนวน</th>
-                                            <th class="unit">หน่วย</th>
-                                            <th class="manage">จัดการ</th>
-                                        </tr>
-                                        <tr>
-                                            <td>ห้องปฐมพยาบาล</td>
-                                            <td>12</td>
-                                            <td>ห้อง</td>
-                                            <td class="center"><a href="#" class="button small red">&nbsp;ลบ&nbsp;</a> <a href="#" class="button small darkgreen">แก้ไข</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>ห้องน้ำ</td>
-                                            <td>24</td>
-                                            <td>ห้อง</td>
-                                            <td class="center"><a href="#" class="button small red">&nbsp;ลบ&nbsp;</a> <a href="#" class="button small darkgreen">แก้ไข</a></td>
-                                        </tr>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>*@
+                        </div>*@
 
                 </div>
                 <div class="tab_item">
@@ -635,18 +638,18 @@
                                 <div class="col-12">
                                     <ul id="ul-UploadedFile">
                                         @*@foreach (var x in Model.UploadedFile)
-                                        {
-                                            <li>
-                                                <div class="row event">
-                                                    <div class="col-md-4">
-                                                        <div class="event-thumb"><img src="@x.FileUrl" /></div>
+                                            {
+                                                <li>
+                                                    <div class="row event">
+                                                        <div class="col-md-4">
+                                                            <div class="event-thumb"><img src="@x.FileUrl" /></div>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <button type="button" onclick="DeleteUploadedFile(@Model.EventId, @x.UploadedFileId)" class="button small red">&nbsp;ลบ&nbsp;</button>
+                                                        </div>
                                                     </div>
-                                                    <div class="col-md-2">
-                                                        <button type="button" onclick="DeleteUploadedFile(@Model.EventId, @x.UploadedFileId)" class="button small red">&nbsp;ลบ&nbsp;</button>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                        }*@
+                                                </li>
+                                            }*@
                                     </ul>
                                 </div>
                             </div>
@@ -709,5 +712,12 @@
     </script>
 
     <script src="~/js/pages/events-details.js"></script>
+
+
+    @*<script type="text/javascript">
+            $(function () {
+                $('#datetimepicker2').datetimepicker();
+            });
+        </script>*@
 
 }
