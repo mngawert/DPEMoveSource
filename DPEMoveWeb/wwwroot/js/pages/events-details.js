@@ -133,10 +133,9 @@ function DeleteEventFacilitiesFromSession(eventId, mEventFacilitiesTopicId, even
     $.ajax(options);
 }
 
-function GetProvince() {
+function GetProvinceName(proviceId) {
 
     console.log("call GetProvince");
-
     var options = {};
 
     options.url = "http://103.208.27.224/mots_sport/service/get.php?MOD=province";
@@ -145,27 +144,14 @@ function GetProvince() {
 
     options.success = function (_data) {
         data = JSON.parse(_data);
-        var items =
-            `
-            <option value="">แสดงทั้งหมด</option>
-            `
+        console.log(data);
         $.each(data.DATA, function (index, value) {
-            items +=
-                `
-                <option value="` + value.pcode + `">` + value.province + `</option>
-                `
+            console.log("check", value);
+            if (value.pcode == proviceId) {
+                console.log("found!");
+                $("#lblProvinceName").html(value.province);
+            }
         });
-        $("#ddlProvince").html(items);
-        $("#ddlProvince").val(address.provinceCode);
-
-        var provinceId = $("#ddlProvince").val();
-        if (provinceId == "") {
-            $("#ddlAmphur").html(`<option value="">แสดงทั้งหมด</option>`);
-            $("#ddlTambon").html(`<option value="">แสดงทั้งหมด</option>`);
-        }
-        else {
-            GetAmphur(provinceId);
-        }
     };
     options.error = function (a, b, c) {
         console.log("Error while calling the Web API!(" + b + " - " + c + ")");
@@ -173,7 +159,7 @@ function GetProvince() {
     $.ajax(options);
 }
 
-function GetAmphur(provinceId) {
+function GetAmphurName(provinceId, amphurId) {
 
     var options = {};
 
@@ -183,26 +169,11 @@ function GetAmphur(provinceId) {
 
     options.success = function (_data) {
         data = JSON.parse(_data);
-        var items =
-            `
-            <option value="">แสดงทั้งหมด</option>
-            `
         $.each(data.DATA, function (index, value) {
-            items +=
-                `
-                <option value="` + value.pcode + `">` + value.amphur + `</option>
-                `
+            if (value.pcode == amphurId) {
+                $("#lblAmphurName").html(value.amphur);
+            }
         });
-        $("#ddlAmphur").html(items);
-        $("#ddlAmphur").val(address.amphurCode);
-        var provinceId = $("#ddlProvince").val();
-        var amphurId = $("#ddlAmphur").val().substr(2, 2);
-        if (amphurId == "") {
-            $("#ddlTambon").html(`<option value="">แสดงทั้งหมด</option>`);
-        }
-        else {
-            GetTambon(provinceId, amphurId);
-        }
     };
     options.error = function (a, b, c) {
         console.log("Error while calling the Web API!(" + b + " - " + c + ")");
@@ -210,7 +181,7 @@ function GetAmphur(provinceId) {
     $.ajax(options);
 }
 
-function GetTambon(provinceId, amphurId) {
+function GetTambonName(provinceId, amphurId, tambonId) {
 
     var options = {};
 
@@ -220,18 +191,12 @@ function GetTambon(provinceId, amphurId) {
 
     options.success = function (_data) {
         data = JSON.parse(_data);
-        var items =
-            `
-            <option value="">แสดงทั้งหมด</option>
-            `
+        console.log(data);
         $.each(data.DATA, function (index, value) {
-            items +=
-                `
-                <option value="` + value.pcode + `">` + value.pcode + " - " + value.tambon + `</option>
-                `
+            if (value.pcode == tambonId) {
+                $("#lblTambonName").html(value.tambon);
+            }
         });
-        $("#ddlTambon").html(items);
-        $("#ddlTambon").val(address.tambonCode);
     };
     options.error = function (a, b, c) {
         console.log("Error while calling the Web API!(" + b + " - " + c + ")");
@@ -356,31 +321,36 @@ $(document).ready(function () {
     var eventId = routeId;
     console.log("eventId=", eventId);
 
-    GetMEventFacilitiesTopic();
-    GetUploadedFile(eventId);
-    GetProvince();
+    GetProvinceName(model.provinceCode);
+    GetAmphurName(model.provinceCode, model.amphurCode.substr(2, 2));
+    GetTambonName(model.provinceCode, model.amphurCode.substr(2, 2), model.tambonCode);
 
-    $("#ddlProvince").change(function () {
-        var provinceId = $("#ddlProvince").val();
-        if (provinceId == "") {
-            $("#ddlAmphur").html(`<option value="">แสดงทั้งหมด</option>`);
-            $("#ddlTambon").html(`<option value="">แสดงทั้งหมด</option>`);
-        }
-        else {
-            GetAmphur(provinceId);
-        }
-    });
 
-    $("#ddlAmphur").change(function () {
-        var provinceId = $("#ddlProvince").val();
-        var amphurId = $("#ddlAmphur").val().substr(2, 2);
-        if (amphurId == "") {
-            $("#ddlTambon").html(`<option value="">แสดงทั้งหมด</option>`);
-        }
-        else {
-            GetTambon(provinceId, amphurId);
-        }
-    });
+    //GetMEventFacilitiesTopic();
+    //GetUploadedFile(eventId);
+    //GetProvince();
+
+    //$("#ddlProvince").change(function () {
+    //    var provinceId = $("#ddlProvince").val();
+    //    if (provinceId == "") {
+    //        $("#ddlAmphur").html(`<option value="">แสดงทั้งหมด</option>`);
+    //        $("#ddlTambon").html(`<option value="">แสดงทั้งหมด</option>`);
+    //    }
+    //    else {
+    //        GetAmphur(provinceId);
+    //    }
+    //});
+
+    //$("#ddlAmphur").change(function () {
+    //    var provinceId = $("#ddlProvince").val();
+    //    var amphurId = $("#ddlAmphur").val().substr(2, 2);
+    //    if (amphurId == "") {
+    //        $("#ddlTambon").html(`<option value="">แสดงทั้งหมด</option>`);
+    //    }
+    //    else {
+    //        GetTambon(provinceId, amphurId);
+    //    }
+    //});
 
 });
 

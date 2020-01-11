@@ -26,7 +26,6 @@ namespace DPEMoveWeb.Controllers
         private readonly IEventService _eventService;
         private readonly IHostingEnvironment _hostingEnvironment;
         private readonly UserManager<ApplicationUser> _userManager;
-
         public EventsController(AppDbContext context, ILogger<EventsController> logger, IEventService eventService, IHostingEnvironment hostingEnvironment, UserManager<ApplicationUser> userManager)
         {
             _context = context;
@@ -34,6 +33,19 @@ namespace DPEMoveWeb.Controllers
             _eventService = eventService;
             _hostingEnvironment = hostingEnvironment;
             _userManager = userManager;
+        }
+
+        private async Task<int> GetLoginAppUserId()
+        {
+            var userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user != null)
+            {
+                _logger.LogDebug("user.AppUserId={0}", user.AppUserId);
+
+                return user.AppUserId;
+            }
+            return -1;
         }
 
 
@@ -68,9 +80,11 @@ namespace DPEMoveWeb.Controllers
                 return NotFound();
             }
 
+            ViewBag.AppUserId = await GetLoginAppUserId();
+            ViewBag.Address = _context.Event.Where(a => a.EventId == id).FirstOrDefault()?.Address;
+
             //ViewBag.MEventFacilitiesTopic = _context.MEventFacilitiesTopic.ToList();
             //ViewBag.MEventLevel = _context.MEventLevel.ToList();
-            //ViewBag.Address = _context.Event.Where(a => a.EventId == id).FirstOrDefault()?.Address;
             //ViewBag.MSport = _context.MSport.ToList();
             //ViewBag.MObjectivePerson = _context.MObjectivePerson.ToList();
 
@@ -118,8 +132,9 @@ namespace DPEMoveWeb.Controllers
 
 
         [HttpPost]
-        public IActionResult CreateEvent([FromForm] EventViewModel2 model)
+        public async Task<IActionResult> CreateEvent([FromForm] EventViewModel2 model)
         {
+            int appUserId = await GetLoginAppUserId();
             if (ModelState.IsValid)
             {
                 var q = new Event
@@ -132,14 +147,14 @@ namespace DPEMoveWeb.Controllers
                     ReadCount = 0,
                     EventLevelId = 1,
                     Status = 1,
-                    CreatedBy = 0, //model.CreatedBy,
+                    CreatedBy = appUserId, //model.CreatedBy,
                     CreatedDate = DateTime.Now,
                 };
 
                 _context.Entry(q).State = EntityState.Added;
                 _context.SaveChanges();
 
-                return RedirectToAction("Details", new { id = q.EventId });
+                return RedirectToAction("Edit", new { id = q.EventId });
             }
             else
             {
@@ -281,7 +296,7 @@ namespace DPEMoveWeb.Controllers
 
             }
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Details", new { id = model.EventId});
         }
 
 

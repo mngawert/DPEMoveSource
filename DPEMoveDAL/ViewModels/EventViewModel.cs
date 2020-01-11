@@ -105,9 +105,6 @@ namespace DPEMoveDAL.ViewModels
     {
         public int EventId { get; set; }
         public string EventCode { get; set; }
- 
-        [Required]
-        [StringLength(1000)]
         public string EventName { get; set; }
         public string EventShortDescription { get; set; }
         public string EventDescription { get; set; }
