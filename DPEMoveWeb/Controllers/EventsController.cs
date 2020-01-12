@@ -37,13 +37,16 @@ namespace DPEMoveWeb.Controllers
 
         private async Task<int> GetLoginAppUserId()
         {
-            var userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            var user = await _userManager.FindByIdAsync(userId);
-            if (user != null)
+            var userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (userId != null)
             {
-                _logger.LogDebug("user.AppUserId={0}", user.AppUserId);
+                var user = await _userManager.FindByIdAsync(userId);
+                if (user != null)
+                {
+                    _logger.LogDebug("user.AppUserId={0}", user.AppUserId);
 
-                return user.AppUserId;
+                    return user.AppUserId;
+                }
             }
             return -1;
         }
@@ -91,6 +94,7 @@ namespace DPEMoveWeb.Controllers
             return View(eventVM);
         }
 
+        [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
             ViewBag.routeId = id;
@@ -107,17 +111,20 @@ namespace DPEMoveWeb.Controllers
                 return NotFound();
             }
 
-            var userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            var user = await _userManager.FindByIdAsync(userId);
-            if (user != null)
+            var userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (userId != null)
             {
-                _logger.LogDebug("user.AppUserId={0}", user.AppUserId);
-
-                if (user.AppUserId != eventVM.CreatedBy)
+                var user = await _userManager.FindByIdAsync(userId);
+                if (user != null)
                 {
-                    ViewBag.ErrorTitle = "Permission Denied";
-                    ViewBag.Message = "This event does not create by you!";
-                    return View("Error");
+                    _logger.LogDebug("user.AppUserId={0}", user.AppUserId);
+
+                    if (user.AppUserId != eventVM.CreatedBy)
+                    {
+                        ViewBag.ErrorTitle = "Permission Denied";
+                        ViewBag.Message = "This event does not create by you!";
+                        return View("Error");
+                    }
                 }
             }
 
@@ -163,6 +170,7 @@ namespace DPEMoveWeb.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public IActionResult EditEvent([FromForm] EventViewModel2 model)
         {
             _logger.LogDebug("model.EventId={0}", model.EventId);
@@ -215,6 +223,43 @@ namespace DPEMoveWeb.Controllers
                         HttpContext.Session.Set<List<EventFacilities>>(sessionName, null);
                     }
                 }
+
+                /* EVENT_NEARBY */
+                foreach (var topic in _context.EventNearby)
+                {
+                    string sessionName = "Session_EventNearby_" + model.EventId;
+                    var eventNearbySession = HttpContext.Session.Get<List<EventNearby>>(sessionName);
+                    if (eventNearbySession != null)
+                    {
+                        var existingEventNearby = _context.EventNearby.Where(a => a.EventId == model.EventId);
+                        foreach (var k in existingEventNearby)
+                        {
+                            _context.Entry(k).State = EntityState.Deleted;
+                            _context.SaveChanges();
+                        }
+
+                        foreach (var k in eventNearbySession)
+                        {
+                            var qq = new EventNearby
+                            {
+                                EventId = k.EventId,
+                                NearbyName = k.NearbyName,
+                                Distance = k.Distance,
+                                DistanceUnit = k.DistanceUnit,
+                                CreatedBy = k.CreatedBy,
+                                CreatedDate = k.CreatedDate
+                            };
+
+                            _context.Entry(qq).State = EntityState.Added;
+                        }
+                        _context.SaveChanges();
+
+                        // Clear session after Saved.
+                        HttpContext.Session.Set<List<EventNearby>>(sessionName, null);
+                    }
+                }
+
+
 
                 /* ADDRESS */
                 _logger.LogDebug("model.EventId={0}", model.EventId);

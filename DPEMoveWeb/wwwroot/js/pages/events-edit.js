@@ -133,6 +133,107 @@ function DeleteEventFacilitiesFromSession(eventId, mEventFacilitiesTopicId, even
     $.ajax(options);
 }
 
+
+function GetEventNearbyFromSession(eventId) {
+
+    console.log('start GetEventNearbyFromSession');
+    var options = {};
+    var input = {};
+    input.eventId = eventId;
+    options.data = JSON.stringify(input);
+    console.log("input", options.data);
+
+    options.url = "/webapi/Events/GetEventNearbyFromSession";
+    options.contentType = "application/json";
+    options.method = "POST";
+
+    options.success = function (data) {
+        var items = '';
+        $.each(data, function (index, value) {
+            items +=
+                `
+                <tr>
+                    <td>` + value.nearbyName + `</td>
+                    <td>` + value.distance + `</td>
+                    <td>` + value.distanceUnit + `</td>
+                    <td class="center"><button type="button" onclick="DeleteEventNearbyFromSession(` + value.eventId + `,` + value.eventNearbyId + `)" class="button small red">&nbsp;ลบ&nbsp;</button></td>
+                </tr>
+                `
+        });
+
+        $("#tblEventNearby > tbody").html(items);
+    };
+    options.error = function (a, b, c) {
+        console.log("Error while calling the Web API!(" + b + " - " + c + ")");
+    };
+    $.ajax(options);
+}
+
+function AddEventNearbyToSession(eventId) {
+    console.log('start AddEventNearbyToSession ');
+
+    //alert(document.getElementById('txtEventNearbyName').validity.valid);
+    
+    if ($("#txtEventNearbyName").val() == "")
+        return false;
+    if ($("#txtEventNearbyAmount").val() == "")
+        return false;
+    if ($("#txtEventNearbyUnit").val() == "")
+        return false;
+
+    var options = {};
+
+    var input = {};
+    input.eventId = eventId;
+    input.nearbyName = $("#txtEventNearbyName").val();
+    input.distance = $("#txtEventNearbyAmount").val();
+    input.distanceUnit = $("#txtEventNearbyUnit").val();
+    input.createdBy = "0";
+    options.data = JSON.stringify(input);
+    console.log("input", options.data);
+
+    options.url = "/webapi/Events/AddEventNearbyToSession";
+    options.contentType = "application/json";
+    options.method = "POST";
+    options.success = function (data) {
+        console.log("success add");
+        // re-load data from session.
+        GetEventNearbyFromSession(eventId);
+    };
+    options.error = function (a, b, c) {
+        console.log("Error while calling the Web API!(" + b + " - " + c + ")");
+    };
+    $.ajax(options);
+}
+
+
+function DeleteEventNearbyFromSession(eventId, eventNearbyId) {
+    console.log('start DeleteEventNearbyFromSession ');
+
+    var options = {};
+
+    var input = {};
+    input.eventId = eventId;
+    input.eventNearbyId = eventNearbyId;
+
+    options.data = JSON.stringify(input);
+    console.log("input", options.data);
+
+    options.url = "/webapi/Events/DeleteEventNearbyFromSession";
+    options.contentType = "application/json";
+    options.method = "POST";
+    options.success = function (data) {
+        console.log("success delete");
+        GetEventNearbyFromSession(eventId);
+    };
+    options.error = function (a, b, c) {
+        console.log("Error while calling the Web API!(" + b + " - " + c + ")");
+    };
+    $.ajax(options);
+}
+
+
+
 function GetProvince() {
 
     console.log("call GetProvince");
@@ -351,12 +452,25 @@ function DeleteUploadedFile(eventId, uploadedFileId) {
     $.ajax(options);
 }
 
+$("#frmAddEventNearby").on("submit", function (e) {
+
+    console.log("frmAddEventNearby on submit");
+
+    e.preventDefault();
+
+    console.log("model.EventId", model.EventId);
+    console.log("t_eventId", $("#t_eventId").val());
+
+    AddEventNearbyToSession($("#t_eventId").val());
+});
+
 $(document).ready(function () {
 
     var eventId = routeId;
     console.log("eventId=", eventId);
 
     GetMEventFacilitiesTopic();
+    GetEventNearbyFromSession(eventId);
     GetUploadedFile(eventId);
     GetProvince();
 

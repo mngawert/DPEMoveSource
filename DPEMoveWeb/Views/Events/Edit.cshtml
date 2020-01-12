@@ -5,9 +5,9 @@
 
 @*<h4>@Model.EventStartTimestamp.ToString() - @Model.EventFinishTimestamp.ToString()</h4>
 
-<h4>@Model.EventStartTimestamp.ToString("dd/MM/yyyy HH:mm") - @Model.EventFinishTimestamp?.ToString("dd/MM/yyyy HH:mm")</h4>
+    <h4>@Model.EventStartTimestamp.ToString("dd/MM/yyyy HH:mm") - @Model.EventFinishTimestamp?.ToString("dd/MM/yyyy HH:mm")</h4>
 
-<h4>@Model.EventStartTimestamp.TimeOfDay - @Model.EventFinishTimestamp?.TimeOfDay</h4>*@
+    <h4>@Model.EventStartTimestamp.TimeOfDay - @Model.EventFinishTimestamp?.TimeOfDay</h4>*@
 
 <form asp-action="EditEvent" enctype="multipart/form-data">
 
@@ -140,7 +140,7 @@
                                         </div>
                                         <div class="c field">
                                             <input type="time" name="EventStartTime" value="@Model.EventStartTimestamp.TimeOfDay" />
-                                                @*<select class="input-field">
+                                            @*<select class="input-field">
                                                     <option value="">HH</option>
                                                 </select>
                                                 :
@@ -470,6 +470,33 @@
                             </div>
                         </div>
                     </div>
+
+
+                    <div class="block-group">
+                        <div class="heading">สถานที่ใกล้เคียง<div class="button-container"><button type="button" class="button small darkgreen" data-toggle="modal" data-target="#Modal_AddEventNearby">+เพิ่มรายการ</button></div></div>
+                        <div class="entry-data">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <table cellspacing="0" class="tbl-data" width="100%" id="tblEventNearby">
+                                        <thead>
+                                            <tr>
+                                                <th class="name">ชื่อสถานที่</th>
+                                                <th class="amount">ระยะห่าง</th>
+                                                <th class="unit">หน่วย</th>
+                                                <th class="manage center">จัดการ</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+
                 </div>
                 <div class="tab_item">
                     @foreach (var topic in ViewBag.MEventFacilitiesTopic as List<MEventFacilitiesTopic>)
@@ -695,6 +722,54 @@
     </div>
 
 </form>
+
+
+<div class="modal fade bd-example-modal-lg" id="Modal_AddEventNearby" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <form id="frmAddEventNearby">
+
+                <div class="modal-header">
+
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <div class="heading">เพิ่ม สถานที่ใกล้เคียง</div>
+                </div>
+
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-12">
+                        <table cellspacing="0" class="tbl-data">
+                            <tr>
+                                <th class="name">ชื่อสถานที่</th>
+                                <th class="amount">ระยะห่าง</th>
+                                <th class="unit">หน่วย</th>
+                            </tr>
+                            <tr>
+                                <td><input type="text" id="txtEventNearbyName" name="" value="" class="input-field" required /></td>
+                                <td><input type="text" id="txtEventNearbyAmount" name="" value="" class="input-field" /></td>
+                                <td><input type="text" id="txtEventNearbyUnit" name="" value="" class="input-field" /></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 text-right">
+                        @*<button type="submit" class="button darkgreen" >เพิ่ม</button>*@
+                        <button type="button" class="button darkgreen" data-dismiss="modal" onclick="AddEventNearbyToSession(@Model.EventId)">เพิ่ม</button>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+            </div>
+
+            </form>
+        </div>
+    </div>
+</div>
 
 
 @section Scripts {

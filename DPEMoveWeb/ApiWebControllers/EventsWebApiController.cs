@@ -152,6 +152,85 @@ namespace DPEMoveWeb.ApiWebControllers
             return Ok();
         }
 
+
+
+
+
+        [HttpPost]
+        [Authorize]
+        public List<EventNearby> GetEventNearbyFromSession(EventNearby model)
+        {
+            string SessionName = "Session_EventNearby_" + model.EventId;
+
+            if (HttpContext.Session.Get<List<EventNearby>>(SessionName) == null)
+            {
+                var data = _context.EventNearby.Where(a => a.EventId == model.EventId).ToList();
+                HttpContext.Session.Set<List<EventNearby>>(SessionName, data);
+            }
+
+            var q = HttpContext.Session.Get<List<EventNearby>>(SessionName);
+
+            return q;
+        }
+
+        [HttpPost]
+        [Authorize]
+        public IActionResult AddEventNearbyToSession(EventNearby model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var data = GetEventNearbyFromSession(model);
+
+            var q = new EventNearby
+            {
+                EventNearbyId = new Random().Next(-100000, -1),
+                EventId = model.EventId,
+                NearbyName = model.NearbyName,
+                Distance = model.Distance,
+                DistanceUnit = model.DistanceUnit,
+                CreatedBy = model.CreatedBy,
+                CreatedDate = DateTime.Now
+            };
+
+            data.Add(q);
+
+            string sessionName = "Session_EventNearby_" + model.EventId;
+            HttpContext.Session.Set<List<EventNearby>>(sessionName, data);
+
+            return Ok();
+        }
+
+
+        [HttpPost]
+        [Authorize]
+        public IActionResult DeleteEventNearbyFromSession(EventNearby model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var data = GetEventNearbyFromSession(model);
+
+            var q = data.Where(a => a.EventNearbyId == model.EventNearbyId).FirstOrDefault();
+
+            data.Remove(q);
+
+            string sessionName = "Session_EventNearby_" + model.EventId;
+            HttpContext.Session.Set<List<EventNearby>>(sessionName, data);
+
+            return Ok();
+        }
+
+
+
+
+
+
+
         [HttpPost]
         [Authorize]
         public List<UploadedFile> GetUploadedFileSession(UploadedFileViewModel model)
