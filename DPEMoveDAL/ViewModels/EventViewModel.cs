@@ -110,6 +110,8 @@ namespace DPEMoveDAL.ViewModels
         public string EventDescription { get; set; }
         public DateTime EventStartTimestamp { get; set; }
         public DateTime? EventFinishTimestamp { get; set; }
+        public string EventStartTime { get; set; }
+        public string EventFinishTime { get; set; }
         public int? AddressId { get; set; }
         public string StadiumCode { get; set; }
         public string PublishUrl { get; set; }
@@ -141,6 +143,8 @@ namespace DPEMoveDAL.ViewModels
         public List<EventSport> EventSport { get; set; }
         public int[] SportIds { get; set; }
         public string SportEtc { get; set; }
+
+        public List<EventFacilities> EventFacilities { get; set; }
 
         public List<EventObjectivePerson> EventObjectivePerson { get; set; }
         public int[] ObjectivePersonIds { get; set; }

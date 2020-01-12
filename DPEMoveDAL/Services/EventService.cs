@@ -100,6 +100,7 @@ namespace DPEMoveDAL.Services
             ev.MEventObjective = listMEventObjective.ToArray();
             ev.EventSport = _context.EventSport.Where(a => a.EventId == id).ToList();
             ev.EventObjectivePerson = _context.EventObjectivePerson.Where(a => a.EventId == id).ToList();
+            ev.EventFacilities = _context.EventFacilities.Where(a => a.EventId == id).ToList();
             ev.UploadedFile = _context.EventUploadedFile.Where(a => a.EventId == id).Select(b => b.UploadedFile).ToList();
 
             return ev;
@@ -334,8 +335,14 @@ namespace DPEMoveDAL.Services
             ev.ResponsiblePersonCode = model.ResponsiblePersonCode;
             ev.EventShortDescription = model.EventShortDescription;
             ev.EventDescription = model.EventDescription;
-            ev.EventStartTimestamp = model.EventStartTimestamp;
+            
+            ev.EventStartTimestamp = DateTime.Parse(model.EventStartTimestamp.ToString("dd/MM/yyyy") + " " + model.EventStartTime??"00:00:00");
             ev.EventFinishTimestamp = model.EventFinishTimestamp;
+            if (model.EventFinishTimestamp != null)
+            {
+                ev.EventFinishTimestamp = DateTime.Parse(model.EventFinishTimestamp?.ToString("dd/MM/yyyy") + " " + model.EventFinishTime??"00:00:00");
+            }
+
             ev.ContactPersonName = model.ContactPersonName;
             ev.ContactPersonEmail = model.ContactPersonEmail;
             ev.ContactPersonMobile = model.ContactPersonMobile;

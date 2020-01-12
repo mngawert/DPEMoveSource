@@ -114,42 +114,64 @@
             </div>
         </div>
         <div class="service_sec row">
-            <div class="service_sec-box">
-                <img src="/images/icon_ser1.png" width="74" height="74">
-                <p>อินเทอร์เน็ต</p>
-            </div>
-            <div class="service_sec-box">
-                <img src="/images/icon_ser2.png" width="74" height="74">
-                <p>ห้องน้ำ</p>
-            </div>
-            <div class="service_sec-box">
-                <img src="/images/icon_ser3.png" width="74" height="74">
-                <p>ที่จอดรถ</p>
-            </div>
-            <div class="service_sec-box">
-                <img src="/images/icon_ser4.png" width="74" height="74">
-                <p>ร้านค้า</p>
-            </div>
-            <div class="service_sec-box">
-                <img src="/images/icon_ser5.png" width="74" height="74">
-                <p>
-                    สิ่งอำนวย<br>
-                    ความสะดวก<br>
-                    สำหรับคนพิการ
-                </p>
-            </div>
-            <div class="service_sec-box">
-                <img src="/images/icon_ser6.png" width="74" height="74">
-                <p>เบ็ดเตล็ด</p>
-            </div>
-            <div class="absol_right">
-                <div class="btn btn-green">
-                    <h5>
-                        ดูรายละเอียด<br>
-                        สิ่งอานวยความสะดวก
-                    </h5>
+            @if (@Model.EventFacilities.Any(a => a.MEventFacilitiesTopicId == 3))
+            {
+                <div class="service_sec-box">
+                    <img src="/images/icon_ser1.png" width="74" height="74">
+                    <p>อินเทอร์เน็ต</p>
                 </div>
-            </div>
+            }
+            @if (@Model.EventFacilities.Any(a => a.MEventFacilitiesTopicId == 1))
+            {
+                <div class="service_sec-box">
+                    <img src="/images/icon_ser2.png" width="74" height="74">
+                    <p>ห้องน้ำ</p>
+                </div>
+            }
+            @if (@Model.EventFacilities.Any(a => a.MEventFacilitiesTopicId == 2))
+            {
+                <div class="service_sec-box">
+                    <img src="/images/icon_ser3.png" width="74" height="74">
+                    <p>ที่จอดรถ</p>
+                </div>
+            }
+            @if (@Model.EventFacilities.Any(a => a.MEventFacilitiesTopicId == 4))
+            {
+                <div class="service_sec-box">
+                    <img src="/images/icon_ser4.png" width="74" height="74">
+                    <p>ร้านค้า</p>
+                </div>
+
+            }
+            @if (@Model.EventFacilities.Any(a => a.MEventFacilitiesTopicId == 5))
+            {
+                <div class="service_sec-box">
+                    <img src="/images/icon_ser5.png" width="74" height="74">
+                    <p>
+                        สิ่งอำนวย<br>
+                        ความสะดวก<br>
+                        สำหรับคนพิการ
+                    </p>
+                </div>
+            }
+            @if (@Model.EventFacilities.Any(a => a.MEventFacilitiesTopicId == 6))
+            {
+                <div class="service_sec-box">
+                    <img src="/images/icon_ser6.png" width="74" height="74">
+                    <p>เบ็ดเตล็ด</p>
+                </div>
+            }
+            @if (@Model.EventFacilities.Any())
+            {
+                <div class="absol_right">
+                    <div class="btn btn-green">
+                        <h5>
+                            ดูรายละเอียด<br>
+                            สิ่งอานวยความสะดวก
+                        </h5>
+                    </div>
+                </div>
+            }
         </div>
         <div class="clear_sec nearby">
             <h3>สถานที่ใกล้เคียง </h3>
@@ -653,11 +675,11 @@
     <script type="text/javascript">
         var routeId = @ViewBag.routeId;
 
-        var model = @Html.Raw(Json.Serialize(Model));
+                var model = @Html.Raw(Json.Serialize(Model));
 
         var address = @Html.Raw(Json.Serialize(ViewBag.Address as Address));
 
-        console.log('routeid=', routeId);
+            console.log('routeid=', routeId);
         console.log('model=', model);
         console.log('address=', address);
     </script>
