@@ -1,4 +1,7 @@
-﻿<!doctype html>
+﻿@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+<!doctype html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -104,7 +107,21 @@
                         เดือนนี้ 40,095<br>
                         เดือนที่แล้ว
                         <hr>
-                        <img src="~/images/ic_login.png" width="30" height="28" alt="" /><a href="#">เข้าสู่ระบบ</a>
+
+                        <div>
+                            @if (SignInManager.IsSignedIn(User))
+                            {
+                                <form id="formLogout" action="/Account/Logout" method="post">
+                                    <img src="~/images/ic_login.png" width="30" height="28" alt="" /><a href="javascript:{}" onclick="document.getElementById('formLogout').submit();">ออกระบบ</a>
+                                    @UserManager.GetUserName(User)
+                                </form>
+                            }
+                            else
+                            {
+                                <img src="~/images/ic_login.png" width="30" height="28" alt="" /><a href="/Account/Login">เข้าสู่ระบบ</a>
+                            }
+                        </div>
+
                     </div>
                 </div>
             </div>

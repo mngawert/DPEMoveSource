@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<DPEMoveDAL.Models.Event>
+@inject SignInManager<ApplicationUser> SignInManager
 
 @{
     ViewData["Title"] = "ข้อมูลกิจกรรม";
@@ -12,7 +13,10 @@
             <a href="#">กิจกรรม</a> > ข้อมูลกิจกรรม
         </div>
         <div class="button-container">
-            <a href="#" class="button green" data-toggle="modal" data-target="#Modal_CreateEvent">+ สร้างกิจกรรม</a>
+            @if (SignInManager.IsSignedIn(User))
+            {
+                <a href="#" class="button green" data-toggle="modal" data-target="#Modal_CreateEvent">+ สร้างกิจกรรม</a>
+            }
         </div>
     </div>
 </div>

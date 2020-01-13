@@ -53,7 +53,6 @@ namespace DPEMoveWeb.Controllers
 
 
         // GET: Events
-        [Authorize]
         public async Task<IActionResult> Index()
         {
             var appDbContext = _context.Event.Where(a => a.Status == 1)
@@ -148,6 +147,7 @@ namespace DPEMoveWeb.Controllers
 
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> CreateEvent([FromForm] EventViewModel2 model)
         {
             int appUserId = await GetLoginAppUserId();
