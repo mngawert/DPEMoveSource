@@ -86,6 +86,11 @@ function AddEventFacilitiesToSession(eventId, mEventFacilitiesTopicId) {
     options.data = JSON.stringify(input);
     console.log("input", options.data);
 
+    // clear texbox.
+    $("#txtFacilityName_" + mEventFacilitiesTopicId).val("");
+    $("#txtFacilityAmount_" + mEventFacilitiesTopicId).val("");
+    $("#txtFacilityUnit_" + mEventFacilitiesTopicId).val("");
+
     options.url = "/webapi/Events/AddEventFacilitiesToSession";
     options.contentType = "application/json";
     options.method = "POST";
@@ -191,6 +196,11 @@ function AddEventNearbyToSession(eventId) {
     input.createdBy = "0";
     options.data = JSON.stringify(input);
     console.log("input", options.data);
+
+    // clear texbox.
+    $("#txtEventNearbyName").val("");
+    $("#txtEventNearbyAmount").val("");
+    $("#txtEventNearbyUnit").val("");
 
     options.url = "/webapi/Events/AddEventNearbyToSession";
     options.contentType = "application/json";

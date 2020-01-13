@@ -29,7 +29,7 @@
                 <li>
                     <div class="font-weight-bold"><img src="/images/icon_detail_04.png" width="27" height="38" />วันที่จัดกิจกรรม</div>
                     @Model.EventStartTimestamp.ToString("dd MMM yy") 
-                    @if (Model.EventFinishTimestamp > Model.EventStartTimestamp) { 
+                    @if (Model.EventFinishTimestamp > Model.EventStartTimestamp) {
                         <span> - @Model.EventFinishTimestamp?.ToString("dd MMM yy")</span>
                     }
                 </li>
@@ -57,11 +57,28 @@
             <div class="col-sm-12 col-md-12 col-lg-4">
                 <div class="row con_right">
                     <div class="col">
-                        <h3>ดีเลิศ</h3>
-                        <p>รีวิว 23 รายการ</p>
+                        @{
+                            if (ViewBag.VoteAvg * 2 >= 9)
+                            {
+                                <h3>ดีเลิศ</h3>
+                            }
+                            else if (ViewBag.VoteAvg * 2 >= 8)
+                            {
+                                <h3>ดี</h3>
+                            }
+                            else if (ViewBag.VoteAvg * 2 >= 5)
+                            {
+                                <h3>พอใช้</h3>
+                            }
+                            else
+                            {
+                                <h3>-</h3>
+                            }
+                        }
+                        <p>รีวิว @ViewBag.CommentCount รายการ</p>
                     </div>
                     <div class="rating_box">
-                        <h2>9.1</h2>
+                        <h2>@(ViewBag.VoteAvg==0?"-":@ViewBag.VoteAvg*2)</h2>
                     </div>
                 </div>
             </div>
@@ -177,34 +194,41 @@
             <h3>สถานที่ใกล้เคียง </h3>
             <div class="table-responsive">
                 <table class="table table-borderless table-hover">
-                    <tr>
-                        <td><img src="/images/icon_pin.png" width="18" height="25"> Stadium One</td>
-                        <td>450 เมตร</td>
-                    </tr>
-                    <tr>
-                        <td><img src="/images/icon_pin.png" alt="" width="18" height="25">&nbsp;สถาบันเทคโนโลยีปทุมวัน</td>
-                        <td>500 เมตร</td>
-                    </tr>
-                    <tr>
-                        <td><img src="/images/icon_pin.png" alt="" width="18" height="25">&nbsp;สถานีรถไฟฟ้าสนามกีฬาแห่งชาติ</td>
-                        <td>550 เมตร</td>
-                    </tr>
-                    <tr>
-                        <td><img src="/images/icon_pin.png" alt="" width="18" height="25">&nbsp;โรงแรมปทุมวันปริ๊นเซส</td>
-                        <td>650 เมตร</td>
-                    </tr>
-                    <tr>
-                        <td><img src="images/icon_pin.png" alt="" width="18" height="25">&nbsp;หอศิลปวัฒนธรรมแห่งกรุงเทพมหานคร</td>
-                        <td>750 เมตร</td>
-                    </tr>
-                    <tr>
-                        <td><img src="/images/icon_pin.png" alt="" width="18" height="25">&nbsp;ห้างสรรพสินค้ามาบุญครอง (MBK)</td>
-                        <td>850 เมตร</td>
-                    </tr>
+
+                    @foreach (var x in Model.EventNearby)
+                    {
+                        <tr>
+                            <td><img src="/images/icon_pin.png" width="18" height="25"> @x.NearbyName</td>
+                            <td>@x.Distance @x.DistanceUnit</td>
+                        </tr>
+                    }
+
+                    @*<tr>
+            <td><img src="/images/icon_pin.png" alt="" width="18" height="25">&nbsp;สถาบันเทคโนโลยีปทุมวัน</td>
+            <td>500 เมตร</td>
+        </tr>
+        <tr>
+            <td><img src="/images/icon_pin.png" alt="" width="18" height="25">&nbsp;สถานีรถไฟฟ้าสนามกีฬาแห่งชาติ</td>
+            <td>550 เมตร</td>
+        </tr>
+        <tr>
+            <td><img src="/images/icon_pin.png" alt="" width="18" height="25">&nbsp;โรงแรมปทุมวันปริ๊นเซส</td>
+            <td>650 เมตร</td>
+        </tr>
+        <tr>
+            <td><img src="images/icon_pin.png" alt="" width="18" height="25">&nbsp;หอศิลปวัฒนธรรมแห่งกรุงเทพมหานคร</td>
+            <td>750 เมตร</td>
+        </tr>
+        <tr>
+            <td><img src="/images/icon_pin.png" alt="" width="18" height="25">&nbsp;ห้างสรรพสินค้ามาบุญครอง (MBK)</td>
+            <td>850 เมตร</td>
+        </tr>*@
                 </table>
             </div>
         </div>
-        <div>
+        
+         @*temporary hide*@
+        <div class="invisible">
             <script>
                 //$(document).ready(function(){
                 //    $("#toggle-btn").click(function(){
