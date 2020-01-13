@@ -23,6 +23,7 @@ namespace DPEMoveDAL.Helper
             CreateMap<UploadedFile, UploadedFileViewModel>().ReverseMap();
             CreateMap<Comment, CommentViewModel>().ReverseMap();
             CreateMap<CommentDbQuery, CommentViewModel>().ReverseMap();
+            CreateMap<CommentViewModel, CommentViewModel3>().ReverseMap();
         }
     }
 }

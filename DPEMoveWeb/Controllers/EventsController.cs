@@ -91,7 +91,7 @@ namespace DPEMoveWeb.Controllers
             var votes = _context.Vote.Where(a => a.EventCode == eventVM.EventCode).ToList();
             if (votes.Count != 0)
             {
-                ViewBag.VoteAvg = votes.Average(b => b.VoteValue);
+                ViewBag.VoteAvg = Math.Truncate(votes.Average(b => b.VoteValue)*10)/10;
             }
 
             //ViewBag.MEventFacilitiesTopic = _context.MEventFacilitiesTopic.ToList();

@@ -28,6 +28,21 @@ namespace DPEMoveDAL.ViewModels
         public string OrderDesc { get; set; }
     }
 
+    public class CommentViewModel3
+    {
+        public int CommentId { get; set; }
+        public string CommentCode { get; set; }
+        public string Comment1 { get; set; }
+        public string UserCode { get; set; }
+        public string CommentOf { get; set; }
+        public string EventOrStadiumCode { get; set; }
+        public DateTime CreatedDate { get; set; }
+        public int CreatedBy { get; set; }
+        public DateTime? UpdatedDate { get; set; }
+        public int? UpdatedBy { get; set; }
+        public string CreatedDateTH { get; set; }
+    }
+
     public class CommentDbQuery
     {
         [Column("COMMENT_ID")]

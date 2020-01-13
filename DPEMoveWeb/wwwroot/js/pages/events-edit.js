@@ -49,8 +49,8 @@ function GetEventFacilitiesFromSession(obj) {
                 `
                 <tr>
                     <td>` + value.eventFacilitiesName + `</td>
-                    <td>` + value.facilitiesAmount + `</td>
-                    <td>` + value.facilitiesUnit + `</td>
+                    <td>` + (value.facilitiesAmount == null ? "" : value.facilitiesAmount) + `</td>
+                    <td>` + (value.facilitiesUnit == null ? "" : value.facilitiesUnit) + `</td>
                     <td class="center"><button type="button" onclick="DeleteEventFacilitiesFromSession(` + value.eventId + `,` + value.mEventFacilitiesTopicId + `,` + value.eventFacilitiesId + `)" class="button small red">&nbsp;ลบ&nbsp;</button></td>
                 </tr>
                 `
@@ -69,10 +69,10 @@ function AddEventFacilitiesToSession(eventId, mEventFacilitiesTopicId) {
 
     if ($("#txtFacilityName_" + mEventFacilitiesTopicId).val() == "")
         return false;
-    if ($("#txtFacilityAmount_" + mEventFacilitiesTopicId).val() == "")
-        return false;
-    if ($("#txtFacilityUnit_" + mEventFacilitiesTopicId).val() == "")
-        return false;
+    //if ($("#txtFacilityAmount_" + mEventFacilitiesTopicId).val() == "")
+    //    return false;
+    //if ($("#txtFacilityUnit_" + mEventFacilitiesTopicId).val() == "")
+    //    return false;
 
     var options = {};
 
@@ -159,8 +159,8 @@ function GetEventNearbyFromSession(eventId) {
                 `
                 <tr>
                     <td>` + value.nearbyName + `</td>
-                    <td>` + value.distance + `</td>
-                    <td>` + value.distanceUnit + `</td>
+                    <td>` + (value.distance == null ? "" : value.distance) + `</td>
+                    <td>` + (value.distanceUnit == null ? "" : value.distanceUnit) + `</td>
                     <td class="center"><button type="button" onclick="DeleteEventNearbyFromSession(` + value.eventId + `,` + value.eventNearbyId + `)" class="button small red">&nbsp;ลบ&nbsp;</button></td>
                 </tr>
                 `
@@ -176,15 +176,13 @@ function GetEventNearbyFromSession(eventId) {
 
 function AddEventNearbyToSession(eventId) {
     console.log('start AddEventNearbyToSession ');
-
-    //alert(document.getElementById('txtEventNearbyName').validity.valid);
     
     if ($("#txtEventNearbyName").val() == "")
         return false;
-    if ($("#txtEventNearbyAmount").val() == "")
-        return false;
-    if ($("#txtEventNearbyUnit").val() == "")
-        return false;
+    //if ($("#txtEventNearbyAmount").val() == "")
+    //    return false;
+    //if ($("#txtEventNearbyUnit").val() == "")
+    //    return false;
 
     var options = {};
 

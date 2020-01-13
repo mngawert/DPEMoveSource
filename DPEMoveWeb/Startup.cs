@@ -12,6 +12,7 @@ using DPEMoveDAL.Context;
 using DPEMoveDAL.Helper;
 using DPEMoveDAL.Models;
 using DPEMoveDAL.Services;
+using DPEMoveWeb.Helper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -150,6 +151,8 @@ namespace DPEMoveWeb
 
             app.UseCors("AllowAll");
             app.UseHttpsRedirection();
+
+            //app.UseMiddleware(typeof(VisitorCounterMiddleware));
 
             var supportedCultures = new[]
             {

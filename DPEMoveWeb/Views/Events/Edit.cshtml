@@ -45,7 +45,7 @@
                                         </div>
                                         <div class="c field">
                                             <input type="hidden" asp-for="EventId" value="@Model.EventId" />
-                                            <input type="text" asp-for="EventName" value="@Model.EventName" class="input-field w-100" />
+                                            <input type="text" asp-for="EventName" value="@Model.EventName" class="input-field w-100" required />
                                         </div>
                                     </div>
                                 </div>
@@ -129,7 +129,7 @@
                                             วันที่เริ่ม <span class="req">*</span>
                                         </div>
                                         <div class="c field">
-                                            <input type="text" name="EventStartTimestamp" value="@(Model.EventStartTimestamp.ToString("dd/MM/yyyy"))" data-provide="datepicker" data-date-language="th-th" />
+                                            <input type="text" name="EventStartTimestamp" value="@(Model.EventStartTimestamp.ToString("dd/MM/yyyy"))" required data-provide="datepicker" data-date-language="th-th" />
                                         </div>
                                     </div>
                                 </div>
@@ -651,7 +651,7 @@
                         <div class="entry-data">
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <textarea name="EventDescription"> @Model.EventDescription </textarea>
+                                    <textarea class="myTextEditor" name="EventDescription" required > @Model.EventDescription </textarea>
                                 </div>
                             </div>
                         </div>
@@ -749,7 +749,7 @@
                             </tr>
                             <tr>
                                 <td><input type="text" id="txtEventNearbyName" name="" value="" class="input-field" required /></td>
-                                <td><input type="text" id="txtEventNearbyAmount" name="" value="" class="input-field" /></td>
+                                <td><input type="text" id="txtEventNearbyAmount" name="" value="" class="input-field" required oninvalid="setCustomValidity('Should not be left empty.')" oninput="setCustomValidity('')" /></td>
                                 <td><input type="text" id="txtEventNearbyUnit" name="" value="" class="input-field" /></td>
                             </tr>
                         </table>

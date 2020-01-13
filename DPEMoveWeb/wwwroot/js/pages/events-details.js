@@ -316,6 +316,67 @@ function DeleteUploadedFile(eventId, uploadedFileId) {
     $.ajax(options);
 }
 
+function GetCommentsByEventId(eventId) {
+
+    console.log('start GetMEventFacilitiesTopic');
+    var options = {};
+
+    options.url = "/webapi/Events/GetCommentsByEventId/"+eventId;
+    options.contentType = "application/json";
+    options.method = "GET";
+
+    options.success = function (data) {
+        console.log("data", data);
+        var items = '';
+        $.each(data, function (index, value) {
+            items +=
+            `
+            <li>
+                <p>` + value.comment1 + `</p>
+                <p>` + value.userCode + `</p>
+                <p>` + value.createdDateTH + `</p>
+            </li>
+            `
+        });
+
+        $("#ulComment").html(items);
+    };
+    options.error = function (a, b, c) {
+        console.log("Error while calling the Web API!(" + b + " - " + c + ")");
+    };
+    $.ajax(options);
+}
+
+function AddComment(eventId) {
+
+    console.log('start AddComment');
+    var options = {};
+
+    var input = {};
+    input.commentOf = "1";
+    input.eventOrStadiumCode = model.eventCode;
+    input.comment1 = $("#txtComment").val();
+
+    options.data = JSON.stringify(input);
+    console.log("input", options.data);
+
+    options.url = "/webapi/Events/AddComment";
+    options.contentType = "application/json";
+    options.method = "POST";
+
+    options.success = function (data) {
+        console.log("AddComment success");
+        GetCommentsByEventId(eventId);
+        //Clear
+        $("#txtComment").val("");
+    };
+    options.error = function (a, b, c) {
+        console.log("Error while calling the Web API!(" + b + " - " + c + ")");
+    };
+    $.ajax(options);
+}
+
+
 $(document).ready(function () {
 
     var eventId = routeId;
@@ -324,6 +385,12 @@ $(document).ready(function () {
     GetProvinceName(model.provinceCode);
     GetAmphurName(model.provinceCode, model.amphurCode.substr(2, 2));
     GetTambonName(model.provinceCode, model.amphurCode.substr(2, 2), model.tambonCode);
+
+    GetCommentsByEventId(eventId);
+
+    $("#lnkGotoFacility").click(function(){
+        $("#collapseOne1").collapse('show'); // toggle collapse
+    });
 
 
     //GetMEventFacilitiesTopic();
