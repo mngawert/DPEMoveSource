@@ -152,9 +152,10 @@ namespace DPEMoveDAL.ViewModels
         public string ObjectivePersonEtc { get; set; }
 
 
-        public MEventObjectiveViewModel[] MEventObjective { get; set; }
-        public int[] MEventObjectiveIds { get; set; }
-        public string[] EventFacilityName { get; set; }
+        public List<EventObjective> EventObjective { get; set; }
+        public int[] EventObjectiveIds { get; set; }
+        public string EventObjectiveEtc { get; set; }
+
 
         /* address */
         public string AmphurCode { get; set; }

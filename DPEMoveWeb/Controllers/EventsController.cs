@@ -141,6 +141,7 @@ namespace DPEMoveWeb.Controllers
             ViewBag.Address = _context.Event.Where(a => a.EventId == id).FirstOrDefault()?.Address;
             ViewBag.MSport = _context.MSport.ToList();
             ViewBag.MObjectivePerson = _context.MObjectivePerson.ToList();
+            ViewBag.MEventObjective = _context.MEventObjective.ToList();
 
             return View(eventVM);
         }
@@ -183,13 +184,6 @@ namespace DPEMoveWeb.Controllers
         public IActionResult EditEvent([FromForm] EventViewModel2 model)
         {
             _logger.LogDebug("model.EventId={0}", model.EventId);
-            _logger.LogDebug("model.EventName={0}", model.EventName);
-            _logger.LogDebug("model.EventLevelId={0}", model.EventLevelId);
-            _logger.LogDebug("model.MEventObjectiveIds.Length={0}", model.MEventObjectiveIds?.Length);
-            foreach (var x in model.MEventObjectiveIds ?? new int[] { })
-            {
-                _logger.LogDebug("MEventObjectiveId={0}", x);
-            }
 
             var q_ev = _context.Event.Where(a => a.EventId == model.EventId).FirstOrDefault();
             if (q_ev != null)

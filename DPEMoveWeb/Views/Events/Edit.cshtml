@@ -246,10 +246,19 @@
                                                 <div><input type="checkbox" name="" value="" /> กีฬาเพื่อการท่องเที่ยว</div>
                                                 <div><input type="checkbox" name="" value="" /> อื่นๆ โปรดระบุ <input type="text" name="" value="" class="input-field" /></div>*@
 
-                                            @for (var i = 0; i < Model.MEventObjective.Length; i++)
+
+                                            @foreach (var x in ViewBag.MEventObjective as List<MEventObjective>)
                                             {
-                                                <div><input type="checkbox" checked="@Model.MEventObjective[i].Selected" name="MEventObjectiveIds" value="@Model.MEventObjective[i].MEventObjectiveId" /> @Model.MEventObjective[i].EventObjectiveName </div>
+                                                @if (x.MEventObjectiveId != 4)
+                                                {
+                                                    <div><input type="checkbox" name="EventObjectiveIds" value="@x.MEventObjectiveId" class="input-field" checked="@(Model.EventObjective.Any(b => b.MEventObjectiveId == x.MEventObjectiveId))" /> @x.EventObjectiveName</div>
+                                                }
+                                                else
+                                                {
+                                                    <div><input type="checkbox" name="EventObjectiveIds" value="@x.MEventObjectiveId" class="input-field" checked="@(Model.EventObjective.Any(b => b.MEventObjectiveId == x.MEventObjectiveId))" /> อื่นๆ โปรดระบุ <input type="text" name="EventObjectiveEtc" value="@(Model.EventObjective.Where(b => b.MEventObjectiveId == x.MEventObjectiveId).FirstOrDefault()?.EventObjectiveEtc)" class="input-field" /></div>
+                                                }
                                             }
+
                                         </div>
                                     </div>
                                 </div>

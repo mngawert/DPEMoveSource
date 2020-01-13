@@ -350,6 +350,10 @@ function GetCommentsByEventId(eventId) {
 function AddComment(eventId) {
 
     console.log('start AddComment');
+
+    if ($("#txtComment").val() == "")
+        return false;
+
     var options = {};
 
     var input = {};
@@ -369,6 +373,7 @@ function AddComment(eventId) {
         GetCommentsByEventId(eventId);
         //Clear
         $("#txtComment").val("");
+        $("#collapseFour4").collapse('show'); // toggle collapse
     };
     options.error = function (a, b, c) {
         console.log("Error while calling the Web API!(" + b + " - " + c + ")");

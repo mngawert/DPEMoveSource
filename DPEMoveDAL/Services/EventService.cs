@@ -88,16 +88,16 @@ namespace DPEMoveDAL.Services
                 ev.Longitude = addr.Longitude;
             }
 
-            var listMEventObjective = _context.MEventObjective
-                .Select(aa => new MEventObjectiveViewModel
-                {
-                    MEventObjectiveId = aa.MEventObjectiveId,
-                    EventObjectiveName = aa.EventObjectiveName,
-                    Selected = @event.EventObjective.Any(b => b.MEventObjectiveId == aa.MEventObjectiveId)
-                })
-                .ToList();
+            //var listMEventObjective = _context.MEventObjective
+            //    .Select(aa => new MEventObjectiveViewModel
+            //    {
+            //        MEventObjectiveId = aa.MEventObjectiveId,
+            //        EventObjectiveName = aa.EventObjectiveName,
+            //        Selected = @event.EventObjective.Any(b => b.MEventObjectiveId == aa.MEventObjectiveId)
+            //    })
+            //    .ToList();
 
-            ev.MEventObjective = listMEventObjective.ToArray();
+            ev.EventObjective = _context.EventObjective.Where(a => a.EventId == id).ToList();
             ev.EventSport = _context.EventSport.Where(a => a.EventId == id).ToList();
             ev.EventObjectivePerson = _context.EventObjectivePerson.Where(a => a.EventId == id).ToList();
             ev.EventFacilities = _context.EventFacilities.Where(a => a.EventId == id).ToList();
@@ -366,13 +366,14 @@ namespace DPEMoveDAL.Services
             }
             _context.SaveChanges();
 
-            foreach (var id in model.MEventObjectiveIds ?? new int[] { })
+            foreach (var id in model.EventObjectiveIds ?? new int[] { })
             {
                 _logger.LogDebug("inserting EventObjective id={0}", id);
                 var obj = new EventObjective 
                 { 
                     EventId = model.EventId,
                     MEventObjectiveId = id,
+                    EventObjectiveEtc = model.EventObjectiveEtc,
                     CreatedBy = 0,
                     CreatedDate = DateTime.Now                    
                 };
