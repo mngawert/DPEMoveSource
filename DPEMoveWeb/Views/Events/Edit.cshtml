@@ -55,7 +55,7 @@
                                             งบประมาณ
                                         </div>
                                         <div class="c field">
-                                            <input type="text" asp-for="Budget" value="@Model.Budget" class="input-field" /> บาท
+                                            <input type="number" asp-for="Budget" value="@Model.Budget" class="input-field" /> บาท
                                         </div>
                                     </div>
                                 </div>
@@ -79,7 +79,7 @@
                                             จ่ายจริง
                                         </div>
                                         <div class="c field">
-                                            <input type="text" name="Budgetused" value="@Model.Budgetused" class="input-field" /> บาท
+                                            <input type="number" name="Budgetused" value="@Model.Budgetused" class="input-field" /> บาท
                                         </div>
                                     </div>
                                 </div>
@@ -202,7 +202,7 @@
                                             อีเมล์
                                         </div>
                                         <div class="c field">
-                                            <input type="text" asp-for="ContactPersonEmail" class="input-field" />
+                                            <input type="email" asp-for="ContactPersonEmail" class="input-field" />
                                         </div>
                                     </div>
                                 </div>
@@ -375,16 +375,18 @@
                                             ชื่อสถานที่ <span class="req">*</span>
                                         </div>
                                         <div class="c field">
-                                            <input type="text" name="BuildingName" value="@Model.BuildingName" class="input-field" />
+                                            <input type="text" required name="BuildingName" value="@Model.BuildingName" class="input-field" />
                                         </div>
                                     </div>
                                     <div class="row-field clearfix">
                                         <div class="c lbl">
-                                            เลขที่ <span class="req">*</span>
+                                            เลขที่
                                         </div>
                                         <div class="c field">
                                             <input type="text" name="No" value="@Model.No" class="input-field" />
                                         </div>
+                                    </div>
+                                    <div class="row-field clearfix">
                                         <div class="c lbl">
                                             หมู่
                                         </div>
@@ -394,7 +396,7 @@
                                     </div>
                                     <div class="row-field clearfix">
                                         <div class="c lbl">
-                                            ซอย <span class="req">*</span>
+                                            ซอย
                                         </div>
                                         <div class="c field">
                                             <input type="text" name="Soi" value="@Model.Soi" class="input-field" />
@@ -402,7 +404,7 @@
                                     </div>
                                     <div class="row-field clearfix">
                                         <div class="c lbl">
-                                            ถนน <span class="req">*</span>
+                                            ถนน
                                         </div>
                                         <div class="c field">
                                             <input type="text" name="Road" value="@Model.Road" class="input-field" />
@@ -415,7 +417,7 @@
                                             จังหวัด <span class="req">*</span>
                                         </div>
                                         <div class="c field">
-                                            <select class="input-field" id="ddlProvince" name="ProvinceCode">
+                                            <select class="input-field w-75" id="ddlProvince" name="ProvinceCode">
                                                 <option value="">กรุณาเลือก</option>
                                             </select>
                                         </div>
@@ -425,7 +427,7 @@
                                             อำเภอ <span class="req">*</span>
                                         </div>
                                         <div class="c field">
-                                            <select class="input-field" id="ddlAmphur" name="AmphurCode">
+                                            <select class="input-field w-75" id="ddlAmphur" name="AmphurCode">
                                                 <option value="">กรุณาเลือก</option>
                                             </select>
                                         </div>
@@ -435,17 +437,17 @@
                                             ตำบล <span class="req">*</span>
                                         </div>
                                         <div class="c field">
-                                            <select class="input-field" id="ddlTambon" name="TambonCode">
+                                            <select class="input-field w-75" id="ddlTambon" name="TambonCode">
                                                 <option value="">กรุณาเลือก</option>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="row-field clearfix">
                                         <div class="c lbl">
-                                            รหัสไปรษณีย์ <span class="req">*</span>
+                                            รหัสไปรษณีย์
                                         </div>
                                         <div class="c field">
-                                            <input type="text" name="Postcode" value="@Model.Postcode" class="input-field" id="txtPostcode" />
+                                            <input type="text" name="Postcode" value="@Model.Postcode" class="input-field w-75" id="txtPostcode" />
                                         </div>
                                     </div>
                                 </div>
@@ -462,17 +464,17 @@
                                             ละติจูด
                                         </div>
                                         <div class="c field">
-                                            <input type="text" name="Latitude" value="@Model.Latitude" class="input-field" />
+                                            <input type="number" name="Latitude" value="@Model.Latitude" class="input-field" />
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-sm-12 col-lg-6">
                                     <div class="row-field clearfix">
                                         <div class="c lbl">
-                                            ลองติจูด <span class="req">*</span>
+                                            ลองติจูด
                                         </div>
                                         <div class="c field">
-                                            <input type="text" name="Longitude" value="@Model.Longitude" class="input-field" />
+                                            <input type="number" name="Longitude" value="@Model.Longitude" class="input-field" />
                                         </div>
                                     </div>
                                 </div>
@@ -660,7 +662,7 @@
                         <div class="entry-data">
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <textarea class="myTextEditor" name="EventDescription" required > @Model.EventDescription </textarea>
+                                    <textarea class="myTextEditor" name="EventDescription" > @Model.EventDescription </textarea>
                                 </div>
                             </div>
                         </div>
@@ -758,7 +760,7 @@
                             </tr>
                             <tr>
                                 <td><input type="text" id="txtEventNearbyName" name="" value="" class="input-field" required /></td>
-                                <td><input type="text" id="txtEventNearbyAmount" name="" value="" class="input-field" required oninvalid="setCustomValidity('Should not be left empty.')" oninput="setCustomValidity('')" /></td>
+                                <td><input type="text" id="txtEventNearbyAmount" name="" value="" class="input-field" @*required oninvalid="setCustomValidity('Should not be left empty.')" oninput="setCustomValidity('')"*@ /></td>
                                 <td><input type="text" id="txtEventNearbyUnit" name="" value="" class="input-field" /></td>
                             </tr>
                         </table>
@@ -767,7 +769,7 @@
                 <div class="row">
                     <div class="col-12 text-right">
                         @*<button type="submit" class="button darkgreen" >เพิ่ม</button>*@
-                        <button type="button" class="button darkgreen" data-dismiss="modal" onclick="AddEventNearbyToSession(@Model.EventId)">เพิ่ม</button>
+                        <button type="button" class="button darkgreen" onclick="AddEventNearbyToSession(@Model.EventId)">เพิ่ม</button>
                     </div>
                 </div>
 

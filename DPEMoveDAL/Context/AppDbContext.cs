@@ -789,7 +789,6 @@ namespace DPEMoveDAL.Models
                     .HasColumnType("VARCHAR2(32)");
 
                 entity.Property(e => e.EventDescription)
-                    .IsRequired()
                     .HasColumnName("EVENT_DESCRIPTION")
                     .HasColumnType("VARCHAR2(4000)");
 

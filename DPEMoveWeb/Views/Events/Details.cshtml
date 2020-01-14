@@ -14,8 +14,8 @@
         <div class="button-container">
             @if (Model.CreatedBy == (int)ViewBag.AppUserId)
             {
-            <button type="button" class="button red" data-toggle="modal" data-target="#Modal_DeleteEvent">ลบ</button>
-            <a href="/Events/Edit/@Model.EventId" class="button darkgreen">แก้ไข</a>
+                <button type="button" class="button red" data-toggle="modal" data-target="#Modal_DeleteEvent">ลบ</button>
+                <a href="/Events/Edit/@Model.EventId" class="button darkgreen">แก้ไข</a>
             }
         </div>
     </div>
@@ -427,86 +427,82 @@
                     <div class="card-body">
 
                         @if (@Model.EventFacilities.Any(a => a.MEventFacilitiesTopicId == 3))
-                            {
-                        <div class="card_list">
-                            <img src="/images/icon_ser7.png" width="80" height="78" alt="" />
-                            <h4>อินเทอร์เน็ต</h4>
-                            @*<p>อินเทอร์เน็ตไร้สายให้บริการทั่วสนามกีฬา</p>*@
-
-                            @foreach (var x in Model.EventFacilities.Where(a => a.MEventFacilitiesTopicId == 3))
+                        {
+                            <div class="card_list">
+                                <img src="/images/icon_ser7.png" width="80" height="78" alt="" />
+                                <h4>อินเทอร์เน็ต</h4>
+                                <p>
+                                    @foreach (var x in Model.EventFacilities.Where(a => a.MEventFacilitiesTopicId == 3))
                                     {
-                            <p> @x.EventFacilitiesName @x.FacilitiesAmount @x.FacilitiesUnit </p>
+                                        @x.EventFacilitiesName @x.FacilitiesAmount @x.FacilitiesUnit <br />
                                     }
-                        </div>
-                            }
+                                </p>
+                            </div>
+                        }
                         @if (@Model.EventFacilities.Any(a => a.MEventFacilitiesTopicId == 1))
-                            {
-                        <div class="card_list">
-                            <img src="/images/icon_ser8.png" width="80" height="78" alt="" />
-                            <h4>ห้องน้ำ</h4>
-                            @*<p>ห้องน้ำจำนวน 80 ห้อง  และห้องน้ำสำหรับคนพิการจำนวน 10 ห้อง</p>*@
-                            @foreach (var x in Model.EventFacilities.Where(a => a.MEventFacilitiesTopicId == 1))
+                        {
+                            <div class="card_list">
+                                <img src="/images/icon_ser8.png" width="80" height="78" alt="" />
+                                <h4>ห้องน้ำ</h4>
+                                <p>
+                                    @foreach (var x in Model.EventFacilities.Where(a => a.MEventFacilitiesTopicId == 1))
                                     {
-                            <p> @x.EventFacilitiesName @x.FacilitiesAmount @x.FacilitiesUnit </p>
+                                        @x.EventFacilitiesName @x.FacilitiesAmount @x.FacilitiesUnit <br />
                                     }
-                        </div>
-                            }
+                                </p>
+                            </div>
+                        }
                         @if (@Model.EventFacilities.Any(a => a.MEventFacilitiesTopicId == 2))
                             {
-                        <div class="card_list">
-                            <img src="/images/icon_ser9.png" width="80" height="78" alt="" />
-                            <h4>ที่จอดรถ</h4>
-                            <p>
-                                @foreach (var x in Model.EventFacilities.Where(a => a.MEventFacilitiesTopicId == 2))
-                                        {
-                                @x.EventFacilitiesName  @x.FacilitiesAmount  @x.FacilitiesUnit  <br />
-                                        }
-                            </p>
-                        </div>
+                            <div class="card_list">
+                                <img src="/images/icon_ser9.png" width="80" height="78" alt="" />
+                                <h4>ที่จอดรถ</h4>
+                                <p>
+                                    @foreach (var x in Model.EventFacilities.Where(a => a.MEventFacilitiesTopicId == 2))
+                                            {
+                                    @x.EventFacilitiesName  @x.FacilitiesAmount  @x.FacilitiesUnit  <br />                                        }
+                                </p>
+                            </div>
                             }
                         @if (@Model.EventFacilities.Any(a => a.MEventFacilitiesTopicId == 4))
-                            {
+                        {
                         <div class="card_list">
                             <img src="/images/icon_ser10.png" width="80" height="78" alt="" />
                             <h4>ร้านค้า</h4>
-                            @*<p>
-                            มีที่จอดรถสาหรับผู้มาใช้บริการในสนามกีฬาและที่จอดรถสาหรับคนพิการโดยไม่มีค่าบริการ <br>
-                            และไม่ต้องสำรองที่จอดรถ
-                            </p>*@
-
-                            @foreach (var x in Model.EventFacilities.Where(a => a.MEventFacilitiesTopicId == 4))
-                                    {
-                            <p> @x.EventFacilitiesName @x.FacilitiesAmount @x.FacilitiesUnit </p>
-                                    }
+                            <p>
+                                @foreach (var x in Model.EventFacilities.Where(a => a.MEventFacilitiesTopicId == 4))
+                                {
+                                    @x.EventFacilitiesName @x.FacilitiesAmount @x.FacilitiesUnit <br />
+                                }
+                            </p>
                         </div>
-                            }
+                        }
                         @if (@Model.EventFacilities.Any(a => a.MEventFacilitiesTopicId == 5))
-                            {
-                        <div class="card_list">
-                            <img src="/images/icon_ser11.png" width="80" height="78" alt="" />
-                            <h4>สิ่งอำนวยความสะดวกสำหรับคนพิการ</h4>
-                            @*<p>อินเทอร์เน็ตไร้สายให้บริการทั่วสนามกีฬา</p>*@
-                            @foreach (var x in Model.EventFacilities.Where(a => a.MEventFacilitiesTopicId == 5))
+                        {
+                            <div class="card_list">
+                                <img src="/images/icon_ser11.png" width="80" height="78" alt="" />
+                                <h4>สิ่งอำนวยความสะดวกสำหรับคนพิการ</h4>
+                                <p>
+                                    @foreach (var x in Model.EventFacilities.Where(a => a.MEventFacilitiesTopicId == 5))
                                     {
-                            <p> @x.EventFacilitiesName @x.FacilitiesAmount @x.FacilitiesUnit </p>
+                                        @x.EventFacilitiesName @x.FacilitiesAmount @x.FacilitiesUnit <br />
                                     }
-                        </div>
-                            }
+                                </p>
+                            </div>
+                        }
                         @if (@Model.EventFacilities.Any(a => a.MEventFacilitiesTopicId == 6))
-                            {
-                        <div class="card_list">
-                            <img src="/images/icon_ser12.png" width="80" height="78" alt="" />
-                            <h4>เบ็ดเตล็ด</h4>
-                            @*<p>
-                                ห้องน้ำไฟส่องสว่างถังดับเพลิงกล้องวงจรปิดทางลาดสำหรับคนพิการเครื่องกระตุกหัวใจ
-                                (AED) ตู้จาหน่ายเครื่องดื่มอัตโนมัติเครื่องรับจ่ายเงินอัตโนมัติ(ATM)ระบบรักษาความปลอดภัย
-                            </p>*@
-                            @foreach (var x in Model.EventFacilities.Where(a => a.MEventFacilitiesTopicId == 6))
+                        {
+                            <div class="card_list">
+                                <img src="/images/icon_ser12.png" width="80" height="78" alt="" />
+                                <h4>เบ็ดเตล็ด</h4>
+                                <p>
+                                    @foreach (var x in Model.EventFacilities.Where(a => a.MEventFacilitiesTopicId == 6))
                                     {
-                            <p> @x.EventFacilitiesName @x.FacilitiesAmount @x.FacilitiesUnit </p>
+                                        @x.EventFacilitiesName @x.FacilitiesAmount @x.FacilitiesUnit <br />
                                     }
-                        </div>
-                            }
+                                </p>
+                            </div>
+                        }
 
                         @*<div class="card_list">
                             <img src="/images/icon_ser13.png" width="80" height="78" alt="" />
@@ -591,11 +587,14 @@
             <ul>
                 <li>
                     <div class="font-weight-bold"><img src="/images/icon_detail_04.png" width="27" height="38" />วันที่จัดกิจกรรม</div>
-                    @Model.EventStartTimestamp.ToString("dd MMM yy")
-                    @if (Model.EventFinishTimestamp > Model.EventStartTimestamp)
-                    {
-                    <span> - @Model.EventFinishTimestamp?.ToString("dd MMM yy")</span>
-                    }
+
+                    <p class="pl-2">
+                        @Model.EventStartTimestamp.ToString("dd MMM yy")
+                        @if (Model.EventFinishTimestamp > Model.EventStartTimestamp)
+                        {
+                            <span> - @Model.EventFinishTimestamp?.ToString("dd MMM yy")</span>
+                        }
+                    </p>
                 </li>
                 <li>
                     <img src="~/images/icon_detail_01.png" width="27" height="38">
@@ -605,8 +604,11 @@
                     <span id="lblProvinceName"></span>
                 </li>
                 <li>
-                    <img src="~/images/icon_detail_02.png" width="27" height="38">เบอร์ติดต่อ @Model.ContactPersonMobile<br>
-                    หรือ www.dpe.go.th
+                    <img src="~/images/icon_detail_02.png" width="27" height="38">เบอร์ติดต่อ
+                    <p class="pl-2">
+                        @Model.ContactPersonMobile<br>
+                        หรือ www.dpe.go.th
+                    </p>
                 </li>
                 @*<li><img src="~/images/icon_detail_03.png" width="27" height="38">พื้นที่สนามขนาด ๑๑๔ ไร่ ๑ งาน ๒๕.๑๒ ตารางวา</li>
                     <li><img src="~/images/icon_detail_05.png" width="27" height="38">การเดินทางด้วยรถประจำทาง (รถเมล์) สาย 11/15/47/48/73/73ก/204/508</li>*@

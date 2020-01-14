@@ -176,9 +176,20 @@ function GetEventNearbyFromSession(eventId) {
 
 function AddEventNearbyToSession(eventId) {
     console.log('start AddEventNearbyToSession ');
-    
-    if ($("#txtEventNearbyName").val() == "")
+
+
+    if (!$("#frmAddEventNearby")[0].checkValidity()) {
+
+        $("#frmAddEventNearby")[0].reportValidity()
         return false;
+    }
+
+    //if ($("#txtEventNearbyName").val() == "") {
+    //    $("#txtEventNearbyName").setCustomValidity('Enter User Name Here')
+    //    return false;
+    //}
+
+
     //if ($("#txtEventNearbyAmount").val() == "")
     //    return false;
     //if ($("#txtEventNearbyUnit").val() == "")
@@ -205,6 +216,9 @@ function AddEventNearbyToSession(eventId) {
     options.method = "POST";
     options.success = function (data) {
         console.log("success add");
+
+        $("#Modal_AddEventNearby").modal("toggle");
+
         // re-load data from session.
         GetEventNearbyFromSession(eventId);
     };
@@ -336,7 +350,7 @@ function GetTambon(provinceId, amphurId) {
         $.each(data.DATA, function (index, value) {
             items +=
                 `
-                <option value="` + value.pcode + `">` + value.pcode + " - " + value.tambon + `</option>
+                <option value="` + value.pcode + `">` + value.tambon + `</option>
                 `
         });
         $("#ddlTambon").html(items);
