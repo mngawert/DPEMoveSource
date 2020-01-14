@@ -26,18 +26,22 @@ namespace DPEMoveDAL.Services
 
         public void AddOrEditVote(VoteRequest model)
         {
+            _logger.LogDebug("model.VoteOf, model.EventOrStadiumCode, model.VoteTypeId, model.VoteValue => {0}, {1}, {2}, {3}", model.VoteOf, model.EventOrStadiumCode, model.VoteTypeId, model.VoteValue);
+
             var qdb = _context.Vote.Where(a => a.CreatedBy == model.CreatedBy && a.VoteTypeId == model.VoteTypeId);
 
             if (model.VoteOf == "1") {
-                qdb.Where(a => a.EventCode == model.EventOrStadiumCode);
+                qdb = qdb.Where(a => a.EventCode == model.EventOrStadiumCode);
             }
             else {
-                qdb.Where(a => a.StadiumCode == model.EventOrStadiumCode);
+                qdb = qdb.Where(a => a.StadiumCode == model.EventOrStadiumCode);
             }
 
             var q = qdb.FirstOrDefault();
             if (q == null)
             {
+                _logger.LogDebug("adding vote");
+
                 q = new Vote
                 {
                     VoteValue = model.VoteValue,
@@ -60,6 +64,8 @@ namespace DPEMoveDAL.Services
             }
             else
             {
+                _logger.LogDebug("updating vote");
+
                 q.VoteValue = model.VoteValue;
                 q.UpdatedDate = DateTime.Now;
                 q.UpdatedBy = model.CreatedBy;
