@@ -378,6 +378,12 @@ span.req { color: #ff0000; }
 .x .y .z { display: table-cell; vertical-align: middle; }
 .section.no-top { padding-top: 0; }
 .tx-head_green h4 a { color: #226b50; }
+.modal-header { border-radius: 8px 8px 0 0; background: #007051; border-bottom: 0; padding: 10px 20px; text-align: left; color: #ffffff; }
+.modal-content { border: 2px solid #007051; }
+.modal-header button.close { margin-top: 0; margin-right: -5px; color: #007051; text-shadow: none; opacity: 1.0; font-size: 14px; font-weight: normal; background: #ffffff; border-radius: 50%; padding: 5px; cursor: pointer; }
+.modal-body { padding-left: 45px; padding-right: 45px; }
+.button:focus,
+button:focus { outline: none; }
 /**/
 
 @media screen and (max-width: 480px) {
