@@ -314,6 +314,8 @@ img { -ms-interpolation-mode: bicubic; }
 .button-container { position: absolute; right: 15px; top: 0; text-align: right; }
 .button { border-radius: 30px; padding: 8px 50px; }
 .button.small { padding: 1px 4px; }
+.button.small-long { padding: 1px 30px; }
+.button.medium { padding: 6px 22px; }
 .button.green { background: #65cd11; color: #ffffff; }
 .button.red { background: #fa5360; color: #ffffff; }
 .button.darkgreen { background: #007051; color: #ffffff; }
@@ -327,10 +329,28 @@ img { -ms-interpolation-mode: bicubic; }
 .search-events-result a,
 .search-events-result a:hover { color: #66615b; }
 .event h4 { margin: 0 0 20px; padding: 0; color: #007051; }
+
+.search-person { margin-bottom: 20px; }
+.search-person .row-button { margin-top: 25px; text-align: center; }
+.search-person-result ul { list-style: none; padding: 0; margin: 0; }
+.search-person-result li { border: 1px solid #eaeaea; -webkit-border-radius: 4px; -moz-border-radius: 4px; -ms-border-radius: 4px; -o-border-radius: 4px; border-radius: 4px; margin-bottom: 6px; padding: 20px 15px; }
+.search-person-result h4 { margin: 0 0 8px; padding: 0; color: #007051; font-weight: bold; }
+.search-person-result .training-history { color: #000000; font-weight: bold; margin-bottom: 6px; }
+.search-person-result li ol { padding-left: 20px; margin: 0; }
+.search-person-result li ol li { border: none; -webkit-border-radius: none; -moz-border-radius: none; -ms-border-radius: none; -o-border-radius: none; border-radius: none; margin: 0; padding: 0; }
+.search-person-result .thumb-img { padding-left: 20%; }
+.search-person .col-advsearch { display: inline-block; margin-left: 25px; }
+.search-person-result .col-traininghistory { float: left; }
+.search-person-result .col-th-btn { float: right; padding-top: 13px; }
+
+.person-details { margin-bottom: 30px; }
+.person-details h4 { margin: 0 0 8px; padding: 0; color: #007051; font-weight: bold; }
+.person-details .thumb-img { padding-left: 30px; }
+
 .read-comment { margin-top: 30px; }
 .input-field { border: 1px solid #cdcdcd; -webkit-border-radius: 4px; -moz-border-radius: 4px; -ms-border-radius: 4px; -o-border-radius: 4px; }
 .row-field { margin: 0 -4px 8px; }
-.row-field .c { float: left; padding: 0 4px; width:50%; }
+.row-field .c { float: left; padding: 0 4px; width:50%; position: relative; }
 .row-field .lbl { text-align: right; padding-top: 2px; }
 .rating .checked { color: #f9ff00; }
 .event-manipulate { margin-top: 20px; }
@@ -341,6 +361,7 @@ img { -ms-interpolation-mode: bicubic; }
 .event-manipulate .tab.active { color: #147b5e; }
 .event-manipulate .block-group { border: 1px solid #cdcdcd; -webkit-border-radius: 4px; -moz-border-radius: 4px; -ms-border-radius: 4px; -o-border-radius: 4px; margin-bottom: 6px; }
 .event-manipulate .block-group .heading { position: relative; background: #f5f5f5; border-bottom: 1px solid #cdcdcd; padding: 10px 15px; color: #000000; }
+.event-manipulate .block-group .heading span { font-weight: normal; margin-left: 50px; }
 .event-manipulate .block-group .heading .button-container { position: absolute; right: 15px; top: 10px; text-align: right; }
 .event-manipulate .block-group .entry-data { padding: 20px 35px; }
 span.req { color: #ff0000; }
@@ -351,7 +372,11 @@ span.req { color: #ff0000; }
 .tbl-data .unit { width: 15%; max-width: 150px; }
 .tbl-data .manage { width: 10%; max-width: 100px; text-align: center; }
 .tbl-data .center { text-align: center; }
+.x { position: absolute; width: 100%; height: 100%; }
+.x .y { display: table; width: 100%; height: 100%; }
+.x .y .z { display: table-cell; vertical-align: middle; }
 /**/
+
 @media screen and (max-width: 480px) {
 	.head_text h2 {font-size: 26px; margin: 35px 0 0 0;}
 	.head_text span { display: none;}
@@ -375,8 +400,16 @@ span.req { color: #ff0000; }
 	.share { text-align: right;}
 	.box_right_bottom .service_sec-box {margin: 0 5px 0 0;}
 	.box_right_bottom .absol_right {position: inherit; margin: 40px 0 0 0;}
+	/**/
+	.search-person .col-advsearch { display: block; margin-left: 0; margin-top: 8px; }
+	/**/
 }
 /**/
+@media screen and (max-width: 575px) {
+	.search-person-result .thumb-img { padding-left: 0; text-align: center; margin-bottom: 8px; }
+	.search-person-result .col-traininghistory { float: none; }
+	.search-person-result .col-th-btn { float: none; padding-top: 30px; margin-bottom: 10px; text-align: center; }
+}
 @media screen and (max-width: 767px) {
 	.event-thumb { margin-bottom: 10px; }
 	.breadcrumbs { font-size: 13px; padding-top: 0; }
