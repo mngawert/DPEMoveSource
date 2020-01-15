@@ -397,7 +397,6 @@ $(document).ready(function () {
         $("#collapseOne1").collapse('show'); // toggle collapse
     });
 
-
     //GetMEventFacilitiesTopic();
     //GetUploadedFile(eventId);
     //GetProvince();

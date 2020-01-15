@@ -1,4 +1,7 @@
-﻿<!doctype html>
+﻿@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+<!doctype html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -12,15 +15,17 @@
     <!-- Bootstrap core CSS     -->
     <link href="~/assets/css/bootstrap.min.css" rel="stylesheet" />
     <link href="~/assets/css/paper-kit.css?v=2.1.0" rel="stylesheet" />
+    @*<link href="~/assets/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />*@
 
     <!--  CSS for Demo Purpose, don't include it in your project     -->
-    @*<link href="~/assets/css/demo.css" rel="stylesheet" />*@
+    <link href="~/assets/css/demo.css" rel="stylesheet" />
 
     <!--     Fonts and icons     -->
     <link href='http://fonts.googleapis.com/css?family=Montserrat:400,300,700' rel='stylesheet' type='text/css'>
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
     <link href="~/assets/css/nucleo-icons.css" rel="stylesheet" />
     <link href="~/css/master.css" rel="stylesheet" />
+    <link href="~/css/datepicker.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -47,7 +52,7 @@
             <div class="collapse navbar-collapse" id="navbar-menu">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item"> <a class="nav-link" href="/Home">หน้าหลัก</a> </li>
-                    <li class="nav-item"> <a class="nav-link" href="/Events">กิจกรรม</a> </li>
+                    <li class="nav-item active"> <a class="nav-link" href="/Events">กิจกรรม</a> </li>
                     <li class="nav-item"> <a class="nav-link" href="#pk">สนามกีฬา/สถานที่ออกกำลังกาย</a> </li>
                     <li class="nav-item"> <a class="nav-link" href="#pk">บุคคลากร</a> </li>
                     <li class="nav-item"> <a class="nav-link" href="#pk">แบบสำรวจ</a> </li>
@@ -75,9 +80,7 @@
         </div>
         <div class="section">
             <div class="container">
-
                 @RenderBody()
-
             </div>
         </div>
         <div class="footer_top">
@@ -104,7 +107,21 @@
                         เดือนนี้ 40,095<br>
                         เดือนที่แล้ว
                         <hr>
-                        <img src="~/images/ic_login.png" width="30" height="28" alt="" /><a href="#">เข้าสู่ระบบ</a>
+
+                        <div>
+                            @if (SignInManager.IsSignedIn(User))
+                            {
+                                <form id="formLogout" action="/Account/Logout" method="post">
+                                    <img src="~/images/ic_login.png" width="30" height="28" alt="" /><a href="javascript:{}" onclick="document.getElementById('formLogout').submit();">ออกระบบ</a>
+                                    @UserManager.GetUserName(User)
+                                </form>
+                            }
+                            else
+                            {
+                                <img src="~/images/ic_login.png" width="30" height="28" alt="" /><a href="/Account/Login">เข้าสู่ระบบ</a>
+                            }
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -124,43 +141,46 @@
             </div>
         </div>
     </div>
+    <!-- Core JS Files -->
+    <script src="~/assets/js/jquery-3.2.1.js" type="text/javascript"></script>
+    <script src="~/assets/js/jquery-ui-1.12.1.custom.min.js" type="text/javascript"></script>
+    <script src="~/assets/js/popper.js" type="text/javascript"></script>
+    <script src="~/assets/js/bootstrap.min.js" type="text/javascript"></script>
+
+    <!-- Switches -->
+    <script src="~/assets/js/bootstrap-switch.min.js"></script>
+
+    <!--  Plugins for Slider -->
+    <script src="~/assets/js/nouislider.js"></script>
+
+    <!--  Plugins for DateTimePicker -->
+    @*<script src="~/assets/js/moment.min.js"></script>
+        <script src="~/assets/js/bootstrap-datetimepicker.min.js"></script>
+        <script src="~/assets/js/th.js"></script>*@
+
+    <!--  Paper Kit Initialization and functons -->
+    <script src="~/assets/js/paper-kit.js?v=2.1.0"></script>
+    <script src="~/js/scripts.js"></script>
+
+    <script src="~/tinymce/js/tinymce/tinymce.min.js"></script>
+    <script>
+        tinymce.init({
+            //selector: "textarea",
+            mode : "specific_textareas",
+            editor_selector : "myTextEditor",
+            setup: function (editor) {
+                editor.on('change', function () {
+                    editor.save();
+                });
+            }
+        });
+    </script>
+
+
+    <script src="~/js/bootstrap-datepicker.js"></script>
+    <script src="~/js/bootstrap-datepicker-thai.js"></script>
+    <script src="~/js/locales/bootstrap-datepicker.th.js"></script>
+
+    @RenderSection("Scripts", required: false)
 </body>
-
-<!-- Core JS Files -->
-<script src="~/assets/js/jquery-3.2.1.js" type="text/javascript"></script>
-<script src="~/assets/js/jquery-ui-1.12.1.custom.min.js" type="text/javascript"></script>
-<script src="~/assets/js/popper.js" type="text/javascript"></script>
-<script src="~/assets/js/bootstrap.min.js" type="text/javascript"></script>
-
-<!-- Switches -->
-<script src="~/assets/js/bootstrap-switch.min.js"></script>
-
-<!--  Plugins for Slider -->
-<script src="~/assets/js/nouislider.js"></script>
-
-<!--  Plugins for DateTimePicker -->
-<script src="~/assets/js/moment.min.js"></script>
-<script src="~/assets/js/bootstrap-datetimepicker.min.js"></script>
-
-<!--  Paper Kit Initialization and functons -->
-<script src="~/assets/js/paper-kit.js?v=2.1.0"></script>
-
-<script src="~/tinymce/js/tinymce/tinymce.min.js"></script>
-<script>tinymce.init({ selector: 'textarea' });</script>
-@RenderSection("Scripts", required: false)
-
-
-<script>
-    //$(".nav-item").on("click", function () {
-    //    $(".nav-item").removeClass("active");
-    //    $(this).addClass("active");
-    //});
-
-    $(document).ready(function () {
-        $('li.active').removeClass('active');
-        $('a[href="' + location.pathname + '"]').closest('li').addClass('active');
-    });
-
-</script>
-
 </html>

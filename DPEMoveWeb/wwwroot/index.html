@@ -1,0 +1,626 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link rel="icon" type="image/png" href="assets/img/favicon.ico">
+<link rel="apple-touch-icon" sizes="76x76" href="assets/img/app-icon.png">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<title>DPE-Move ระบบ Mobile Application ด้านการพลศึกษา สุขภาพ กีฬา นันทนาการ วิทยาศาสตร์การกีฬา และพัฒนาบุคลากรการกีฬา</title>
+<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+<meta name="viewport" content="width=device-width" />
+
+<!-- Bootstrap core CSS     -->
+<link href="assets/css/bootstrap.min.css" rel="stylesheet" />
+<link href="assets/css/paper-kit.css?v=2.1.0" rel="stylesheet"/>
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script> 
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script> 
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script> 
+
+<!--  CSS for Demo Purpose, don't include it in your project     -->
+<link href="assets/css/demo.css" rel="stylesheet" />
+
+<!--     Fonts and icons     -->
+<link href='http://fonts.googleapis.com/css?family=Montserrat:400,300,700' rel='stylesheet' type='text/css'>
+<link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+<link href="assets/css/nucleo-icons.css" rel="stylesheet" />
+<link href="css/master.css" rel="stylesheet" />
+
+<!--     slide location     --> 
+<script>
+	
+		$(document).ready(function () {
+    var itemsMainDiv = ('.MultiCarousel');
+    var itemsDiv = ('.MultiCarousel-inner');
+    var itemWidth = "";
+
+    $('.leftLst, .rightLst').click(function () {
+        var condition = $(this).hasClass("leftLst");
+        if (condition)
+            click(0, this);
+        else
+            click(1, this)
+    });
+
+    ResCarouselSize();
+
+
+
+
+    $(window).resize(function () {
+        ResCarouselSize();
+    });
+
+    //this function define the size of the items
+    function ResCarouselSize() {
+        var incno = 0;
+        var dataItems = ("data-items");
+        var itemClass = ('.item');
+        var id = 0;
+        var btnParentSb = '';
+        var itemsSplit = '';
+        var sampwidth = $(itemsMainDiv).width();
+        var bodyWidth = $('body').width();
+        $(itemsDiv).each(function () {
+            id = id + 1;
+            var itemNumbers = $(this).find(itemClass).length;
+            btnParentSb = $(this).parent().attr(dataItems);
+            itemsSplit = btnParentSb.split(',');
+            $(this).parent().attr("id", "MultiCarousel" + id);
+
+
+            if (bodyWidth >= 1200) {
+                incno = itemsSplit[3];
+                itemWidth = sampwidth / incno;
+            }
+            else if (bodyWidth >= 992) {
+                incno = itemsSplit[2];
+                itemWidth = sampwidth / incno;
+            }
+            else if (bodyWidth >= 768) {
+                incno = itemsSplit[1];
+                itemWidth = sampwidth / incno;
+            }
+            else {
+                incno = itemsSplit[0];
+                itemWidth = sampwidth / incno;
+            }
+            $(this).css({ 'transform': 'translateX(0px)', 'width': itemWidth * itemNumbers });
+            $(this).find(itemClass).each(function () {
+                $(this).outerWidth(itemWidth);
+            });
+
+            $(".leftLst").addClass("over");
+            $(".rightLst").removeClass("over");
+
+        });
+    }
+
+
+    //this function used to move the items
+    function ResCarousel(e, el, s) {
+        var leftBtn = ('.leftLst');
+        var rightBtn = ('.rightLst');
+        var translateXval = '';
+        var divStyle = $(el + ' ' + itemsDiv).css('transform');
+        var values = divStyle.match(/-?[\d\.]+/g);
+        var xds = Math.abs(values[4]);
+        if (e == 0) {
+            translateXval = parseInt(xds) - parseInt(itemWidth * s);
+            $(el + ' ' + rightBtn).removeClass("over");
+
+            if (translateXval <= itemWidth / 2) {
+                translateXval = 0;
+                $(el + ' ' + leftBtn).addClass("over");
+            }
+        }
+        else if (e == 1) {
+            var itemsCondition = $(el).find(itemsDiv).width() - $(el).width();
+            translateXval = parseInt(xds) + parseInt(itemWidth * s);
+            $(el + ' ' + leftBtn).removeClass("over");
+
+            if (translateXval >= itemsCondition - itemWidth / 2) {
+                translateXval = itemsCondition;
+                $(el + ' ' + rightBtn).addClass("over");
+            }
+        }
+        $(el + ' ' + itemsDiv).css('transform', 'translateX(' + -translateXval + 'px)');
+    }
+
+    //It is used to get some elements from btn
+    function click(ell, ee) {
+        var Parent = "#" + $(ee).parent().attr("id");
+        var slide = $(Parent).attr("data-slide");
+        ResCarousel(ell, Parent, slide);
+    }
+
+});
+	
+	</script>
+</head>
+
+<body>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12 col-md-8 col-lg-8">
+      <div class="logo"><img src="images/logo.png" width="67" height="104" alt=""/><img src="images/icon_app.png" width="99" height="104" alt=""/></div>
+      <div class="head_text">
+        <h2>DPE-Move</h2>
+        <span>ระบบ Mobile Application ด้านการพลศึกษา<br>
+        สุขภาพ กีฬา นันทนาการ วิทยาศาสตร์การกีฬา และพัฒนาบุคลากรการกีฬา</span></div>
+    </div>
+    <div class="col-sm-12 col-md-4 col-lg-4 loadapp"><a href="#"><img src="images/bt_play.png" width="134" height="44" alt=""/></a><a href="#"><img src="images/bt-store.png" width="134" height="44" alt=""/></a></div>
+  </div>
+</div>
+<nav class="navbar navbar-expand-md bg-nav">
+  <div class="container">
+    <div class="navbar-translate">
+      <button class="navbar-toggler navbar-toggler-right navbar-burger" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-bar"></span> <span class="navbar-toggler-bar"></span> <span class="navbar-toggler-bar"></span> </button>
+    </div>
+    <div class="collapse navbar-collapse" id="navbar-menu">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active"> <a class="nav-link" href="#pk">หน้าหลัก</a> </li>
+        <li class="nav-item"> <a class="nav-link" href="#pk">กิจกรรม</a> </li>
+        <li class="nav-item"> <a class="nav-link" href="#pk">สนามกีฬา/สถานที่ออกกำลังกาย</a> </li>
+        <li class="nav-item"> <a class="nav-link" href="#pk">บุคคลากร</a> </li>
+        <li class="nav-item"> <a class="nav-link" href="#pk">แบบสำรวจ</a> </li>
+        <li class="nav-item"> <a class="nav-link" href="#pk">เกี่ยวกับเรา</a> </li>
+        <li class="nav-item"> <a class="nav-link" href="#pk">ติดต่อเรา</a> </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<div class="wrapper">
+  <div class="page_home">
+    <div class="page-breadcrumbs" style="background-image: url('images/bg-bc.jpg')">
+      <div class="full_slide">
+        <div class="wellcome_sec">
+          <div class="container">
+            <div class="wellcome">
+              <p>ยินดีต้อนรับสู่กรมพลศึกษา กระทรวงการท่องเที่ยวและกีฬา</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card page-carousel">
+        <div id="carouselExampleIndicators" class="carousel slide carousel-fade" data-ride="carousel">
+          <ol class="carousel-indicators">
+            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+          </ol>
+          <div class="carousel-inner" role="listbox">
+            <div class="carousel-item active"> <img class="d-block img-fluid" src="images\slide\slide_home1.jpg" alt="First slide"> 
+              <!--<div class="carousel-caption d-none d-md-block">
+                                            <p>สนามกีฬาแห่งชาติ</p>
+                                        </div>--> 
+            </div>
+            <div class="carousel-item"> <img class="d-block img-fluid" src="images\slide\slide_home2.jpg" alt="Second slide"> 
+              <!--<div class="carousel-caption d-none d-md-block">
+                                    	    <p>ทางเข้าสนามกีฬา</p>
+                                    	</div>--> 
+            </div>
+          </div>
+          <a class="left carousel-control carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev"> <span class="fa fa-angle-left"></span> <span class="sr-only">Previous</span> </a> <a class="right carousel-control carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next"> <span class="fa fa-angle-right"></span> <span class="sr-only">Next</span> </a> </div>
+      </div>
+      <div class="filter"></div>
+    </div>
+  </div>
+  <div class="sec_head gray">
+    <div class="wellcome_sec">
+      <div class="container">
+        <div class="col-lg-4">
+          <div class="wellcome">
+            <h2>สรุปจำนวนสนามกีฬา</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="section gray">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-7 con_center"> <img src="images/map.jpg" width="520" height="594" alt=""/> </div>
+        <div class="col-sm-12 col-md-12 col-lg-5 con_center">
+          <div class="table_map table-responsive2">
+            <table class="table table-bordered2 shadow">
+              <thead>
+                <tr>
+                  <th colspan="2" scope="col" class="con_center bg_green"><h3>จำนวนสนามกีฬาแบ่งตามจังหวัด</h3></th>
+                </tr>
+                <tr>
+                  <th scope="col" class="tx_green"><h5>จังหวัด</h5></th>
+                  <th scope="col" class="tx_green"><h5>จำนวนสนามกีฬา</h5></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">กรุงเทพมหานคร</th>
+                  <td>1,626</td>
+                </tr>
+                <tr>
+                  <th scope="row">พะเยา</th>
+                  <td>831</td>
+                </tr>
+                <tr>
+                  <th scope="row">สตูล</th>
+                  <td>1,013</td>
+                </tr>
+                <tr>
+                  <th scope="row">นครราชสีมา</th>
+                  <td>1,925</td>
+                </tr>
+                <tr>
+                  <th scope="row">ตาก</th>
+                  <td>1,925</td>
+                </tr>
+                <tr>
+                  <th scope="row">ตราด</th>
+                  <td>1,925</td>
+                </tr>
+                <tr>
+                  <th scope="row">เพชรบุรี</th>
+                  <td>1,925</td>
+                </tr>
+                <tr>
+                  <th scope="row">เลย</th>
+                  <td>1,925</td>
+                </tr>
+                <tr>
+                  <th scope="row">สกลนคร</th>
+                  <td>1,925</td>
+                </tr>
+                <tr>
+                  <th scope="row">แม่ฮ่องสอน</th>
+                  <td>1,925</td>
+                </tr>
+                <tr>
+                  <th scope="row">เชียงใหม่</th>
+                  <td>1,925</td>
+                </tr>
+                <tr>
+                  <th scope="row">พิษณุโลก</th>
+                  <td>1,925</td>
+                </tr>
+                <tr>
+                  <th scope="row">สงขลา</th>
+                  <td>1,925</td>
+                </tr>
+                <tr>
+                  <th scope="row">สุราษฏร์ธานี</th>
+                  <td>1,925</td>
+                </tr>
+                <tr>
+                  <th scope="row">ขอนแก่น</th>
+                  <td>1,925</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="section_act">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-8">
+          <div class="head_act">
+            <h5><img src="images/ic_news.png" width="27" height="30" alt=""/> HOT NEWS</h5>
+          </div>
+          <div class="news_sec">
+            <div class="card page-carousel">
+              <div id="carouselExampleIndicators2" class="carousel slide" data-ride="carouse2">
+                <div class="readmore_all"><a href="#">อ่านทั้งหมด</a></div>
+                <ol class="carousel-indicators">
+                  <li data-target="#carouselExampleIndicators2" data-slide-to="0" class="active"></li>
+                  <li data-target="#carouselExampleIndicators2" data-slide-to="1"></li>
+                  <li data-target="#carouselExampleIndicators2" data-slide-to="2"></li>
+                </ol>
+                <div class="carousel-inner" role="listbox">
+                  <div class="carousel-item active"> <img class="d-block img-fluid" src="images/news/630100000009.jpg" alt="First slide">
+                    <div class="carousel-caption d-none d-md-block">
+                      <h4>กิจกรรม”Haier Bangkok 10k International Run”</h4>
+                      <p>นายสันติ  ป่าหวาย  อธิบดีกรมพลศึกษา ร่วมพิธีเปิดพร้อมร่วมวิ่งระยะทาง 5 กิโลเมตร ในกิจกรรม”Haier Bangkok 10k  International Run” 
+                        
+                        โดยมี นายหลู่ย์ เจี้ยน เอกอัครราชฑูตสาธารณรัฐประชาชนจีนประจำประเทศไทย นายจาง เจิ้งฮุ้ย ประธานกรรมการบริหาร บริษัท ไฮเออร์ อีเลคทริคอล และแอพพลายแอนซ์ (ประเทศไทย) จำกัด และผู้เข้าร่วมกิจกรรมกว่า 5000  คน</p>
+                      <a href="#">read more</a> </div>
+                  </div>
+                  <div class="carousel-item"> <img class="d-block img-fluid" src="images/news/630100000044.jpg" alt="Second slide">
+                    <div class="carousel-caption d-none d-md-block">
+                      <h4>กิจกรรม”Haier Bangkok 10k International Run”</h4>
+                      <p>นายสันติ  ป่าหวาย  อธิบดีกรมพลศึกษา ร่วมพิธีเปิดพร้อมร่วมวิ่งระยะทาง 5 กิโลเมตร ในกิจกรรม”Haier Bangkok 10k  International Run” 
+                        
+                        โดยมี นายหลู่ย์ เจี้ยน เอกอัครราชฑูตสาธารณรัฐประชาชนจีนประจำประเทศไทย นายจาง เจิ้งฮุ้ย ประธานกรรมการบริหาร บริษัท ไฮเออร์ อีเลคทริคอล และแอพพลายแอนซ์ (ประเทศไทย) จำกัด และผู้เข้าร่วมกิจกรรมกว่า 5000  คน</p>
+                      <a href="#">read more</a> </div>
+                  </div>
+                  <div class="carousel-item"> <img class="d-block img-fluid" src="images/news/621000000254.jpeg" alt="Third slide">
+                    <div class="carousel-caption d-none d-md-block">
+                      <h4>กิจกรรม”Haier Bangkok 10k International Run”</h4>
+                      <p>นายสันติ  ป่าหวาย  อธิบดีกรมพลศึกษา ร่วมพิธีเปิดพร้อมร่วมวิ่งระยะทาง 5 กิโลเมตร ในกิจกรรม”Haier Bangkok 10k  International Run” 
+                        
+                        โดยมี นายหลู่ย์ เจี้ยน เอกอัครราชฑูตสาธารณรัฐประชาชนจีนประจำประเทศไทย นายจาง เจิ้งฮุ้ย ประธานกรรมการบริหาร บริษัท ไฮเออร์ อีเลคทริคอล และแอพพลายแอนซ์ (ประเทศไทย) จำกัด และผู้เข้าร่วมกิจกรรมกว่า 5000  คน</p>
+                      <a href="#">read more</a> </div>
+                  </div>
+                </div>
+                <a class="left carousel-control carousel-control-prev" href="#carouselExampleIndicators2" role="button" data-slide="prev"> <span class="fa fa-angle-left"></span> <span class="sr-only">Previous</span> </a> <a class="right carousel-control carousel-control-next" href="#carouselExampleIndicators2" role="button" data-slide="next"> <span class="fa fa-angle-right"></span> <span class="sr-only">Next</span> </a> </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-12 col-lg-4">
+          <div class="activity">
+            <div class="head_act">
+              <h5 class="tx_center"><img src="images/ic_calendar.png" width="27" height="30" alt=""/> ปฎิทินกิจกรรม</h5>
+            </div>
+            <div class="month_sec">DECEMBER</div>
+            <div class="day_sec">
+              <div class="row">
+                <div class="day_left">
+                  <h3>02</h3>
+                  <span>DEC</span></div>
+                <div class="detail_right"><a href="#">ขอเชิญชวนผู้สนใจ ครู อาจารย์ อาสาสมัคร เจ้าหน้าที่ ที่มีหน้าที่รับผิดชอบดำเนินงานเกี่ยวกับการ...</a>
+                  <div class="rating"><img src="images/ic_star.png" alt=""/><img src="images/ic_star.png" alt=""/><img src="images/ic_star.png" alt=""/><img src="images/ic_star.png" alt=""/><img src="images/ic_star.png" alt=""/></div>
+                </div>
+              </div>
+            </div>
+            <div class="day_sec">
+              <div class="row">
+                <div class="day_left">
+                  <h3>02</h3>
+                  <span>DEC</span></div>
+                <div class="detail_right"><a href="#">ขอเชิญชวนผู้สนใจ ครู อาจารย์ อาสาสมัคร เจ้าหน้าที่ ที่มีหน้าที่รับผิดชอบดำเนินงานเกี่ยวกับการ...</a>
+                  <div class="rating"><img src="images/ic_star.png" alt=""/><img src="images/ic_star.png" alt=""/><img src="images/ic_star.png" alt=""/><img src="images/ic_star.png" alt=""/><img src="images/ic_star.png" alt=""/></div>
+                </div>
+              </div>
+            </div>
+            <div class="day_sec">
+              <div class="row">
+                <div class="day_left">
+                  <h3>02</h3>
+                  <span>DEC</span></div>
+                <div class="detail_right"><a href="#">ขอเชิญชวนผู้สนใจ ครู อาจารย์ อาสาสมัคร เจ้าหน้าที่ ที่มีหน้าที่รับผิดชอบดำเนินงานเกี่ยวกับการ...</a>
+                  <div class="rating"><img src="images/ic_star.png" alt=""/><img src="images/ic_star.png" alt=""/><img src="images/ic_star.png" alt=""/><img src="images/ic_star.png" alt=""/><img src="images/ic_star.png" alt=""/></div>
+                </div>
+              </div>
+            </div>
+            <div class="day_sec">
+              <div class="row">
+                <div class="day_left">
+                  <h3>02</h3>
+                  <span>DEC</span></div>
+                <div class="detail_right"><a href="#">ขอเชิญชวนผู้สนใจ ครู อาจารย์ อาสาสมัคร เจ้าหน้าที่ ที่มีหน้าที่รับผิดชอบดำเนินงานเกี่ยวกับการ...</a>
+                  <div class="rating"><img src="images/ic_star.png" alt=""/><img src="images/ic_star.png" alt=""/><img src="images/ic_star.png" alt=""/><img src="images/ic_star.png" alt=""/><img src="images/ic_star.png" alt=""/></div>
+                </div>
+              </div>
+            </div>
+            <div class="readmore"><a href="#">read more &#xbb;</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="section_location">
+    <div class="sec_head">
+      <div class="wellcome_sec">
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-8 col-md-8 col-lg-8"></div>
+            <div class="col-lg-4">
+              <div class="wellcome">
+                <h2>สถานที่ออกกำลังกาย</h2>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="col-sm-12 col-md-12 col-lg-12">
+        <div class="row">
+          <div class="col-sm-12 col-md-12 col-lg-10"></div>
+          <div class="col-sm-12 col-md-12 col-lg-2 readmore_bt tx_right"><a href="#">ดูทั้งหมด</a></div>
+        </div>
+        <div class="location">
+          <div class="row">
+            <div class="MultiCarousel" data-items="1,3,4,4" data-slide="1" id="MultiCarousel"  data-interval="1000">
+              <div class="MultiCarousel-inner">
+                <div class="item">
+                  <div class="pad15"> <a href="#"><img src="images/location/location.jpg" alt=""/></a>
+                    <p class="lead">สนามศุภชลาศัย</p>
+                  </div>
+                </div>
+                <div class="item">
+                  <div class="pad15"> <a href="#"><img src="images/location/location.jpeg" width="678" height="452" alt=""/></a>
+                    <p class="lead">สนามศุภชลาศัย</p>
+                  </div>
+                </div>
+                <div class="item">
+                  <div class="pad15"> <a href="#"><img src="images/location/location.jpg" alt=""/></a>
+                    <p class="lead">สนามศุภชลาศัย</p>
+                  </div>
+                </div>
+                <div class="item">
+                  <div class="pad15"> <a href="#"><img src="images/location/location.jpeg" width="678" height="452" alt=""/></a>
+                    <p class="lead">สนามศุภชลาศัย</p>
+                  </div>
+                </div>
+                <div class="item">
+                  <div class="pad15"> <a href="#"><img src="images/location/location.jpg" alt=""/></a>
+                    <p class="lead">สนามศุภชลาศัย</p>
+                  </div>
+                </div>
+                <div class="item">
+                  <div class="pad15"> <a href="#"><img src="images/location/location.jpeg" width="678" height="452" alt=""/></a>
+                    <p class="lead">สนามศุภชลาศัย</p>
+                  </div>
+                </div>
+                <div class="item">
+                  <div class="pad15"> <a href="#"><img src="images/location/location.jpg" alt=""/></a>
+                    <p class="lead">สนามศุภชลาศัย</p>
+                  </div>
+                </div>
+                <div class="item">
+                  <div class="pad15"> <a href="#"><img src="images/location/location.jpeg" width="678" height="452" alt=""/></a>
+                    <p class="lead">สนามศุภชลาศัย</p>
+                  </div>
+                </div>
+              </div>
+              <button class="btn btn-primary leftLst">&#xab;</button>
+              <button class="btn btn-primary rightLst">&#xbb;</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="section">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-12 tx_center">
+          <div class="tim-title">
+            <h1>Survey</h1>
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-12 col-lg-6">
+          <div class="bt_survey shadow">
+            <h5><a href="#"><img src="images/ic_survey.png" width="69" height="69" alt=""/>Perceptions and Factors
+              Influencing Eating Behaviours</a></h5>
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-12 col-lg-6">
+          <div class="bt_survey shadow">
+            <h5><a href="#"><img src="images/ic_survey.png" width="69" height="69" alt=""/>Factors Affecting Nutrition
+              and Physical Activity
+              Behaviors of Hispanic Families
+              With Young Children</a></h5>
+          </div>
+          <br>
+          <br>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="section_personnel">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-12 tx_center">
+          <div class="personnel_header">
+            <div class="tx_center">
+              <h2>บุคลากรการกีฬา </h2>
+            </div>
+          </div>
+        </div>
+        <div class="container">
+          <div class="tab">
+            <div class="row">
+              <div class="col-md-3 mb-3">
+                <ul class="nav nav-pills flex-column" id="myTab" role="tablist">
+                  <li class="nav-item"> <a class="nav-link active" id="num_people-tab" data-toggle="tab" href="#num_people" role="tab" aria-controls="num_people" aria-selected="true">จำนวนคนออกกำลังกาย</a> </li>
+                  <li class="nav-item"> <a class="nav-link" id="num_per-tab" data-toggle="tab" href="#num_per" role="tab" aria-controls="num_per" aria-selected="false">จำนวนบุคลากรแต่ละพื้นที่</a> </li>
+                  <li class="nav-item"> <a class="nav-link" id="num_acti-tab" data-toggle="tab" href="#num_acti" role="tab" aria-controls="num_acti" aria-selected="false">กิจกรรม (จำนวน)</a> </li>
+                  <li class="nav-item"> <a class="nav-link" id="behav-tab" data-toggle="tab" href="#behav" role="tab" aria-controls="behav" aria-selected="false">พฤกรรมการออกกำลังกาย</a> </li>
+                  <li class="nav-item"> <a class="nav-link" id="acti-tab" data-toggle="tab" href="#acti" role="tab" aria-controls="acti" aria-selected="false">กิจกรรม</a> </li>
+                  <li class="nav-item"> <a class="nav-link" id="loca-tab" data-toggle="tab" href="#loca" role="tab" aria-controls="loca" aria-selected="false">สถานที่</a> </li>
+                  <li class="nav-item"> <a class="nav-link" id="personnel-tab" data-toggle="tab" href="#personnel" role="tab" aria-controls="personnel" aria-selected="false">บุคคลกร</a> </li>
+                </ul>
+              </div>
+              <!-- /.col-md-4 -->
+              <div class="col-md-9 bg_tab">
+                <div class="tab-content" id="myTabContent">
+                  <div class="tab-pane fade show active" id="num_people" role="tabpanel" aria-labelledby="num_people-tab">
+                    <h3>จำนวนคนออกกำลังกาย</h3>
+                    <p class="img_w"><img src="images/chart_demo.jpg" alt=""/></p>
+                  </div>
+                  <div class="tab-pane fade" id="num_per" role="tabpanel" aria-labelledby="num_per-tab">
+                    <h3>จำนวนบุคลากรแต่ละพื้นที่</h3>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque, eveniet earum. Sed accusantium eligendi molestiae quo hic velit nobis et, tempora placeat ratione rem blanditiis voluptates vel ipsam? Facilis, earum!</p>
+                  </div>
+                  <div class="tab-pane fade" id="num_acti" role="tabpanel" aria-labelledby="num_acti-tab">
+                    <h3>กิจกรรม (จำนวน)</h3>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque, eveniet earum. Sed accusantium eligendi molestiae quo hic velit nobis et, tempora placeat ratione rem blanditiis voluptates vel ipsam? Facilis, earum!</p>
+                  </div>
+                  <div class="tab-pane fade" id="behav" role="tabpanel" aria-labelledby="behav-tab">
+                    <h3>พฤกรรมการออกกำลังกา</h3>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque, eveniet earum. Sed accusantium eligendi molestiae quo hic velit nobis et, tempora placeat ratione rem blanditiis voluptates vel ipsam? Facilis, earum!</p>
+                  </div>
+                  <div class="tab-pane fade" id="acti" role="tabpanel" aria-labelledby="acti-tab">
+                    <h3>กิจกรรม </h3>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque, eveniet earum. Sed accusantium eligendi molestiae quo hic velit nobis et, tempora placeat ratione rem blanditiis voluptates vel ipsam? Facilis, earum!</p>
+                  </div>
+                  <div class="tab-pane fade" id="loca" role="tabpanel" aria-labelledby="loca-tab">
+                    <h3>สถานที่</h3>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque, eveniet earum. Sed accusantium eligendi molestiae quo hic velit nobis et, tempora placeat ratione rem blanditiis voluptates vel ipsam? Facilis, earum!</p>
+                  </div>
+                  <div class="tab-pane fade" id="personnel" role="tabpanel" aria-labelledby="personnel-tab">
+                    <h3>บุคคลกร</h3>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque, eveniet earum. Sed accusantium eligendi molestiae quo hic velit nobis et, tempora placeat ratione rem blanditiis voluptates vel ipsam? Facilis, earum!</p>
+                  </div>
+                </div>
+              </div>
+              <!-- /.col-md-8 --> 
+            </div>
+          </div>
+        </div>
+        <!-- /.container --> 
+        
+      </div>
+    </div>
+  </div>
+  <div class="footer_top">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12 col-md-3 col-lg-3">
+          <h4>ติดต่อกรมพลศึกษา </h4>
+          TEL : 0-2214-0120<br>
+          FAX : 0-2216-44080-2216-4408<br>
+          EMAIL : webmaster@dpe.go.th </div>
+        <div class="col-sm-12 col-md-6 col-lg-6 center">
+          <h2>กรมพลศึกษา </h2>
+          <h5>DEPARTMENT OF PHYSICAL EDUCATION</h5>
+          เลขที่ 154 ถนนพระราม 1 แขวงวังใหม่ เขตปทุมวัน กรุงเทพฯ 10330<br>
+          <br>
+          กรมพลศึกษายุคใหม่ มีนโยบายและแนวทางส่งเสริมและพัฒนาการพลศึกษา สุขภาพ การกีฬา นันทนาการ วิทยาศาสตร์การกีฬา และการพัฒนาบุคลากรสาขาที่เกี่ยวข้อง </div>
+        <div class="col-sm-12 col-md-3 col-lg-3">
+          <h4>สถิติผู้เข้าเยี่ยมชมเว็บไซต์</h4>
+          ทั้งหมด 791,932<br>
+          วันนี้ 1,226<br>
+          เมื่อวาน 4,616<br>
+          เดือนนี้ 40,095<br>
+          เดือนที่แล้ว
+          <hr>
+          <img src="images/ic_login.png" width="30" height="28" alt=""/><a href="#">เข้าสู่ระบบ</a></div>
+      </div>
+    </div>
+  </div>
+  <div class="footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12 col-md-3 col-lg-2"></div>
+        <div class="col-sm-12 col-md-9 col-lg-10">
+          <div class=""><img src="images/logo_footer.png" width="61" height="85" alt=""/>
+            <h5>สงวนลิขสิทธิ์ โดยกรมพลศึกษา</h5>
+            แผนผังเว็บไซต์... | นโยบายเว็บไซต์ | นโยบายคุ้มครองข้อมูลส่วนบุคคล | นโยบายรักษาความมันคงปลอดภัยเว็บไซต์</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+
+<!-- Core JS Files -->
+<script src="assets/js/jquery-3.2.1.js" type="text/javascript"></script>
+<script src="assets/js/jquery-ui-1.12.1.custom.min.js" type="text/javascript"></script>
+<script src="assets/js/popper.js" type="text/javascript"></script>
+<script src="assets/js/bootstrap.min.js" type="text/javascript"></script>
+
+<!-- Switches -->
+<script src="assets/js/bootstrap-switch.min.js"></script>
+
+<!--  Plugins for Slider -->
+<script src="assets/js/nouislider.js"></script>
+
+<!--  Plugins for DateTimePicker -->
+<script src="assets/js/moment.min.js"></script>
+<script src="assets/js/bootstrap-datetimepicker.min.js"></script>
+
+<!--  Paper Kit Initialization and functons -->
+<script src="assets/js/paper-kit.js?v=2.1.0"></script>
+</html>

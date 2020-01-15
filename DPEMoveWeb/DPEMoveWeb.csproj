@@ -23,22 +23,32 @@
 
   <ItemGroup>
     <None Include="wwwroot\assets\css\.DS_Store" />
+    <None Include="wwwroot\assets\css\Icon_" />
+    <None Include="wwwroot\assets\fonts\Icon_" />
     <None Include="wwwroot\assets\fonts\nucleo-icons.woff2" />
+    <None Include="wwwroot\assets\Icon_" />
     <None Include="wwwroot\assets\img\.DS_Store" />
     <None Include="wwwroot\assets\img\faces\.DS_Store" />
+    <None Include="wwwroot\assets\img\faces\Icon_" />
+    <None Include="wwwroot\assets\img\Icon_" />
     <None Include="wwwroot\assets\js\.DS_Store" />
     <None Include="wwwroot\assets\js\bootstrap-datetimepicker.min.js" />
     <None Include="wwwroot\assets\js\bootstrap-switch.min.js" />
     <None Include="wwwroot\assets\js\bootstrap.min.js" />
+    <None Include="wwwroot\assets\js\Icon_" />
     <None Include="wwwroot\assets\js\jquery-3.2.1.js" />
     <None Include="wwwroot\assets\js\jquery-ui-1.12.1.custom.min.js" />
     <None Include="wwwroot\assets\js\moment.min.js" />
     <None Include="wwwroot\assets\js\nouislider.js" />
     <None Include="wwwroot\assets\js\paper-kit.js" />
     <None Include="wwwroot\assets\js\popper.js" />
+    <None Include="wwwroot\assets\js\th.js" />
     <None Include="wwwroot\assets\sass\.DS_Store" />
+    <None Include="wwwroot\assets\sass\Icon_" />
     <None Include="wwwroot\assets\sass\paper-kit.scss" />
     <None Include="wwwroot\assets\sass\paper-kit\.DS_Store" />
+    <None Include="wwwroot\assets\sass\paper-kit\Icon_" />
+    <None Include="wwwroot\assets\sass\paper-kit\mixins\Icon_" />
     <None Include="wwwroot\assets\sass\paper-kit\mixins\_buttons.scss" />
     <None Include="wwwroot\assets\sass\paper-kit\mixins\_inputs.scss" />
     <None Include="wwwroot\assets\sass\paper-kit\mixins\_labels.scss" />
@@ -47,6 +57,7 @@
     <None Include="wwwroot\assets\sass\paper-kit\mixins\_tabs.scss" />
     <None Include="wwwroot\assets\sass\paper-kit\mixins\_transparency.scss" />
     <None Include="wwwroot\assets\sass\paper-kit\mixins\_vendor-prefixes.scss" />
+    <None Include="wwwroot\assets\sass\paper-kit\plugins\Icon_" />
     <None Include="wwwroot\assets\sass\paper-kit\plugins\_datetimepicker.scss" />
     <None Include="wwwroot\assets\sass\paper-kit\_alerts.scss" />
     <None Include="wwwroot\assets\sass\paper-kit\_bootstrap-switch.scss" />
@@ -76,6 +87,7 @@
     <None Include="wwwroot\assets\sass\paper-kit\_typography.scss" />
     <None Include="wwwroot\assets\sass\paper-kit\_variables.scss" />
     <None Include="wwwroot\css\.DS_Store" />
+    <None Include="wwwroot\css\fonts\Icon_" />
     <None Include="wwwroot\css\fonts\Kanit-Regular.svg" />
     <None Include="wwwroot\css\Icon_" />
     <None Include="wwwroot\images\.DS_Store" />
@@ -83,7 +95,14 @@
     <None Include="wwwroot\images\banner2.svg" />
     <None Include="wwwroot\images\banner3.svg" />
     <None Include="wwwroot\images\Icon_" />
+    <None Include="wwwroot\images\stadium\Icon_" />
+    <None Include="wwwroot\js\bootstrap-datepicker-thai.js" />
+    <None Include="wwwroot\js\bootstrap-datepicker.js" />
     <None Include="wwwroot\js\Icon_" />
+    <None Include="wwwroot\js\locales\bootstrap-datepicker.th.js" />
+    <None Include="wwwroot\js\pages\events-details.js" />
+    <None Include="wwwroot\js\pages\events-edit.js" />
+    <None Include="wwwroot\js\pages\events-index.js" />
     <None Include="wwwroot\js\scripts.js" />
     <None Include="wwwroot\js\site.js" />
     <None Include="wwwroot\js\site.min.js" />
