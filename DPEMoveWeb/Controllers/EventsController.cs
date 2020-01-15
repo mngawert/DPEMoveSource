@@ -82,6 +82,8 @@ namespace DPEMoveWeb.Controllers
                 return NotFound();
             }
 
+            _eventService.AddViewCount(eventVM.EventCode);
+
             ViewBag.AppUserId = await GetLoginAppUserId();
             ViewBag.Address = _context.Event.Where(a => a.EventId == id).FirstOrDefault()?.Address;
 
