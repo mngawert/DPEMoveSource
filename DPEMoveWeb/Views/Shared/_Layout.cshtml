@@ -195,6 +195,7 @@
                 // and test its normalized href against the url pathname regexp
                 if (urlRegExp.test(this.href.replace(/\/$/, ''))) {
                     $(this).parent().addClass('active');
+                    exit;
                 }
             });
         });
