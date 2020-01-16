@@ -84,7 +84,7 @@ namespace DPEMoveWeb
             services.AddDistributedMemoryCache();
             services.AddSession(options => 
             {
-                options.IdleTimeout = TimeSpan.FromMinutes(10);
+                options.IdleTimeout = TimeSpan.FromMinutes(30);
             });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1)

@@ -81,6 +81,7 @@ namespace DPEMoveDAL.Models
         public virtual DbSet<SurveyHeader> SurveyHeader { get; set; }
         public virtual DbSet<Tambon> Tambon { get; set; }
         public virtual DbSet<TmpAccount> TmpAccount { get; set; }
+        public virtual DbSet<TmpEvent> TmpEvent { get; set; }
         public virtual DbSet<UploadedFile> UploadedFile { get; set; }
         public virtual DbSet<User> User { get; set; }
         public virtual DbSet<Vote> Vote { get; set; }
@@ -2463,9 +2464,7 @@ namespace DPEMoveDAL.Models
                     .HasName("PK_SURVEY_DETAIL")
                     .IsUnique();
 
-                entity.Property(e => e.SurveyDetailId)
-                    .HasColumnName("SURVEY_DETAIL_ID")
-                    .ValueGeneratedNever();
+                entity.Property(e => e.SurveyDetailId).HasColumnName("SURVEY_DETAIL_ID");
 
                 entity.Property(e => e.Ans10)
                     .HasColumnName("ANS_10")
@@ -2630,9 +2629,7 @@ namespace DPEMoveDAL.Models
                     .HasName("PK_SURVEY_DETAIL_15_1")
                     .IsUnique();
 
-                entity.Property(e => e.SurveyDetail151Id)
-                    .HasColumnName("SURVEY_DETAIL_15_1_ID")
-                    .ValueGeneratedNever();
+                entity.Property(e => e.SurveyDetail151Id).HasColumnName("SURVEY_DETAIL_15_1_ID");
 
                 entity.Property(e => e.Ans151)
                     .HasColumnName("ANS_15_1")
@@ -2688,9 +2685,7 @@ namespace DPEMoveDAL.Models
                     .HasName("PK_SURVEY_HEADER")
                     .IsUnique();
 
-                entity.Property(e => e.SurveyHeaderId)
-                    .HasColumnName("SURVEY_HEADER_ID")
-                    .ValueGeneratedNever();
+                entity.Property(e => e.SurveyHeaderId).HasColumnName("SURVEY_HEADER_ID");
 
                 entity.Property(e => e.AddressId).HasColumnName("ADDRESS_ID");
 
@@ -2803,6 +2798,33 @@ namespace DPEMoveDAL.Models
                 entity.Property(e => e.AccountName)
                     .HasColumnName("ACCOUNT_NAME")
                     .HasColumnType("VARCHAR2(100)");
+            });
+
+            modelBuilder.Entity<TmpEvent>(entity =>
+            {
+                entity.HasKey(e => e.EventId);
+
+                entity.ToTable("TMP_EVENT");
+
+                entity.HasIndex(e => e.EventId)
+                    .HasName("TMP_EVENT_PK")
+                    .IsUnique();
+
+                entity.Property(e => e.EventId)
+                    .HasColumnName("EVENT_ID")
+                    .ValueGeneratedNever();
+
+                entity.Property(e => e.EventDescription)
+                    .HasColumnName("EVENT_DESCRIPTION")
+                    .HasColumnType("CLOB");
+
+                entity.Property(e => e.EventDescription2)
+                    .HasColumnName("EVENT_DESCRIPTION2")
+                    .HasColumnType("VARCHAR2(4000)");
+
+                entity.Property(e => e.EventDescription3)
+                    .HasColumnName("EVENT_DESCRIPTION3")
+                    .HasColumnType("VARCHAR2(4000)");
             });
 
             modelBuilder.Entity<UploadedFile>(entity =>
