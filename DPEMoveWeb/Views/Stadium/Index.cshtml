@@ -1,9 +1,4 @@
-﻿@model IEnumerable<DPEMoveDAL.Models.Event>
-@inject SignInManager<ApplicationUser> SignInManager
-
-@{
-    ViewData["Title"] = "ข้อมูลกิจกรรม";
-}
+﻿@inject SignInManager<ApplicationUser> SignInManager
 
 <div class="page-breadcrumbs" style="background-image: url('/images/bg-bc.jpg')">
     <div class="wellcome_sec">
@@ -16,7 +11,7 @@
     <div class="filter"></div>
     <div class="content-center">
         <div class="container">
-            <h2 class="presentation-subtitle text-center">@ViewData["Title"]</h2>
+            <h2 class="presentation-subtitle text-center">สนามกีฬา</h2>
         </div>
     </div>
 </div>
@@ -27,20 +22,21 @@
             <div class="col-12">
 
                 <div class="tx-head_green">
-                    <h4><a href="#">กิจกรรม</a> &#xbb; ข้อมูลกิจกรรม</h4>
-                </div>
-                <div class="button-container">
-                    @if (SignInManager.IsSignedIn(User))
-                    {
-                        <a href="#" class="button green" data-toggle="modal" data-target="#Modal_CreateEvent">+ สร้างกิจกรรม</a>
-                    }
+                    <h4><a href="#">สนามกีฬา</a> &#xbb; ข้อมูลสนามกีฬา</h4>
                 </div>
             </div>
         </div>
+
+        <div id="server-results"><!-- For server results --></div>
+
         <div class="row search-events">
             <div class="col-12">
                 <div class="block-border">
-                    <form>
+                    <form id="frmSearchStadium" method="post">
+
+                        <input type="hidden" name="PAGE" value="1" />
+                        <input type="hidden" name="limit" value="10" />
+
                         <div class="row">
                             <div class="col-sm-12 col-lg-4">
                                 <div class="row-field clearfix">
@@ -125,7 +121,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row-button"><button type="button" class="button darkgreen" onclick="GetEvent()">แสดงข้อมูล</button></div>
+                        <div class="row-button"><button type="button" class="button darkgreen" onclick="GetStadium()">แสดงข้อมูล</button></div>
                     </form>
                 </div>
             </div>
@@ -337,6 +333,6 @@
 
 
 @section Scripts {
-    <script src="~/js/pages/events-index.js"></script>
+    <script src="~/js/pages/stadium-index.js"></script>
 }
 

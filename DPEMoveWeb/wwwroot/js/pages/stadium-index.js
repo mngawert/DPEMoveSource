@@ -178,6 +178,25 @@ function GetTambon(provinceId, amphurId) {
 
 function GetStadium() {
 
+
+    $("#frmSearchStadium").submit(function (e) {
+        e.preventDefault(); //prevent default action 
+
+        //var post_url = $(this).attr("action"); //get form action url
+        var post_url = "http://data.dpe.go.th/api/stadium/address/getStadium";
+        var request_method = $(this).attr("method"); //get form GET/POST method
+        var form_data = $(this).serialize(); //Encode form elements for submission
+
+        $.ajax({
+            url: post_url,
+            type: request_method,
+            data: form_data
+        }).done(function (response) { //
+            $("#server-results").html(response);
+        });
+    });
+
+
     var options = {};
 
     var input = {};

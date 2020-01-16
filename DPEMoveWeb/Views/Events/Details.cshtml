@@ -274,6 +274,28 @@
                         <!-- Accordion card -->
                         <div class="card">
 
+                            <div class="card-header" role="tab" id="headingFive5">
+                                <a data-toggle="collapse" data-parent="#accordionEx" href="#collapseFive5" aria-expanded="true"
+                                   aria-controls="collapseFive5">
+                                    <h4 class="mb-0"> รายละเอียดของงาน <i class="fa fa-angle-down rotate-icon"></i> </h4>
+                                </a>
+                            </div>
+
+                            <!-- Card body -->
+                            <div id="collapseFive5" class="collapse" role="tabpanel" aria-labelledby="headingFive5"
+                                 data-parent="#accordionEx">
+                                <div class="card-body">
+
+                                    @Html.Raw(Model.EventDescription)
+
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+
+
                             <!-- Card header -->
                             <div class="card-header" role="tab" id="headingOne1">
                                 <a data-toggle="collapse" data-parent="#accordionEx" href="#collapseOne1" aria-expanded="true"
