@@ -310,6 +310,8 @@ embed { max-width: 100%; height: auto; }
 object,
 embed { height: 100%; }
 img { -ms-interpolation-mode: bicubic; }
+html,
+body { overflow-x: hidden !important; }
 .breadcrumbs-container { margin-bottom: 10px; }
 .button-container { position: absolute; right: 15px; top: 0; text-align: right; }
 .button { border-radius: 30px; padding: 8px 50px; }
@@ -391,11 +393,18 @@ button:focus { outline: none; }
 .tbl-fields .v-top { vertical-align: top; }
 .tbl-fields th,
 .tbl-fields td { padding-top: 5px; padding-bottom: 5px; }
+.tbl-fields th { padding-right: 8px; }
 .tbl-fields textarea { height: 90px; }
 .tbl-fields textarea,
 .tbl-fields input[type=text],
 .tbl-fields input[type=tel],
+.tbl-fields input[type=number],
 .tbl-fields input[type=email] { border: 1px solid #e6e6e6; border-radius: 6px; }
+.tbl-fields.th-aright th { text-align: right; }
+.field-houseno,
+.field-moo { width: 30%; }
+.field-soi,
+.field-road { width: 90%; }
 /**/
 
 @media screen and (max-width: 480px) {
@@ -427,16 +436,15 @@ button:focus { outline: none; }
 }
 /**/
 @media screen and (max-width: 575px) {
-	.img-center-mobile { text-align: center; margin-bottom: 10px; }
-	.tbl-fields th,
-	.tbl-fields td { display: block; padding-top: 10px; padding-bottom: 0; }
-	.tbl-fields td { padding-top: 0; }
+	/*
 	.tbl-fields input[type=text],
 	.tbl-fields input[type=tel],
 	.tbl-fields input[type=email] { width: 100%; }
+	*/
 	.search-person-result .thumb-img { padding-left: 0; text-align: center; margin-bottom: 8px; }
 	.search-person-result .col-traininghistory { float: none; }
 	.search-person-result .col-th-btn { float: none; padding-top: 30px; margin-bottom: 10px; text-align: center; }
+
 }
 @media screen and (max-width: 767px) {
 	.event-thumb { margin-bottom: 10px; }
@@ -445,6 +453,9 @@ button:focus { outline: none; }
 	.event-manipulate .tab { font-size: 11px; padding-left: 0; padding-right: 0; }
 	.person-details { text-align: center; }
 	.person-details .x { top: initial; left: 0; position: initial; display: block; margin-top: 8px; }
+	/**/
+	.img-center-mobile { text-align: center; margin-bottom: 10px; }
+	/**/
 }
 /**/
 @media screen and (max-width: 991px) {
@@ -465,6 +476,21 @@ button:focus { outline: none; }
 	.event-manipulate .tabs { padding-left: 5px; padding-right: 5px; }
 	.event-manipulate .tab { padding-left: 10px; padding-right: 10px; }
 	.person-details .x { top: -24px; left: 35%; }
+	.td-id select { margin-bottom: 5px; }
+	.tbl-fields th,
+	.tbl-fields td { display: block; padding-top: 10px; padding-bottom: 0; }
+	.tbl-fields td { padding-top: 0; }
+	.tbl-fields.th-aright th { text-align: left; }
+	/*
+	.tbl-fields input[type=text],
+	.tbl-fields input[type=tel],
+	.tbl-fields input[type=email] { width: 100%; }
+	*/
+
+	.field-houseno,
+	.field-moo,
+	.field-soi,
+	.field-road { width: 96%; }
 	/**/
 }
 

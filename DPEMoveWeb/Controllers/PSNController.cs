@@ -12,5 +12,11 @@ namespace DPEMoveWeb.Controllers
         {
             return View();
         }
+
+        public IActionResult Edit(int id)
+        {
+            return View();
+        }
+
     }
 }
