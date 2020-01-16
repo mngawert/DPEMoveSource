@@ -21,7 +21,6 @@ namespace DPEMoveDAL.Models
         public string EventCode { get; set; }
         public string EventName { get; set; }
         public string EventShortDescription { get; set; }
-        public string EventDescription { get; set; }
         public DateTime EventStartTimestamp { get; set; }
         public DateTime? EventFinishTimestamp { get; set; }
         public int? AddressId { get; set; }
@@ -49,6 +48,7 @@ namespace DPEMoveDAL.Models
         public string ContactPersonMobile { get; set; }
         public string ContactPersonFax { get; set; }
         public string ContactPersonLineid { get; set; }
+        public string EventDescription { get; set; }
 
         public Address Address { get; set; }
         public MEventLevel EventLevel { get; set; }
