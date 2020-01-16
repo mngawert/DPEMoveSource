@@ -176,7 +176,34 @@ function GetTambon(provinceId, amphurId) {
 
 
 
+function GetToken() {
+    console.log("GetToken");
+    $.ajax({
+        url: "http://data.dpe.go.th/api/tokens/keys/tokens",
+        type: 'GET',
+        dataType: 'json',
+        headers: {
+            'username': 'dpeusers',
+            'password': 'users_api@dpe.go.th'
+        },
+        contentType: 'application/json; charset=utf-8',
+        success: function (result) {
+            console.log("GetToken Success");
+            console.log("result", result);
+        },
+        error: function (error) {
+            console.log("GetToken Error");
+
+        }
+    });
+}
+
+
 function GetStadium() {
+
+    GetToken();
+
+    return false;
 
 
     $("#frmSearchStadium").submit(function (e) {
@@ -190,6 +217,9 @@ function GetStadium() {
         $.ajax({
             url: post_url,
             type: request_method,
+            headers: {
+                'Token': 'eyJ0eXAiOiJqd3QiLCJhbGciOiJIUzI1NiJ9.eyJzZXNzaW9uX2lkIjoicnU0aGNiNjd2a2U5aDUzcG9iMHNmdGtzMW00dWdvdGciLCJjcmVhdGVkX2F0IjoiMjAyMC0wMS0xNiAxNDoxNDozMyIsImV4cGlyZWQiOiIyMDIwLTAxLTE3IDE0OjE0OjMzIn0.7h4_V2e0NZo7OhZJnBDk9LFk81Nbp8KQ80McLOXYKaQ'
+            },
             data: form_data
         }).done(function (response) { //
             $("#server-results").html(response);
@@ -272,34 +302,34 @@ $(document).ready(function () {
 
 
 
-    var PROVINCE_DATA = {};
+    //var PROVINCE_DATA = {};
 
-    GetProvince();
+    //GetProvince();
 
-    $("#ddlProvince").change(function () {
-        var provinceId = $("#ddlProvince").val();
-        if (provinceId == "") {
-            $("#ddlAmphur").html(`<option value="">แสดงทั้งหมด</option>`);
-            $("#ddlTambon").html(`<option value="">แสดงทั้งหมด</option>`);
-        }
-        else {
-            GetAmphur(provinceId);
-        }
-    });
+    //$("#ddlProvince").change(function () {
+    //    var provinceId = $("#ddlProvince").val();
+    //    if (provinceId == "") {
+    //        $("#ddlAmphur").html(`<option value="">แสดงทั้งหมด</option>`);
+    //        $("#ddlTambon").html(`<option value="">แสดงทั้งหมด</option>`);
+    //    }
+    //    else {
+    //        GetAmphur(provinceId);
+    //    }
+    //});
 
-    $("#ddlAmphur").change(function () {
-        var provinceId = $("#ddlProvince").val();
-        var amphurId = $("#ddlAmphur").val().substr(2, 2);
+    //$("#ddlAmphur").change(function () {
+    //    var provinceId = $("#ddlProvince").val();
+    //    var amphurId = $("#ddlAmphur").val().substr(2, 2);
 
-        if (amphurId == "") {
-            $("#ddlTambon").html(`<option value="">แสดงทั้งหมด</option>`);
-        }
-        else {
-            GetTambon(provinceId, amphurId);
-        }
-    });
+    //    if (amphurId == "") {
+    //        $("#ddlTambon").html(`<option value="">แสดงทั้งหมด</option>`);
+    //    }
+    //    else {
+    //        GetTambon(provinceId, amphurId);
+    //    }
+    //});
 
-    GetStadium();
+    //GetStadium();
 });
 
 
