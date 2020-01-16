@@ -405,6 +405,8 @@ button:focus { outline: none; }
 .field-moo { width: 30%; }
 .field-soi,
 .field-road { width: 90%; }
+.btn-facebook,
+.btn-facebook:hover { color: #ffffff !important; }
 /**/
 
 @media screen and (max-width: 480px) {

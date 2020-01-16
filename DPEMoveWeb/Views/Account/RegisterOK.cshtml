@@ -1,7 +1,5 @@
 ﻿
-@{
-    ViewData["Title"] = "Reset Password";
-}
+@model RegisterViewModel
 
 <div class="page-breadcrumbs" style="background-image: url('/images/bg-bc.jpg')">
     <div class="wellcome_sec">
@@ -14,16 +12,27 @@
     <div class="filter"></div>
     <div class="content-center">
         <div class="container">
-            <h2 class="presentation-subtitle text-center">@ViewData["Title"]</h2>
+            <h2 class="presentation-subtitle text-center">ลงทะเบียน</h2>
         </div>
     </div>
 </div>
 <div class="section">
     <div class="container">
 
-        <h4>
-            Your password is reset. Please click <a asp-action="Login" asp-controller="Account">here to login</a>
-        </h4>
+        <div class="row">
+            <div class="col-md-8 mx-auto">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="text-center"> <a href="/Account/Login">ลงทะเบียนเรียบร้อย คลิก ที่นี่ เพื่อเข้าสู่ระบบ</a>  </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
+
+
+
+
+
 

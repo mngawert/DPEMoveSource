@@ -112,7 +112,7 @@ namespace DPEMoveWeb.Controllers
 
                     ViewBag.ErrorMessage += "[ " + confirmationLink + " ]";
 
-                    return View("Error");
+                    return View("RegisterOk");
                 }
 
                 foreach (var error in result.Errors)
@@ -410,6 +410,14 @@ namespace DPEMoveWeb.Controllers
             }
 
             return View(model);
+        }
+
+
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult RegisterOk()
+        {
+            return View();
         }
 
     }
