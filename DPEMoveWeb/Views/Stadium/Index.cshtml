@@ -130,73 +130,73 @@
             <div class="col-12">
                 <ul id="ul-search-events-result">
                     @*<li>
-                        <a href="#">
-                            <div class="row event">
-                                <div class="col-12 col-sm-5 col-md-4">
-                                    <div class="event-thumb"><img src="images/thumb_event1.jpg" /></div>
-                                </div>
-                                <div class="col-12 col-sm-7 col-md-8">
-                                    <div class="rating">
-                                        <span class="fa fa-star checked"></span>
-                                        <span class="fa fa-star checked"></span>
-                                        <span class="fa fa-star-half-o checked"></span>
-                                        <span class="fa fa-star"></span>
-                                        <span class="fa fa-star"></span>
-                                    </div>
-                                    <div class="event-date">17 พ.ย. 62</div>
-                                    <h4>EGAT 50th For A Better Life</h4>
-                                    <div class="event-place">
-                                        สถานที่ : การไฟฟ้าฝ่ายผลิตแห่งประเทศไทย (บางกรวย)<br />
-                                        จ.นนทบุรี
-                                    </div>
-                                    <div class="row read-comment">
-                                        <div class="col-sm-12 col-md-6">
-                                            <div class="read-total">อ่านแล้ว 20 คน</div>
-                                        </div>
-                                        <div class="col-sm-12 col-md-6">
-                                            <div class="comment-total">แสดงความคิดเห็น 120 คน</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </li>*@
-
-                    @*@foreach (var e in Model)
-                    {
-                        <li>
-                            <a asp-action="Details" asp-route-id="@e.EventId">
+                            <a href="#">
                                 <div class="row event">
                                     <div class="col-12 col-sm-5 col-md-4">
-                                        <div class="event-thumb"><img src="@e.EventUploadedFile.FirstOrDefault()?.UploadedFile?.FileUrl" /></div>
+                                        <div class="event-thumb"><img src="images/thumb_event1.jpg" /></div>
                                     </div>
                                     <div class="col-12 col-sm-7 col-md-8">
                                         <div class="rating">
                                             <span class="fa fa-star checked"></span>
                                             <span class="fa fa-star checked"></span>
-                                            <span class="fa fa-star"></span>
+                                            <span class="fa fa-star-half-o checked"></span>
                                             <span class="fa fa-star"></span>
                                             <span class="fa fa-star"></span>
                                         </div>
                                         <div class="event-date">17 พ.ย. 62</div>
-                                        <h4> @e.EventName</h4>
+                                        <h4>EGAT 50th For A Better Life</h4>
                                         <div class="event-place">
-                                            สถานที่ : @e.Address?.Description [e.Address?.Description] <br />
-                                            @e.Address?.ProvinceCode [e.Address?.ProvinceCode]
+                                            สถานที่ : การไฟฟ้าฝ่ายผลิตแห่งประเทศไทย (บางกรวย)<br />
+                                            จ.นนทบุรี
                                         </div>
                                         <div class="row read-comment">
                                             <div class="col-sm-12 col-md-6">
-                                                <div class="read-total">อ่านแล้ว @e.ReadCount [e.ReadCount] คน</div>
+                                                <div class="read-total">อ่านแล้ว 20 คน</div>
                                             </div>
                                             <div class="col-sm-12 col-md-6">
-                                                <div class="comment-total">แสดงความคิดเห็น [xxxx] คน</div>
+                                                <div class="comment-total">แสดงความคิดเห็น 120 คน</div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </a>
-                        </li>
-                    }*@
+                        </li>*@
+
+                    @*@foreach (var e in Model)
+                        {
+                            <li>
+                                <a asp-action="Details" asp-route-id="@e.EventId">
+                                    <div class="row event">
+                                        <div class="col-12 col-sm-5 col-md-4">
+                                            <div class="event-thumb"><img src="@e.EventUploadedFile.FirstOrDefault()?.UploadedFile?.FileUrl" /></div>
+                                        </div>
+                                        <div class="col-12 col-sm-7 col-md-8">
+                                            <div class="rating">
+                                                <span class="fa fa-star checked"></span>
+                                                <span class="fa fa-star checked"></span>
+                                                <span class="fa fa-star"></span>
+                                                <span class="fa fa-star"></span>
+                                                <span class="fa fa-star"></span>
+                                            </div>
+                                            <div class="event-date">17 พ.ย. 62</div>
+                                            <h4> @e.EventName</h4>
+                                            <div class="event-place">
+                                                สถานที่ : @e.Address?.Description [e.Address?.Description] <br />
+                                                @e.Address?.ProvinceCode [e.Address?.ProvinceCode]
+                                            </div>
+                                            <div class="row read-comment">
+                                                <div class="col-sm-12 col-md-6">
+                                                    <div class="read-total">อ่านแล้ว @e.ReadCount [e.ReadCount] คน</div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6">
+                                                    <div class="comment-total">แสดงความคิดเห็น [xxxx] คน</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                        }*@
                 </ul>
             </div>
         </div>
@@ -253,57 +253,57 @@
                                         </div>
                                     </div>
                                     @*<div class="row">
-                                        <div class="col-sm-12 col-lg-4">
-                                            <div class="row-field clearfix">
-                                                <div class="c lbl">
-                                                    จังหวัด
+                                            <div class="col-sm-12 col-lg-4">
+                                                <div class="row-field clearfix">
+                                                    <div class="c lbl">
+                                                        จังหวัด
+                                                    </div>
+                                                    <div class="c field">
+                                                        <select class="input-field" id="ddlProvince">
+                                                            <option value="">แสดงทั้งหมด</option>
+                                                        </select>
+                                                    </div>
                                                 </div>
-                                                <div class="c field">
-                                                    <select class="input-field" id="ddlProvince">
-                                                        <option value="">แสดงทั้งหมด</option>
-                                                    </select>
+                                            </div>
+                                            <div class="col-sm-12 col-lg-4">
+                                                <div class="row-field clearfix">
+                                                    <div class="c lbl">
+                                                        อำเภอ
+                                                    </div>
+                                                    <div class="c field">
+                                                        <select class="input-field" id="ddlAmphur">
+                                                            <option value="">แสดงทั้งหมด</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-lg-4">
+                                                <div class="row-field clearfix">
+                                                    <div class="c lbl">
+                                                        ตำบล
+                                                    </div>
+                                                    <div class="c field">
+                                                        <select class="input-field" id="ddlTambon">
+                                                            <option value="">แสดงทั้งหมด</option>
+                                                        </select>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-sm-12 col-lg-4">
-                                            <div class="row-field clearfix">
-                                                <div class="c lbl">
-                                                    อำเภอ
-                                                </div>
-                                                <div class="c field">
-                                                    <select class="input-field" id="ddlAmphur">
-                                                        <option value="">แสดงทั้งหมด</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-12 col-lg-4">
-                                            <div class="row-field clearfix">
-                                                <div class="c lbl">
-                                                    ตำบล
-                                                </div>
-                                                <div class="c field">
-                                                    <select class="input-field" id="ddlTambon">
-                                                        <option value="">แสดงทั้งหมด</option>
-                                                    </select>
+                                        <div class="row">
+                                            <div class="col-sm-12 col-lg-4">
+                                                <div class="row-field clearfix">
+                                                    <div class="c lbl">
+                                                        ประเภทกิจกรรม
+                                                    </div>
+                                                    <div class="c field">
+                                                        <select class="input-field">
+                                                            <option value="">แสดงทั้งหมด</option>
+                                                        </select>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-12 col-lg-4">
-                                            <div class="row-field clearfix">
-                                                <div class="c lbl">
-                                                    ประเภทกิจกรรม
-                                                </div>
-                                                <div class="c field">
-                                                    <select class="input-field">
-                                                        <option value="">แสดงทั้งหมด</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>*@
+                                        </div>*@
 
                                 </div>
                             </div>
@@ -333,6 +333,7 @@
 
 
 @section Scripts {
+
     <script src="~/js/pages/stadium-index.js"></script>
 }
 

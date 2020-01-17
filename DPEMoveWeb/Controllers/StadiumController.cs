@@ -12,5 +12,13 @@ namespace DPEMoveWeb.Controllers
         {
             return View();
         }
+
+        public IActionResult Details(int id)
+        {
+            ViewBag.routeId = id;
+
+            return View();
+        }
+
     }
 }
