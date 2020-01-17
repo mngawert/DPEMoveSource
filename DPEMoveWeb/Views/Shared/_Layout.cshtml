@@ -32,7 +32,7 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-12 col-md-8 col-lg-8">
-                <div class="logo"><img src="~/images/logo.png" width="67" height="104" alt="" /><img src="~/images/icon_app.png" width="99" height="104" alt="" /></div>
+                <div class="logo"><a href="/Home"><img src="~/images/logo.png" width="67" height="104" alt="" /><img src="~/images/icon_app.png" width="99" height="104" alt="" /></a></div>
                 <div class="head_text">
                     <h2>DPE-Move</h2>
                     <span>
@@ -63,9 +63,9 @@
         </div>
     </nav>
     <div class="wrapper">
-        
+
         @RenderBody()
-        
+
         @*
         <div class="page-breadcrumbs" style="background-image: url('/images/bg-bc.jpg')">
             <div class="wellcome_sec">
@@ -189,7 +189,7 @@
 
     <script>
         $(function(){
-            var url = window.location.pathname, 
+            var url = window.location.pathname,
             urlRegExp = new RegExp(url.replace(/\/$/,'') + "$"); // create regexp to match current url pathname and remove trailing slash if present as it could collide with the link in navigation in case trailing slash wasn't present there
             // now grab every link from the navigation
             $('.nav-item a').each(function () {
