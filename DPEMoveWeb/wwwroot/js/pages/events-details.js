@@ -332,11 +332,22 @@ function GetCommentsByEventId(eventId) {
             items +=
             `
             <li>
-                <p>` + value.comment1 + `</p>
-                <p>` + value.userCode + `</p>
-                <p>` + value.createdDateTH + `</p>
+                <div class="comment-head">
+                    <div class="comment-by">` + value.userCode + `</div>
+                    <div class="comment-when">` + value.createdDateTH + `</div>
+                </div>
+                <div class="comment-text">
+                    ` + value.comment1 + `
+                </div>
             </li>
             `
+            //`
+            //<li>
+            //    <p>` + value.comment1 + `</p>
+            //    <p>` + value.userCode + `</p>
+            //    <p>` + value.createdDateTH + `</p>
+            //</li>
+            //`
         });
 
         $("#ulComment").html(items);

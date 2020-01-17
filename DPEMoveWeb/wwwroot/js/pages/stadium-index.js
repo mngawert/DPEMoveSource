@@ -177,6 +177,138 @@ function GetTambon(provinceId, amphurId) {
 
 
 function GetToken() {
+
+    var myHeaders = new Headers();
+    myHeaders.append("token", "eyJ0eXAiOiJqd3QiLCJhbGciOiJIUzI1NiJ9.eyJzZXNzaW9uX2lkIjoicnU0aGNiNjd2a2U5aDUzcG9iMHNmdGtzMW00dWdvdGciLCJjcmVhdGVkX2F0IjoiMjAyMC0wMS0xNiAxNDoxNDozMyIsImV4cGlyZWQiOiIyMDIwLTAxLTE3IDE0OjE0OjMzIn0.7h4_V2e0NZo7OhZJnBDk9LFk81Nbp8KQ80McLOXYKaQ");
+    myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+
+    var requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        redirect: 'follow'
+    };
+
+    fetch("http://data.dpe.go.th/api/stadium/standard/getStandard", requestOptions)
+        .then(response => response.text())
+        .then(result => console.log(result))
+        .catch(error => console.log('error', error));
+
+    return false;
+
+
+    var myHeaders = new Headers();
+    myHeaders.append("username", "dpeusers");
+    myHeaders.append("password", "users_api@dpe.go.th");
+
+    var requestOptions = {
+        method: 'GET',
+        headers: myHeaders,
+        redirect: 'follow'
+    };
+
+    fetch("http://data.dpe.go.th/api/tokens/keys/tokens", requestOptions)
+        .then(response => response.text())
+        .then(result => console.log(result))
+        .catch(error => console.log('error', error));
+
+    return false;
+
+
+
+    console.log("TEST location.getProvince");
+
+    var myHeaders = new Headers();
+    //myHeaders.append("Token", "eyJ0eXAiOiJqd3QiLCJhbGciOiJIUzI1NiJ9.eyJzZXNzaW9uX2lkIjoicnU0aGNiNjd2a2U5aDUzcG9iMHNmdGtzMW00dWdvdGciLCJjcmVhdGVkX2F0IjoiMjAyMC0wMS0xNiAxNDoxNDozMyIsImV4cGlyZWQiOiIyMDIwLTAxLTE3IDE0OjE0OjMzIn0.7h4_V2e0NZo7OhZJnBDk9LFk81Nbp8KQ80McLOXYKaQ");
+    myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+
+    var requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        redirect: 'follow'
+    };
+
+    fetch("http://data.dpe.go.th/api/information/location/getProvince", requestOptions)
+        .then(response => response.text())
+        .then(result => console.log(result))
+        .catch(error => console.log('error', error));
+
+    return false;
+
+
+
+    console.log("TEST");
+
+    var myHeaders = new Headers();
+    myHeaders.append("Token", "eyJ0eXAiOiJqd3QiLCJhbGciOiJIUzI1NiJ9.eyJzZXNzaW9uX2lkIjoicnU0aGNiNjd2a2U5aDUzcG9iMHNmdGtzMW00dWdvdGciLCJjcmVhdGVkX2F0IjoiMjAyMC0wMS0xNiAxNDoxNDozMyIsImV4cGlyZWQiOiIyMDIwLTAxLTE3IDE0OjE0OjMzIn0.7h4_V2e0NZo7OhZJnBDk9LFk81Nbp8KQ80McLOXYKaQ");
+    myHeaders.append("Content-Type", "multipart/form-data; boundary=--------------------------941675419728121359730982");
+
+    var formdata = new FormData();
+    formdata.append("PAGE", "1");
+    formdata.append("limit", "10");
+
+    var requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: formdata,
+        redirect: 'follow'
+    };
+
+    fetch("http://data.dpe.go.th/api/stadium/address/getStadium", requestOptions)
+        .then(response => response.text())
+        .then(result => console.log(result))
+        .catch(error => console.log('error', error));
+
+    return false;
+
+
+
+
+    console.log("REST ");
+
+    var settings = {
+        "url": "https://localhost:44388/api/RSS/GetProvince",
+        "method": "GET",
+        "timeout": 0,
+    };
+
+    $.ajax(settings).done(function (response) {
+        console.log(response);
+    });
+
+    return false;
+
+
+
+
+
+
+
+
+    console.log("TEST XMLHttpRequest");
+
+    var xhr = new XMLHttpRequest();
+    xhr.withCredentials = true;
+
+    xhr.addEventListener("readystatechange", function () {
+        if (this.readyState === 4) {
+            console.log(this.responseText);
+        }
+    });
+
+    xhr.open("POST", "http://data.dpe.go.th/api/stadium/standard/getStandard");
+    xhr.setRequestHeader("Token", "eyJ0eXAiOiJqd3QiLCJhbGciOiJIUzI1NiJ9.eyJzZXNzaW9uX2lkIjoicnU0aGNiNjd2a2U5aDUzcG9iMHNmdGtzMW00dWdvdGciLCJjcmVhdGVkX2F0IjoiMjAyMC0wMS0xNiAxNDoxNDozMyIsImV4cGlyZWQiOiIyMDIwLTAxLTE3IDE0OjE0OjMzIn0.7h4_V2e0NZo7OhZJnBDk9LFk81Nbp8KQ80McLOXYKaQ");
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+    xhr.send();
+
+    return false;
+
+
+
+
+
+
+
     console.log("GetToken");
     $.ajax({
         url: "http://data.dpe.go.th/api/tokens/keys/tokens",
@@ -297,10 +429,25 @@ function GetStadium() {
 }
 
 
+function FetProvince() {
+
+    var requestOptions = {
+        method: 'GET',
+        redirect: 'follow'
+    };
+
+    fetch("http://103.208.27.224/mots_sport/service/get.php?MOD=province", requestOptions)
+        .then(response => response.json())
+        .then(result => console.log(result))
+        .catch(error => console.log('error', error));
+}
+
 
 $(document).ready(function () {
 
+    FetProvince();
 
+    return false;
 
     //var PROVINCE_DATA = {};
 

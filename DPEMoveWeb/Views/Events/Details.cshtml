@@ -412,11 +412,25 @@
                                  data-parent="#accordionEx">
                                 <div class="card-body">
 
-                                    <div class="search-events-result">
+                                    <div class="comments">
                                         <ul id="ulComment">
                                             <li>
-                                                <p></p>
-                                                <p></p>
+                                                <div class="comment-head">
+                                                    <div class="comment-by">Anonymous</div>
+                                                    <div class="comment-when">14/1/2563 17:03</div>
+                                                </div>
+                                                <div class="comment-text">
+                                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis tempor in dui vitae egestas. In sollicitudin metus urna, quis scelerisque nunc consequat id. Aliquam dapibus magna a cursus facilisis.
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="comment-head">
+                                                    <div class="comment-by">Anonymous</div>
+                                                    <div class="comment-when">14/1/2563 17:03</div>
+                                                </div>
+                                                <div class="comment-text">
+                                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis tempor in dui vitae egestas. In sollicitudin metus urna, quis scelerisque nunc consequat id. Aliquam dapibus magna a cursus facilisis.
+                                                </div>
                                             </li>
                                         </ul>
                                     </div>
@@ -433,7 +447,7 @@
                         @if (SignInManager.IsSignedIn(User))
                         {
                             <h3>แสดงความคิดเห็น</h3>
-                            <div class="row">                                
+                            <div class="row">
                                 <div class="col-sm-11 col-md-11 col-lg-11">
                                     <span class="name">@UserManager.GetUserName(User)</span> <br>
                                 </div>
@@ -519,5 +533,3 @@
         </div>
     </div>
 </div>
-
-

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -12,6 +13,24 @@ namespace DPEMoveWeb.ApiControllers
     [ApiController]
     public class RSSApiController : ControllerBase
     {
+
+        public string GetProvince()
+        {
+            var client = new RestClient("http://data.dpe.go.th/api/information/location/getProvince");
+            client.Timeout = -1;
+            var request = new RestRequest(Method.POST);
+            request.AddHeader("Token", "eyJ0eXAiOiJqd3QiLCJhbGciOiJIUzI1NiJ9.eyJzZXNzaW9uX2lkIjoicnU0aGNiNjd2a2U5aDUzcG9iMHNmdGtzMW00dWdvdGciLCJjcmVhdGVkX2F0IjoiMjAyMC0wMS0xNiAxNDoxNDozMyIsImV4cGlyZWQiOiIyMDIwLTAxLTE3IDE0OjE0OjMzIn0.7h4_V2e0NZo7OhZJnBDk9LFk81Nbp8KQ80McLOXYKaQ");
+            request.AddHeader("Content-Type", "application/x-www-form-urlencoded");
+            
+            request.OnBeforeDeserialization = resp => { resp.ContentType = "application/json"; };
+
+            IRestResponse response = client.Execute(request);
+
+            //Encoding encoding = Encoding.UTF8;
+            //var result = encoding.GetString(response.RawBytes);
+
+            return response.Content;
+        }
 
         public string GetNews()
         {
