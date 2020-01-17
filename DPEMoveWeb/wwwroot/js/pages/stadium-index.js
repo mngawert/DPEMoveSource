@@ -178,8 +178,125 @@ function GetTambon(provinceId, amphurId) {
 
 function GetToken() {
 
+    console.log("JQuery ajax()");
+
+    var form = new FormData();
+    form.append("PAGE", "1");
+    form.append("limit", "10");
+
+    var settings = {
+        "url": "http://data.dpe.go.th/api/stadium/address/getStadium",
+        "method": "POST",
+        "timeout": 0,
+        "headers": {
+            "Content-Type": "multipart/form-data; boundary=--------------------------699363861364598642391579"
+        },
+        "processData": false,
+        "mimeType": "multipart/form-data",
+        "contentType": false,
+        "data": form
+    };
+
+    $.ajax(settings).done(function (response) {
+
+        var results = JSON.parse(response);
+
+        console.log('results', results);
+        var data = results.data;
+
+        var items = '';
+        $.each(data, function (index, value) {
+
+            items +=
+            `
+            <li>
+                    <a href="#">
+                        <div class="row event">
+                            <div class="col-12 col-sm-5 col-md-4">
+                                <div class="event-thumb"><img src="` + value.COVER_IMG +`" /></div>
+                            </div>
+                            <div class="col-12 col-sm-7 col-md-8">
+                                <div class="rating">
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star-half-o checked"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                </div>
+                                <div class="event-date">17 พ.ย. 62</div>
+                                <h4>` + value.NAME_LABEL + `</h4>
+                                <div class="event-place">
+                                    สถานที่ : ` + value.ADDRESS +`<br />
+                                    ` + value.PROV_NAMT +`
+                                </div>
+                                <div class="row read-comment">
+                                    <div class="col-sm-12 col-md-6">
+                                        <div class="read-total">อ่านแล้ว 20 คน</div>
+                                    </div>
+                                    <div class="col-sm-12 col-md-6">
+                                        <div class="comment-total">แสดงความคิดเห็น 120 คน</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+            `
+        });
+        $("#ul-search-events-result").html(items);
+
+    });
+
+    return false;
+
+
     var myHeaders = new Headers();
-    myHeaders.append("token", "eyJ0eXAiOiJqd3QiLCJhbGciOiJIUzI1NiJ9.eyJzZXNzaW9uX2lkIjoicnU0aGNiNjd2a2U5aDUzcG9iMHNmdGtzMW00dWdvdGciLCJjcmVhdGVkX2F0IjoiMjAyMC0wMS0xNiAxNDoxNDozMyIsImV4cGlyZWQiOiIyMDIwLTAxLTE3IDE0OjE0OjMzIn0.7h4_V2e0NZo7OhZJnBDk9LFk81Nbp8KQ80McLOXYKaQ");
+    myHeaders.append("Content-Type", "multipart/form-data; boundary=--------------------------699363861364598642391579");
+
+    var formdata = new FormData();
+    formdata.append("PAGE", "1");
+    formdata.append("limit", "10");
+
+    var requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: formdata,
+        redirect: 'follow'
+    };
+
+    fetch("http://data.dpe.go.th/api/stadium/address/getStadium", requestOptions)
+        .then(response => response.json())
+        .then(result => console.log(result))
+        .catch(error => console.log('error', error));
+
+    return false;
+
+
+    console.log("TEST location.getProvince");
+
+    var myHeaders = new Headers();
+    //myHeaders.append("Token", "eyJ0eXAiOiJqd3QiLCJhbGciOiJIUzI1NiJ9.eyJzZXNzaW9uX2lkIjoicnU0aGNiNjd2a2U5aDUzcG9iMHNmdGtzMW00dWdvdGciLCJjcmVhdGVkX2F0IjoiMjAyMC0wMS0xNiAxNDoxNDozMyIsImV4cGlyZWQiOiIyMDIwLTAxLTE3IDE0OjE0OjMzIn0.7h4_V2e0NZo7OhZJnBDk9LFk81Nbp8KQ80McLOXYKaQ");
+    myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+
+    var requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        redirect: 'follow'
+    };
+
+    fetch("http://data.dpe.go.th/api/information/location/getProvince", requestOptions)
+        .then(response => response.text())
+        .then(result => console.log(result))
+        .catch(error => console.log('error', error));
+
+    return false;
+
+
+
+    //options.contentType = "application/json";
+
+    var myHeaders = new Headers();
+    //myHeaders.append("token", "eyJ0eXAiOiJqd3QiLCJhbGciOiJIUzI1NiJ9.eyJzZXNzaW9uX2lkIjoicnU0aGNiNjd2a2U5aDUzcG9iMHNmdGtzMW00dWdvdGciLCJjcmVhdGVkX2F0IjoiMjAyMC0wMS0xNiAxNDoxNDozMyIsImV4cGlyZWQiOiIyMDIwLTAxLTE3IDE0OjE0OjMzIn0.7h4_V2e0NZo7OhZJnBDk9LFk81Nbp8KQ80McLOXYKaQ");
     myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
     var requestOptions = {
@@ -214,25 +331,6 @@ function GetToken() {
     return false;
 
 
-
-    console.log("TEST location.getProvince");
-
-    var myHeaders = new Headers();
-    //myHeaders.append("Token", "eyJ0eXAiOiJqd3QiLCJhbGciOiJIUzI1NiJ9.eyJzZXNzaW9uX2lkIjoicnU0aGNiNjd2a2U5aDUzcG9iMHNmdGtzMW00dWdvdGciLCJjcmVhdGVkX2F0IjoiMjAyMC0wMS0xNiAxNDoxNDozMyIsImV4cGlyZWQiOiIyMDIwLTAxLTE3IDE0OjE0OjMzIn0.7h4_V2e0NZo7OhZJnBDk9LFk81Nbp8KQ80McLOXYKaQ");
-    myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
-
-    var requestOptions = {
-        method: 'POST',
-        headers: myHeaders,
-        redirect: 'follow'
-    };
-
-    fetch("http://data.dpe.go.th/api/information/location/getProvince", requestOptions)
-        .then(response => response.text())
-        .then(result => console.log(result))
-        .catch(error => console.log('error', error));
-
-    return false;
 
 
 
@@ -336,27 +434,6 @@ function GetStadium() {
     GetToken();
 
     return false;
-
-
-    $("#frmSearchStadium").submit(function (e) {
-        e.preventDefault(); //prevent default action 
-
-        //var post_url = $(this).attr("action"); //get form action url
-        var post_url = "http://data.dpe.go.th/api/stadium/address/getStadium";
-        var request_method = $(this).attr("method"); //get form GET/POST method
-        var form_data = $(this).serialize(); //Encode form elements for submission
-
-        $.ajax({
-            url: post_url,
-            type: request_method,
-            headers: {
-                'Token': 'eyJ0eXAiOiJqd3QiLCJhbGciOiJIUzI1NiJ9.eyJzZXNzaW9uX2lkIjoicnU0aGNiNjd2a2U5aDUzcG9iMHNmdGtzMW00dWdvdGciLCJjcmVhdGVkX2F0IjoiMjAyMC0wMS0xNiAxNDoxNDozMyIsImV4cGlyZWQiOiIyMDIwLTAxLTE3IDE0OjE0OjMzIn0.7h4_V2e0NZo7OhZJnBDk9LFk81Nbp8KQ80McLOXYKaQ'
-            },
-            data: form_data
-        }).done(function (response) { //
-            $("#server-results").html(response);
-        });
-    });
 
 
     var options = {};

@@ -35,6 +35,61 @@
 
 
 
+<div class="modal fade bd-example-modal-lg" id="Modal_Results" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <form id="frmXXX">
+
+                <div class="modal-header">
+
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">ปิด</span>
+                    </button>
+                    <div>ลงทะเบียนเรียบร้อย</div>
+                </div>
+
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-12">
+
+                            <h4 class="text-center"> <a href="/Account/Login">ลงทะเบียนเรียบร้อย คลิก ที่นี่ เพื่อเข้าสู่ระบบ</a>  </h4>
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 text-right">
+                            @*<button type="submit" class="button darkgreen" >เพิ่ม</button>*@
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
 
 
 
+
+@section Scripts {
+
+    <script type="text/javascript">
+
+        function ShowPopup() {
+
+            var results = @Html.Raw(Json.Serialize(ViewBag.ErrorTitle as string));
+            if (results != null) {
+                $("#Modal_Results").modal("show");
+            }
+        }
+
+        $(document).ready(function () {
+            ShowPopup();
+        });
+
+    </script>
+}
