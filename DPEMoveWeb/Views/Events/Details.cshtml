@@ -73,10 +73,10 @@
                                             <h3>-</h3>
                                         }
                                     }
-                                <p>รีวิว @ViewBag.CommentCount รายการ</p>
+                                <p>รีวิว <span id="lbl_CommentCount">0</span> รายการ</p>
                                 </div>
                                 <div class="rating_box">
-                                    <h2>@(ViewBag.VoteAvg == 0 ? "-" : @ViewBag.VoteAvg)</h2>
+                                    <h2 id="lbl_VoteAvg">-</h2>
                                 </div>
                             </div>
                         </div>
@@ -479,8 +479,8 @@
 
     <script type="text/javascript">
         var routeId = @ViewBag.routeId;
-
         var model = @Html.Raw(Json.Serialize(Model));
+        var eventOrStadiumCode = model.eventCode;
 
         var address = @Html.Raw(Json.Serialize(ViewBag.Address as Address));
 

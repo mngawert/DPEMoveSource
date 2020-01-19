@@ -1,6 +1,4 @@
 ﻿
-
-
 function GetMEventFacilitiesTopic() {
 
     console.log('start GetMEventFacilitiesTopic');
@@ -144,11 +142,11 @@ function GetProvinceName(proviceId) {
 
     options.success = function (_data) {
         data = JSON.parse(_data);
-        console.log(data);
+        //console.log(data);
         $.each(data.DATA, function (index, value) {
-            console.log("check", value);
+            //console.log("check", value);
             if (value.pcode == proviceId) {
-                console.log("found!");
+                //console.log("found!");
                 $("#lblProvinceName").html(value.province);
             }
         });
@@ -191,7 +189,7 @@ function GetTambonName(provinceId, amphurId, tambonId) {
 
     options.success = function (_data) {
         data = JSON.parse(_data);
-        console.log(data);
+        //console.log(data);
         $.each(data.DATA, function (index, value) {
             if (value.pcode == tambonId) {
                 $("#lblTambonName").html(value.tambon);
@@ -341,16 +339,10 @@ function GetCommentsByEventId(eventId) {
                 </div>
             </li>
             `
-            //`
-            //<li>
-            //    <p>` + value.comment1 + `</p>
-            //    <p>` + value.userCode + `</p>
-            //    <p>` + value.createdDateTH + `</p>
-            //</li>
-            //`
         });
 
         $("#ulComment").html(items);
+        $("#lbl_CommentCount").html(data.length);
     };
     options.error = function (a, b, c) {
         console.log("Error while calling the Web API!(" + b + " - " + c + ")");
@@ -392,16 +384,37 @@ function AddComment(eventId) {
     $.ajax(options);
 }
 
+function GetVoteAvg(voteOf, eventOrStadiumCode) {
+    var settings = {
+        "url": "/WebApi/Votes/GetVoteAvg",
+        "method": "POST",
+        "headers": {
+            "Content-Type": "application/json"
+        },
+        "data": JSON.stringify({ "voteOf": voteOf, "eventOrStadiumCode": eventOrStadiumCode }),
+    };
+
+    console.log("settings", settings)
+
+    $.ajax(settings).done(function (response) {
+        console.log(response);
+        //var value = JSON.parse(response);
+        var value = response;
+        $("#lbl_VoteAvg").html(value.voteAvg == null ? "-" : value.voteAvg);
+    });
+}
+
 
 $(document).ready(function () {
 
     var eventId = routeId;
     console.log("eventId=", eventId);
-
+    console.log("eventOrStadiumCode", eventOrStadiumCode);
     GetProvinceName(model.provinceCode);
     GetAmphurName(model.provinceCode, model.amphurCode.substr(2, 2));
     GetTambonName(model.provinceCode, model.amphurCode.substr(2, 2), model.tambonCode);
 
+    GetVoteAvg("1", eventOrStadiumCode);
     GetCommentsByEventId(eventId);
 
     $("#lnkGotoFacility").click(function(){

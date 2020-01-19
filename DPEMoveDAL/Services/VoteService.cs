@@ -95,6 +95,37 @@ namespace DPEMoveDAL.Services
             return q.ToList();
         }
 
+        public VoteAvgDbQuery GetVoteAvg(VoteRequest2 model)
+        {
+
+            string sql = "select * from VW_VOTE_AVG where VOTE_OF = {0} and EVENT_OR_STADIUM_CODE = {1}";
+
+            var q = _context.VoteAvgDbQuery.FromSql(sql, model.VoteOf, model.EventOrStadiumCode).FirstOrDefault();
+
+            if (q == null)
+            {
+                return new VoteAvgDbQuery
+                {
+                    VoteOf = model.VoteOf,
+                    VoteType = "",
+                    VoteAvg = null
+                };
+            }
+
+            return q;
+        }
+
+        public IEnumerable<VoteSummaryAvgDbQuery> GetVoteSummaryAvg(VoteSummaryRequest model)
+        {
+
+            string sql = "select * from VW_VOTE_SUMMARY_AVG where VOTE_OF = {0} and EVENT_OR_STADIUM_CODE = {1}";
+
+            var q = _context.VoteSummaryAvgDbQuery.FromSql(sql, model.VoteOf, model.EventOrStadiumCode);
+
+            return q.ToList();
+        }
+
+
 
     }
 }

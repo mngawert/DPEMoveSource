@@ -65,12 +65,49 @@ namespace DPEMoveWeb.ApiControllers
             }
         }
 
-
         public IActionResult GetVoteSummary(VoteSummaryRequest model)
         {
             try
             {
                 var q = _voteService.GetVoteSummary(model);
+
+                Response.Headers["ResponseCode"] = "2000";
+                Response.Headers["ResponseDescription"] = "Ok";
+
+                return Ok(q);
+            }
+            catch (Exception e)
+            {
+                Response.Headers["ResponseCode"] = "4000";
+                Response.Headers["ResponseDescription"] = e.Message;
+                return BadRequest(e.ToString());
+            }
+        }
+
+        public IActionResult GetVoteAvg(VoteRequest2 model)
+        {
+            try
+            {
+                var q = _voteService.GetVoteAvg(model);
+
+                Response.Headers["ResponseCode"] = "2000";
+                Response.Headers["ResponseDescription"] = "Ok";
+
+                return Ok(q);
+            }
+            catch (Exception e)
+            {
+                Response.Headers["ResponseCode"] = "4000";
+                Response.Headers["ResponseDescription"] = e.Message;
+                return BadRequest(e.ToString());
+            }
+        }
+
+        public IActionResult GetVoteSummaryAvg(VoteSummaryRequest model)
+        {
+            try
+            {
+                var q = _voteService.GetVoteSummaryAvg(model);
 
                 Response.Headers["ResponseCode"] = "2000";
                 Response.Headers["ResponseDescription"] = "Ok";

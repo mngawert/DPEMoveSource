@@ -73,4 +73,29 @@ namespace DPEMoveDAL.ViewModels
         public int VoteCount { get; set; }
     }
 
+    public class VoteAvgDbQuery
+    {
+        [Column("VOTE_OF")]
+        public string VoteOf { get; set; }
+        [Column("EVENT_OR_STADIUM_CODE")]
+        public string VoteType { get; set; }
+        [Column("VOTE_AVG")]
+        public double? VoteAvg { get; set; }
+    }
+
+    public class VoteSummaryAvgDbQuery
+    {
+        [Column("VOTE_OF")]
+        public string VoteOf { get; set; }
+        [Column("EVENT_OR_STADIUM_CODE")]
+        public string EventOrStadiumCode { get; set; }
+        [Column("VOTE_TYPE_ID")]
+        public int VoteTypeId { get; set; }
+        [Column("VOTE_TYPE")]
+        public string VoteType { get; set; }
+        [Column("VOTE_AVG")]
+        public double? VoteAvg { get; set; }
+    }
+
+
 }

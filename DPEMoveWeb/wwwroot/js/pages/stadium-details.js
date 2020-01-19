@@ -215,6 +215,7 @@ function GetCommentsByStadiumId(stadiumId) {
         });
 
         $("#ulComment").html(items);
+        $("#lbl_CommentCount").html(data.length);
     };
     options.error = function (a, b, c) {
         console.log("Error while calling the Web API!(" + b + " - " + c + ")");
@@ -256,12 +257,33 @@ function AddComment(stadiumId) {
     $.ajax(options);
 }
 
+function GetVoteAvg(voteOf, eventOrStadiumCode) {
+    var settings = {
+        "url": "/WebApi/Votes/GetVoteAvg",
+        "method": "POST",
+        "headers": {
+            "Content-Type": "application/json"
+        },
+        "data": JSON.stringify({ "voteOf": voteOf, "eventOrStadiumCode": eventOrStadiumCode }),
+    };
+
+    console.log("settings", settings)
+
+    $.ajax(settings).done(function (response) {
+        console.log(response);
+        //var value = JSON.parse(response);
+        var value = response;
+        $("#lbl_VoteAvg").html(value.voteAvg == null ? "-" : value.voteAvg);
+    });
+}
+
 
 $(document).ready(function () {
 
     var stadiumId = routeId;
     console.log("stadiumId=", stadiumId);
 
+    GetVoteAvg("2", stadiumId);
     GetStadiumDetails(stadiumId);
     GetCommentsByStadiumId(stadiumId);
 

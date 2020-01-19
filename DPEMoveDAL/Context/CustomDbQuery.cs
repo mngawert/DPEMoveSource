@@ -13,6 +13,8 @@ namespace DPEMoveDAL.Models
         public DbQuery<RoleDbQuery> RoleDbQuery { get; set; }
         public DbQuery<VoteDbQuery> VoteDbQuery { get; set; }
         public DbQuery<VoteSummaryDbQuery> VoteSummaryDbQuery { get; set; }
+        public DbQuery<VoteAvgDbQuery> VoteAvgDbQuery { get; set; }
+        public DbQuery<VoteSummaryAvgDbQuery> VoteSummaryAvgDbQuery { get; set; }
 
     }
 }
