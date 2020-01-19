@@ -9,5 +9,8 @@
 			$(".tab_item").css('display', 'none');
 			$(".tab_item:first-child").css('display', 'block');
 		}
+		if( $('.MultiCarousel .MultiCarousel-inner .item > div').length ) {
+			$('.MultiCarousel .MultiCarousel-inner .item > div').matchHeight();
+		}
 	});
 })(jQuery, this);
