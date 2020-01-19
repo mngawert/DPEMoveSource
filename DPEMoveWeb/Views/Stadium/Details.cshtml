@@ -20,7 +20,7 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-12 col-md-12 col-lg-3 left_sec">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1937.7772876989332!2d100.52683082566166!3d13.745396002971782!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30e29932a95480ab%3A0xeab9f76cf7025f3a!2z4Liq4LiZ4Liy4Lih4LiB4Li14Lis4Liy4LmB4Lir4LmI4LiH4LiK4Liy4LiV4Li0!5e0!3m2!1sth!2sth!4v1576312277149!5m2!1sth!2sth" width="100%" height="250" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1937.7772876989332!2d100.52683082566166!3d13.745396002971782!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30e29932a95480ab%3A0xeab9f76cf7025f3a!2z4Liq4LiZ4Liy4Lih4LiB4Li14Lis4Liy4LmB4Lir4LmI4LiH4LiK4Liy4LiV4Li0!5e0!3m2!1sth!2sth!4v1576312277149!5m2!1sth!2sth" width="100" height="250" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
                 <div class="right">
                     <button type="button" class="btn btn-outline-default btn-round">ดูแผนที่</button>
                 </div>
@@ -68,7 +68,7 @@
                     <div class="col-sm-12 col-md-12 col-lg-4">
                         <div class="row con_right">
                             <div class="col">
-                                <h3>ดีเลิศ</h3>
+                                <h3 id="lbl_VoteText">-</h3>
                                 <p>รีวิว <span id="lbl_CommentCount">0</span> รายการ</p>
                             </div>
                             <div class="rating_box">
@@ -193,7 +193,7 @@
                                 </div>
                             </div>
                             <h3>ดีเลิศ</h3>
-                            <p>ดูรีวิวแบบละเอียด 523 รายการ</p>
+                            <p>ดูรีวิวแบบละเอียด</p>
                             <div class="ic_arrow"></div>
                         </button>
                         <div id="toggle-example" class="collapse in">
@@ -291,7 +291,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="section">
+                            @*<div class="section">
                                 <p><i class="fa fa-long-arrow-up" aria-hidden="true"></i> ได้คะแนนสูงเมื่อเทียบกับสนามกีฬาอื่นในกรุงเทพมหานคร</p>
                             </div>
                             <form>
@@ -358,7 +358,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </form>
+                            </form>*@
                         </div>
                     </div>
                     <div class="explan">
@@ -553,8 +553,10 @@
 
     <script type="text/javascript">
         var routeId = @ViewBag.routeId;
+        var appUserId = @ViewBag.AppUserId;
 
         console.log('routeid=', routeId);
+        console.log('appUserId=', appUserId);
     </script>
 
     <script src="~/js/pages/stadium-details.js"></script>

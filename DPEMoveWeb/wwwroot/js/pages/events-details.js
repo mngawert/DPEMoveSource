@@ -401,25 +401,99 @@ function GetVoteAvg(voteOf, eventOrStadiumCode) {
         //var value = JSON.parse(response);
         var value = response;
         $("#lbl_VoteAvg").html(value.voteAvg == null ? "-" : value.voteAvg);
+        $("#lbl_VoteText").html(value.voteText == null ? "-" : value.voteText);
     });
 }
 
+function GetVote(voteOf, eventOrStadiumCode, createdBy) {
+
+    console.log("GetVote");
+
+    var settings = {
+        "url": "/WebApi/Votes/GetVote",
+        "method": "POST",
+        "timeout": 0,
+        "headers": {
+            "Content-Type": "application/json",
+        },
+        "data": JSON.stringify({ "voteOf": voteOf, "eventOrStadiumCode": eventOrStadiumCode, "createdBy": createdBy }),
+    };
+
+    $.ajax(settings).done(function (data, textStatus, jqXHR) {
+        console.log(data);
+
+        console.log("GetVote response", data);
+        console.log("jqXHR.status", jqXHR.status); //handle your 204 or other status codes here
+
+        if (data.length != 0) {
+            var value = data;
+            if (value.voteValue >= 1)
+                $("#dv_VoteValue").html(`<img src="/images/ic_star.png" alt="">`);
+            if (value.voteValue >= 2)
+                $("#dv_VoteValue").append(`<img src="/images/ic_star.png" alt="">`);
+            if (value.voteValue >= 3)
+                $("#dv_VoteValue").append(`<img src="/images/ic_star.png" alt="">`);
+            if (value.voteValue >= 4)
+                $("#dv_VoteValue").append(`<img src="/images/ic_star.png" alt="">`);
+            if (value.voteValue >= 5)
+                $("#dv_VoteValue").append(`<img src="/images/ic_star.png" alt="">`);
+
+            //$("input:radio[name='VoteValue']:checked").val();
+            //$('input[value="Admin3"]').prop("checked", true);
+
+        }
+    });
+}
+
+function AddOrEditVote(voteOf, eventOrStadiumCode, voteTypeId, voteValue, createdBy) {
+
+    console.log("AddOrEditVote");
+
+    var settings = {
+        "url": "/WebApi/Votes/AddOrEditVote",
+        "method": "POST",
+        "timeout": 0,
+        "headers": {
+            "Content-Type": "application/json",
+        },
+        "data": JSON.stringify({ "voteOf": voteOf, "eventOrStadiumCode": eventOrStadiumCode, "voteTypeId": voteTypeId, "voteValue": voteValue, "createdBy": createdBy }),
+    };
+
+    console.log("settings", settings);
+
+    $.ajax(settings).done(function (response) {
+        console.log("done");
+        console.log(response);
+
+        GetVote("1", eventOrStadiumCode, createdBy);
+        GetVoteAvg("1", eventOrStadiumCode);
+    });
+}
 
 $(document).ready(function () {
 
     var eventId = routeId;
     console.log("eventId=", eventId);
     console.log("eventOrStadiumCode", eventOrStadiumCode);
+    console.log('appUserId=', appUserId);
     GetProvinceName(model.provinceCode);
     GetAmphurName(model.provinceCode, model.amphurCode.substr(2, 2));
     GetTambonName(model.provinceCode, model.amphurCode.substr(2, 2), model.tambonCode);
-
+    GetVote("1", eventOrStadiumCode, appUserId)
     GetVoteAvg("1", eventOrStadiumCode);
     GetCommentsByEventId(eventId);
 
     $("#lnkGotoFacility").click(function(){
         $("#collapseOne1").collapse('show'); // toggle collapse
     });
+
+    $("#btnVote").click(function () {
+        var voteValue = $("input:radio[name='VoteValue']:checked").val();
+
+        AddOrEditVote("1", eventOrStadiumCode, 1001, voteValue, appUserId);
+        $("#Modal_AddOrEditVote").modal("hide");
+    });
+
 
     //GetMEventFacilitiesTopic();
     //GetUploadedFile(eventId);

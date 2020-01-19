@@ -274,6 +274,7 @@ function GetVoteAvg(voteOf, eventOrStadiumCode) {
         //var value = JSON.parse(response);
         var value = response;
         $("#lbl_VoteAvg").html(value.voteAvg == null ? "-" : value.voteAvg);
+        $("#lbl_VoteText").html(value.voteText == null ? "-" : value.voteText);
     });
 }
 

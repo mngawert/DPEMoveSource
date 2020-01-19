@@ -107,7 +107,7 @@ namespace DPEMoveDAL.Services
                 return new VoteAvgDbQuery
                 {
                     VoteOf = model.VoteOf,
-                    VoteType = "",
+                    EventOrStadiumCode = model.EventOrStadiumCode,
                     VoteAvg = null
                 };
             }

@@ -78,9 +78,11 @@ namespace DPEMoveDAL.ViewModels
         [Column("VOTE_OF")]
         public string VoteOf { get; set; }
         [Column("EVENT_OR_STADIUM_CODE")]
-        public string VoteType { get; set; }
+        public string EventOrStadiumCode { get; set; }
         [Column("VOTE_AVG")]
         public double? VoteAvg { get; set; }
+        [Column("VOTE_TEXT")]
+        public string VoteText { get; set; }
     }
 
     public class VoteSummaryAvgDbQuery
@@ -95,6 +97,8 @@ namespace DPEMoveDAL.ViewModels
         public string VoteType { get; set; }
         [Column("VOTE_AVG")]
         public double? VoteAvg { get; set; }
+        [Column("VOTE_TEXT")]
+        public string VoteText { get; set; }
     }
 
 
