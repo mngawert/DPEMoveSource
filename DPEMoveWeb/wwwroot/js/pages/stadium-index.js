@@ -176,67 +176,28 @@ function GetTambon(provinceId, amphurId) {
 
 
 
-function GetStadium() {
-
-
-    //var settings = {
-    //    "url": "http://data.dpe.go.th/api/stadium/stadiumType/getStadiumType",
-    //    "method": "POST",
-    //    "timeout": 0,
-    //};
-
-    //$.ajax(settings).done(function (response) {
-    //    console.log(response);
-    //});
-
-    //return false;
-
-    //var form = new FormData();
-    //form.append("STADIUM_ID", "51370");
-
-    //var settings = {
-    //    "url": "http://data.dpe.go.th/api/stadium/address/getStadiumDetail",
-    //    "method": "POST",
-    //    "timeout": 0,
-    //    "headers": {
-    //        "Content-Type": "multipart/form-data; boundary=--------------------------952365788422980636178597"
-    //    },
-    //    "processData": false,
-    //    "mimeType": "multipart/form-data",
-    //    "contentType": false,
-    //    "data": form
-    //};
-
-    //$.ajax(settings).done(function (response) {
-    //    console.log(response);
-    //});
-
-
-    //return false;
-
-
-
+function GetStadium(STADIUM_NAME) {
 
     var form = new FormData();
     form.append("PAGE", "1");
     form.append("limit", "10");
+    form.append("STADIUM_NAME", STADIUM_NAME);
 
     var settings = {
         "url": "http://data.dpe.go.th/api/stadium/address/getStadium",
         "method": "POST",
         "timeout": 0,
-        "headers": {
-            "Content-Type": "multipart/form-data; boundary=--------------------------699363861364598642391579"
-        },
         "processData": false,
         "mimeType": "multipart/form-data",
         "contentType": false,
         "data": form
     };
 
+    console.log("settings", settings);
     $.ajax(settings).done(function (response) {
 
         var results = JSON.parse(response);
+        console.log("results", results);
         var data = results.data;
         var items = '';
         $.each(data, function (index, value) {
@@ -312,7 +273,16 @@ $(document).ready(function () {
     //    }
     //});
 
-    GetStadium();
+
+    var txt_STADIUM_NAME = $("#txt_STADIUM_NAME").val();
+    GetStadium(txt_STADIUM_NAME);
+
+    $("#btnSearchStadium").click(function () {
+
+        var txt_STADIUM_NAME = $("#txt_STADIUM_NAME").val();
+        GetStadium(txt_STADIUM_NAME);
+    });
+
 });
 
 
