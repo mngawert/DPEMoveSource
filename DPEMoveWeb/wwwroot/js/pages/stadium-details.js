@@ -65,11 +65,195 @@ function GetStadiumDetails(id) {
         $.each(data, function (index, value) {
             console.log('value', value);
             $("#lbl_NAME_LABEL").html(value.NAME_LABEL)
+            $("#lbl_ADDRESS").append(value.ADDRESS + " " + value.TAM_NAMT + " " + value.AMP_NAMT + " " + value.PROV_NAMT);
+
+            $("#lbl_TELEPHONE").append(value.TELEPHONE == null ? " - " : value.TELEPHONE);
+            $("#lbl_EMAIL").append(value.EMAIL == null ? " - " : value.EMAIL);
+
+            $("#lbl_TIME_").html(value.TIME_ == null ? " - " : value.TIME_);
+            $("#lbl_START_TIME").html(value.START_TIME == null ? " - " : value.START_TIME);
+            $("#lbl_END_TIME").html(value.END_TIME == null ? " - " : value.END_TIME);
+            $("#lbl_TRANSPORT").html(value.TRANSPORT == null ? " - " : value.TRANSPORT);
+            $("#dv_POLICY").html(value.POLICY == null ? " - " : value.POLICY);
+            $("#dv_AGREEMENT").html(value.AGREEMENT == null ? " - " : value.AGREEMENT);
+                        
+            var gallery = value.GALLERY;
+            PrintGallery(gallery);
+
+            var placeNear = value.PLACE_NEAR;
+            PrintPlaceNear(placeNear);
+
+            var survey = value.SURVEY;
+            PrintSurvey(survey);
+
+            if (value.UNDER_STADIUM_ID != null) {
+
+                var tmp =
+                    `
+                        <a href="/Stadium/Details/` + value.UNDER_STADIUM_ID + `">[1]</a>
+                    `;
+                $("#dv_UNDER_STADIUM_ID").html(tmp);
+            }
+
+            if (value.UNDER_STADIUM.length > 0) {
+                PrintUnderStadium(value.UNDER_STADIUM);
+            }
 
         });
-
-        console.log(response);
     });
+}
+
+function PrintGallery(data) {
+    console.log("PrintGallery");
+    var item_1 = "";
+    var item_2 = "";
+    $.each(data, function (index, value) {
+        console.log(value);
+
+        item_1 += `<li data-target="#carouselExampleIndicators" data-slide-to="` + index + `" ` + (index == 0 ? `class="active"` : "") + `></li>`;
+
+        //console.log("item_1", item_1);
+
+        item_2 += 
+            `
+            <div class="carousel-item `+ (index == 0 ? "active" : "") + `">
+                <img class="d-block img-fluid" src="` + value +  `" alt="First slide">
+            </div>
+            `
+
+        //console.log("item_2", item_2);
+    });
+
+    $("#indicator_GALLERY").html(item_1);
+    $("#inner_GALLERY").html(item_2);
+}
+
+function PrintPlaceNear(data) {
+    console.log("PrintGallery");
+    var item_1 = "";
+    $.each(data, function (index, value) {
+        console.log(value);
+
+        var distance = "";
+        if (value.DISTANCE != null) {
+            distance = Number(value.DISTANCE).toFixed(2);
+        }
+
+        item_1 +=
+            `
+            <tr>
+                <td><img src="/images/icon_pin.png" width="18" height="25"> ` + value.NAME_LABEL + `</td>
+                <td>`+ distance + ` ` + value.UNIT_NAME + `</td>
+            </tr>
+            `
+    });
+
+    $("#tbl_PLACE_NEAR").html(item_1);
+}
+
+function PrintSurvey(data) {
+    console.log("PrintSurvey");
+    var item_1 = "";
+    $.each(data, function (index, value) {
+        console.log(value);
+
+        item_1 +=
+            `
+            <div class="card_list">
+                <img src="` + value.ICON + `" width="80" height="78" alt="" />
+                <h4>` + value.SURV_NAME + `</h4>
+                <p>
+                    ` + value.SURV_DETL_NAME + `
+                </p>
+            </div>
+            `
+    });
+
+    $("#dv_SURVEY").html(item_1);
+}
+
+function PrintUnderStadium(data) {
+    console.log("PrintUnderStadium");
+    var item_1 = "";
+    $.each(data, function (index, value) {
+        console.log(value);
+
+        item_1 +=
+            `
+                <a href="/Stadium/Details/` + value + `">[` + (index+1) + `]</a>
+            `
+    });
+
+    $("#dv_UNDER_STADIUM").html(item_1);
+}
+
+function GetCommentsByStadiumId(stadiumId) {
+
+    console.log('start GetCommentsByStadiumId');
+    var options = {};
+
+    options.url = "/webapi/Stadium/GetCommentsByStadiumId/" + stadiumId;
+    options.contentType = "application/json";
+    options.method = "GET";
+
+    options.success = function (data) {
+        console.log("data", data);
+        var items = '';
+        $.each(data, function (index, value) {
+            items +=
+                `
+            <li>
+                <div class="comment-head">
+                    <div class="comment-by">` + value.userCode + `</div>
+                    <div class="comment-when">` + value.createdDateTH + `</div>
+                </div>
+                <div class="comment-text">
+                    ` + value.comment1 + `
+                </div>
+            </li>
+            `
+        });
+
+        $("#ulComment").html(items);
+    };
+    options.error = function (a, b, c) {
+        console.log("Error while calling the Web API!(" + b + " - " + c + ")");
+    };
+    $.ajax(options);
+}
+
+function AddComment(stadiumId) {
+
+    console.log('start AddComment');
+
+    if ($("#txtComment").val() == "")
+        return false;
+
+    var options = {};
+
+    var input = {};
+    input.commentOf = "2";
+    input.eventOrStadiumCode = stadiumId;
+    input.comment1 = $("#txtComment").val();
+
+    options.data = JSON.stringify(input);
+    console.log("input", options.data);
+
+    options.url = "/webapi/Stadium/AddComment";
+    options.contentType = "application/json";
+    options.method = "POST";
+
+    options.success = function (data) {
+        console.log("AddComment success");
+        GetCommentsByStadiumId(stadiumId);
+        //Clear
+        $("#txtComment").val("");
+        $("#collapseFour4").collapse('show'); // toggle collapse
+    };
+    options.error = function (a, b, c) {
+        console.log("Error while calling the Web API!(" + b + " - " + c + ")");
+    };
+    $.ajax(options);
 }
 
 
@@ -79,7 +263,11 @@ $(document).ready(function () {
     console.log("stadiumId=", stadiumId);
 
     GetStadiumDetails(stadiumId);
+    GetCommentsByStadiumId(stadiumId);
 
+    $("#lnkGotoFacility").click(function () {
+        $("#collapseOne1").collapse('show'); // toggle collapse
+    });
 
 });
 

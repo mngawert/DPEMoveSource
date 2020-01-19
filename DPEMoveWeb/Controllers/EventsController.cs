@@ -104,46 +104,6 @@ namespace DPEMoveWeb.Controllers
             return View(eventVM);
         }
 
-
-        public async Task<IActionResult> Details2(int? id)
-        {
-            ViewBag.routeId = id;
-
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var eventVM = await _eventService.GetEventDetails2(id.Value);
-
-            if (eventVM == null)
-            {
-                return NotFound();
-            }
-
-            _eventService.AddViewCount(eventVM.EventCode);
-
-            ViewBag.AppUserId = await GetLoginAppUserId();
-            ViewBag.Address = _context.Event.Where(a => a.EventId == id).FirstOrDefault()?.Address;
-
-            ViewBag.CommentCount = _context.Comment.Where(a => a.EventCode == eventVM.EventCode).Count();
-
-            ViewBag.VoteAvg = 0;
-            var votes = _context.Vote.Where(a => a.EventCode == eventVM.EventCode).ToList();
-            if (votes.Count != 0)
-            {
-                ViewBag.VoteAvg = Math.Truncate(votes.Average(b => b.VoteValue) * 10) / 10;
-            }
-
-            //ViewBag.MEventFacilitiesTopic = _context.MEventFacilitiesTopic.ToList();
-            //ViewBag.MEventLevel = _context.MEventLevel.ToList();
-            //ViewBag.MSport = _context.MSport.ToList();
-            //ViewBag.MObjectivePerson = _context.MObjectivePerson.ToList();
-
-            return View(eventVM);
-        }
-
-
         [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {

@@ -318,7 +318,7 @@ function DeleteUploadedFile(eventId, uploadedFileId) {
 
 function GetCommentsByEventId(eventId) {
 
-    console.log('start GetMEventFacilitiesTopic');
+    console.log('start GetCommentsByEventId');
     var options = {};
 
     options.url = "/webapi/Events/GetCommentsByEventId/"+eventId;
