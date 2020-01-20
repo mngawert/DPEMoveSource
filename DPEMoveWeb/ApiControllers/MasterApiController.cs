@@ -57,7 +57,5 @@ namespace DPEMoveWeb.ApiControllers
             return q;
         }
 
-
-
     }
 }

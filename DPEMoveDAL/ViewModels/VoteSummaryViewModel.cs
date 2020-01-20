@@ -35,6 +35,11 @@ namespace DPEMoveDAL.ViewModels
         public int CreatedBy { get; set; }
     }
 
+    public class VoteRequest3
+    {
+        public string VoteOf { get; set; }
+    }
+
     public class VoteDbQuery
     {
         [Column("VOTE_OF")]

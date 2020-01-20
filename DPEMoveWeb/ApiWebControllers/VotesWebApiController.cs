@@ -117,6 +117,23 @@ namespace DPEMoveWeb.ApiWebControllers
             }
         }
 
+        public IActionResult GetVoteType(VoteRequest3 model)
+        {
+            try
+            {
+                var q = _voteService.GetVoteType(model);
 
+                Response.Headers["ResponseCode"] = "2000";
+                Response.Headers["ResponseDescription"] = "Ok";
+
+                return Ok(q);
+            }
+            catch (Exception e)
+            {
+                Response.Headers["ResponseCode"] = "4000";
+                Response.Headers["ResponseDescription"] = e.Message;
+                return BadRequest(e.ToString());
+            }
+        }
     }
 }

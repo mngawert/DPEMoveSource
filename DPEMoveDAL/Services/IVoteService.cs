@@ -14,5 +14,7 @@ namespace DPEMoveDAL.Services
         IEnumerable<VoteSummaryDbQuery> GetVoteSummary(VoteSummaryRequest model);
         VoteAvgDbQuery GetVoteAvg(VoteRequest2 model);
         IEnumerable<VoteSummaryAvgDbQuery> GetVoteSummaryAvg(VoteSummaryRequest model);
+        IEnumerable<MVoteType> GetVoteType(VoteRequest3 model);
+
     }
 }
