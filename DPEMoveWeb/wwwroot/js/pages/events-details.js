@@ -405,7 +405,7 @@ function GetVoteAvg(voteOf, eventOrStadiumCode) {
     });
 }
 
-function GetVote(voteOf, eventOrStadiumCode, createdBy) {
+function GetVote(voteOf, eventOrStadiumCode, voteTypeId, createdBy) {
 
     console.log("GetVote");
 
@@ -416,7 +416,7 @@ function GetVote(voteOf, eventOrStadiumCode, createdBy) {
         "headers": {
             "Content-Type": "application/json",
         },
-        "data": JSON.stringify({ "voteOf": voteOf, "eventOrStadiumCode": eventOrStadiumCode, "createdBy": createdBy }),
+        "data": JSON.stringify({ "voteOf": voteOf, "eventOrStadiumCode": eventOrStadiumCode, "voteTypeId": voteTypeId, "createdBy": createdBy }),
     };
 
     $.ajax(settings).done(function (data, textStatus, jqXHR) {
@@ -425,7 +425,7 @@ function GetVote(voteOf, eventOrStadiumCode, createdBy) {
         console.log("GetVote response", data);
         console.log("jqXHR.status", jqXHR.status); //handle your 204 or other status codes here
 
-        if (data.length != 0) {
+        if (jqXHR.status == 200) {
             var value = data;
             if (value.voteValue >= 1)
                 $("#dv_VoteValue").html(`<img src="/images/ic_star.png" alt="">`);
@@ -440,7 +440,6 @@ function GetVote(voteOf, eventOrStadiumCode, createdBy) {
 
             //$("input:radio[name='VoteValue']:checked").val();
             //$('input[value="Admin3"]').prop("checked", true);
-
         }
     });
 }
@@ -465,7 +464,7 @@ function AddOrEditVote(voteOf, eventOrStadiumCode, voteTypeId, voteValue, create
         console.log("done");
         console.log(response);
 
-        GetVote("1", eventOrStadiumCode, createdBy);
+        GetVote("1", eventOrStadiumCode, voteTypeId, createdBy);
         GetVoteAvg("1", eventOrStadiumCode);
     });
 }
@@ -479,7 +478,7 @@ $(document).ready(function () {
     GetProvinceName(model.provinceCode);
     GetAmphurName(model.provinceCode, model.amphurCode.substr(2, 2));
     GetTambonName(model.provinceCode, model.amphurCode.substr(2, 2), model.tambonCode);
-    GetVote("1", eventOrStadiumCode, appUserId)
+    GetVote("1", eventOrStadiumCode, 1001, appUserId)
     GetVoteAvg("1", eventOrStadiumCode);
     GetCommentsByEventId(eventId);
 
