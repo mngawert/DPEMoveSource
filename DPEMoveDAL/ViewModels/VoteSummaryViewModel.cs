@@ -32,6 +32,7 @@ namespace DPEMoveDAL.ViewModels
     {
         public string VoteOf { get; set; }
         public string EventOrStadiumCode { get; set; }
+        public int VoteTypeId { get; set; }
         public int CreatedBy { get; set; }
     }
 
