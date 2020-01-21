@@ -557,30 +557,49 @@
                                     <br />
                                 </h4>
 
-                                <div style="padding-left: 300px;">
-                                    <div class="rating">
-                                        <input type="radio" name="VoteValue" value="5">
-                                        <img src="/images/ic_star.png" alt=""><img src="/images/ic_star.png" alt=""><img src="/images/ic_star.png" alt=""><img src="/images/ic_star.png" alt=""><img src="/images/ic_star.png" alt="">
+                                @foreach (var x in ViewBag.MVoteType as List<MVoteType>)
+                                {
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <p> @x.VoteType</p>
+                                        </div>
                                     </div>
-                                    <div class="rating">
-                                        <input type="radio" name="VoteValue" value="4">
-                                        <img src="/images/ic_star.png" alt=""><img src="/images/ic_star.png" alt=""><img src="/images/ic_star.png" alt=""><img src="/images/ic_star.png" alt="">
+                                    <div class="row">
+                                        <div class="col-3">
+                                            <p class="rating">
+                                                <input type="radio" name="VoteValue_@x.VoteTypeId" value="5">
+                                                <img src="/images/ic_star.png" alt=""><img src="/images/ic_star.png" alt=""><img src="/images/ic_star.png" alt=""><img src="/images/ic_star.png" alt=""><img src="/images/ic_star.png" alt="">
+                                            </p>
+                                        </div>
+                                        <div class="col-2">
+                                            <p class="rating">
+                                                <input type="radio" name="VoteValue_@x.VoteTypeId" value="4">
+                                                <img src="/images/ic_star.png" alt=""><img src="/images/ic_star.png" alt=""><img src="/images/ic_star.png" alt=""><img src="/images/ic_star.png" alt="">
+                                            </p>
+                                        </div>
+                                        <div class="col-2">
+                                            <p class="rating">
+                                                <input type="radio" name="VoteValue_@x.VoteTypeId" value="3">
+                                                <img src="/images/ic_star.png" alt=""><img src="/images/ic_star.png" alt=""><img src="/images/ic_star.png" alt="">
+                                            </p>
+                                        </div>
+                                        <div class="col-2">
+                                            <p class="rating">
+                                                <input type="radio" name="VoteValue_@x.VoteTypeId" value="2">
+                                                <img src="/images/ic_star.png" alt=""><img src="/images/ic_star.png" alt="">
+                                            </p>
+                                        </div>
+                                        <div class="col-2">
+                                            <p class="rating">
+                                                <input type="radio" name="VoteValue_@x.VoteTypeId" value="1">
+                                                <img src="/images/ic_star.png" alt="">
+                                            </p>
+                                        </div>
                                     </div>
-                                    <div class="rating">
-                                        <input type="radio" name="VoteValue" value="3">
-                                        <img src="/images/ic_star.png" alt=""><img src="/images/ic_star.png" alt=""><img src="/images/ic_star.png" alt="">
-                                    </div>
-                                    <div class="rating">
-                                        <input type="radio" name="VoteValue" value="2">
-                                        <img src="/images/ic_star.png" alt=""><img src="/images/ic_star.png" alt="">
-                                    </div>
-                                    <div class="rating">
-                                        <input type="radio" name="VoteValue" value="1">
-                                        <img src="/images/ic_star.png" alt="">
-                                    </div>
-                                </div>
+                                }
 
-                            </div>
+
+                                </div>
 
                         </div>
                     </div>

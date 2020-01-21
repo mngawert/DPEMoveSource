@@ -189,6 +189,7 @@ $(document).ready(function () {
         }
         else {
             GetAmphur(provinceId);
+            $("#ddlTambon").html(`<option value="">แสดงทั้งหมด</option>`);
         }
     });
 

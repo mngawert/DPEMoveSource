@@ -12,6 +12,9 @@ namespace DPEMoveDAL.Services
         IEnumerable<CommentViewModel> GetComment(CommentViewModel2 model);
         CommentDbQuery GetCommentDetails(int id);
         CommentDbQuery AddComment(CommentViewModel model);
+
+        int GetCommentCount(CommentViewModel model);
+
         void EditComment(CommentViewModel model);
         void DeleteComment(CommentViewModel model);
     }

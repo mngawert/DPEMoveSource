@@ -96,6 +96,8 @@ namespace DPEMoveWeb.Controllers
                 ViewBag.VoteAvg = Math.Truncate(votes.Average(b => b.VoteValue)*10)/10;
             }
 
+            ViewBag.MVoteType = _context.MVoteType.Where(a => a.VoteOf == "1").ToList();
+
             //ViewBag.MEventFacilitiesTopic = _context.MEventFacilitiesTopic.ToList();
             //ViewBag.MEventLevel = _context.MEventLevel.ToList();
             //ViewBag.MSport = _context.MSport.ToList();

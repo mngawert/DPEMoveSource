@@ -385,8 +385,9 @@ function AddComment(eventId) {
 }
 
 
-function GetVoteType(voteOf) {
+function GetVoteType(voteOf, eventOrStadiumCode) {
 
+    console.log("GetVoteType");
     var settings = {
         "url": "/WebApi/Votes/GetVoteType",
         "method": "POST",
@@ -404,7 +405,7 @@ function GetVoteType(voteOf) {
         if (jqXHR.status == 200) {
 
             $.each(data, function (index, value) {
-                GetVote("1", eventOrStadiumCode, value.voteTypeId, appUserId)
+                GetVote(voteOf, eventOrStadiumCode, value.voteTypeId, appUserId)
             });
         }
     });
@@ -490,13 +491,14 @@ function GetVoteTotalAvg(voteOf, eventOrStadiumCode) {
 
     console.log("settings", settings)
 
-    $.ajax(settings).done(function (response) {
-        console.log("GetVoteTotalAvg reponse", response);
-        //var value = JSON.parse(response);
-        var value = response;
+    $.ajax(settings).done(function (data, textStatus, jqXHR) {
+        console.log("GetVoteTotalAvg reponse", data);
 
-        $("#lbl_VoteAvg").html(value.voteAvg == null ? "-" : value.voteAvg);
-        $("#lbl_VoteText").html(value.voteText == null ? "-" : value.voteText);
+        if (jqXHR.status == 200) {
+            var value = data;
+            $("#lbl_VoteAvg").html(value.voteAvg == null ? "-" : value.voteAvg);
+            $("#lbl_VoteText").html(value.voteText == null ? "-" : value.voteText);
+        }
     });
 }
 
@@ -516,13 +518,14 @@ function AddOrEditVote(voteOf, eventOrStadiumCode, voteTypeId, voteValue, create
 
     console.log("settings", settings);
 
-    $.ajax(settings).done(function (response) {
-        console.log("done");
-        console.log(response);
+    $.ajax(settings).done(function (data, textStatus, jqXHR) {
 
-        GetVote("1", eventOrStadiumCode, voteTypeId, createdBy);
-        GetVoteAvg("1", eventOrStadiumCode, createdBy);
-        GetVoteTotalAvg("1", eventOrStadiumCode);
+        if (jqXHR.status == 200) {
+
+            GetVote(voteOf, eventOrStadiumCode, voteTypeId, createdBy);
+            GetVoteAvg(voteOf, eventOrStadiumCode, createdBy);
+            GetVoteTotalAvg(voteOf, eventOrStadiumCode);
+        }
     });
 }
 
@@ -532,16 +535,16 @@ $(document).ready(function () {
     console.log("eventId=", eventId);
     console.log("eventOrStadiumCode", eventOrStadiumCode);
     console.log('appUserId=', appUserId);
+
     GetProvinceName(model.provinceCode);
-    GetAmphurName(model.provinceCode, model.amphurCode.substr(2, 2));
-    GetTambonName(model.provinceCode, model.amphurCode.substr(2, 2), model.tambonCode);
+    if (model.amphurCode != null) {
+        GetAmphurName(model.provinceCode, model.amphurCode.substr(2, 2));
+        GetTambonName(model.provinceCode, model.amphurCode.substr(2, 2), model.tambonCode);
+    }
 
 
-    GetVoteType("1");
-    console.log("calling GetVoteAvg");
+    GetVoteType("1", eventOrStadiumCode);
     GetVoteAvg("1", eventOrStadiumCode, appUserId);
-
-    console.log("calling GetVoteTotalAvg");
     GetVoteTotalAvg("1", eventOrStadiumCode);
 
     GetCommentsByEventId(eventId);
@@ -551,16 +554,13 @@ $(document).ready(function () {
     });
 
     $("#btnVote").click(function () {
-        //var voteValue = $("input:radio[name='VoteValue']:checked").val();
+        $("input:radio[name^='VoteValue_']:checked").each(function () {
 
-        $("input:radio[name^='VoteValue']:checked").each(function (index, value) {
-            console.log("index=", index);
-            console.log("value=", value);
-
-            var voteValue = value.value;
-            //console.log("voteValue=", voteValue);
-            AddOrEditVote("1", eventOrStadiumCode, 1001, voteValue, appUserId);
-
+            var voteTypeId = $(this).attr("name").split("_")[1];
+            var voteValue = $(this).val();
+            console.log("voteTypeId=", voteTypeId);
+            console.log("voteValue=", voteValue);
+            AddOrEditVote("1", eventOrStadiumCode, voteTypeId, voteValue, appUserId);
         });
 
         $("#Modal_AddOrEditVote").modal("hide");

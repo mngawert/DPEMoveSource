@@ -254,9 +254,41 @@ function DeleteEventNearbyFromSession(eventId, eventNearbyId) {
     $.ajax(options);
 }
 
+function GetAddressFromDatabase() {
+
+    console.log("GetAddressFromDatabase");
+    console.log("address.provinceCode", address.provinceCode);
+    console.log("address.amphurCode", address.amphurCode);
+    console.log("address.tambonCode", address.tambonCode);
 
 
-function GetProvince() {
+    // load all province and selected value
+    GetProvince(address.provinceCode);
+
+    // load Amphur
+    if (address.provinceCode == null) {
+        $("#ddlAmphur").html(`<option value="">แสดงทั้งหมด</option>`);
+        $("#ddlTambon").html(`<option value="">แสดงทั้งหมด</option>`);
+    }
+    else {
+        GetAmphur(address.provinceCode, address.amphurCode);
+    }
+
+    // load Tambon
+
+    //var provinceId = $("#ddlProvince").val();
+    //var amphurId = $("#ddlAmphur").val().substr(2, 2);
+
+    if (address.amphurCode == null) {
+        $("#ddlTambon").html(`<option value="">แสดงทั้งหมด</option>`);
+    }
+    else {
+        GetTambon(address.provinceCode, address.amphurCode.substr(2, 2), address.tambonCode);
+    }
+}
+
+
+function GetProvince(selectedProvince) {
 
     console.log("call GetProvince");
 
@@ -279,16 +311,11 @@ function GetProvince() {
                 `
         });
         $("#ddlProvince").html(items);
-        $("#ddlProvince").val(address.provinceCode);
 
-        var provinceId = $("#ddlProvince").val();
-        if (provinceId == "") {
-            $("#ddlAmphur").html(`<option value="">แสดงทั้งหมด</option>`);
-            $("#ddlTambon").html(`<option value="">แสดงทั้งหมด</option>`);
+        if (selectedProvince != null) {
+            $("#ddlProvince").val(selectedProvince);
         }
-        else {
-            GetAmphur(provinceId);
-        }
+
     };
     options.error = function (a, b, c) {
         console.log("Error while calling the Web API!(" + b + " - " + c + ")");
@@ -296,7 +323,7 @@ function GetProvince() {
     $.ajax(options);
 }
 
-function GetAmphur(provinceId) {
+function GetAmphur(provinceId, selectedAmphur) {
 
     var options = {};
 
@@ -317,14 +344,9 @@ function GetAmphur(provinceId) {
                 `
         });
         $("#ddlAmphur").html(items);
-        $("#ddlAmphur").val(address.amphurCode);
-        var provinceId = $("#ddlProvince").val();
-        var amphurId = $("#ddlAmphur").val().substr(2, 2);
-        if (amphurId == "") {
-            $("#ddlTambon").html(`<option value="">แสดงทั้งหมด</option>`);
-        }
-        else {
-            GetTambon(provinceId, amphurId);
+
+        if (selectedAmphur != null) {
+            $("#ddlAmphur").val(selectedAmphur);
         }
     };
     options.error = function (a, b, c) {
@@ -333,7 +355,7 @@ function GetAmphur(provinceId) {
     $.ajax(options);
 }
 
-function GetTambon(provinceId, amphurId) {
+function GetTambon(provinceId, amphurId, selectedTambon) {
 
     var options = {};
 
@@ -354,7 +376,10 @@ function GetTambon(provinceId, amphurId) {
                 `
         });
         $("#ddlTambon").html(items);
-        $("#ddlTambon").val(address.tambonCode);
+
+        if (selectedTambon != null) {
+            $("#ddlTambon").val(address.tambonCode);
+        }
     };
     options.error = function (a, b, c) {
         console.log("Error while calling the Web API!(" + b + " - " + c + ")");
@@ -494,7 +519,7 @@ $(document).ready(function () {
     GetMEventFacilitiesTopic();
     GetEventNearbyFromSession(eventId);
     GetUploadedFile(eventId);
-    GetProvince();
+    GetAddressFromDatabase();
 
     $("#ddlProvince").change(function () {
         var provinceId = $("#ddlProvince").val();
@@ -503,7 +528,8 @@ $(document).ready(function () {
             $("#ddlTambon").html(`<option value="">แสดงทั้งหมด</option>`);
         }
         else {
-            GetAmphur(provinceId);
+            GetAmphur(provinceId, null);
+            $("#ddlTambon").html(`<option value="">แสดงทั้งหมด</option>`);
         }
     });
 
@@ -514,7 +540,7 @@ $(document).ready(function () {
             $("#ddlTambon").html(`<option value="">แสดงทั้งหมด</option>`);
         }
         else {
-            GetTambon(provinceId, amphurId);
+            GetTambon(provinceId, amphurId, null);
         }
     });
 

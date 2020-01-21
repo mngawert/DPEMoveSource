@@ -147,5 +147,14 @@ namespace DPEMoveDAL.Services
 
             return q;
         }
+
+        public int GetCommentCount(CommentViewModel model)
+        {
+            string sql = "select * from VW_COMMENT where COMMENT_OF = {0} and EVENT_OR_STADIUM_CODE = {1}";
+
+            var q = _context.CommentDbQuery.FromSql(sql, model.CommentOf, model.EventOrStadiumCode).Count();
+
+            return q;
+        }
     }
 }

@@ -1,75 +1,4 @@
 ﻿
-function GetEvent() {
-
-    var options = {};
-
-    var input = {};
-    input.limitStart = "1";
-    input.limitSize = "100";
-    input.eventName = $("#txtEventName").val();
-    input.eventStart = $("#txtEventStart").val();
-    input.eventFinish = $("#txtEventFinish").val();
-    input.provinceCode = $("#ddlProvince").val();
-    input.amphurCode = $("#ddlAmphur").val();
-    input.tambonCode = $("#ddlTambon").val();
-
-    console.log("input", input);
-
-    options.data = JSON.stringify(input);
-
-    console.log("options.data", options.data);
-
-    options.url = "/webapi/Events/GetEvent";
-    options.contentType = "application/json";
-    options.method = "POST";
-
-    options.success = function (data) {
-        var items = '';
-        $.each(data, function (index, value) {
-
-            items +=
-                `
-            <li>
-                <a href="/Events/Details/` + value.eventId + `">
-                    <div class="row event">
-                        <div class="col-12 col-sm-5 col-md-4">
-                            <div class="event-thumb"><img src="` + value.fileUrl + `" /></div>
-                        </div>
-                        <div class="col-12 col-sm-7 col-md-8">
-                            <div class="rating">
-                                <span class="fa fa-star` + (value.voteAvg > 0 ? (value.voteAvg < 1 ? "-half-o checked" : " checked") : "") + `"></span>
-                                <span class="fa fa-star` + (value.voteAvg > 1 ? (value.voteAvg < 2 ? "-half-o checked" : " checked") : "") + `"></span>
-                                <span class="fa fa-star` + (value.voteAvg > 2 ? (value.voteAvg < 3 ? "-half-o checked" : " checked") : "") + `"></span>
-                                <span class="fa fa-star` + (value.voteAvg > 3 ? (value.voteAvg < 4 ? "-half-o checked" : " checked") : "") + `"></span>
-                                <span class="fa fa-star` + (value.voteAvg > 4 ? (value.voteAvg < 5 ? "-half-o checked" : " checked") : "") + `"></span>
-                            </div>
-                            <div class="event-date">` + value.eventStartTH +`</div>
-                            <h4>` + value.eventName + `</h4>
-                            <div class="event-place">
-                                ` + $("<div />").html(value.eventDescription).text().substring(0,100) + `<br />
-                                ` + GetProvinceNameById(value.provinceCode) +  `
-                            </div>
-                            <div class="row read-comment">
-                                <div class="col-sm-12 col-md-6">
-                                    <div class="read-total">อ่านแล้ว ` + value.readCount + ` คน</div>
-                                </div>
-                                <div class="col-sm-12 col-md-6">
-                                    <div class="comment-total">แสดงความคิดเห็น ` + value.commentCount + ` คน</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </li >`
-        });
-        $("#ul-search-events-result").html(items);
-    };
-    options.error = function (a, b, c) {
-        console.log("Error while calling the Web API!(" + b + " - " + c + ")");
-    };
-    $.ajax(options);
-}
-
 function GetProvinceNameById(provinceId) {
 
     if (provinceId == null)
@@ -110,7 +39,6 @@ function GetProvince() {
                 `
         });
         $("#ddlProvince").html(items);
-        GetEvent();
     };
     options.error = function (a, b, c) {
         console.log("Error while calling the Web API!(" + b + " - " + c + ")");
@@ -174,13 +102,55 @@ function GetTambon(provinceId, amphurId) {
     $.ajax(options);
 }
 
+function GetStadiumType() {
+
+    var settings = {
+        "url": "http://data.dpe.go.th/api/stadium/stadiumType/getStadiumType",
+        "method": "POST",
+        "timeout": 0,
+    };
+
+    $.ajax(settings).done(function (response) {
+
+        console.log("response", response);
+        var data = response.data;
+        var items = '';
+        $.each(data, function (index, value) {
+
+            items +=
+                `
+                <option value="` + value.GROUP_ID + `">` + value.GROUP_NAME + `</option>
+            `
+        });
+        $("#ddlStadiumType").append(items);
+    });
+}
 
 
-function GetStadium(STADIUM_NAME) {
+
+function SearchStadium() {
+
+    var provinceId = $("#ddlProvince").val();
+    var amphurId = $("#ddlAmphur").val() == "" ? "" : $("#ddlAmphur").val().substr(2, 2);
+    var tambonId = $("#ddlTambon").val() == "" ? "" : $("#ddlTambon").val().substr(4, 2);
+    var txt_STADIUM_NAME = $("#txt_STADIUM_NAME").val();
+    var stadiumType = $("#ddlStadiumType").val();
+
+
+    GetStadium(txt_STADIUM_NAME, provinceId, amphurId, tambonId, stadiumType);
+}
+
+
+
+function GetStadium(STADIUM_NAME, PROV_CODE, AMP_CODE, TAM_CODE, GROUP_ID) {
 
     var form = new FormData();
     form.append("PAGE", "1");
     form.append("limit", "10");
+    form.append("PROV_CODE", PROV_CODE);
+    form.append("AMP_CODE", AMP_CODE);
+    form.append("TAM_CODE", TAM_CODE);
+    form.append("GROUP_ID", GROUP_ID);
     form.append("STADIUM_NAME", STADIUM_NAME);
 
     var settings = {
@@ -226,10 +196,10 @@ function GetStadium(STADIUM_NAME) {
                             </div>
                             <div class="row read-comment">
                                 <div class="col-sm-12 col-md-6">
-                                    <div class="read-total">อ่านแล้ว 20 คน</div>
+                                    <div class="read-total"></div>
                                 </div>
                                 <div class="col-sm-12 col-md-6">
-                                    <div class="comment-total">แสดงความคิดเห็น 120 คน</div>
+                                    <div class="comment-total">แสดงความคิดเห็น ` + `<span id="lblComment_` + value.STADIUM_ID + `">-</span>` +` คน</div>
                                 </div>
                             </div>
                         </div>
@@ -240,47 +210,77 @@ function GetStadium(STADIUM_NAME) {
         });
         $("#ul-search-events-result").html(items);
 
+        PrintCommentCount(data);
     });
 }
+
+function PrintCommentCount(data) {
+
+    console.log("PrintCommentCount");
+    $.each(data, function (index, value) {
+        GetCommentCount("2", value.STADIUM_ID);
+    });
+}
+
+function GetCommentCount(commentOf, eventOrStadiumCode) {
+
+    console.log("GetCommentCount");
+    var settings = {
+        "url": "/WebApi/Comments/GetCommentCount",
+        "method": "POST",
+        "timeout": 0,
+        "headers": {
+            "Content-Type": "application/json"
+        },
+        "data": JSON.stringify({ "commentOf": commentOf, "eventOrStadiumCode": eventOrStadiumCode }),
+    };
+
+    $.ajax(settings).done(function (data, textStatus, jqXHR) {
+        console.log("GetCommentCount data", data);
+
+        if (jqXHR.status == 200) {
+            $("#lblComment_" + eventOrStadiumCode).html(data);
+        }
+    });
+}
+
 
 
 $(document).ready(function () {
 
 
+    GetStadiumType();
+    GetProvince();
+    SearchStadium();
 
-    //GetProvince();
+    $("#ddlProvince").change(function () {
+        var provinceId = $("#ddlProvince").val();
+        if (provinceId == "") {
+            $("#ddlAmphur").html(`<option value="">แสดงทั้งหมด</option>`);
+            $("#ddlTambon").html(`<option value="">แสดงทั้งหมด</option>`);
+        }
+        else {
+            GetAmphur(provinceId);
+            $("#ddlTambon").html(`<option value="">แสดงทั้งหมด</option>`);
+        }
+    });
 
-    //$("#ddlProvince").change(function () {
-    //    var provinceId = $("#ddlProvince").val();
-    //    if (provinceId == "") {
-    //        $("#ddlAmphur").html(`<option value="">แสดงทั้งหมด</option>`);
-    //        $("#ddlTambon").html(`<option value="">แสดงทั้งหมด</option>`);
-    //    }
-    //    else {
-    //        GetAmphur(provinceId);
-    //    }
-    //});
+    $("#ddlAmphur").change(function () {
+        var provinceId = $("#ddlProvince").val();
+        var amphurId = $("#ddlAmphur").val() == "" ? "" : $("#ddlAmphur").val().substr(2, 2);
 
-    //$("#ddlAmphur").change(function () {
-    //    var provinceId = $("#ddlProvince").val();
-    //    var amphurId = $("#ddlAmphur").val().substr(2, 2);
+        if (amphurId == "") {
+            $("#ddlTambon").html(`<option value="">แสดงทั้งหมด</option>`);
+        }
+        else {
+            GetTambon(provinceId, amphurId);
+        }
+    });
 
-    //    if (amphurId == "") {
-    //        $("#ddlTambon").html(`<option value="">แสดงทั้งหมด</option>`);
-    //    }
-    //    else {
-    //        GetTambon(provinceId, amphurId);
-    //    }
-    //});
-
-
-    var txt_STADIUM_NAME = $("#txt_STADIUM_NAME").val();
-    GetStadium(txt_STADIUM_NAME);
 
     $("#btnSearchStadium").click(function () {
 
-        var txt_STADIUM_NAME = $("#txt_STADIUM_NAME").val();
-        GetStadium(txt_STADIUM_NAME);
+        SearchStadium();
     });
 
 });

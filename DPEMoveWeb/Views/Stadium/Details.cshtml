@@ -54,7 +54,7 @@
                             <div id="dv_UNDER_STADIUM">
                                 -
                                 @*<a href="/Stadium/Details/123">[1]</a>
-                                <a href="/Stadium/Details/123">[2]</a>*@
+                                    <a href="/Stadium/Details/123">[2]</a>*@
                             </div>
                         </li>
                     </ul>
@@ -63,7 +63,7 @@
             <div class="col-sm-12 col-md-12 col-lg-9 ml-auto mr-auto">
                 <div class="row head_slid">
                     <div class="col-sm-12 col-md-12 col-lg-8">
-                        <h2 id="lbl_NAME_LABEL">@*สนามกีฬาแห่งชาติ*@</h2>
+                        <h2 name="lbl_NAME_LABEL">@*สนามกีฬาแห่งชาติ*@</h2>
                     </div>
                     <div class="col-sm-12 col-md-12 col-lg-4">
                         <div class="row con_right">
@@ -102,6 +102,27 @@
                         <a class="left carousel-control carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev"> <span class="fa fa-angle-left"></span> <span class="sr-only">Previous</span> </a> <a class="right carousel-control carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next"> <span class="fa fa-angle-right"></span> <span class="sr-only">Next</span> </a>
                     </div>
                 </div>
+
+                <div>
+                    @if ((int)ViewBag.AppUserId != -1)
+                    {
+                        <a href="#" data-toggle="modal" data-target="#Modal_AddOrEditVote">
+                            <div class="box_top row">
+                                <div class="col-sm-12 col-md-12 col-lg-4">
+                                    <h5>กดเพื่อให้คะแนน</h5>
+                                    <div id="dv_VoteValue" class="rating">
+                                        <img src="/images/ic_star.png" alt="">
+                                        <img src="/images/ic_star.png" alt="">
+                                        <img src="/images/ic_star.png" alt="">
+                                        <img src="/images/ic_star.png" alt="">
+                                        <img src="/images/ic_star.png" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    }
+                </div>
+
                 <div class="service_sec row">
                     <div class="service_sec-box">
                         <img src="/images/icon_ser1.png" width="74" height="74">
@@ -142,6 +163,8 @@
                         </a>
                     </div>
                 </div>
+
+
                 <div class="clear_sec nearby">
                     <h3>สถานที่ใกล้เคียง </h3>
                     <div class="table-responsive">
@@ -292,73 +315,73 @@
                                 </div>
                             </div>
                             @*<div class="section">
-                                <p><i class="fa fa-long-arrow-up" aria-hidden="true"></i> ได้คะแนนสูงเมื่อเทียบกับสนามกีฬาอื่นในกรุงเทพมหานคร</p>
-                            </div>
-                            <form>
-                                <div class="row">
-                                    <div class="col-sm-12 col-md-6 col-lg-6">
-                                        <div class="form-group">
-                                            <label for="exampleFormControlSelect1">จัดเรียง</label>
-                                            <select class="form-control" id="exampleFormControlSelect1">
-                                                <option>จัดเรียง</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-12 col-md-6 col-lg-6">
-                                        <div class="form-group">
-                                            <label for="exampleFormControlSelect1">จำกัดการค้นหา</label>
-                                            <select class="form-control" id="exampleFormControlSelect2">
-                                                <option>จำกัดการค้นหา</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-12 col-md-12 col-lg-12">
-                                        <div class="comment_sec">
-                                            <h3>เรียงตาม: รีวิวที่มีประโยชน์ที่สุด</h3>
-                                            <div class="comment_box">
-                                                <div class="profile_comment"> <img src="/assets/img/faces/joe-gardner-2.jpg" class="img-circle img-no-padding img-responsive" alt="Rounded Image"> </div>
-                                                <div class="rating_box">
-                                                    <h3>9.1</h3>
-                                                </div>
-                                                <span class="name">Sumon</span>
-                                                <div class="flag"><img src="/images/flag.png" alt="" width="16" height="11">ฝรั่งเศส</div>
-                                                <div class="clear_sec sta_s">รีวิวเมื่อ: เดือน12 พฤศจิกายน 2019 </div>
-                                                <div class="comment_body">
-                                                    <p>
-                                                        ตำแหน่งที่พักเดีนทางสดวกสบายมาก หาของกินร้านสดวกชื้อไม่ไกล คือโดยรวมทุกอย่างค่อนข้างโอเคร
-                                                        เลยอีกอย่างพนักงานต้อนรับน่ารักคอยเอาใจใส่ตลอดเลยประทับใจจริงๆ
-                                                    </p>
-                                                </div>
-                                                <div class="comment_footer"><i class="fa fa-smile-o plus" aria-hidden="true"></i> พนักงานหน้ารักทุกๆคนห้องพักสอาดที่พักเป็นธรรมชาติมาก</div>
-                                            </div>
-                                            <div class="comment_box">
-                                                <div class="profile_comment"> <img src="/assets/img/faces/joe-gardner-2.jpg" class="img-circle img-no-padding img-responsive" alt="Rounded Image"> </div>
-                                                <div class="rating_box downward_box">
-                                                    <h3>8.4</h3>
-                                                </div>
-                                                <span class="name">Sumon</span>
-                                                <div class="flag"><img src="/images/flag.png" alt="" width="16" height="11">ฝรั่งเศส</div>
-                                                <div class="clear_sec sta_s">รีวิวเมื่อ: เดือน12 พฤศจิกายน 2019 </div>
-                                                <div class="comment_body">
-                                                    <p>
-                                                        ตำแหน่งที่พักเดีนทางสดวกสบายมาก หาของกินร้านสดวกชื้อไม่ไกล คือโดยรวมทุกอย่างค่อนข้างโอเคร
-                                                        เลยอีกอย่างพนักงานต้อนรับน่ารักคอยเอาใจใส่ตลอดเลยประทับใจจริงๆ
-                                                    </p>
-                                                </div>
-                                                <div class="comment_footer"><i class="fa fa-meh-o downward" aria-hidden="true"></i> พนักงานทำความสะอาดห้องน้ำไม่ค่อยสะอาดเท่าที่ควร</div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <p><i class="fa fa-long-arrow-up" aria-hidden="true"></i> ได้คะแนนสูงเมื่อเทียบกับสนามกีฬาอื่นในกรุงเทพมหานคร</p>
                                 </div>
-                            </form>*@
+                                <form>
+                                    <div class="row">
+                                        <div class="col-sm-12 col-md-6 col-lg-6">
+                                            <div class="form-group">
+                                                <label for="exampleFormControlSelect1">จัดเรียง</label>
+                                                <select class="form-control" id="exampleFormControlSelect1">
+                                                    <option>จัดเรียง</option>
+                                                    <option>2</option>
+                                                    <option>3</option>
+                                                    <option>4</option>
+                                                    <option>5</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12 col-md-6 col-lg-6">
+                                            <div class="form-group">
+                                                <label for="exampleFormControlSelect1">จำกัดการค้นหา</label>
+                                                <select class="form-control" id="exampleFormControlSelect2">
+                                                    <option>จำกัดการค้นหา</option>
+                                                    <option>2</option>
+                                                    <option>3</option>
+                                                    <option>4</option>
+                                                    <option>5</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12 col-md-12 col-lg-12">
+                                            <div class="comment_sec">
+                                                <h3>เรียงตาม: รีวิวที่มีประโยชน์ที่สุด</h3>
+                                                <div class="comment_box">
+                                                    <div class="profile_comment"> <img src="/assets/img/faces/joe-gardner-2.jpg" class="img-circle img-no-padding img-responsive" alt="Rounded Image"> </div>
+                                                    <div class="rating_box">
+                                                        <h3>9.1</h3>
+                                                    </div>
+                                                    <span class="name">Sumon</span>
+                                                    <div class="flag"><img src="/images/flag.png" alt="" width="16" height="11">ฝรั่งเศส</div>
+                                                    <div class="clear_sec sta_s">รีวิวเมื่อ: เดือน12 พฤศจิกายน 2019 </div>
+                                                    <div class="comment_body">
+                                                        <p>
+                                                            ตำแหน่งที่พักเดีนทางสดวกสบายมาก หาของกินร้านสดวกชื้อไม่ไกล คือโดยรวมทุกอย่างค่อนข้างโอเคร
+                                                            เลยอีกอย่างพนักงานต้อนรับน่ารักคอยเอาใจใส่ตลอดเลยประทับใจจริงๆ
+                                                        </p>
+                                                    </div>
+                                                    <div class="comment_footer"><i class="fa fa-smile-o plus" aria-hidden="true"></i> พนักงานหน้ารักทุกๆคนห้องพักสอาดที่พักเป็นธรรมชาติมาก</div>
+                                                </div>
+                                                <div class="comment_box">
+                                                    <div class="profile_comment"> <img src="/assets/img/faces/joe-gardner-2.jpg" class="img-circle img-no-padding img-responsive" alt="Rounded Image"> </div>
+                                                    <div class="rating_box downward_box">
+                                                        <h3>8.4</h3>
+                                                    </div>
+                                                    <span class="name">Sumon</span>
+                                                    <div class="flag"><img src="/images/flag.png" alt="" width="16" height="11">ฝรั่งเศส</div>
+                                                    <div class="clear_sec sta_s">รีวิวเมื่อ: เดือน12 พฤศจิกายน 2019 </div>
+                                                    <div class="comment_body">
+                                                        <p>
+                                                            ตำแหน่งที่พักเดีนทางสดวกสบายมาก หาของกินร้านสดวกชื้อไม่ไกล คือโดยรวมทุกอย่างค่อนข้างโอเคร
+                                                            เลยอีกอย่างพนักงานต้อนรับน่ารักคอยเอาใจใส่ตลอดเลยประทับใจจริงๆ
+                                                        </p>
+                                                    </div>
+                                                    <div class="comment_footer"><i class="fa fa-meh-o downward" aria-hidden="true"></i> พนักงานทำความสะอาดห้องน้ำไม่ค่อยสะอาดเท่าที่ควร</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>*@
                         </div>
                     </div>
                     <div class="explan">
@@ -563,3 +586,88 @@
 }
 
 
+<div class="modal fade bd-example-modal-lg" id="Modal_AddOrEditVote" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <form id="frmXXX">
+
+                <div class="modal-header">
+
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">ปิด</span>
+                    </button>
+                    <div>ให้คะแนน</div>
+                </div>
+
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-12">
+
+                            <div>
+                                <h4 class="text-center">
+                                    กดเลือกพื่อให้คะแนน
+                                    <br />
+                                    <span name="lbl_NAME_LABEL">@*สนามกีฬาแห่งชาติ*@</span>
+                                    <br />
+                                </h4>
+
+                                @foreach (var x in ViewBag.MVoteType as List<MVoteType>)
+                                {
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <p> @x.VoteType</p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-3">
+                                            <p class="rating">
+                                                <input type="radio" name="VoteValue_@x.VoteTypeId" value="5">
+                                                <img src="/images/ic_star.png" alt=""><img src="/images/ic_star.png" alt=""><img src="/images/ic_star.png" alt=""><img src="/images/ic_star.png" alt=""><img src="/images/ic_star.png" alt="">
+                                            </p>
+                                        </div>
+                                        <div class="col-2">
+                                            <p class="rating">
+                                                <input type="radio" name="VoteValue_@x.VoteTypeId" value="4">
+                                                <img src="/images/ic_star.png" alt=""><img src="/images/ic_star.png" alt=""><img src="/images/ic_star.png" alt=""><img src="/images/ic_star.png" alt="">
+                                            </p>
+                                        </div>
+                                        <div class="col-2">
+                                            <p class="rating">
+                                                <input type="radio" name="VoteValue_@x.VoteTypeId" value="3">
+                                                <img src="/images/ic_star.png" alt=""><img src="/images/ic_star.png" alt=""><img src="/images/ic_star.png" alt="">
+                                            </p>
+                                        </div>
+                                        <div class="col-2">
+                                            <p class="rating">
+                                                <input type="radio" name="VoteValue_@x.VoteTypeId" value="2">
+                                                <img src="/images/ic_star.png" alt=""><img src="/images/ic_star.png" alt="">
+                                            </p>
+                                        </div>
+                                        <div class="col-2">
+                                            <p class="rating">
+                                                <input type="radio" name="VoteValue_@x.VoteTypeId" value="1">
+                                                <img src="/images/ic_star.png" alt="">
+                                            </p>
+                                        </div>
+                                    </div>
+                                }
+
+
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 text-right">
+                            <button id="btnVote" type="button" class="button darkgreen">ให้คะแนน</button>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

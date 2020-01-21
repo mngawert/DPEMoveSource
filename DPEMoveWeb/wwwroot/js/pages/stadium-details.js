@@ -64,7 +64,7 @@ function GetStadiumDetails(id) {
         var items = '';
         $.each(data, function (index, value) {
             console.log('value', value);
-            $("#lbl_NAME_LABEL").html(value.NAME_LABEL)
+            $("[name='lbl_NAME_LABEL']").html(value.NAME_LABEL)
             $("#lbl_ADDRESS").append(value.ADDRESS + " " + value.TAM_NAMT + " " + value.AMP_NAMT + " " + value.PROV_NAMT);
 
             $("#lbl_TELEPHONE").append(value.TELEPHONE == null ? " - " : value.TELEPHONE);
@@ -108,7 +108,7 @@ function PrintGallery(data) {
     var item_1 = "";
     var item_2 = "";
     $.each(data, function (index, value) {
-        console.log(value);
+        //console.log(value);
 
         item_1 += `<li data-target="#carouselExampleIndicators" data-slide-to="` + index + `" ` + (index == 0 ? `class="active"` : "") + `></li>`;
 
@@ -132,7 +132,7 @@ function PrintPlaceNear(data) {
     console.log("PrintGallery");
     var item_1 = "";
     $.each(data, function (index, value) {
-        console.log(value);
+        //console.log(value);
 
         var distance = "";
         if (value.DISTANCE != null) {
@@ -155,7 +155,7 @@ function PrintSurvey(data) {
     console.log("PrintSurvey");
     var item_1 = "";
     $.each(data, function (index, value) {
-        console.log(value);
+        //console.log(value);
 
         item_1 +=
             `
@@ -257,9 +257,104 @@ function AddComment(stadiumId) {
     $.ajax(options);
 }
 
-function GetVoteAvg(voteOf, eventOrStadiumCode) {
+function GetVoteType(voteOf, stadiumId) {
+
+    console.log("GetVoteType");
+
+    var settings = {
+        "url": "/WebApi/Votes/GetVoteType",
+        "method": "POST",
+        "timeout": 0,
+        "headers": {
+            "Content-Type": "application/json",
+        },
+        "data": JSON.stringify({ "voteOf": voteOf }),
+    };
+
+    $.ajax(settings).done(function (data, textStatus, jqXHR) {
+        console.log(data);
+        console.log("jqXHR.status", jqXHR.status);
+
+        if (jqXHR.status == 200) {
+
+            $.each(data, function (index, value) {
+                GetVote(voteOf, stadiumId, value.voteTypeId, appUserId)
+            });
+        }
+    });
+}
+
+function GetVote(voteOf, eventOrStadiumCode, voteTypeId, createdBy) {
+
+    console.log("GetVote");
+
+    var settings = {
+        "url": "/WebApi/Votes/GetVote",
+        "method": "POST",
+        "timeout": 0,
+        "headers": {
+            "Content-Type": "application/json",
+        },
+        "data": JSON.stringify({ "voteOf": voteOf, "eventOrStadiumCode": eventOrStadiumCode, "voteTypeId": voteTypeId, "createdBy": createdBy }),
+    };
+
+    console.log("settings", settings);
+
+    $.ajax(settings).done(function (data, textStatus, jqXHR) {
+        console.log(data);
+
+        console.log("GetVote response", data);
+        console.log("jqXHR.status", jqXHR.status); //handle your 204 or other status codes here
+
+        if (jqXHR.status == 200) {
+            var value = data;
+
+            //if (value.voteValue >= 1)
+        }
+    });
+}
+
+function GetVoteAvg(voteOf, eventOrStadiumCode, createdBy) {
+
+    console.log("GetVoteAvg");
     var settings = {
         "url": "/WebApi/Votes/GetVoteAvg",
+        "method": "POST",
+        "headers": {
+            "Content-Type": "application/json"
+        },
+        "data": JSON.stringify({ "voteOf": voteOf, "eventOrStadiumCode": eventOrStadiumCode, "createdBy": createdBy }),
+    };
+
+    console.log("settings", settings)
+
+    $.ajax(settings).done(function (data, textStatus, jqXHR) {
+        console.log(data);
+
+        console.log("GetVoteAvg response", data);
+        console.log("jqXHR.status", jqXHR.status);
+
+        if (jqXHR.status == 200) {
+            var value = data;
+            if (value.voteAvg >= 1)
+                $("#dv_VoteValue").html(`<img src="/images/ic_star.png" alt="">`);
+            if (value.voteAvg >= 2)
+                $("#dv_VoteValue").append(`<img src="/images/ic_star.png" alt="">`);
+            if (value.voteAvg >= 3)
+                $("#dv_VoteValue").append(`<img src="/images/ic_star.png" alt="">`);
+            if (value.voteAvg >= 4)
+                $("#dv_VoteValue").append(`<img src="/images/ic_star.png" alt="">`);
+            if (value.voteAvg >= 5)
+                $("#dv_VoteValue").append(`<img src="/images/ic_star.png" alt="">`);
+        }
+    });
+}
+
+function GetVoteTotalAvg(voteOf, eventOrStadiumCode) {
+
+    console.log("GetVoteTotalAvg");
+    var settings = {
+        "url": "/WebApi/Votes/GetVoteTotalAvg",
         "method": "POST",
         "headers": {
             "Content-Type": "application/json"
@@ -269,12 +364,42 @@ function GetVoteAvg(voteOf, eventOrStadiumCode) {
 
     console.log("settings", settings)
 
-    $.ajax(settings).done(function (response) {
-        console.log(response);
+    $.ajax(settings).done(function (data, textStatus, jqXHR) {
+        console.log("GetVoteTotalAvg reponse", data);
         //var value = JSON.parse(response);
-        var value = response;
-        $("#lbl_VoteAvg").html(value.voteAvg == null ? "-" : value.voteAvg);
-        $("#lbl_VoteText").html(value.voteText == null ? "-" : value.voteText);
+
+        if (jqXHR.status == 200) {
+            var value = data;
+            $("#lbl_VoteAvg").html(value.voteAvg == null ? "-" : value.voteAvg);
+            $("#lbl_VoteText").html(value.voteText == null ? "-" : value.voteText);
+        }
+    });
+}
+
+function AddOrEditVote(voteOf, eventOrStadiumCode, voteTypeId, voteValue, createdBy) {
+
+    console.log("AddOrEditVote");
+
+    var settings = {
+        "url": "/WebApi/Votes/AddOrEditVote",
+        "method": "POST",
+        "timeout": 0,
+        "headers": {
+            "Content-Type": "application/json",
+        },
+        "data": JSON.stringify({ "voteOf": voteOf, "eventOrStadiumCode": eventOrStadiumCode, "voteTypeId": voteTypeId, "voteValue": voteValue, "createdBy": createdBy }),
+    };
+
+    console.log("settings", settings);
+
+    $.ajax(settings).done(function (data, textStatus, jqXHR) {
+
+        if (jqXHR.status == 200) {
+
+            GetVote(voteOf, eventOrStadiumCode, voteTypeId, createdBy);
+            GetVoteAvg(voteOf, eventOrStadiumCode, createdBy);
+            GetVoteTotalAvg(voteOf, eventOrStadiumCode);
+        }
     });
 }
 
@@ -284,12 +409,30 @@ $(document).ready(function () {
     var stadiumId = routeId;
     console.log("stadiumId=", stadiumId);
 
-    GetVoteAvg("2", stadiumId);
     GetStadiumDetails(stadiumId);
+
+    GetVoteType("2", stadiumId);
+    GetVoteAvg("2", stadiumId, appUserId);
+    GetVoteTotalAvg("2", stadiumId);
+
+
     GetCommentsByStadiumId(stadiumId);
 
     $("#lnkGotoFacility").click(function () {
         $("#collapseOne1").collapse('show'); // toggle collapse
+    });
+
+    $("#btnVote").click(function () {
+        $("input:radio[name^='VoteValue_']:checked").each(function () {
+
+            var voteTypeId = $(this).attr("name").split("_")[1];
+            var voteValue = $(this).val();
+            console.log("voteTypeId=", voteTypeId);
+            console.log("voteValue=", voteValue);
+            AddOrEditVote("2", stadiumId, voteTypeId, voteValue, appUserId);
+        });
+
+        $("#Modal_AddOrEditVote").modal("hide");
     });
 
 });
