@@ -181,14 +181,14 @@ function GetStadium(STADIUM_NAME, PROV_CODE, AMP_CODE, TAM_CODE, GROUP_ID) {
                             <div class="event-thumb"><img src="` + value.COVER_IMG + `" /></div>
                         </div>
                         <div class="col-12 col-sm-7 col-md-8">
-                            <div class="rating">
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star-half-o checked"></span>
+                            <div id="dvRating_` + value.STADIUM_ID + `" class="rating">
+                                <span class="fa fa-star"></span>
+                                <span class="fa fa-star"></span>
+                                <span class="fa fa-star"></span>
                                 <span class="fa fa-star"></span>
                                 <span class="fa fa-star"></span>
                             </div>
-                            <div class="event-date">17 พ.ย. 62</div>
+                            <div class="event-date"></div>
                             <h4>` + value.NAME_LABEL + `</h4>
                             <div class="event-place">
                                 สถานที่ : ` + value.ADDRESS + `<br />
@@ -211,6 +211,7 @@ function GetStadium(STADIUM_NAME, PROV_CODE, AMP_CODE, TAM_CODE, GROUP_ID) {
         $("#ul-search-events-result").html(items);
 
         PrintCommentCount(data);
+        PrintVoteAvg(data);
     });
 }
 
@@ -221,6 +222,15 @@ function PrintCommentCount(data) {
         GetCommentCount("2", value.STADIUM_ID);
     });
 }
+
+function PrintVoteAvg(data) {
+
+    console.log("PrintVoteAvg");
+    $.each(data, function (index, value) {
+        GetVoteTotalAvg("2", value.STADIUM_ID);
+    });
+}
+
 
 function GetCommentCount(commentOf, eventOrStadiumCode) {
 
@@ -244,6 +254,40 @@ function GetCommentCount(commentOf, eventOrStadiumCode) {
     });
 }
 
+
+function GetVoteTotalAvg(voteOf, eventOrStadiumCode) {
+
+    console.log("GetVoteTotalAvg");
+    var settings = {
+        "url": "/WebApi/Votes/GetVoteTotalAvg",
+        "method": "POST",
+        "headers": {
+            "Content-Type": "application/json"
+        },
+        "data": JSON.stringify({ "voteOf": voteOf, "eventOrStadiumCode": eventOrStadiumCode }),
+    };
+
+    console.log("settings", settings)
+
+    $.ajax(settings).done(function (data, textStatus, jqXHR) {
+        console.log("GetVoteTotalAvg reponse", data);
+        //var value = JSON.parse(response);
+
+        if (jqXHR.status == 200) {
+            var value = data;
+
+            var item = 
+            `
+                <span class="fa fa-star` + (value.voteAvg > 0 ? (value.voteAvg < 1 ? "-half-o checked" : " checked") : "") + `"></span>
+                <span class="fa fa-star` + (value.voteAvg > 1 ? (value.voteAvg < 2 ? "-half-o checked" : " checked") : "") + `"></span>
+                <span class="fa fa-star` + (value.voteAvg > 2 ? (value.voteAvg < 3 ? "-half-o checked" : " checked") : "") + `"></span>
+                <span class="fa fa-star` + (value.voteAvg > 3 ? (value.voteAvg < 4 ? "-half-o checked" : " checked") : "") + `"></span>
+                <span class="fa fa-star` + (value.voteAvg > 4 ? (value.voteAvg < 5 ? "-half-o checked" : " checked") : "") + `"></span>
+            `
+            $("#dvRating_" + eventOrStadiumCode).html(item);
+        }
+    });
+}
 
 
 $(document).ready(function () {
