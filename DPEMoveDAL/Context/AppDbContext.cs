@@ -67,6 +67,7 @@ namespace DPEMoveDAL.Models
         public virtual DbSet<MStatus> MStatus { get; set; }
         public virtual DbSet<MUserPermissiongroup> MUserPermissiongroup { get; set; }
         public virtual DbSet<MUserType> MUserType { get; set; }
+        public virtual DbSet<MVoteText> MVoteText { get; set; }
         public virtual DbSet<MVoteType> MVoteType { get; set; }
         public virtual DbSet<OtpLog> OtpLog { get; set; }
         public virtual DbSet<PhoneDetail> PhoneDetail { get; set; }
@@ -344,7 +345,7 @@ namespace DPEMoveDAL.Models
 
             modelBuilder.Entity<AspNetUserLogins>(entity =>
             {
-                entity.HasKey(e => new { e.ProviderKey, e.LoginProvider });
+                entity.HasKey(e => new { e.LoginProvider, e.ProviderKey });
 
                 entity.HasIndex(e => e.UserId);
 
@@ -362,7 +363,7 @@ namespace DPEMoveDAL.Models
 
             modelBuilder.Entity<AspNetUserRoles>(entity =>
             {
-                entity.HasKey(e => new { e.RoleId, e.UserId });
+                entity.HasKey(e => new { e.UserId, e.RoleId });
 
                 entity.HasIndex(e => e.RoleId);
 
@@ -423,7 +424,7 @@ namespace DPEMoveDAL.Models
 
             modelBuilder.Entity<AspNetUserTokens>(entity =>
             {
-                entity.HasKey(e => new { e.Name, e.LoginProvider, e.UserId });
+                entity.HasKey(e => new { e.UserId, e.LoginProvider, e.Name });
 
                 entity.HasIndex(e => new { e.UserId, e.LoginProvider, e.Name })
                     .HasName("PK_AspNetUserTokens")
@@ -1675,7 +1676,7 @@ namespace DPEMoveDAL.Models
 
             modelBuilder.Entity<MGroupRole>(entity =>
             {
-                entity.HasKey(e => new { e.RoleId, e.GroupId });
+                entity.HasKey(e => new { e.GroupId, e.RoleId });
 
                 entity.ToTable("M_GROUP_ROLE");
 
@@ -1683,9 +1684,9 @@ namespace DPEMoveDAL.Models
                     .HasName("M_GROUP_ROLE_PK")
                     .IsUnique();
 
-                entity.Property(e => e.RoleId).HasColumnName("ROLE_ID");
-
                 entity.Property(e => e.GroupId).HasColumnName("GROUP_ID");
+
+                entity.Property(e => e.RoleId).HasColumnName("ROLE_ID");
             });
 
             modelBuilder.Entity<MIdcardType>(entity =>
@@ -2175,6 +2176,29 @@ namespace DPEMoveDAL.Models
                     .HasColumnType("VARCHAR2(100)");
             });
 
+            modelBuilder.Entity<MVoteText>(entity =>
+            {
+                entity.HasKey(e => e.VoteFrom);
+
+                entity.ToTable("M_VOTE_TEXT");
+
+                entity.HasIndex(e => e.VoteFrom)
+                    .HasName("M_VOTE_TEXT_PK")
+                    .IsUnique();
+
+                entity.Property(e => e.VoteFrom)
+                    .HasColumnName("VOTE_FROM")
+                    .HasColumnType("NUMBER");
+
+                entity.Property(e => e.VoteText)
+                    .HasColumnName("VOTE_TEXT")
+                    .HasColumnType("VARCHAR2(200)");
+
+                entity.Property(e => e.VoteTo)
+                    .HasColumnName("VOTE_TO")
+                    .HasColumnType("NUMBER");
+            });
+
             modelBuilder.Entity<MVoteType>(entity =>
             {
                 entity.HasKey(e => e.VoteTypeId);
@@ -2423,7 +2447,7 @@ namespace DPEMoveDAL.Models
 
             modelBuilder.Entity<Rolegrouphasrole>(entity =>
             {
-                entity.HasKey(e => new { e.RoleId, e.RoleGroupId });
+                entity.HasKey(e => new { e.RoleGroupId, e.RoleId });
 
                 entity.ToTable("ROLEGROUPHASROLE");
 
@@ -2431,9 +2455,9 @@ namespace DPEMoveDAL.Models
                     .HasName("ROLEGROUPHASROLE_PK")
                     .IsUnique();
 
-                entity.Property(e => e.RoleId).HasColumnName("ROLE_ID");
-
                 entity.Property(e => e.RoleGroupId).HasColumnName("ROLE_GROUP_ID");
+
+                entity.Property(e => e.RoleId).HasColumnName("ROLE_ID");
 
                 entity.HasOne(d => d.RoleGroup)
                     .WithMany(p => p.Rolegrouphasrole)
@@ -2443,7 +2467,7 @@ namespace DPEMoveDAL.Models
 
             modelBuilder.Entity<Rolegrouphasuser>(entity =>
             {
-                entity.HasKey(e => new { e.UserId, e.RoleGroupId });
+                entity.HasKey(e => new { e.RoleGroupId, e.UserId });
 
                 entity.ToTable("ROLEGROUPHASUSER");
 
@@ -2451,9 +2475,9 @@ namespace DPEMoveDAL.Models
                     .HasName("ROLEGROUPHASUSER_PK")
                     .IsUnique();
 
-                entity.Property(e => e.UserId).HasColumnName("USER_ID");
-
                 entity.Property(e => e.RoleGroupId).HasColumnName("ROLE_GROUP_ID");
+
+                entity.Property(e => e.UserId).HasColumnName("USER_ID");
             });
 
             modelBuilder.Entity<SurveyDetail>(entity =>
@@ -2846,7 +2870,7 @@ namespace DPEMoveDAL.Models
                 entity.Property(e => e.FileName)
                     .IsRequired()
                     .HasColumnName("FILE_NAME")
-                    .HasColumnType("VARCHAR2(32)");
+                    .HasColumnType("VARCHAR2(255)");
 
                 entity.Property(e => e.FileType)
                     .IsRequired()

@@ -265,7 +265,7 @@ namespace DPEMoveDAL.Services
                 //ThaiBuddhistCalendar cal = new ThaiBuddhistCalendar();
                 //var dateFinish = cal.ToDateTime(int.Parse(model.EventFinish.Substring(6, 4)), int.Parse(model.EventFinish.Substring(3, 2)), int.Parse(model.EventFinish.Substring(0, 2)), 0, 0, 0, 0);
                 var dateFinish = DateTime.Parse(model.EventFinish);
-                q = q.Where(a => a.EventStartTimestamp.CompareTo(dateFinish) <= 0);
+                q = q.Where(a => a.EventStartTimestamp.Date.CompareTo(dateFinish) <= 0);
             }
 
             if (!string.IsNullOrEmpty(model.ProvinceCode))
@@ -327,6 +327,7 @@ namespace DPEMoveDAL.Services
             /* EVENT */
             var ev = _context.Event.Where(a => a.EventId == model.EventId).FirstOrDefault();
 
+            ev.Status = 1;
             ev.EventName = model.EventName;
             //ev.EventCode = model.EventCode;
             ev.Budget = model.Budget;

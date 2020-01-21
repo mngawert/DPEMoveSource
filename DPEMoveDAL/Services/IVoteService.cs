@@ -9,12 +9,12 @@ namespace DPEMoveDAL.Services
 {
     public interface IVoteService
     {
+        IEnumerable<MVoteType> GetVoteType(VoteRequest3 model);
         void AddOrEditVote(VoteRequest model);
         VoteDbQuery GetVote(VoteRequest2 model);
-        IEnumerable<VoteSummaryDbQuery> GetVoteSummary(VoteSummaryRequest model);
         VoteAvgDbQuery GetVoteAvg(VoteRequest2 model);
-        IEnumerable<VoteSummaryAvgDbQuery> GetVoteSummaryAvg(VoteSummaryRequest model);
-        IEnumerable<MVoteType> GetVoteType(VoteRequest3 model);
+        VoteTotalAvgDbQuery GetVoteTotalAvg(VoteSummaryRequest model);
+        IEnumerable<VoteTotalAvgDetailsDbQuery> GetVoteTotalAvgDetails(VoteSummaryRequest model);
 
     }
 }

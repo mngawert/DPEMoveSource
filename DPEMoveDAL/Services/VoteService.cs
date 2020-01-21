@@ -84,22 +84,12 @@ namespace DPEMoveDAL.Services
             return q;
         }
 
-        public IEnumerable<VoteSummaryDbQuery> GetVoteSummary(VoteSummaryRequest model)
-        {
-
-            string sql = "select * from VW_VOTE_SUMMARY where VOTE_OF = {0} and EVENT_OR_STADIUM_CODE = {1}";
-
-            var q = _context.VoteSummaryDbQuery.FromSql(sql, model.VoteOf, model.EventOrStadiumCode);
-
-            return q.ToList();
-        }
-
         public VoteAvgDbQuery GetVoteAvg(VoteRequest2 model)
         {
 
-            string sql = "select * from VW_VOTE_AVG where VOTE_OF = {0} and EVENT_OR_STADIUM_CODE = {1}";
+            string sql = "select * from VW_VOTE_AVG where VOTE_OF = {0} and EVENT_OR_STADIUM_CODE = {1} and CREATED_BY = {2}";
 
-            var q = _context.VoteAvgDbQuery.FromSql(sql, model.VoteOf, model.EventOrStadiumCode).FirstOrDefault();
+            var q = _context.VoteAvgDbQuery.FromSql(sql, model.VoteOf, model.EventOrStadiumCode, model.CreatedBy).FirstOrDefault();
 
             if (q == null)
             {
@@ -114,12 +104,23 @@ namespace DPEMoveDAL.Services
             return q;
         }
 
-        public IEnumerable<VoteSummaryAvgDbQuery> GetVoteSummaryAvg(VoteSummaryRequest model)
+        public VoteTotalAvgDbQuery GetVoteTotalAvg(VoteSummaryRequest model)
         {
 
-            string sql = "select * from VW_VOTE_SUMMARY_AVG where VOTE_OF = {0} and EVENT_OR_STADIUM_CODE = {1}";
+            string sql = "select * from VW_VOTE_TOTAL_AVG where VOTE_OF = {0} and EVENT_OR_STADIUM_CODE = {1}";
 
-            var q = _context.VoteSummaryAvgDbQuery.FromSql(sql, model.VoteOf, model.EventOrStadiumCode);
+            var q = _context.VoteTotalAvgDbQuery.FromSql(sql, model.VoteOf, model.EventOrStadiumCode).FirstOrDefault();
+
+            return q;
+        }
+
+
+        public IEnumerable<VoteTotalAvgDetailsDbQuery> GetVoteTotalAvgDetails(VoteSummaryRequest model)
+        {
+
+            string sql = "select * from VW_VOTE_TOTAL_AVG_DETAILS where VOTE_OF = {0} and EVENT_OR_STADIUM_CODE = {1}";
+
+            var q = _context.VoteTotalAvgDetailsDbQuery.FromSql(sql, model.VoteOf, model.EventOrStadiumCode);
 
             return q.ToList();
         }

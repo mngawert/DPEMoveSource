@@ -41,6 +41,12 @@ namespace DPEMoveDAL.ViewModels
         public string VoteOf { get; set; }
     }
 
+    public class VoteSummaryRequest
+    {
+        public string VoteOf { get; set; }
+        public string EventOrStadiumCode { get; set; }
+    }
+
     public class VoteDbQuery
     {
         [Column("VOTE_OF")]
@@ -57,41 +63,37 @@ namespace DPEMoveDAL.ViewModels
         public int CreatedBy { get; set; }
     }
 
-    public class VoteSummaryRequest
-    {
-        public string VoteOf { get; set; }
-        public string EventOrStadiumCode { get; set; }
-    }
-
-    public class VoteSummaryDbQuery
-    {
-        [Column("VOTE_OF")]
-        public string VoteOf { get; set; }
-        [Column("EVENT_OR_STADIUM_CODE")]
-        public string EventOrStadiumCode { get; set; }
-        [Column("VOTE_TYPE_ID")]
-        public int VoteTypeId { get; set; }
-        [Column("VOTE_TYPE")]
-        public string VoteType { get; set; }
-        [Column("VOTE_VALUE")]
-        public int VoteValue { get; set; }
-        [Column("VOTE_COUNT")]
-        public int VoteCount { get; set; }
-    }
-
     public class VoteAvgDbQuery
     {
         [Column("VOTE_OF")]
         public string VoteOf { get; set; }
         [Column("EVENT_OR_STADIUM_CODE")]
         public string EventOrStadiumCode { get; set; }
+        [Column("CREATED_BY")]
+        public int CreatedBy { get; set; }
+        [Column("VOTE_COUNT")]
+        public int VoteCount { get; set; }
         [Column("VOTE_AVG")]
         public double? VoteAvg { get; set; }
         [Column("VOTE_TEXT")]
         public string VoteText { get; set; }
     }
 
-    public class VoteSummaryAvgDbQuery
+    public class VoteTotalAvgDbQuery
+    {
+        [Column("VOTE_OF")]
+        public string VoteOf { get; set; }
+        [Column("EVENT_OR_STADIUM_CODE")]
+        public string EventOrStadiumCode { get; set; }
+        [Column("VOTE_COUNT")]
+        public int VoteCount { get; set; }
+        [Column("VOTE_AVG")]
+        public double? VoteAvg { get; set; }
+        [Column("VOTE_TEXT")]
+        public string VoteText { get; set; }
+    }
+
+    public class VoteTotalAvgDetailsDbQuery
     {
         [Column("VOTE_OF")]
         public string VoteOf { get; set; }
@@ -101,11 +103,12 @@ namespace DPEMoveDAL.ViewModels
         public int VoteTypeId { get; set; }
         [Column("VOTE_TYPE")]
         public string VoteType { get; set; }
+        [Column("VOTE_COUNT")]
+        public int VoteCount { get; set; }
         [Column("VOTE_AVG")]
         public double? VoteAvg { get; set; }
         [Column("VOTE_TEXT")]
         public string VoteText { get; set; }
     }
-
 
 }

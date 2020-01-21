@@ -27,6 +27,24 @@ namespace DPEMoveWeb.ApiControllers
             _voteService = voteService;
         }
 
+        public IActionResult GetVoteType(VoteRequest3 model)
+        {
+            try
+            {
+                var q = _voteService.GetVoteType(model);
+
+                Response.Headers["ResponseCode"] = "2000";
+                Response.Headers["ResponseDescription"] = "Ok";
+
+                return Ok(q);
+            }
+            catch (Exception e)
+            {
+                Response.Headers["ResponseCode"] = "4000";
+                Response.Headers["ResponseDescription"] = e.Message;
+                return BadRequest(e.ToString());
+            }
+        }
         public IActionResult AddOrEditVote([FromBody] VoteRequest model)
         {
             try
@@ -65,25 +83,6 @@ namespace DPEMoveWeb.ApiControllers
             }
         }
 
-        public IActionResult GetVoteSummary(VoteSummaryRequest model)
-        {
-            try
-            {
-                var q = _voteService.GetVoteSummary(model);
-
-                Response.Headers["ResponseCode"] = "2000";
-                Response.Headers["ResponseDescription"] = "Ok";
-
-                return Ok(q);
-            }
-            catch (Exception e)
-            {
-                Response.Headers["ResponseCode"] = "4000";
-                Response.Headers["ResponseDescription"] = e.Message;
-                return BadRequest(e.ToString());
-            }
-        }
-
         public IActionResult GetVoteAvg(VoteRequest2 model)
         {
             try
@@ -103,11 +102,11 @@ namespace DPEMoveWeb.ApiControllers
             }
         }
 
-        public IActionResult GetVoteSummaryAvg(VoteSummaryRequest model)
+        public IActionResult GetVoteTotalAvg(VoteSummaryRequest model)
         {
             try
             {
-                var q = _voteService.GetVoteSummaryAvg(model);
+                var q = _voteService.GetVoteTotalAvg (model);
 
                 Response.Headers["ResponseCode"] = "2000";
                 Response.Headers["ResponseDescription"] = "Ok";
@@ -122,11 +121,11 @@ namespace DPEMoveWeb.ApiControllers
             }
         }
 
-        public IActionResult GetVoteType(VoteRequest3 model)
+        public IActionResult GetVoteTotalAvgDetails(VoteSummaryRequest model)
         {
             try
             {
-                var q = _voteService.GetVoteType(model);
+                var q = _voteService.GetVoteTotalAvgDetails(model);
 
                 Response.Headers["ResponseCode"] = "2000";
                 Response.Headers["ResponseDescription"] = "Ok";
