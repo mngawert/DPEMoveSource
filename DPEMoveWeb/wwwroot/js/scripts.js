@@ -8,6 +8,13 @@
 			}).eq(0).addClass("active");
 			$(".tab_item").css('display', 'none');
 			$(".tab_item:first-child").css('display', 'block');
+			$(".change-tab").click(function() {
+				var c = $(this).attr("class");
+				var n = c.lastIndexOf("to-");
+				c = c.substring(n+3, c.length);
+				$(".tab").removeClass("active").eq( c ).addClass("active");
+				$(".tab_item").hide().eq( c ).fadeIn();
+			});
 		}
 		if( $('.MultiCarousel .MultiCarousel-inner .item > div').length ) {
 			$('.MultiCarousel .MultiCarousel-inner .item > div').matchHeight();

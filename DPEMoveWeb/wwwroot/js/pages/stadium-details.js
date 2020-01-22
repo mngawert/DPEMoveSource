@@ -1,48 +1,6 @@
 ﻿
 function GetStadiumDetails(id) {
 
-    //var form = new FormData();
-    //form.append("STADIUM_ID", "15");
-
-    //var settings = {
-    //    "url": "http://data.dpe.go.th/api/stadium/address/getStadiumDetail",
-    //    "method": "POST",
-    //    "timeout": 0,
-    //    "processData": false,
-    //    "mimeType": "multipart/form-data",
-    //    "contentType": false,
-    //    "data": form
-    //};
-
-    //$.ajax(settings).done(function (response) {
-    //    console.log(response);
-    //});
-
-    //return false;
-
-
-
-    //var myHeaders = new Headers();
-    //myHeaders.append("Content-Type", "multipart/form-data; boundary=--------------------------866572304719600514599436");
-
-    //var formdata = new FormData();
-    //formdata.append("STADIUM_ID", "51370");
-
-    //var requestOptions = {
-    //    method: 'POST',
-    //    headers: myHeaders,
-    //    body: formdata,
-    //    redirect: 'follow'
-    //};
-
-    //fetch("http://data.dpe.go.th/api/stadium/address/getStadiumDetail", requestOptions)
-    //    .then(response => response.json())
-    //    .then(result => console.log(result))
-    //    .catch(error => console.log('error', error));
-
-    //return false;
-
-
     var form = new FormData();
     form.append("STADIUM_ID", id);
 
@@ -69,8 +27,10 @@ function GetStadiumDetails(id) {
 
             $("#lbl_TELEPHONE").append(value.TELEPHONE == null ? " - " : value.TELEPHONE);
             $("#lbl_EMAIL").append(value.EMAIL == null ? " - " : value.EMAIL);
+            $("#lbl_DIMENSION").append(value.DIMENSION == null ? " - " : value.DIMENSION);
+            $("#lbl_TRANSPORT").append(value.TRANSPORT == null ? " - " : value.TRANSPORT);
 
-            $("#lbl_TIME_").html(value.TIME_ == null ? " - " : value.TIME_);
+            $("#lbl_OPEN_DETAIL").html(value.TIME_ == null ? " - " : value.OPEN_DETAIL);
             $("#lbl_START_TIME").html(value.START_TIME == null ? " - " : value.START_TIME);
             $("#lbl_END_TIME").html(value.END_TIME == null ? " - " : value.END_TIME);
             $("#lbl_TRANSPORT").html(value.TRANSPORT == null ? " - " : value.TRANSPORT);
@@ -153,23 +113,79 @@ function PrintPlaceNear(data) {
 
 function PrintSurvey(data) {
     console.log("PrintSurvey");
-    var item_1 = "";
+    var item_1A = "";
+    var item_1B = "";
+    var item_2 = "";
+    var sumPoint = 0;
+    var item_icon = "";
+
     $.each(data, function (index, value) {
         //console.log(value);
 
-        item_1 +=
+        sumPoint += Number(value.POINT);
+
+        // limit display to 8 items
+        if (index < data.length/2) {
+            item_1A +=
+                `
+                <h3>` + value.SURV_NAME + `</h3>
+                <div class="row">
+                    <div class="col-sm-10 col-md-10 col-lg-10">
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-success" role="progressbar" style="width: `+ value.POINT + `%" aria-valuenow="` + value.POINT + `" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                    <div class="col-sm-2col-md-2 col-lg-2">
+                        <h5>` + value.POINT + `</h5>
+                    </div>
+                </div>
+            `;
+        }
+        else if (index < 8) {
+            item_1B +=
+                `
+                <h3>` + value.SURV_NAME + `</h3>
+                <div class="row">
+                    <div class="col-sm-10 col-md-10 col-lg-10">
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-success" role="progressbar" style="width: ` + value.POINT + `%" aria-valuenow="` + value.POINT + `" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                    <div class="col-sm-2col-md-2 col-lg-2">
+                        <h5>` + value.POINT + `</h5>
+                    </div>
+                </div>
+            `;
+        }
+
+        item_2 +=
             `
             <div class="card_list">
                 <img src="` + value.ICON + `" width="80" height="78" alt="" />
                 <h4>` + value.SURV_NAME + `</h4>
-                <p>
-                    ` + value.SURV_DETL_NAME + `
-                </p>
+                <p>` + value.SURV_DETL_NAME + `</p> <br />
+            </div>
+            `;
+
+        item_icon +=
+            `
+            <div class="service_sec-box">
+                <img src="` + value.ICON + `" width="74" height="74">
+                <p>` + value.SURV_DETL_NAME + `</p>
             </div>
             `
+
     });
 
-    $("#dv_SURVEY").html(item_1);
+    if (data.length > 0) {
+        var avg = sumPoint / data.length / 10;
+        $("#lbl_SURVEY_POINT_AVG").html(avg % 1 == 0 ? avg: avg.toFixed(1));
+    }
+
+    $("#dv_SURVEY_1A").html(item_1A);
+    $("#dv_SURVEY_1B").html(item_1B);
+    $("#dv_SURVEY_2").html(item_2);
+    $("#dv_facility_ICON").prepend(item_icon);
 }
 
 function PrintUnderStadium(data) {

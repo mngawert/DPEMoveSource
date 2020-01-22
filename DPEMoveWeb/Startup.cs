@@ -133,6 +133,11 @@ namespace DPEMoveWeb
             })
             ;
 
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.AccessDeniedPath = new PathString("/Account/AccessDenied");
+            });
+
             services.AddHttpContextAccessor();
         }
 

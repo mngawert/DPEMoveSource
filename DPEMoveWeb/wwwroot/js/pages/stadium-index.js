@@ -128,7 +128,7 @@ function GetStadiumType() {
 
 
 
-function SearchStadium() {
+function SearchStadium(PAGE) {
 
     var provinceId = $("#ddlProvince").val();
     var amphurId = $("#ddlAmphur").val() == "" ? "" : $("#ddlAmphur").val().substr(2, 2);
@@ -136,16 +136,15 @@ function SearchStadium() {
     var txt_STADIUM_NAME = $("#txt_STADIUM_NAME").val();
     var stadiumType = $("#ddlStadiumType").val();
 
-
-    GetStadium(txt_STADIUM_NAME, provinceId, amphurId, tambonId, stadiumType);
+    GetStadium(PAGE, txt_STADIUM_NAME, provinceId, amphurId, tambonId, stadiumType);
 }
 
 
 
-function GetStadium(STADIUM_NAME, PROV_CODE, AMP_CODE, TAM_CODE, GROUP_ID) {
+function GetStadium(PAGE, STADIUM_NAME, PROV_CODE, AMP_CODE, TAM_CODE, GROUP_ID) {
 
     var form = new FormData();
-    form.append("PAGE", "1");
+    form.append("PAGE", PAGE);
     form.append("limit", "10");
     form.append("PROV_CODE", PROV_CODE);
     form.append("AMP_CODE", AMP_CODE);
@@ -168,6 +167,16 @@ function GetStadium(STADIUM_NAME, PROV_CODE, AMP_CODE, TAM_CODE, GROUP_ID) {
 
         var results = JSON.parse(response);
         console.log("results", results);
+
+        $("#now_page").val(results.now_page);
+
+        var all_pages = Number(results.all_pages);
+        var now_page = Number(results.now_page);
+        if (all_pages > 0) {
+            $("#lbl_now_page").html(results.now_page);
+            $("#lbl_all_pages").html(results.all_pages);
+        }
+        
         var data = results.data;
         var items = '';
         $.each(data, function (index, value) {
@@ -295,7 +304,9 @@ $(document).ready(function () {
 
     GetStadiumType();
     GetProvince();
-    SearchStadium();
+
+    //PAGE=1
+    SearchStadium("1");
 
     $("#ddlProvince").change(function () {
         var provinceId = $("#ddlProvince").val();
@@ -324,7 +335,18 @@ $(document).ready(function () {
 
     $("#btnSearchStadium").click(function () {
 
-        SearchStadium();
+        SearchStadium("1");
+    });
+
+    $("#btnNext").click(function () {
+        var nextPage = parseInt($("#now_page").val()) + 1;
+        console.log("nextPage", nextPage);
+        SearchStadium(nextPage);
+    });
+    $("#btnPrev").click(function () {
+        var nextPage = parseInt($("#now_page").val()) - 1;
+        console.log("nextPage", nextPage);
+        SearchStadium(nextPage);
     });
 
 });

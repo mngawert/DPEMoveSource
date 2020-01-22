@@ -200,131 +200,13 @@
                 </ul>
             </div>
         </div>
-        <div class="modal fade bd-example-modal-lg" id="Modal_CreateEvent" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
 
-                    <form action="/Events/CreateEvent" method="post">
-
-                        <div class="modal-header">
-
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">ปิด</span>
-                            </button>
-                            <div class="heading">+ สร้างกิจกรรม</div>
-                        </div>
-
-                        <div class="modal-body">
-                            <div class="row">
-                                <div class="col-12">
-
-                                    <div class="row">
-                                        <div class="col-sm-12 col-lg-4">
-                                            <div class="row-field clearfix">
-                                                <div class="c lbl">
-                                                    ชื่อกิจกรรม
-                                                </div>
-                                                <div class="c field">
-                                                    <input type="text" class="input-field" name="EventName" required value="" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-12 col-lg-4">
-                                            <div class="row-field clearfix">
-                                                <div class="c lbl">
-                                                    ช่วงวันที่
-                                                </div>
-                                                <div class="c field">
-                                                    <input name="EventStartTimestamp" class="input-field" type="text" required data-provide="datepicker" data-date-language="th-th">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-12 col-lg-4">
-                                            <div class="row-field clearfix">
-                                                <div class="c lbl">
-                                                    ถึงวันที่
-                                                </div>
-                                                <div class="c field">
-                                                    <input name="EventFinishTimestamp" class="input-field" type="text" data-provide="datepicker" data-date-language="th-th">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    @*<div class="row">
-                                            <div class="col-sm-12 col-lg-4">
-                                                <div class="row-field clearfix">
-                                                    <div class="c lbl">
-                                                        จังหวัด
-                                                    </div>
-                                                    <div class="c field">
-                                                        <select class="input-field" id="ddlProvince">
-                                                            <option value="">แสดงทั้งหมด</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-12 col-lg-4">
-                                                <div class="row-field clearfix">
-                                                    <div class="c lbl">
-                                                        อำเภอ
-                                                    </div>
-                                                    <div class="c field">
-                                                        <select class="input-field" id="ddlAmphur">
-                                                            <option value="">แสดงทั้งหมด</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-12 col-lg-4">
-                                                <div class="row-field clearfix">
-                                                    <div class="c lbl">
-                                                        ตำบล
-                                                    </div>
-                                                    <div class="c field">
-                                                        <select class="input-field" id="ddlTambon">
-                                                            <option value="">แสดงทั้งหมด</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-sm-12 col-lg-4">
-                                                <div class="row-field clearfix">
-                                                    <div class="c lbl">
-                                                        ประเภทกิจกรรม
-                                                    </div>
-                                                    <div class="c field">
-                                                        <select class="input-field">
-                                                            <option value="">แสดงทั้งหมด</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>*@
-
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-12 text-right">
-                                    @*<button type="button" class="button darkgreen" data-dismiss="modal" onclick="CreateEvent()">สร้าง</button>*@
-                                    <button type="submit" class="button darkgreen">สร้าง</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                        </div>
-
-                    </form>
-
-                </div>
-            </div>
+        <div>
+            <span id="lbl_now_page"></span>/<span id="lbl_all_pages"></span>
+            <input type="hidden" id="now_page" name="now_page" value="1" />
+            <a href="#" id="btnPrev">Prev</a>
+            <a href="javascript:void(0);" id="btnNext">Next</a>
         </div>
-
-
-
 
     </div>
 </div>
