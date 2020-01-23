@@ -1,8 +1,27 @@
 ﻿
-function GetStadiumDetails(id) {
+function GetToken() {
+    var form = new FormData();
+    form.append("username", "dpeusers");
+    form.append("password", "users_api@dpe.go.th");
+
+    var settings = {
+        "url": "http://data.dpe.go.th/api/tokens/keys/tokens",
+        "method": "POST",
+        "timeout": 0,
+        "processData": false,
+        "mimeType": "multipart/form-data",
+        "contentType": false,
+        "data": form
+    };
+
+    return $.ajax(settings);
+}
+
+function GetStadiumDetails(token, id) {
 
     var form = new FormData();
     form.append("STADIUM_ID", id);
+    form.append("Token", token);
 
     var settings = {
         "url": "http://data.dpe.go.th/api/stadium/address/getStadiumDetail",
@@ -54,13 +73,13 @@ function GetStadiumDetails(id) {
                     `;
                 $("#dv_UNDER_STADIUM_ID").html(tmp);
 
-                PrintParentStadiumName(value.UNDER_STADIUM_ID);
+                PrintParentStadiumName(token, value.UNDER_STADIUM_ID);
 
             }
 
             if (value.UNDER_STADIUM.length > 0) {
                 PrintUnderStadium(value.UNDER_STADIUM);
-                PrintUnderStadiumName(value.UNDER_STADIUM);
+                PrintUnderStadiumName(token, value.UNDER_STADIUM);
             }
 
         });
@@ -206,13 +225,14 @@ function PrintUnderStadium(data) {
     $("#dv_UNDER_STADIUM").html(item_1);
 }
 
-function PrintUnderStadiumName(data) {
+function PrintUnderStadiumName(token, data) {
 
     $.each(data, function (ii, vv) {
 
         var id = vv;
         var form = new FormData();
         form.append("STADIUM_ID", id);
+        form.append("Token", token);
 
         var settings = {
             "url": "http://data.dpe.go.th/api/stadium/address/getStadiumDetail",
@@ -234,10 +254,11 @@ function PrintUnderStadiumName(data) {
     });
 }
 
-function PrintParentStadiumName(id) {
+function PrintParentStadiumName(token, id) {
 
     var form = new FormData();
     form.append("STADIUM_ID", id);
+    form.append("Token", token);
 
     var settings = {
         "url": "http://data.dpe.go.th/api/stadium/address/getStadiumDetail",
@@ -480,7 +501,12 @@ $(document).ready(function () {
     var stadiumId = routeId;
     console.log("stadiumId=", stadiumId);
 
-    GetStadiumDetails(stadiumId);
+    GetToken().done(function (response) {
+        var token = JSON.parse(response).data;
+
+        GetStadiumDetails(token, stadiumId);
+    });
+
 
     GetVoteType("2", stadiumId);
     GetVoteAvg("2", stadiumId, appUserId);
