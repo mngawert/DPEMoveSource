@@ -462,17 +462,28 @@ function GetVoteAvg(voteOf, eventOrStadiumCode, createdBy) {
         console.log("jqXHR.status", jqXHR.status);
 
         if (jqXHR.status == 200) {
+            //var value = data;
+            //if (value.voteAvg >= 1)
+            //    $("#dv_VoteValue").html(`<img src="/images/ic_star.png" alt="">`);
+            //if (value.voteAvg >= 2)
+            //    $("#dv_VoteValue").append(`<img src="/images/ic_star.png" alt="">`);
+            //if (value.voteAvg >= 3)
+            //    $("#dv_VoteValue").append(`<img src="/images/ic_star.png" alt="">`);
+            //if (value.voteAvg >= 4)
+            //    $("#dv_VoteValue").append(`<img src="/images/ic_star.png" alt="">`);
+            //if (value.voteAvg >= 5)
+            //    $("#dv_VoteValue").append(`<img src="/images/ic_star.png" alt="">`);
+
             var value = data;
-            if (value.voteAvg >= 1)
-                $("#dv_VoteValue").html(`<img src="/images/ic_star.png" alt="">`);
-            if (value.voteAvg >= 2)
-                $("#dv_VoteValue").append(`<img src="/images/ic_star.png" alt="">`);
-            if (value.voteAvg >= 3)
-                $("#dv_VoteValue").append(`<img src="/images/ic_star.png" alt="">`);
-            if (value.voteAvg >= 4)
-                $("#dv_VoteValue").append(`<img src="/images/ic_star.png" alt="">`);
-            if (value.voteAvg >= 5)
-                $("#dv_VoteValue").append(`<img src="/images/ic_star.png" alt="">`);
+            var item =
+                `
+                <span class="fa fa-star` + (value.voteAvg > 0 ? (value.voteAvg < 1 ? "-half-o checked" : " checked") : "") + `"></span>
+                <span class="fa fa-star` + (value.voteAvg > 1 ? (value.voteAvg < 2 ? "-half-o checked" : " checked") : "") + `"></span>
+                <span class="fa fa-star` + (value.voteAvg > 2 ? (value.voteAvg < 3 ? "-half-o checked" : " checked") : "") + `"></span>
+                <span class="fa fa-star` + (value.voteAvg > 3 ? (value.voteAvg < 4 ? "-half-o checked" : " checked") : "") + `"></span>
+                <span class="fa fa-star` + (value.voteAvg > 4 ? (value.voteAvg < 5 ? "-half-o checked" : " checked") : "") + `"></span>
+            `
+            $("#dv_MyRating").html(item);
         }
     });
 }

@@ -30,7 +30,7 @@
                         <li id="lbl_TELEPHONE_EMAIL">
                             <img src="/images/icon_detail_02.png" width="27" height="38"><div id="lbl_TELEPHONE">เบอร์ติดต่อ</div><div id="lbl_EMAIL">อีเมล</div>
                         </li>
-                        <li id="lbl_DIMENSION"><img src="/images/icon_detail_03.png" width="27" height="38">พื้นที่สนามขนาด <br /> </li>
+                        <li id="lbl_DIMENSION"><img src="/images/icon_detail_03.png" width="27" height="38">พื้นที่สนาม <br /> </li>
                         <li>
                             <img src="/images/icon_detail_04.png" width="27" height="38">
                             <span id="lbl_OPEN_DETAIL"> - </span> <br />
@@ -43,9 +43,18 @@
                         </li>
                         <li>
                             <img src="/images/icon_detail_03.png" width="27" height="38">
-                            สนามใหญ่<br />
+                            สนามหลัก <br />
+
                             <div id="dv_UNDER_STADIUM_ID" style="margin-left: 40px;">
                                 -
+                                @*<a href="/Stadium/Details/123">
+                                    <div class="row">
+                                        <img src="/images/icon_ser6.png" width="74" height="74">
+                                    </div>
+                                    <div class="row">
+                                        <p>-nnn-</p>
+                                    </div>
+                                </a>*@
                             </div>
                         </li>
                         <li>
@@ -53,8 +62,6 @@
                             สนามย่อย<br />
                             <div id="dv_UNDER_STADIUM" style="margin-left: 40px;">
                                 -
-                                @*<a href="/Stadium/Details/123">[1]</a>
-                                    <a href="/Stadium/Details/123">[2]</a>*@
                             </div>
                         </li>
                     </ul>
@@ -110,12 +117,19 @@
                             <div class="box_top row">
                                 <div class="col-sm-12 col-md-12 col-lg-4">
                                     <h5>กดเพื่อให้คะแนน</h5>
-                                    <div id="dv_VoteValue" class="rating">
+                                    @*<div id="dv_VoteValue" class="rating">
                                         <img src="/images/ic_star.png" alt="">
                                         <img src="/images/ic_star.png" alt="">
                                         <img src="/images/ic_star.png" alt="">
                                         <img src="/images/ic_star.png" alt="">
                                         <img src="/images/ic_star.png" alt="">
+                                    </div>*@
+                                    <div id="dv_MyRating" class="rating">
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
                                     </div>
                                 </div>
                             </div>
@@ -157,7 +171,7 @@
                             <div class="btn btn-green">
                                 <h5>
                                     ดูรายละเอียด<br>
-                                    สิ่งอานวยความสะดวก
+                                    สิ่งอำนวยความสะดวก
                                 </h5>
                             </div>
                         </a>
@@ -404,7 +418,7 @@
                             <div class="card-header" role="tab" id="headingOne1">
                                 <a data-toggle="collapse" data-parent="#accordionEx" href="#collapseOne1" aria-expanded="true"
                                    aria-controls="collapseOne1">
-                                    <h4 class="mb-0"> สิ่งอานวยความสะดวกของสนามกีฬา <i class="fa fa-angle-down rotate-icon"></i> </h4>
+                                    <h4 class="mb-0"> สิ่งอำนวยความสะดวกของสนามกีฬา <i class="fa fa-angle-down rotate-icon"></i> </h4>
                                 </a>
                             </div>
 

@@ -225,6 +225,40 @@ function PrintUnderStadium(data) {
     $("#dv_UNDER_STADIUM").html(item_1);
 }
 
+function PrintParentStadiumName(token, id) {
+
+    var form = new FormData();
+    form.append("STADIUM_ID", id);
+    form.append("Token", token);
+
+    var settings = {
+        "url": "http://data.dpe.go.th/api/stadium/address/getStadiumDetail",
+        "method": "POST",
+        "timeout": 0,
+        "processData": false,
+        "mimeType": "multipart/form-data",
+        "contentType": false,
+        "data": form
+    };
+
+    $.ajax(settings).done(function (response) {
+        var results = JSON.parse(response);
+        var data = results.data;
+        $.each(data, function (index, value) {
+            var item_1 =
+                `
+                    <div class="row">
+                        <img src="` + value.GALLERY[0] + `" width="74" height="74">
+                    </div>
+                    <div class="row">
+                        <p>` + value.NAME_LABEL + `</p>
+                    </div>
+                `
+            $("#lnk_PARENT_STADIUM_" + id).html(item_1)
+        });
+    });
+}
+
 function PrintUnderStadiumName(token, data) {
 
     $.each(data, function (ii, vv) {
@@ -248,33 +282,17 @@ function PrintUnderStadiumName(token, data) {
             var results = JSON.parse(response);
             var data = results.data;
             $.each(data, function (index, value) {
-                $("#lnk_UNDER_STADIUM_" + id).html(value.NAME_LABEL)
+                var item_1 = 
+                    `
+                    <div class="row">
+                        <img src="` + value.GALLERY[0] + `" width="74" height="74">
+                    </div>
+                    <div class="row">
+                        <p>` + value.NAME_LABEL + `</p>
+                    </div>
+                    `
+                $("#lnk_UNDER_STADIUM_" + id).html(item_1)
             });
-        });
-    });
-}
-
-function PrintParentStadiumName(token, id) {
-
-    var form = new FormData();
-    form.append("STADIUM_ID", id);
-    form.append("Token", token);
-
-    var settings = {
-        "url": "http://data.dpe.go.th/api/stadium/address/getStadiumDetail",
-        "method": "POST",
-        "timeout": 0,
-        "processData": false,
-        "mimeType": "multipart/form-data",
-        "contentType": false,
-        "data": form
-    };
-
-    $.ajax(settings).done(function (response) {
-        var results = JSON.parse(response);
-        var data = results.data;
-        $.each(data, function (index, value) {
-            $("#lnk_PARENT_STADIUM_" + id).html(value.NAME_LABEL)
         });
     });
 }
@@ -427,17 +445,28 @@ function GetVoteAvg(voteOf, eventOrStadiumCode, createdBy) {
         console.log("jqXHR.status", jqXHR.status);
 
         if (jqXHR.status == 200) {
+            //var value = data;
+            //if (value.voteAvg >= 1)
+            //    $("#dv_VoteValue").html(`<img src="/images/ic_star.png" alt="">`);
+            //if (value.voteAvg >= 2)
+            //    $("#dv_VoteValue").append(`<img src="/images/ic_star.png" alt="">`);
+            //if (value.voteAvg >= 3)
+            //    $("#dv_VoteValue").append(`<img src="/images/ic_star.png" alt="">`);
+            //if (value.voteAvg >= 4)
+            //    $("#dv_VoteValue").append(`<img src="/images/ic_star.png" alt="">`);
+            //if (value.voteAvg >= 5)
+            //    $("#dv_VoteValue").append(`<img src="/images/ic_star.png" alt="">`);
+
             var value = data;
-            if (value.voteAvg >= 1)
-                $("#dv_VoteValue").html(`<img src="/images/ic_star.png" alt="">`);
-            if (value.voteAvg >= 2)
-                $("#dv_VoteValue").append(`<img src="/images/ic_star.png" alt="">`);
-            if (value.voteAvg >= 3)
-                $("#dv_VoteValue").append(`<img src="/images/ic_star.png" alt="">`);
-            if (value.voteAvg >= 4)
-                $("#dv_VoteValue").append(`<img src="/images/ic_star.png" alt="">`);
-            if (value.voteAvg >= 5)
-                $("#dv_VoteValue").append(`<img src="/images/ic_star.png" alt="">`);
+            var item =
+                `
+                <span class="fa fa-star` + (value.voteAvg > 0 ? (value.voteAvg < 1 ? "-half-o checked" : " checked") : "") + `"></span>
+                <span class="fa fa-star` + (value.voteAvg > 1 ? (value.voteAvg < 2 ? "-half-o checked" : " checked") : "") + `"></span>
+                <span class="fa fa-star` + (value.voteAvg > 2 ? (value.voteAvg < 3 ? "-half-o checked" : " checked") : "") + `"></span>
+                <span class="fa fa-star` + (value.voteAvg > 3 ? (value.voteAvg < 4 ? "-half-o checked" : " checked") : "") + `"></span>
+                <span class="fa fa-star` + (value.voteAvg > 4 ? (value.voteAvg < 5 ? "-half-o checked" : " checked") : "") + `"></span>
+            `
+            $("#dv_MyRating").html(item);
         }
     });
 }
