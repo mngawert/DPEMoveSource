@@ -50,13 +50,17 @@ function GetStadiumDetails(id) {
 
                 var tmp =
                     `
-                        <a href="/Stadium/Details/` + value.UNDER_STADIUM_ID + `">[1]</a>
+                        <a id="lnk_PARENT_STADIUM_` + value.UNDER_STADIUM_ID +`" href="/Stadium/Details/` + value.UNDER_STADIUM_ID + `">[1]</a>
                     `;
                 $("#dv_UNDER_STADIUM_ID").html(tmp);
+
+                PrintParentStadiumName(value.UNDER_STADIUM_ID);
+
             }
 
             if (value.UNDER_STADIUM.length > 0) {
                 PrintUnderStadium(value.UNDER_STADIUM);
+                PrintUnderStadiumName(value.UNDER_STADIUM);
             }
 
         });
@@ -193,14 +197,65 @@ function PrintUnderStadium(data) {
     var item_1 = "";
     $.each(data, function (index, value) {
         console.log(value);
-
         item_1 +=
-            `
-                <a href="/Stadium/Details/` + value + `">[` + (index+1) + `]</a>
-            `
+        `
+            <a id="lnk_UNDER_STADIUM_` + value + `" href="/Stadium/Details/` + value + `">[` + value + `]</a><br />
+        `
     });
 
     $("#dv_UNDER_STADIUM").html(item_1);
+}
+
+function PrintUnderStadiumName(data) {
+
+    $.each(data, function (ii, vv) {
+
+        var id = vv;
+        var form = new FormData();
+        form.append("STADIUM_ID", id);
+
+        var settings = {
+            "url": "http://data.dpe.go.th/api/stadium/address/getStadiumDetail",
+            "method": "POST",
+            "timeout": 0,
+            "processData": false,
+            "mimeType": "multipart/form-data",
+            "contentType": false,
+            "data": form
+        };
+
+        $.ajax(settings).done(function (response) {
+            var results = JSON.parse(response);
+            var data = results.data;
+            $.each(data, function (index, value) {
+                $("#lnk_UNDER_STADIUM_" + id).html(value.NAME_LABEL)
+            });
+        });
+    });
+}
+
+function PrintParentStadiumName(id) {
+
+    var form = new FormData();
+    form.append("STADIUM_ID", id);
+
+    var settings = {
+        "url": "http://data.dpe.go.th/api/stadium/address/getStadiumDetail",
+        "method": "POST",
+        "timeout": 0,
+        "processData": false,
+        "mimeType": "multipart/form-data",
+        "contentType": false,
+        "data": form
+    };
+
+    $.ajax(settings).done(function (response) {
+        var results = JSON.parse(response);
+        var data = results.data;
+        $.each(data, function (index, value) {
+            $("#lnk_PARENT_STADIUM_" + id).html(value.NAME_LABEL)
+        });
+    });
 }
 
 function GetCommentsByStadiumId(stadiumId) {

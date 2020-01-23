@@ -126,8 +126,6 @@ function GetStadiumType() {
     });
 }
 
-
-
 function SearchStadium(PAGE) {
 
     var provinceId = $("#ddlProvince").val();
@@ -138,8 +136,6 @@ function SearchStadium(PAGE) {
 
     GetStadium(PAGE, txt_STADIUM_NAME, provinceId, amphurId, tambonId, stadiumType);
 }
-
-
 
 function GetStadium(PAGE, STADIUM_NAME, PROV_CODE, AMP_CODE, TAM_CODE, GROUP_ID) {
 
@@ -240,7 +236,6 @@ function PrintVoteAvg(data) {
     });
 }
 
-
 function GetCommentCount(commentOf, eventOrStadiumCode) {
 
     console.log("GetCommentCount");
@@ -262,7 +257,6 @@ function GetCommentCount(commentOf, eventOrStadiumCode) {
         }
     });
 }
-
 
 function GetVoteTotalAvg(voteOf, eventOrStadiumCode) {
 
