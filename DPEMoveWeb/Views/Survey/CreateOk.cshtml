@@ -1,0 +1,107 @@
+﻿<div class="page-breadcrumbs" style="background-image: url('/images/bg-bc.jpg')">
+    <div class="wellcome_sec">
+        <div class="container">
+            <div class="wellcome">
+                <p>ยินดีต้อนรับสู่กรมพลศึกษา กระทรวงการท่องเที่ยวและกีฬา</p>
+            </div>
+        </div>
+    </div>
+    <div class="filter"></div>
+    <div class="content-center">
+        <div class="container">
+            <h2 class="presentation-subtitle text-center">แบบสำรวจ</h2>
+        </div>
+    </div>
+</div>
+<div class="section">
+    <div class="container">
+
+        <div class="row">
+            <div class="col-md-8 mx-auto">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div>
+                            <h4 class="text-center">
+                                <a href="/Survey">ท่านได้ตอบ แบบสำรวจ สำเร็จแล้ว <br /> คลิกที่นี่เพื่อตอบแบบสำรวจอีก</a> <br />
+                            </h4>
+                            <br />
+                            <br />
+                            <br />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal fade bd-example-modal-lg" id="Modal_Results" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <form id="frmXXX">
+
+                <div class="modal-header">
+
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">ปิด</span>
+                    </button>
+                    <div>ตอบแบบสำรวจเรียบร้อย</div>
+                </div>
+
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-12">
+
+                            <div>
+                                <h4 class="text-center">
+                                    <img src="/images/icon_app.png" width="99" height="104" alt=""> <br />
+                                    <a href="/Survey">ท่านได้ตอบ แบบสำรวจ สำเร็จแล้ว <br /> คลิกที่นี่เพื่อตอบแบบสำรวจอีก</a> <br />
+                                    <br />
+                                    <br />
+                                    <br />
+                                    <br />
+                                    <br />
+                                </h4>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 text-right">
+                            @*<button type="submit" class="button darkgreen" >เพิ่ม</button>*@
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+
+@section Scripts {
+
+    <script type="text/javascript">
+
+        function ShowPopup() {
+
+            var results = @Html.Raw(Json.Serialize(ViewBag.OKMessage as string));
+            if (results != null) {
+                $("#Modal_Results").modal("show");
+            }
+        }
+
+        $(document).ready(function () {
+            ShowPopup();
+        });
+
+    </script>
+}

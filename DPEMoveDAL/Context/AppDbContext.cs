@@ -77,9 +77,12 @@ namespace DPEMoveDAL.Models
         public virtual DbSet<Rolegroup> Rolegroup { get; set; }
         public virtual DbSet<Rolegrouphasrole> Rolegrouphasrole { get; set; }
         public virtual DbSet<Rolegrouphasuser> Rolegrouphasuser { get; set; }
+        public virtual DbSet<Survey> Survey { get; set; }
+        public virtual DbSet<SurveyAnswer> SurveyAnswer { get; set; }
         public virtual DbSet<SurveyDetail> SurveyDetail { get; set; }
         public virtual DbSet<SurveyDetail151> SurveyDetail151 { get; set; }
         public virtual DbSet<SurveyHeader> SurveyHeader { get; set; }
+        public virtual DbSet<SurveyQuestion> SurveyQuestion { get; set; }
         public virtual DbSet<Tambon> Tambon { get; set; }
         public virtual DbSet<TmpAccount> TmpAccount { get; set; }
         public virtual DbSet<TmpEvent> TmpEvent { get; set; }
@@ -2480,6 +2483,65 @@ namespace DPEMoveDAL.Models
                 entity.Property(e => e.UserId).HasColumnName("USER_ID");
             });
 
+            modelBuilder.Entity<Survey>(entity =>
+            {
+                entity.ToTable("SURVEY");
+
+                entity.HasIndex(e => e.SurveyId)
+                    .HasName("SURVEY_PK")
+                    .IsUnique();
+
+                entity.Property(e => e.SurveyId)
+                    .HasColumnName("SURVEY_ID")
+                    .ValueGeneratedNever();
+
+                entity.Property(e => e.EndDate)
+                    .HasColumnName("END_DATE")
+                    .HasColumnType("DATE");
+
+                entity.Property(e => e.StartDate)
+                    .HasColumnName("START_DATE")
+                    .HasColumnType("DATE");
+
+                entity.Property(e => e.Status).HasColumnName("STATUS");
+
+                entity.Property(e => e.SurveyDescription)
+                    .HasColumnName("SURVEY_DESCRIPTION")
+                    .HasColumnType("VARCHAR2(500)");
+            });
+
+            modelBuilder.Entity<SurveyAnswer>(entity =>
+            {
+                entity.ToTable("SURVEY_ANSWER");
+
+                entity.HasIndex(e => e.SurveyAnswerId)
+                    .HasName("SURVEY_ANSWER_PK")
+                    .IsUnique();
+
+                entity.Property(e => e.SurveyAnswerId).HasColumnName("SURVEY_ANSWER_ID");
+
+                entity.Property(e => e.AnswerText)
+                    .HasColumnName("ANSWER_TEXT")
+                    .HasColumnType("VARCHAR2(4000)");
+
+                entity.Property(e => e.AnswerValue)
+                    .HasColumnName("ANSWER_VALUE")
+                    .HasColumnType("VARCHAR2(100)");
+
+                entity.Property(e => e.CreatedBy).HasColumnName("CREATED_BY");
+
+                entity.Property(e => e.CreatedDate)
+                    .HasColumnName("CREATED_DATE")
+                    .HasColumnType("DATE");
+
+                entity.Property(e => e.QuestionId).HasColumnName("QUESTION_ID");
+
+                entity.HasOne(d => d.Question)
+                    .WithMany(p => p.SurveyAnswer)
+                    .HasForeignKey(d => d.QuestionId)
+                    .HasConstraintName("SURVEY_ANSWER_R01");
+            });
+
             modelBuilder.Entity<SurveyDetail>(entity =>
             {
                 entity.ToTable("SURVEY_DETAIL");
@@ -2772,6 +2834,40 @@ namespace DPEMoveDAL.Models
                     .WithMany(p => p.SurveyHeader)
                     .HasForeignKey(d => d.AddressId)
                     .HasConstraintName("FK_SURVEY_HEADER_ADDRESS");
+            });
+
+            modelBuilder.Entity<SurveyQuestion>(entity =>
+            {
+                entity.HasKey(e => e.QuestionId);
+
+                entity.ToTable("SURVEY_QUESTION");
+
+                entity.HasIndex(e => e.QuestionId)
+                    .HasName("SURVEY_QUESTION_PK")
+                    .IsUnique();
+
+                entity.Property(e => e.QuestionId)
+                    .HasColumnName("QUESTION_ID")
+                    .ValueGeneratedNever();
+
+                entity.Property(e => e.QuestionText)
+                    .HasColumnName("QUESTION_TEXT")
+                    .HasColumnType("VARCHAR2(4000)");
+
+                entity.Property(e => e.Remarks)
+                    .HasColumnName("REMARKS")
+                    .HasColumnType("VARCHAR2(500)");
+
+                entity.Property(e => e.SectionText)
+                    .HasColumnName("SECTION_TEXT")
+                    .HasColumnType("VARCHAR2(500)");
+
+                entity.Property(e => e.SurveyId).HasColumnName("SURVEY_ID");
+
+                entity.HasOne(d => d.Survey)
+                    .WithMany(p => p.SurveyQuestion)
+                    .HasForeignKey(d => d.SurveyId)
+                    .HasConstraintName("SURVEY_QUESTION_R01");
             });
 
             modelBuilder.Entity<Tambon>(entity =>
@@ -3136,6 +3232,8 @@ namespace DPEMoveDAL.Models
             modelBuilder.HasSequence("SQ_PRIVATE_MESSAGE");
 
             modelBuilder.HasSequence("SQ_PRODUCT");
+
+            modelBuilder.HasSequence("SQ_SURVEY_ANSWER");
 
             modelBuilder.HasSequence("SQ_TMP_ACCOUNT");
 
