@@ -86,41 +86,7 @@ namespace DPEMoveWeb.ApiControllers
         [AllowAnonymous]
         public async Task<IActionResult> Login(User user)
         {
-            string email = user.Email;
-            string password = user.Password;
-
-            // get the user to verifty
-            var userToVerify = await userManager.FindByEmailAsync(email);
-
-            if (userToVerify == null) return BadRequest();
-
-            // check the credentials
-            if (await userManager.CheckPasswordAsync(userToVerify, password))
-            {
-                var claims = new List<Claim>
-                {
-                    new Claim(JwtRegisteredClaimNames.Sub, userToVerify.UserName),
-                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                    //new Claim("test1", "test1xx")
-                };
-
-                //claims.Add(new Claim(ClaimTypes.Role, "HOME_ABOUT"));
-
-                var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JwtKey"]));
-                var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-                var expires = DateTime.Now.AddDays(Convert.ToDouble(configuration["JwtExpireDays"]));
-
-                var token = new JwtSecurityToken(
-                    issuer: configuration["JwtIssuer"],
-                    audience: configuration["JwtAudience"],
-                    claims: claims,
-                    expires: expires,
-                    signingCredentials: creds
-                );
-
-                return Ok(new JwtSecurityTokenHandler().WriteToken(token));
-            }
-            else return BadRequest();
+            return await GetToken(user);
         }
 
 

@@ -4,10 +4,18 @@ using System.Text;
 
 namespace DPEMoveDAL.ViewModels
 {
+
+    public partial class SurveyAnswers
+    {
+        public SurveyAnswerViewModel[] SurveyAnswer { get; set; }
+    }
+
+
     public partial class SurveyAnswerViewModel
     {
         public int SurveyAnswerId { get; set; }
         public int? QuestionId { get; set; }
+        public string AnswerValue { get; set; }
         public string AnswerValue_1 { get; set; }
         public string AnswerValue_2 { get; set; }
         public string AnswerValue_3 { get; set; }
