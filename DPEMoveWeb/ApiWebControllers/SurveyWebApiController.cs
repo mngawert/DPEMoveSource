@@ -47,21 +47,29 @@ namespace DPEMoveWeb.ApiWebControllers
 
         [Authorize(Roles = "SURVEY_VIEW")]
         [HttpPost]
-        public async Task<IActionResult> Create(SurveyAnswers model)
+        public async Task<IActionResult> Create(SurveyAnswerViewModel model)
         {
             int appUserId = await GetLoginAppUserId();
             if (appUserId != -1)
             {
+                var q = new SurveyAnswer
+                {
+                    CreatedDate = DateTime.Now,
+                    CreatedBy = appUserId
+                };
+                _context.Entry(q).State = EntityState.Added;
+
                 foreach (var m in model.SurveyAnswer)
                 {
-                    var q_1 = new SurveyAnswer
+                    var q_details = new SurveyAnswerDetails
                     {
+                        SurveyAnswerId = q.SurveyAnswerId,
                         QuestionId = m.QuestionId,
                         AnswerValue = m.AnswerValue,
                         CreatedDate = DateTime.Now,
                         CreatedBy = appUserId,
                     };
-                    _context.Entry(q_1).State = EntityState.Added;
+                    _context.Entry(q_details).State = EntityState.Added;
                 }
 
                 _context.SaveChanges();

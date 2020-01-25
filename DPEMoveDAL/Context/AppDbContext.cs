@@ -79,13 +79,14 @@ namespace DPEMoveDAL.Models
         public virtual DbSet<Rolegrouphasuser> Rolegrouphasuser { get; set; }
         public virtual DbSet<Survey> Survey { get; set; }
         public virtual DbSet<SurveyAnswer> SurveyAnswer { get; set; }
-        public virtual DbSet<SurveyDetail> SurveyDetail { get; set; }
-        public virtual DbSet<SurveyDetail151> SurveyDetail151 { get; set; }
-        public virtual DbSet<SurveyHeader> SurveyHeader { get; set; }
+        public virtual DbSet<SurveyAnswerDetails> SurveyAnswerDetails { get; set; }
         public virtual DbSet<SurveyQuestion> SurveyQuestion { get; set; }
         public virtual DbSet<Tambon> Tambon { get; set; }
         public virtual DbSet<TmpAccount> TmpAccount { get; set; }
         public virtual DbSet<TmpEvent> TmpEvent { get; set; }
+        public virtual DbSet<TmpSurveyDetail> TmpSurveyDetail { get; set; }
+        public virtual DbSet<TmpSurveyDetail151> TmpSurveyDetail151 { get; set; }
+        public virtual DbSet<TmpSurveyHeader> TmpSurveyHeader { get; set; }
         public virtual DbSet<UploadedFile> UploadedFile { get; set; }
         public virtual DbSet<User> User { get; set; }
         public virtual DbSet<Vote> Vote { get; set; }
@@ -2520,6 +2521,27 @@ namespace DPEMoveDAL.Models
 
                 entity.Property(e => e.SurveyAnswerId).HasColumnName("SURVEY_ANSWER_ID");
 
+                entity.Property(e => e.CreatedBy).HasColumnName("CREATED_BY");
+
+                entity.Property(e => e.CreatedDate)
+                    .HasColumnName("CREATED_DATE")
+                    .HasColumnType("DATE");
+            });
+
+            modelBuilder.Entity<SurveyAnswerDetails>(entity =>
+            {
+                entity.HasKey(e => new { e.SurveyAnswerId, e.QuestionId });
+
+                entity.ToTable("SURVEY_ANSWER_DETAILS");
+
+                entity.HasIndex(e => new { e.SurveyAnswerId, e.QuestionId })
+                    .HasName("SURVEY_ANSWER_DETAILS_PK")
+                    .IsUnique();
+
+                entity.Property(e => e.SurveyAnswerId).HasColumnName("SURVEY_ANSWER_ID");
+
+                entity.Property(e => e.QuestionId).HasColumnName("QUESTION_ID");
+
                 entity.Property(e => e.AnswerText)
                     .HasColumnName("ANSWER_TEXT")
                     .HasColumnType("VARCHAR2(4000)");
@@ -2534,17 +2556,129 @@ namespace DPEMoveDAL.Models
                     .HasColumnName("CREATED_DATE")
                     .HasColumnType("DATE");
 
-                entity.Property(e => e.QuestionId).HasColumnName("QUESTION_ID");
-
-                entity.HasOne(d => d.Question)
-                    .WithMany(p => p.SurveyAnswer)
-                    .HasForeignKey(d => d.QuestionId)
-                    .HasConstraintName("SURVEY_ANSWER_R01");
+                entity.HasOne(d => d.SurveyAnswer)
+                    .WithMany(p => p.SurveyAnswerDetails)
+                    .HasForeignKey(d => d.SurveyAnswerId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("SURVEY_ANSWER_DETAILS_R01");
             });
 
-            modelBuilder.Entity<SurveyDetail>(entity =>
+            modelBuilder.Entity<SurveyQuestion>(entity =>
             {
-                entity.ToTable("SURVEY_DETAIL");
+                entity.HasKey(e => e.QuestionId);
+
+                entity.ToTable("SURVEY_QUESTION");
+
+                entity.HasIndex(e => e.QuestionId)
+                    .HasName("SURVEY_QUESTION_PK")
+                    .IsUnique();
+
+                entity.Property(e => e.QuestionId)
+                    .HasColumnName("QUESTION_ID")
+                    .ValueGeneratedNever();
+
+                entity.Property(e => e.QuestionText)
+                    .HasColumnName("QUESTION_TEXT")
+                    .HasColumnType("VARCHAR2(4000)");
+
+                entity.Property(e => e.Remarks)
+                    .HasColumnName("REMARKS")
+                    .HasColumnType("VARCHAR2(500)");
+
+                entity.Property(e => e.SectionText)
+                    .HasColumnName("SECTION_TEXT")
+                    .HasColumnType("VARCHAR2(500)");
+
+                entity.Property(e => e.SurveyId).HasColumnName("SURVEY_ID");
+
+                entity.HasOne(d => d.Survey)
+                    .WithMany(p => p.SurveyQuestion)
+                    .HasForeignKey(d => d.SurveyId)
+                    .HasConstraintName("SURVEY_QUESTION_R01");
+            });
+
+            modelBuilder.Entity<Tambon>(entity =>
+            {
+                entity.ToTable("TAMBON");
+
+                entity.HasIndex(e => e.TambonId)
+                    .HasName("ATAMBON_PK")
+                    .IsUnique();
+
+                entity.Property(e => e.TambonId)
+                    .HasColumnName("TAMBON_ID")
+                    .ValueGeneratedNever();
+
+                entity.Property(e => e.AmphurId).HasColumnName("AMPHUR_ID");
+
+                entity.Property(e => e.TambonCode)
+                    .IsRequired()
+                    .HasColumnName("TAMBON_CODE")
+                    .HasColumnType("VARCHAR2(50)");
+
+                entity.Property(e => e.TambonName)
+                    .IsRequired()
+                    .HasColumnName("TAMBON_NAME")
+                    .HasColumnType("VARCHAR2(50)");
+
+                entity.HasOne(d => d.Amphur)
+                    .WithMany(p => p.Tambon)
+                    .HasForeignKey(d => d.AmphurId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_AMPHUR");
+            });
+
+            modelBuilder.Entity<TmpAccount>(entity =>
+            {
+                entity.HasKey(e => e.AccountId);
+
+                entity.ToTable("TMP_ACCOUNT");
+
+                entity.HasIndex(e => e.AccountId)
+                    .HasName("TMP_ACCOUNT_PK")
+                    .IsUnique();
+
+                entity.Property(e => e.AccountId)
+                    .HasColumnName("ACCOUNT_ID")
+                    .HasColumnType("VARCHAR2(100)");
+
+                entity.Property(e => e.AccountName)
+                    .HasColumnName("ACCOUNT_NAME")
+                    .HasColumnType("VARCHAR2(100)");
+            });
+
+            modelBuilder.Entity<TmpEvent>(entity =>
+            {
+                entity.HasKey(e => e.EventId);
+
+                entity.ToTable("TMP_EVENT");
+
+                entity.HasIndex(e => e.EventId)
+                    .HasName("TMP_EVENT_PK")
+                    .IsUnique();
+
+                entity.Property(e => e.EventId)
+                    .HasColumnName("EVENT_ID")
+                    .ValueGeneratedNever();
+
+                entity.Property(e => e.EventDescription)
+                    .HasColumnName("EVENT_DESCRIPTION")
+                    .HasColumnType("CLOB");
+
+                entity.Property(e => e.EventDescription2)
+                    .HasColumnName("EVENT_DESCRIPTION2")
+                    .HasColumnType("VARCHAR2(4000)");
+
+                entity.Property(e => e.EventDescription3)
+                    .HasColumnName("EVENT_DESCRIPTION3")
+                    .HasColumnType("VARCHAR2(4000)");
+            });
+
+            modelBuilder.Entity<TmpSurveyDetail>(entity =>
+            {
+                entity.HasKey(e => e.SurveyDetailId);
+
+                entity.ToTable("TMP_SURVEY_DETAIL");
 
                 entity.HasIndex(e => e.SurveyDetailId)
                     .HasName("PK_SURVEY_DETAIL")
@@ -2701,15 +2835,17 @@ namespace DPEMoveDAL.Models
                     .HasColumnType("TIMESTAMP(6)");
 
                 entity.HasOne(d => d.SurveyHeader)
-                    .WithMany(p => p.SurveyDetail)
+                    .WithMany(p => p.TmpSurveyDetail)
                     .HasForeignKey(d => d.SurveyHeaderId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_SURVEYDETAIL_HEADER");
             });
 
-            modelBuilder.Entity<SurveyDetail151>(entity =>
+            modelBuilder.Entity<TmpSurveyDetail151>(entity =>
             {
-                entity.ToTable("SURVEY_DETAIL_15_1");
+                entity.HasKey(e => e.SurveyDetail151Id);
+
+                entity.ToTable("TMP_SURVEY_DETAIL_15_1");
 
                 entity.HasIndex(e => e.SurveyDetail151Id)
                     .HasName("PK_SURVEY_DETAIL_15_1")
@@ -2757,15 +2893,17 @@ namespace DPEMoveDAL.Models
                     .HasColumnType("TIMESTAMP(6)");
 
                 entity.HasOne(d => d.SurveyDetail)
-                    .WithMany(p => p.SurveyDetail151)
+                    .WithMany(p => p.TmpSurveyDetail151)
                     .HasForeignKey(d => d.SurveyDetailId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_SURVEYDETAIL151_DETAIL");
             });
 
-            modelBuilder.Entity<SurveyHeader>(entity =>
+            modelBuilder.Entity<TmpSurveyHeader>(entity =>
             {
-                entity.ToTable("SURVEY_HEADER");
+                entity.HasKey(e => e.SurveyHeaderId);
+
+                entity.ToTable("TMP_SURVEY_HEADER");
 
                 entity.HasIndex(e => e.SurveyHeaderId)
                     .HasName("PK_SURVEY_HEADER")
@@ -2831,120 +2969,9 @@ namespace DPEMoveDAL.Models
                     .HasColumnType("TIMESTAMP(6)");
 
                 entity.HasOne(d => d.Address)
-                    .WithMany(p => p.SurveyHeader)
+                    .WithMany(p => p.TmpSurveyHeader)
                     .HasForeignKey(d => d.AddressId)
                     .HasConstraintName("FK_SURVEY_HEADER_ADDRESS");
-            });
-
-            modelBuilder.Entity<SurveyQuestion>(entity =>
-            {
-                entity.HasKey(e => e.QuestionId);
-
-                entity.ToTable("SURVEY_QUESTION");
-
-                entity.HasIndex(e => e.QuestionId)
-                    .HasName("SURVEY_QUESTION_PK")
-                    .IsUnique();
-
-                entity.Property(e => e.QuestionId)
-                    .HasColumnName("QUESTION_ID")
-                    .ValueGeneratedNever();
-
-                entity.Property(e => e.QuestionText)
-                    .HasColumnName("QUESTION_TEXT")
-                    .HasColumnType("VARCHAR2(4000)");
-
-                entity.Property(e => e.Remarks)
-                    .HasColumnName("REMARKS")
-                    .HasColumnType("VARCHAR2(500)");
-
-                entity.Property(e => e.SectionText)
-                    .HasColumnName("SECTION_TEXT")
-                    .HasColumnType("VARCHAR2(500)");
-
-                entity.Property(e => e.SurveyId).HasColumnName("SURVEY_ID");
-
-                entity.HasOne(d => d.Survey)
-                    .WithMany(p => p.SurveyQuestion)
-                    .HasForeignKey(d => d.SurveyId)
-                    .HasConstraintName("SURVEY_QUESTION_R01");
-            });
-
-            modelBuilder.Entity<Tambon>(entity =>
-            {
-                entity.ToTable("TAMBON");
-
-                entity.HasIndex(e => e.TambonId)
-                    .HasName("ATAMBON_PK")
-                    .IsUnique();
-
-                entity.Property(e => e.TambonId)
-                    .HasColumnName("TAMBON_ID")
-                    .ValueGeneratedNever();
-
-                entity.Property(e => e.AmphurId).HasColumnName("AMPHUR_ID");
-
-                entity.Property(e => e.TambonCode)
-                    .IsRequired()
-                    .HasColumnName("TAMBON_CODE")
-                    .HasColumnType("VARCHAR2(50)");
-
-                entity.Property(e => e.TambonName)
-                    .IsRequired()
-                    .HasColumnName("TAMBON_NAME")
-                    .HasColumnType("VARCHAR2(50)");
-
-                entity.HasOne(d => d.Amphur)
-                    .WithMany(p => p.Tambon)
-                    .HasForeignKey(d => d.AmphurId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_AMPHUR");
-            });
-
-            modelBuilder.Entity<TmpAccount>(entity =>
-            {
-                entity.HasKey(e => e.AccountId);
-
-                entity.ToTable("TMP_ACCOUNT");
-
-                entity.HasIndex(e => e.AccountId)
-                    .HasName("TMP_ACCOUNT_PK")
-                    .IsUnique();
-
-                entity.Property(e => e.AccountId)
-                    .HasColumnName("ACCOUNT_ID")
-                    .HasColumnType("VARCHAR2(100)");
-
-                entity.Property(e => e.AccountName)
-                    .HasColumnName("ACCOUNT_NAME")
-                    .HasColumnType("VARCHAR2(100)");
-            });
-
-            modelBuilder.Entity<TmpEvent>(entity =>
-            {
-                entity.HasKey(e => e.EventId);
-
-                entity.ToTable("TMP_EVENT");
-
-                entity.HasIndex(e => e.EventId)
-                    .HasName("TMP_EVENT_PK")
-                    .IsUnique();
-
-                entity.Property(e => e.EventId)
-                    .HasColumnName("EVENT_ID")
-                    .ValueGeneratedNever();
-
-                entity.Property(e => e.EventDescription)
-                    .HasColumnName("EVENT_DESCRIPTION")
-                    .HasColumnType("CLOB");
-
-                entity.Property(e => e.EventDescription2)
-                    .HasColumnName("EVENT_DESCRIPTION2")
-                    .HasColumnType("VARCHAR2(4000)");
-
-                entity.Property(e => e.EventDescription3)
-                    .HasColumnName("EVENT_DESCRIPTION3")
-                    .HasColumnType("VARCHAR2(4000)");
             });
 
             modelBuilder.Entity<UploadedFile>(entity =>

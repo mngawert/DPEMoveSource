@@ -5,11 +5,6 @@ namespace DPEMoveDAL.Models
 {
     public partial class SurveyQuestion
     {
-        public SurveyQuestion()
-        {
-            SurveyAnswer = new HashSet<SurveyAnswer>();
-        }
-
         public int QuestionId { get; set; }
         public string QuestionText { get; set; }
         public int? SurveyId { get; set; }
@@ -17,6 +12,5 @@ namespace DPEMoveDAL.Models
         public string SectionText { get; set; }
 
         public Survey Survey { get; set; }
-        public ICollection<SurveyAnswer> SurveyAnswer { get; set; }
     }
 }
