@@ -1,0 +1,384 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title></title>
+    <!-- Custom fonts for this template-->
+    <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <!-- Custom styles for this template-->
+    <link href="/css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="/lib/datatables/css/jquery.dataTables.css" rel="stylesheet" />
+</head>
+<body id="page-top">
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <ul class="navbar-nav bg-gradient-success sidebar sidebar-dark accordion" id="accordionSidebar">
+            <!-- Sidebar - Brand -->
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+                <div class="sidebar-brand-icon rotate-n-15">
+                    <img src="/img/logo60_60.png">
+                </div>
+                <div class="sidebar-brand-text mx-3">Admin <sup>pages</sup></div>
+            </a>
+            <!-- Divider -->
+            <hr class="sidebar-divider my-0">
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item">
+                <a class="nav-link" href="index.html">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Interface
+            </div>
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo_1" aria-expanded="true" aria-controls="collapseTwo_1">
+                    <i class="fas fa-fw fa-cog"></i>
+                    <span>User Management</span>
+                </a>
+                <div id="collapseTwo_1" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Authorization:</h6>
+                        <a class="collapse-item active" href="/Group">Group</a>
+                        <a class="collapse-item" href="/User">User</a>
+                    </div>
+                </div>
+            </li>
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fas fa-fw fa-cog"></i>
+                    <span>Components</span>
+                </a>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Custom Components:</h6>
+                        <a class="collapse-item" href="buttons.html">Buttons</a>
+                        <a class="collapse-item" href="cards.html">Cards</a>
+                    </div>
+                </div>
+            </li>
+            <!-- Nav Item - Utilities Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
+                    <i class="fas fa-fw fa-wrench"></i>
+                    <span>Utilities</span>
+                </a>
+                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Custom Utilities:</h6>
+                        <a class="collapse-item" href="utilities-color.html">Colors</a>
+                        <a class="collapse-item" href="utilities-border.html">Borders</a>
+                        <a class="collapse-item" href="utilities-animation.html">Animations</a>
+                        <a class="collapse-item" href="utilities-other.html">Other</a>
+                    </div>
+                </div>
+            </li>
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Addons
+            </div>
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item active">
+                <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
+                    <i class="fas fa-fw fa-folder"></i>
+                    <span>Pages</span>
+                </a>
+                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Login Screens:</h6>
+                        <a class="collapse-item" href="login.html">Login</a>
+                        <a class="collapse-item" href="register.html">Register</a>
+                        <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
+                        <div class="collapse-divider"></div>
+                        <h6 class="collapse-header">Other Pages:</h6>
+                        <a class="collapse-item" href="404.html">404 Page</a>
+                        <a class="collapse-item active" href="blank.html">Blank Page</a>
+                    </div>
+                </div>
+            </li>
+
+            <!-- Nav Item - Charts -->
+            <li class="nav-item">
+                <a class="nav-link" href="charts.html">
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    <span>Charts</span>
+                </a>
+            </li>
+
+            <!-- Nav Item - Tables -->
+            <li class="nav-item">
+                <a class="nav-link" href="tables.html">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Tables</span>
+                </a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider d-none d-md-block">
+
+            <!-- Sidebar Toggler (Sidebar) -->
+            <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+            </div>
+
+        </ul>
+        <!-- End of Sidebar -->
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+                    <!-- Sidebar Toggle (Topbar) -->
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
+
+                    <!-- Topbar Search -->
+
+                    <!-- Topbar Navbar -->
+                    <ul class="navbar-nav ml-auto">
+
+                        <!-- Nav Item - Search Dropdown (Visible Only XS) -->
+
+
+                        <!-- Nav Item - Alerts -->
+
+                        <div class="topbar-divider d-none d-sm-block"></div>
+
+                        <!-- Nav Item - User Information -->
+
+                            <li class="nav-item">
+                                <form method="post" action="/account/logout">
+                                    <button type="submit" class="nav-link btn btn-link py-0"
+                                            style="width:auto">
+                                        Logout am@gmail.com
+                                    </button>
+                                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8PlgaOUBBqxIvy1WkWtdob1fyAovg_Jr-S0mxYfwDMt9yoV4SKcZnQNluubUWhFco3Wj9k8DjUD59uilTw4rZKAUj_wmC2Dik33iSn6E3Ng4P5OF2RA5xXniuPkQSk2mRu2aTVz478XpMyXjtRfVgUz5clB4Sc8UiBoAl46eCTB29YdtXM5o5pDOzCtePfGwQQ" /></form>
+                            </li>
+
+
+
+
+
+                    </ul>
+
+                </nav>
+                <!-- End of Topbar -->
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <h1 class="h3 mb-4 text-gray-800"></h1>
+
+                    <div>
+                        <!-- Page Heading -->
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h4 mb-0 text-gray-800">
+        กลุ่มผู้ใช้งานระบบ
+    </h1>
+    <a class="btn btn-success" href="/Group/Create">สร้าง</a>
+</div>
+
+<div class="card">
+
+    <div class="card-body">
+        <form method="post">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group row">
+                        <label class="col-md-2 text-right">Name</label>
+                        <input class="col-md-3 form-control" name="GroupName" />
+                        <label class="col-md-2 text-right">Description</label>
+                        <input class="col-md-3 form-control" name="Description" />
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-2 text-right">สถานะ</label>
+                        <select class="col-md-3 form-control" name="Status">
+                            <option value="1">ใช้งาน</option>
+                            <option value="2">ไม่ใช้งาน</option>
+                        </select>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-4">
+                        </div>
+                        <div class="col-md-4">
+                            <button type="submit" class="btn btn-success btn-block">แสดงข้อมูล</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        <input name="__RequestVerificationToken" type="hidden" value="CfDJ8PlgaOUBBqxIvy1WkWtdob1fyAovg_Jr-S0mxYfwDMt9yoV4SKcZnQNluubUWhFco3Wj9k8DjUD59uilTw4rZKAUj_wmC2Dik33iSn6E3Ng4P5OF2RA5xXniuPkQSk2mRu2aTVz478XpMyXjtRfVgUz5clB4Sc8UiBoAl46eCTB29YdtXM5o5pDOzCtePfGwQQ" /></form>
+    </div>
+
+    <div class="card-body">
+
+
+        <table class="table table-sm table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">ชื่อกลุ่ม</th>
+                    <th scope="col">คำอธิบาย</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                                    <tr>
+                        <td scope="row">1</td>
+                        <td>&#xE1B;&#xE23;&#xE30;&#xE0A;&#xE32;&#xE0A;&#xE19;</td>
+                        <td>&#xE1B;&#xE23;&#xE30;&#xE0A;&#xE32;&#xE0A;&#xE19;</td>
+                        <td style="width:30%;">
+                            <form action="/Group/Delete/1" method="post">
+                                <a class="btn-circle btn-sm btn-success" href="/Group/Edit/1" title="กำหนดสิทธิ์"><i class="fas fa-unlock-alt"></i></a>
+                                <a class="btn-circle btn-sm btn-success" href="/Group/EditUsers/1" title="กลุ่มผู้ใช้งาน"><i class="fas fa-users"></i></a>
+                                <a class="btn-circle btn-sm btn-success" href="/Group/EditUsers/1" title="ลบผู้ใช้งาน"><i class="fas fa-trash"></i></a>
+
+                            <input name="__RequestVerificationToken" type="hidden" value="CfDJ8PlgaOUBBqxIvy1WkWtdob1fyAovg_Jr-S0mxYfwDMt9yoV4SKcZnQNluubUWhFco3Wj9k8DjUD59uilTw4rZKAUj_wmC2Dik33iSn6E3Ng4P5OF2RA5xXniuPkQSk2mRu2aTVz478XpMyXjtRfVgUz5clB4Sc8UiBoAl46eCTB29YdtXM5o5pDOzCtePfGwQQ" /></form>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td scope="row">2</td>
+                        <td>&#xE2D;&#xE32;&#xE2A;&#xE32;&#xE2A;&#xE21;&#xE31;&#xE04;&#xE23;&#xE01;&#xE35;&#xE2C;&#xE32;</td>
+                        <td>&#xE2D;&#xE32;&#xE2A;&#xE32;&#xE2A;&#xE21;&#xE31;&#xE04;&#xE23;&#xE01;&#xE35;&#xE2C;&#xE32;</td>
+                        <td style="width:30%">
+                            <form action="/Group/Delete/2" method="post">
+
+                                <a class="btn-circle btn-sm btn-success" href="/Group/Edit/2" title="กำหนดสิทธิ์"><i class="fas fa-unlock-alt"></i></a>
+                                <a class="btn-circle btn-sm btn-success" href="/Group/EditUsers/2" title="กลุ่มผู้ใช้งาน"><i class="fas fa-users"></i></a>
+                                <a class="btn-circle btn-sm btn-success" href="/Group/EditUsers/2" title="ลบผู้ใช้งาน"><i class="fas fa-trash"></i></a>
+
+                            <input name="__RequestVerificationToken" type="hidden" value="CfDJ8PlgaOUBBqxIvy1WkWtdob1fyAovg_Jr-S0mxYfwDMt9yoV4SKcZnQNluubUWhFco3Wj9k8DjUD59uilTw4rZKAUj_wmC2Dik33iSn6E3Ng4P5OF2RA5xXniuPkQSk2mRu2aTVz478XpMyXjtRfVgUz5clB4Sc8UiBoAl46eCTB29YdtXM5o5pDOzCtePfGwQQ" /></form>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td scope="row">3</td>
+                        <td>&#xE40;&#xE08;&#xE49;&#xE32;&#xE2B;&#xE19;&#xE49;&#xE32;&#xE17;&#xE35;&#xE48;&#xE1E;&#xE25;&#xE28;&#xE36;&#xE01;&#xE29;&#xE32;&#xE08;&#xE31;&#xE07;&#xE2B;&#xE27;&#xE31;&#xE14;</td>
+                        <td>&#xE40;&#xE08;&#xE49;&#xE32;&#xE2B;&#xE19;&#xE49;&#xE32;&#xE17;&#xE35;&#xE48;&#xE1E;&#xE25;&#xE28;&#xE36;&#xE01;&#xE29;&#xE32;&#xE08;&#xE31;&#xE07;&#xE2B;&#xE27;&#xE31;&#xE14;</td>
+                        <td style="width:30%">
+                            <form action="/Group/Delete/3" method="post">
+
+                                <a class="btn-circle btn-sm btn-success" href="/Group/Edit/3" title="กำหนดสิทธิ์"><i class="fas fa-unlock-alt"></i></a>
+                                <a class="btn-circle btn-sm btn-success" href="/Group/EditUsers/3" title="กลุ่มผู้ใช้งาน"><i class="fas fa-users"></i></a>
+                                <a class="btn-circle btn-sm btn-success" href="/Group/EditUsers/3" title="ลบผู้ใช้งาน"><i class="fas fa-trash"></i></a>
+
+                            <input name="__RequestVerificationToken" type="hidden" value="CfDJ8PlgaOUBBqxIvy1WkWtdob1fyAovg_Jr-S0mxYfwDMt9yoV4SKcZnQNluubUWhFco3Wj9k8DjUD59uilTw4rZKAUj_wmC2Dik33iSn6E3Ng4P5OF2RA5xXniuPkQSk2mRu2aTVz478XpMyXjtRfVgUz5clB4Sc8UiBoAl46eCTB29YdtXM5o5pDOzCtePfGwQQ" /></form>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td scope="row">4</td>
+                        <td>&#xE40;&#xE08;&#xE49;&#xE32;&#xE2B;&#xE19;&#xE49;&#xE32;&#xE17;&#xE35;&#xE48;&#xE1E;&#xE25;&#xE28;&#xE36;&#xE01;&#xE29;&#xE32;&#xE2D;&#xE33;&#xE40;&#xE20;&#xE2D;</td>
+                        <td>&#xE40;&#xE08;&#xE49;&#xE32;&#xE2B;&#xE19;&#xE49;&#xE32;&#xE17;&#xE35;&#xE48;&#xE1E;&#xE25;&#xE28;&#xE36;&#xE01;&#xE29;&#xE32;&#xE2D;&#xE33;&#xE40;&#xE20;&#xE2D;</td>
+                        <td style="width:30%">
+                            <form action="/Group/Delete/4" method="post">
+
+                                <a class="btn-circle btn-sm btn-success" href="/Group/Edit/1" title="กำหนดสิทธิ์"><i class="fas fa-unlock-alt"></i></a>
+                                <a class="btn-circle btn-sm btn-success" href="/Group/EditUsers/1" title="กลุ่มผู้ใช้งาน"><i class="fas fa-users"></i></a>
+                                <a class="btn-circle btn-sm btn-success" href="/Group/EditUsers/1" title="ลบผู้ใช้งาน"><i class="fas fa-trash"></i></a>
+
+
+                            <input name="__RequestVerificationToken" type="hidden" value="CfDJ8PlgaOUBBqxIvy1WkWtdob1fyAovg_Jr-S0mxYfwDMt9yoV4SKcZnQNluubUWhFco3Wj9k8DjUD59uilTw4rZKAUj_wmC2Dik33iSn6E3Ng4P5OF2RA5xXniuPkQSk2mRu2aTVz478XpMyXjtRfVgUz5clB4Sc8UiBoAl46eCTB29YdtXM5o5pDOzCtePfGwQQ" /></form>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td scope="row">5</td>
+                        <td>&#xE40;&#xE08;&#xE49;&#xE32;&#xE2B;&#xE19;&#xE49;&#xE32;&#xE17;&#xE35;&#xE48;&#xE01;&#xE23;&#xE21;&#xE1E;&#xE25;&#xE28;&#xE36;&#xE01;&#xE29;&#xE32;</td>
+                        <td>&#xE40;&#xE08;&#xE49;&#xE32;&#xE2B;&#xE19;&#xE49;&#xE32;&#xE17;&#xE35;&#xE48;&#xE01;&#xE23;&#xE21;&#xE1E;&#xE25;&#xE28;&#xE36;&#xE01;&#xE29;&#xE32;</td>
+                        <td style="width:30%">
+                            <form action="/Group/Delete/5" method="post">
+
+                                <a class="btn-circle btn-sm btn-success" href="/Group/Edit/1" title="กำหนดสิทธิ์"><i class="fas fa-unlock-alt"></i></a>
+                                <a class="btn-circle btn-sm btn-success" href="/Group/EditUsers/1" title="กลุ่มผู้ใช้งาน"><i class="fas fa-users"></i></a>
+                                <a class="btn-circle btn-sm btn-success" href="/Group/EditUsers/1" title="ลบผู้ใช้งาน"><i class="fas fa-trash"></i></a>
+                            <input name="__RequestVerificationToken" type="hidden" value="CfDJ8PlgaOUBBqxIvy1WkWtdob1fyAovg_Jr-S0mxYfwDMt9yoV4SKcZnQNluubUWhFco3Wj9k8DjUD59uilTw4rZKAUj_wmC2Dik33iSn6E3Ng4P5OF2RA5xXniuPkQSk2mRu2aTVz478XpMyXjtRfVgUz5clB4Sc8UiBoAl46eCTB29YdtXM5o5pDOzCtePfGwQQ" /></form>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td scope="row">6</td>
+                        <td>G7</td>
+                        <td>&#xE17;&#xE14;&#xE2A;&#xE2D;&#xE1A; G7</td>
+                        <td style="width:30%">
+                            <form action="/Group/Delete/12" method="post">
+
+                                <a class="btn-circle btn-sm btn-success" href="/Group/Edit/12" title="กำหนดสิทธิ์"><i class="fas fa-unlock-alt"></i></a>
+                                <a class="btn-circle btn-sm btn-success" href="/Group/EditUsers/12" title="กลุ่มผู้ใช้งาน"><i class="fas fa-users"></i></a>
+                                <a class="btn-circle btn-sm btn-success" href="/Group/EditUsers/12" title="ลบผู้ใช้งาน"><i class="fas fa-trash"></i></a>
+
+                            <input name="__RequestVerificationToken" type="hidden" value="CfDJ8PlgaOUBBqxIvy1WkWtdob1fyAovg_Jr-S0mxYfwDMt9yoV4SKcZnQNluubUWhFco3Wj9k8DjUD59uilTw4rZKAUj_wmC2Dik33iSn6E3Ng4P5OF2RA5xXniuPkQSk2mRu2aTVz478XpMyXjtRfVgUz5clB4Sc8UiBoAl46eCTB29YdtXM5o5pDOzCtePfGwQQ" /></form>
+                        </td>
+                    </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+                    </div>
+                </div>
+                <!-- /.container-fluid -->
+            </div>
+            <!-- End of Main Content -->
+            <!-- Footer -->
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; Your Website 2019</span>
+                    </div>
+                </div>
+            </footer>
+            <!-- End of Footer -->
+        </div>
+        <!-- End of Content Wrapper -->
+    </div>
+    <!-- End of Page Wrapper -->
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <a class="btn btn-primary" href="/Account/Logout">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Bootstrap core JavaScript-->
+    <script src="/vendor/jquery/jquery.min.js"></script>
+    <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/lib/datatables/js/jquery.dataTables.js"></script>
+    <!-- Core plugin JavaScript-->
+    <script src="/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <!-- Custom scripts for all pages-->
+    <script src="/js/sb-admin-2.min.js"></script>
+</body>
+</html>
