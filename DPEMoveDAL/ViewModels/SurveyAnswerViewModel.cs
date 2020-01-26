@@ -16,6 +16,7 @@ namespace DPEMoveDAL.ViewModels
         public int SurveyAnswerId { get; set; }
         public int QuestionId { get; set; }
         public string AnswerValue { get; set; }
+        public string AnswerText { get; set; }
         public DateTime? CreatedDate { get; set; }
         public int? CreatedBy { get; set; }
     }

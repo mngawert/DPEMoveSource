@@ -66,6 +66,7 @@ namespace DPEMoveWeb.ApiWebControllers
                         SurveyAnswerId = q.SurveyAnswerId,
                         QuestionId = m.QuestionId,
                         AnswerValue = m.AnswerValue,
+                        AnswerText = m.AnswerText,
                         CreatedDate = DateTime.Now,
                         CreatedBy = appUserId,
                     };

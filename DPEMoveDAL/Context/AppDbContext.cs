@@ -2530,17 +2530,15 @@ namespace DPEMoveDAL.Models
 
             modelBuilder.Entity<SurveyAnswerDetails>(entity =>
             {
-                entity.HasKey(e => new { e.SurveyAnswerId, e.QuestionId });
+                entity.HasKey(e => e.AnsDetailsId);
 
                 entity.ToTable("SURVEY_ANSWER_DETAILS");
 
-                entity.HasIndex(e => new { e.SurveyAnswerId, e.QuestionId })
+                entity.HasIndex(e => e.AnsDetailsId)
                     .HasName("SURVEY_ANSWER_DETAILS_PK")
                     .IsUnique();
 
-                entity.Property(e => e.SurveyAnswerId).HasColumnName("SURVEY_ANSWER_ID");
-
-                entity.Property(e => e.QuestionId).HasColumnName("QUESTION_ID");
+                entity.Property(e => e.AnsDetailsId).HasColumnName("ANS_DETAILS_ID");
 
                 entity.Property(e => e.AnswerText)
                     .HasColumnName("ANSWER_TEXT")
@@ -2556,10 +2554,13 @@ namespace DPEMoveDAL.Models
                     .HasColumnName("CREATED_DATE")
                     .HasColumnType("DATE");
 
+                entity.Property(e => e.QuestionId).HasColumnName("QUESTION_ID");
+
+                entity.Property(e => e.SurveyAnswerId).HasColumnName("SURVEY_ANSWER_ID");
+
                 entity.HasOne(d => d.SurveyAnswer)
                     .WithMany(p => p.SurveyAnswerDetails)
                     .HasForeignKey(d => d.SurveyAnswerId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("SURVEY_ANSWER_DETAILS_R01");
             });
 
@@ -3261,6 +3262,8 @@ namespace DPEMoveDAL.Models
             modelBuilder.HasSequence("SQ_PRODUCT");
 
             modelBuilder.HasSequence("SQ_SURVEY_ANSWER");
+
+            modelBuilder.HasSequence("SQ_SURVEY_ANSWER_DETAILS");
 
             modelBuilder.HasSequence("SQ_TMP_ACCOUNT");
 
