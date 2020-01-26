@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title></title>
+
+    <!-- Custom fonts for this template-->
+    <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Kanit:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="/css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="/lib/datatables/css/jquery.dataTables.css" rel="stylesheet" />
+    <link href="/css/custom.css" rel="stylesheet">
+
+</head>
+
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <ul class="navbar-nav bg-gradient-success sidebar sidebar-dark accordion" id="accordionSidebar">
+
+            <!-- Sidebar - Brand -->
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+                <div class="sidebar-brand-icon rotate-n-15">
+                    <img src="/img/logo60_60.png">
+                </div>
+                <div class="sidebar-brand-text mx-3">Admin <sup>pages</sup></div>
+            </a>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider my-0">
+
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item">
+                <a class="nav-link" href="index.html">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Interface
+            </div>
+
+
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo_1" aria-expanded="true" aria-controls="collapseTwo_1">
+                    <i class="fas fa-fw fa-cog"></i>
+                    <span>User Management</span>
+                </a>
+                <div id="collapseTwo_1" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Authorization:</h6>
+                        <a class="collapse-item active" href="/Group">Group</a>
+                        <a class="collapse-item" href="/User">User</a>
+                    </div>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">
+                    <i class="fas fa-fw fa-unlock-alt"></i>
+                    <span>จัดการสิทธิ</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">
+                    <i class="fas fa-fw fa-users"></i>
+                    <span>จัดการผู้ใช้งาน</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">
+                    <i class="fas fa-fw fa-trophy"></i>
+                    <span>จัดการหน่วยงาน/ศูนย์กีฬา</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">
+                    <i class="fas fa-fw fa-database"></i>
+                    <span>จัดการข้อมูลหลัก</span>
+                </a>
+            </li>
+            <!-- Divider -->
+            <hr class="sidebar-divider d-none d-md-block">
+            <!-- Sidebar Toggler (Sidebar) -->
+            <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+            </div>
+        </ul>
+        <!-- End of Sidebar -->
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+            <!-- Main Content -->
+            <div id="content">
+                <!-- Topbar -->
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                    <!-- Sidebar Toggle (Topbar) -->
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
+
+                    <!-- Topbar Search -->
+
+                    <!-- Topbar Navbar -->
+                    <ul class="navbar-nav ml-auto">
+
+                        <!-- Nav Item - Search Dropdown (Visible Only XS) -->
+
+
+                        <!-- Nav Item - Alerts -->
+
+                        <div class="topbar-divider d-none d-sm-block"></div>
+
+                        <!-- Nav Item - User Information -->
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="/account/register">Register</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/account/login">Login</a>
+                            </li>
+
+
+
+
+
+                    </ul>
+
+                </nav>
+                <!-- End of Topbar -->
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <h1 class="h3 mb-4 text-gray-800"></h1>
+
+                    <div>
+
+
+    <form method="post" action="/sportcenter/DepEdit/3">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-sm-6 col-md-7 col-lg-9"><label>หน่วยงาน/ศูนย์กีฬา> สร้าง </label></div>
+                <div class="col-xs-12 col-sm-6 col-md-5 col-lg-3 text-center text-sm-right">
+                    <button class="btn btn-success" name="mainSave" formaction="/sportcenter/DepEdit/3">บันทึก</button>
+                    <button class="btn btn-secondary" name="mainSave" formaction="/sportcenter/DepEdit/3">ยกเลิก</button>
+                </div>
+            </div>
+        </div>
+        <br />
+        <div class="card">
+            <div class="card-body">
+                    <nav>
+                        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                            <a class="nav-item nav-link active" id="nav-general-tab" data-toggle="tab" href="#nav-general" role="tab" aria-controls="nav-general" aria-selected="true">ทั่วไป</a>
+                            <a class="nav-item nav-link" id="nav-addr-tab" data-toggle="tab" href="#nav-addr" role="tab" aria-controls="nav-addr" aria-selected="false">ที่อยู่</a>
+                            <a class="nav-item nav-link" id="nav-person-tab" data-toggle="tab" href="#nav-person" role="tab" aria-controls="nav-person" aria-selected="false">บุคลากร</a>
+                            <a class="nav-item nav-link" id="nav-org-tab" data-toggle="tab" href="#nav-org" role="tab" aria-controls="nav-org" aria-selected="false">Organize Chart</a>
+                        </div>
+                    </nav>
+
+                    <div class="tab-content" id="nav-tabContent">
+                        <div class="tab-pane show active" id="nav-general" role="tabpanel" aria-labelledby="nav-general-tab">
+                            <div class="row form-group">
+                                <div class="col-md-2 text-right">
+                                    <label>ชื่อ</label><label>*</label>
+                                </div>
+                                <div class="col-md-10">
+                                    <input name="departmentID" type="text" value="3" hidden="hidden" />
+                                    <input name="department1" type="text" value="&#xE2A;&#xE19;&#xE32;&#xE21;&#xE1A;&#xE2D;&#xE25;&#xE1E;&#xE31;&#xE12;&#xE19;&#xE32;&#xE0A;&#xE19;&#xE1A;&#xE17;3" class=" w-100 form-control" />
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                <div class="col-md-2 text-right">
+                                    <label>วิสัยทัศน์</label>
+                                </div>
+                                <div class="col-md-10">
+                                    <textarea name="vistion" class="w-100  form-control">test vision</textarea>
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                <div class="col-md-2 text-right">
+                                    <label>พันธกิจ</label>
+                                </div>
+                                <div class="col-md-10">
+                                    <textarea name="mission" class="w-100 form-control">test vision</textarea>
+                                </div>
+                            </div>
+                        </div> <!--end tab 1-->
+                        <div class="tab-pane" id="nav-addr" role="tabpanel" aria-labelledby="nav-addr-tab">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group row">
+                                            <label class="col-md-2 text-right">หน่วยงาน</label>
+                                            <input class="col-md-3 text-left form-control" name="" type="text" value="house_prop_002" />
+                                            <label class="col-md-2 text-right">หมู่บ้าน/อาคาร</label>
+                                            <input class="col-md-3 text-left form-control" name="" type="text" value="house_prop_002" />
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-md-2 text-right">เลขที่</label>
+                                            <input class="col-md-3 text-left form-control" name="" type="text" value="house_prop_002" />
+                                            <label class="col-md-2 text-right">หมู่</label>
+                                            <input class="col-md-3 text-left form-control" name="" type="text" value="house_prop_002" />
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-md-2 text-right">ซอย</label>
+                                            <input class="col-md-3 text-left form-control" name="" type="text" value="house_prop_002" />
+                                            <label class="col-md-2 text-right">ถนน</label>
+                                            <input class="col-md-3 text-left form-control" name="" type="text" value="house_prop_002" />
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-md-2 text-right">จังหวัด</label>
+                                            <select class="col-md-3 form-control" id="ProvinceId" name="ProvinceId">
+                                                <option value=""></option>
+                                            </select>
+                                            <label class="col-md-2 text-right">อำเภอ</label>
+                                            <select class="col-md-3 form-control" id="AmphurId" name="AmphurId">
+                                                <option value=""></option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-md-2 text-right">ตำบล</label>
+                                            <select class="col-md-3 form-control" id="TumbonId" name="TumbonId">
+                                                <option value=""></option>
+                                            </select>
+                                            <label class="col-md-2 text-right">รหัสไปรษณีย์</label>
+                                            <input class="col-md-3 text-left form-control" name="postcode" type="text" value="11121" />
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-md-2 text-right">โทรศัพท์</label>
+                                            <input class="col-md-3 text-left form-control" name="mobile" type="text" value="0823503220" />
+                                            <label class="col-md-2 text-right">โทรสาร</label>
+                                            <input class="col-md-3 text-left form-control" name="fax" type="text" value="0823503220" />
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-md-2 text-right">E-mail</label>
+                                            <input class="col-md-3 text-left form-control" name="email" type="text" value="abc@gmail.com" />
+                                        </div>
+                                    </div> <!--end main col-->
+                                 </div><!--main row-->
+                        </div><!--end tab-->
+                        <div class="tab-pane" id="nav-person" role="tabpanel" aria-labelledby="nav-person-tab">
+                            <div>แสดงรายชื่อบุคลากรของหน่วยงาน  <input value="&#xE2A;&#xE19;&#xE32;&#xE21;&#xE1A;&#xE2D;&#xE25;&#xE1E;&#xE31;&#xE12;&#xE19;&#xE32;&#xE0A;&#xE19;&#xE1A;&#xE17;3" type="text" class="bg-transparent border-0 " /></div>
+                            <br />
+                                <div class="row table table-sm table-striped">
+                                    <div class="col-md-3">#</div>
+                                    <div class="col-md-3">ชื่อ-สกุล</div>
+                                    <div class="col-md-3">ตำแหน่ง</div>
+                                    <div class="col-md-3">จัดการ</div>
+                                </div>
+                            <hr />
+                        </div>
+                        <div class="tab-pane" id="nav-org" role="tabpanel" aria-labelledby="nav-org-tab">
+                            <div>still not complete</div>
+
+                        </div> <!--end tab 4-->
+
+                    </div> <!--end nav content-->
+            </div> <!--end card body-->
+        </div> <!--end card-->
+    <input name="__RequestVerificationToken" type="hidden" value="CfDJ8F9nPfiDMJZBhnolnBV25yU-7corzL_xQu-O4P21rM3mrSyW0EuwE8VMAfIkFOD3XLQkDKM6hIc2b-pJsUxwYFQaDl289eASHS0mJhqLmDZvpbcZL22Hi2tzUlk4wdfXb5A-mMba7fvJFnr8cinM5EE" /></form>
+                    </div>
+
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+            <!-- Footer -->
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; DPE-Move 2019</span>
+                    </div>
+                </div>
+            </footer>
+            <!-- End of Footer -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <a class="btn btn-primary" href="/Account/Logout">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Bootstrap core JavaScript-->
+    <script src="/vendor/jquery/jquery.min.js"></script>
+    <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/lib/datatables/js/jquery.dataTables.js"></script>
+    <!-- Core plugin JavaScript-->
+    <script src="/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <!-- Custom scripts for all pages-->
+    <script src="/js/sb-admin-2.min.js"></script>
+</body>
+</html>
