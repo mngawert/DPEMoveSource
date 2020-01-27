@@ -1,6 +1,10 @@
 ﻿@model DPEMoveDAL.ViewModels.EventViewModel2
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
+@using Microsoft.AspNetCore.Http.Extensions
+
+<div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/th_TH/sdk.js#xfbml=1&version=v5.0"></script>
 
 
 <div class="page-breadcrumbs" style="background-image: url('/images/bg-bc.jpg')">
@@ -49,8 +53,20 @@
                         <h3>@Model.EventName</h3>
                     </div>
                     <div class="col-sm-12 col-md-12 col-lg-3">
-                        <div class="share"><a href="#"><img src="/images/ic_share-01.png" alt="" /></a><a href="#"><img src="/images/ic_share-02.png" alt="" /></a><img src="/images/ic_share-03.png" alt="" /><img src="/images/ic_share-04.png" alt="" /></div>
-                    </div>
+                        <div class="share">
+                            <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=@Context.Request.GetEncodedUrl()" class="fb-xfbml-parse-ignore"><img src="/images/ic_share-01.png" alt="" /></a>
+                            <a target="_blank" href="https://twitter.com/intent/tweet?url=@Context.Request.GetEncodedUrl()"><img src="/images/ic_share-02.png" alt="" /></a>
+                            <a href="mailto:@(Model.ContactPersonEmail)"><img src="/images/ic_share-03.png" alt="" /></a>
+                        </div>
+
+
+                            @*<div class="share">
+            <a href="#"><img src="/images/ic_share-01.png" alt="" /></a>
+            <a href="#"><img src="/images/ic_share-02.png" alt="" /></a>
+            <img src="/images/ic_share-03.png" alt="" />
+            <img src="/images/ic_share-04.png" alt="" />
+        </div>*@
+</div>
                     <div class="col-sm-12 col-md-12 col-lg-3">
                         <div class="rateing_box">
                             <div class="row con_right">
@@ -228,12 +244,12 @@
                         </div>
                         <div class="col-sm-12 col-md-12 col-lg-10">
                             @*<div id="dv_VoteValue" class="rating">
-                                <img src="/images/ic_star.png" alt="">
-                                <img src="/images/ic_star.png" alt="">
-                                <img src="/images/ic_star.png" alt="">
-                                <img src="/images/ic_star.png" alt="">
-                                <img src="/images/ic_star.png" alt="">
-                            </div>*@
+                                    <img src="/images/ic_star.png" alt="">
+                                    <img src="/images/ic_star.png" alt="">
+                                    <img src="/images/ic_star.png" alt="">
+                                    <img src="/images/ic_star.png" alt="">
+                                    <img src="/images/ic_star.png" alt="">
+                                </div>*@
                             <div id="dv_MyRating" class="rating">
                                 <span class="fa fa-star"></span>
                                 <span class="fa fa-star"></span>
@@ -606,7 +622,7 @@
                                 }
 
 
-                                </div>
+                            </div>
 
                         </div>
                     </div>
