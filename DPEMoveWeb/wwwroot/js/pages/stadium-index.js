@@ -4,7 +4,7 @@ function GetProvinceNameById(provinceId) {
     if (provinceId == null)
         return "";
 
-    console.log("call GetProvinceNameById", provinceId);
+    //console.log("call GetProvinceNameById", provinceId);
     var provinceName = "n/a";
     $.each(PROVINCE_DATA, function (index, value) {
         if (value.pcode == provinceId) {
