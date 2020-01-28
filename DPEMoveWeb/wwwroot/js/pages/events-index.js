@@ -75,111 +75,155 @@ function GetProvinceNameById(provinceId) {
     if (provinceId == null)
         return "";
 
-    console.log("call GetProvinceNameById", provinceId);
+    //console.log("call GetProvinceNameById", provinceId);
     var provinceName = "n/a";
     $.each(PROVINCE_DATA, function (index, value) {
-        if (value.pcode == provinceId) {
-            provinceName = value.province;
+        if (value.PROV_CODE == provinceId) {
+            provinceName = value.PROV_NAMT;
+            return false;
         }
     });
     return provinceName;
 }
 
-function GetProvince() {
+function GetProvince(Token) {
 
     console.log("call GetProvince");
+    var form = new FormData();
+    form.append("Token", Token);
 
-    var options = {};
+    var settings = {
+        "url": "https://data.dpe.go.th/api/stadium/location/getProvince",
+        "method": "POST",
+        "timeout": 0,
+        "processData": false,
+        "mimeType": "multipart/form-data",
+        "contentType": false,
+        "data": form
+    };
 
-    options.url = "http://103.208.27.224/mots_sport/service/get.php?MOD=province";
-    options.contentType = "application/json";
-    options.method = "GET";
+    $.ajax(settings).done(function (response, textStatus, jqXHR) {
 
-    options.success = function (_data) {
-        data = JSON.parse(_data);
-        PROVINCE_DATA = data.DATA;
-        console.log('PROVINCE_DATA', PROVINCE_DATA);
-        var items =
-            `
+        if (jqXHR.status == 200) {
+            var results = JSON.parse(response);
+            var data = results.data;
+            PROVINCE_DATA = data;
+            var items =
+                `
             <option value="">แสดงทั้งหมด</option>
             `
-        $.each(data.DATA, function (index, value) {
-            items +=
+            $.each(data, function (index, value) {
+                items +=
+                    `
+                <option value="` + value.PROV_CODE + `">` + value.PROV_NAMT + `</option>
                 `
-                <option value="` + value.pcode + `">` + value.province + `</option>
-                `
-        });
-        $("#ddlProvince").html(items);
-        GetEvent();
-    };
-    options.error = function (a, b, c) {
-        console.log("Error while calling the Web API!(" + b + " - " + c + ")");
-    };
-    $.ajax(options);
+            });
+            $("#ddlProvince").html(items);
+        }
+    });
 }
 
-function GetAmphur(provinceId) {
+function GetAmphur(token, PROV_CODE) {
 
-    var options = {};
 
-    options.url = "http://103.208.27.224/mots_sport/service/get.php?MOD=amphur&province=" + provinceId;
-    options.contentType = "application/json";
-    options.method = "GET";
+    var form = new FormData();
+    form.append("PROV_CODE", PROV_CODE);
+    form.append("Token", token);
 
-    options.success = function (_data) {
-        data = JSON.parse(_data);
-        var items =
-            `
+    var settings = {
+        "url": "https://data.dpe.go.th/api/stadium/location/getAmpher",
+        "method": "POST",
+        "timeout": 0,
+        "processData": false,
+        "mimeType": "multipart/form-data",
+        "contentType": false,
+        "data": form
+    };
+
+    $.ajax(settings).done(function (response, textStatus, jqXHR) {
+
+        if (jqXHR.status == 200) {
+            var results = JSON.parse(response);
+            var data = results.data;
+            var items =
+                `
             <option value="">แสดงทั้งหมด</option>
             `
-        $.each(data.DATA, function (index, value) {
-            items +=
+            $.each(data, function (index, value) {
+                items +=
+                    `
+                <option value="` + value.AMP_CODE + `">` + value.AMP_NAMT + `</option>
                 `
-                <option value="` + value.pcode + `">` + value.amphur + `</option>
-                `
-        });
-        $("#ddlAmphur").html(items);
-    };
-    options.error = function (a, b, c) {
-        console.log("Error while calling the Web API!(" + b + " - " + c + ")");
-    };
-    $.ajax(options);
+            });
+            $("#ddlAmphur").html(items);
+        }
+    });
 }
 
-function GetTambon(provinceId, amphurId) {
+function GetTambon(token, PROV_CODE, AMP_CODE) {
 
-    var options = {};
+    var form = new FormData();
+    form.append("PROV_CODE", PROV_CODE);
+    form.append("AMP_CODE", AMP_CODE);
+    form.append("Token", token);
 
-    options.url = "http://103.208.27.224/mots_sport/service/get.php?MOD=tambon&province=" + provinceId + "&amphur=" + amphurId;
-    options.contentType = "application/json";
-    options.method = "GET";
+    var settings = {
+        "url": "https://data.dpe.go.th/api/stadium/location/getTambol",
+        "method": "POST",
+        "timeout": 0,
+        "processData": false,
+        "mimeType": "multipart/form-data",
+        "contentType": false,
+        "data": form
+    };
 
-    options.success = function (_data) {
-        data = JSON.parse(_data);
-        var items =
-            `
+    $.ajax(settings).done(function (response, textStatus, jqXHR) {
+
+        if (jqXHR.status == 200) {
+            var results = JSON.parse(response);
+            var data = results.data;
+            var items =
+                `
             <option value="">แสดงทั้งหมด</option>
             `
-        $.each(data.DATA, function (index, value) {
-            items +=
+            $.each(data, function (index, value) {
+                items +=
+                    `
+                <option value="` + value.TAM_CODE + `">` + value.TAM_NAMT + `</option>
                 `
-                <option value="` + value.pcode + `">` + value.tambon + `</option>
-                `
-        });
-        $("#ddlTambon").html(items);
-    };
-    options.error = function (a, b, c) {
-        console.log("Error while calling the Web API!(" + b + " - " + c + ")");
-    };
-    $.ajax(options);
+            });
+            $("#ddlTambon").html(items);
+        }
+    });
 }
 
+function GetToken() {
+    var form = new FormData();
+    form.append("username", "dpeusers");
+    form.append("password", "users_api@dpe.go.th");
+
+    var settings = {
+        "url": "https://data.dpe.go.th/api/tokens/keys/tokens",
+        "method": "POST",
+        "timeout": 0,
+        "processData": false,
+        "mimeType": "multipart/form-data",
+        "contentType": false,
+        "data": form
+    };
+
+    return $.ajax(settings);
+}
 
 $(document).ready(function () {
 
-    var PROVINCE_DATA = {};
+    GetToken().done(function (response) {
+        var token = JSON.parse(response).data;
+        localStorage.setItem("token", token);
+        console.log("localStorage.token", localStorage.getItem("token"));
 
-    GetProvince();
+        GetProvince(token);
+    });
 
     $("#ddlProvince").change(function () {
         var provinceId = $("#ddlProvince").val();
@@ -188,20 +232,22 @@ $(document).ready(function () {
             $("#ddlTambon").html(`<option value="">แสดงทั้งหมด</option>`);
         }
         else {
-            GetAmphur(provinceId);
+            var token = localStorage.getItem("token");
+            GetAmphur(token, provinceId);
             $("#ddlTambon").html(`<option value="">แสดงทั้งหมด</option>`);
         }
     });
 
     $("#ddlAmphur").change(function () {
         var provinceId = $("#ddlProvince").val();
-        var amphurId = $("#ddlAmphur").val().substr(2, 2);
+        var amphurId = $("#ddlAmphur").val();
 
         if (amphurId == "") {
             $("#ddlTambon").html(`<option value="">แสดงทั้งหมด</option>`);
         }
         else {
-            GetTambon(provinceId, amphurId);
+            var token = localStorage.getItem("token");
+            GetTambon(token, provinceId, amphurId);
         }
     });
 

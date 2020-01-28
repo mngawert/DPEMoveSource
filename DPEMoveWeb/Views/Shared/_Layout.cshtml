@@ -21,8 +21,8 @@
     <link href="~/assets/css/demo.css" rel="stylesheet" />
 
     <!--     Fonts and icons     -->
-    <link href='http://fonts.googleapis.com/css?family=Montserrat:400,300,700' rel='stylesheet' type='text/css'>
-    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Montserrat:400,300,700' rel='stylesheet' type='text/css'>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
     <link href="~/assets/css/nucleo-icons.css" rel="stylesheet" />
     <link href="~/css/master.css" rel="stylesheet" />
     <link href="~/css/datepicker.css" rel="stylesheet" />
@@ -41,7 +41,22 @@
                     </span>
                 </div>
             </div>
-            <div class="col-sm-12 col-md-4 col-lg-4 loadapp"><a href="#"><img src="~/images/bt_play.png" width="134" height="44" alt="" /></a><a href="#"><img src="~/images/bt-store.png" width="134" height="44" alt="" /></a></div>
+            <div class="col-sm-12 col-md-4 col-lg-4 loadapp">
+                <a href="#"><img src="/images/bt_play.png" width="134" height="44" alt="" /></a><a href="#"><img src="/images/bt-store.png" width="134" height="44" alt="" /></a>
+                <div class="login-link">
+                    @*<img src="/images/ic_login.png" width="30" height="28" alt="" /><a href="/Account/Login">เข้าสู่ระบบ</a>*@
+                    @if (SignInManager.IsSignedIn(User))
+                    {
+                        <form id="formLogout" action="/Account/Logout" method="post">
+                            @UserManager.GetUserName(User)
+                            <img src="~/images/ic_login.png" width="30" height="28" alt="" /><a href="javascript:{}" onclick="document.getElementById('formLogout').submit();">ออกระบบ</a>
+                        </form>
+                    }
+                    else {
+                        <img src="~/images/ic_login.png" width="30" height="28" alt="" /><a href="/Account/Login">เข้าสู่ระบบ</a>
+                    }
+                </div>
+            </div>
         </div>
     </div>
     <nav class="navbar navbar-expand-md bg-nav">
@@ -116,22 +131,6 @@
                         เมื่อวาน 4,616<br>
                         เดือนนี้ 40,095<br>
                         เดือนที่แล้ว
-                        <hr>
-
-                        <div>
-                            @if (SignInManager.IsSignedIn(User))
-                            {
-                                <form id="formLogout" action="/Account/Logout" method="post">
-                                    <img src="~/images/ic_login.png" width="30" height="28" alt="" /><a href="javascript:{}" onclick="document.getElementById('formLogout').submit();">ออกระบบ</a>
-                                    @UserManager.GetUserName(User)
-                                </form>
-                            }
-                            else
-                            {
-                                <img src="~/images/ic_login.png" width="30" height="28" alt="" /><a href="/Account/Login">เข้าสู่ระบบ</a>
-                            }
-                        </div>
-
                     </div>
                 </div>
             </div>

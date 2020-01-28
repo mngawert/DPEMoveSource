@@ -131,76 +131,189 @@ function DeleteEventFacilitiesFromSession(eventId, mEventFacilitiesTopicId, even
     $.ajax(options);
 }
 
-function GetProvinceName(proviceId) {
+function GetProvinceName(Token, PROV_CODE) {
 
     console.log("call GetProvince");
-    var options = {};
+    var form = new FormData();
+    form.append("Token", Token);
 
-    options.url = "http://103.208.27.224/mots_sport/service/get.php?MOD=province";
-    options.contentType = "application/json";
-    options.method = "GET";
+    var settings = {
+        "url": "https://data.dpe.go.th/api/stadium/location/getProvince",
+        "method": "POST",
+        "timeout": 0,
+        "processData": false,
+        "mimeType": "multipart/form-data",
+        "contentType": false,
+        "data": form
+    };
 
-    options.success = function (_data) {
-        data = JSON.parse(_data);
-        //console.log(data);
-        $.each(data.DATA, function (index, value) {
-            //console.log("check", value);
-            if (value.pcode == proviceId) {
-                //console.log("found!");
-                $("#lblProvinceName").html(value.province);
-            }
-        });
-    };
-    options.error = function (a, b, c) {
-        console.log("Error while calling the Web API!(" + b + " - " + c + ")");
-    };
-    $.ajax(options);
+    $.ajax(settings).done(function (response, textStatus, jqXHR) {
+
+        if (jqXHR.status == 200) {
+            var results = JSON.parse(response);
+            var data = results.data;
+            $.each(data, function (index, value) {
+                if (value.PROV_CODE == PROV_CODE) {
+                    $("#lblProvinceName").html(value.PROV_NAMT);
+                    return false;
+                }
+            });
+        }
+    });
 }
 
-function GetAmphurName(provinceId, amphurId) {
+function GetAmphurName(token, PROV_CODE, AMP_CODE) {
 
-    var options = {};
 
-    options.url = "http://103.208.27.224/mots_sport/service/get.php?MOD=amphur&province=" + provinceId;
-    options.contentType = "application/json";
-    options.method = "GET";
+    var form = new FormData();
+    form.append("PROV_CODE", PROV_CODE);
+    form.append("Token", token);
 
-    options.success = function (_data) {
-        data = JSON.parse(_data);
-        $.each(data.DATA, function (index, value) {
-            if (value.pcode == amphurId) {
-                $("#lblAmphurName").html(value.amphur);
-            }
-        });
+    var settings = {
+        "url": "https://data.dpe.go.th/api/stadium/location/getAmpher",
+        "method": "POST",
+        "timeout": 0,
+        "processData": false,
+        "mimeType": "multipart/form-data",
+        "contentType": false,
+        "data": form
     };
-    options.error = function (a, b, c) {
-        console.log("Error while calling the Web API!(" + b + " - " + c + ")");
-    };
-    $.ajax(options);
+
+    $.ajax(settings).done(function (response, textStatus, jqXHR) {
+
+        if (jqXHR.status == 200) {
+            var results = JSON.parse(response);
+            var data = results.data;
+            $.each(data, function (index, value) {
+                if (value.AMP_CODE == AMP_CODE) {
+                    $("#lblAmphurName").html(value.AMP_NAMT);
+                    return false;
+                }
+            });
+        }
+    });
 }
 
-function GetTambonName(provinceId, amphurId, tambonId) {
+function GetTambonName(token, PROV_CODE, AMP_CODE, TAM_CODE) {
 
-    var options = {};
+    var form = new FormData();
+    form.append("PROV_CODE", PROV_CODE);
+    form.append("AMP_CODE", AMP_CODE);
+    form.append("Token", token);
 
-    options.url = "http://103.208.27.224/mots_sport/service/get.php?MOD=tambon&province=" + provinceId + "&amphur=" + amphurId;
-    options.contentType = "application/json";
-    options.method = "GET";
-
-    options.success = function (_data) {
-        data = JSON.parse(_data);
-        //console.log(data);
-        $.each(data.DATA, function (index, value) {
-            if (value.pcode == tambonId) {
-                $("#lblTambonName").html(value.tambon);
-            }
-        });
+    var settings = {
+        "url": "https://data.dpe.go.th/api/stadium/location/getTambol",
+        "method": "POST",
+        "timeout": 0,
+        "processData": false,
+        "mimeType": "multipart/form-data",
+        "contentType": false,
+        "data": form
     };
-    options.error = function (a, b, c) {
-        console.log("Error while calling the Web API!(" + b + " - " + c + ")");
-    };
-    $.ajax(options);
+
+    $.ajax(settings).done(function (response, textStatus, jqXHR) {
+
+        if (jqXHR.status == 200) {
+            var results = JSON.parse(response);
+            var data = results.data;
+            $.each(data, function (index, value) {
+                if (value.TAM_CODE == TAM_CODE) {
+                    $("#lblTambonName").html(value.TAM_NAMT);
+                    return false;
+                }
+            });
+        }
+    });
 }
+
+function GetToken() {
+    var form = new FormData();
+    form.append("username", "dpeusers");
+    form.append("password", "users_api@dpe.go.th");
+
+    var settings = {
+        "url": "https://data.dpe.go.th/api/tokens/keys/tokens",
+        "method": "POST",
+        "timeout": 0,
+        "processData": false,
+        "mimeType": "multipart/form-data",
+        "contentType": false,
+        "data": form
+    };
+
+    return $.ajax(settings);
+}
+
+//function GetProvinceName(proviceId) {
+
+//    console.log("call GetProvince");
+//    var options = {};
+
+//    options.url = "http://103.208.27.224/mots_sport/service/get.php?MOD=province";
+//    options.contentType = "application/json";
+//    options.method = "GET";
+
+//    options.success = function (_data) {
+//        data = JSON.parse(_data);
+//        //console.log(data);
+//        $.each(data.DATA, function (index, value) {
+//            //console.log("check", value);
+//            if (value.pcode == proviceId) {
+//                //console.log("found!");
+//                $("#lblProvinceName").html(value.province);
+//            }
+//        });
+//    };
+//    options.error = function (a, b, c) {
+//        console.log("Error while calling the Web API!(" + b + " - " + c + ")");
+//    };
+//    $.ajax(options);
+//}
+
+//function GetAmphurName(provinceId, amphurId) {
+
+//    var options = {};
+
+//    options.url = "http://103.208.27.224/mots_sport/service/get.php?MOD=amphur&province=" + provinceId;
+//    options.contentType = "application/json";
+//    options.method = "GET";
+
+//    options.success = function (_data) {
+//        data = JSON.parse(_data);
+//        $.each(data.DATA, function (index, value) {
+//            if (value.pcode == amphurId) {
+//                $("#lblAmphurName").html(value.amphur);
+//            }
+//        });
+//    };
+//    options.error = function (a, b, c) {
+//        console.log("Error while calling the Web API!(" + b + " - " + c + ")");
+//    };
+//    $.ajax(options);
+//}
+
+//function GetTambonName(provinceId, amphurId, tambonId) {
+
+//    var options = {};
+
+//    options.url = "http://103.208.27.224/mots_sport/service/get.php?MOD=tambon&province=" + provinceId + "&amphur=" + amphurId;
+//    options.contentType = "application/json";
+//    options.method = "GET";
+
+//    options.success = function (_data) {
+//        data = JSON.parse(_data);
+//        //console.log(data);
+//        $.each(data.DATA, function (index, value) {
+//            if (value.pcode == tambonId) {
+//                $("#lblTambonName").html(value.tambon);
+//            }
+//        });
+//    };
+//    options.error = function (a, b, c) {
+//        console.log("Error while calling the Web API!(" + b + " - " + c + ")");
+//    };
+//    $.ajax(options);
+//}
 
 
 function GetUploadedFile(eventId) {
@@ -547,11 +660,16 @@ $(document).ready(function () {
     console.log("eventOrStadiumCode", eventOrStadiumCode);
     console.log('appUserId=', appUserId);
 
-    GetProvinceName(model.provinceCode);
-    if (model.amphurCode != null) {
-        GetAmphurName(model.provinceCode, model.amphurCode.substr(2, 2));
-        GetTambonName(model.provinceCode, model.amphurCode.substr(2, 2), model.tambonCode);
-    }
+    GetToken().done(function (response) {
+        var token = JSON.parse(response).data;
+
+        GetProvinceName(token, model.provinceCode);
+        if (model.amphurCode != null) {
+            GetAmphurName(token, model.provinceCode, model.amphurCode);
+            GetTambonName(token, model.provinceCode, model.amphurCode, model.tambonCode);
+        }
+    });
+
 
 
     GetVoteType("1", eventOrStadiumCode);

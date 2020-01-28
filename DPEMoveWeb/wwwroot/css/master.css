@@ -142,7 +142,7 @@ hr { border-color: #e0e0e0; }
 .wellcome_sec { background: url("../images/bg-well.jpg") no-repeat;}
 .wellcome {background: #81c21e; color: #226b50; padding: 10px 0; transform: skewX(-30deg); height: 44px;}
 .wellcome p {margin-bottom: 0; margin-left: 20px; transform: skewX(30deg);}
-.loadapp { margin: 25px 0 0 0; text-align: right;}
+.loadapp { margin: 10px 0 0 0; text-align: right;}
 .loadapp img { margin: 0 0 0 5px;}
 .page-header {min-height: 182px; max-height: 182px;}
 .page-header .content-center { margin-top: 0px; }
@@ -361,6 +361,7 @@ button:focus { outline: none; }
 .clip-contain .vdo-player-contain iframe,
 .clip-contain .vdo-player-contain object,
 .clip-contain .vdo-player-contain embed { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+.login-link { padding: 10px 0; }
 /**/
 
 @media screen and (max-width: 480px) {

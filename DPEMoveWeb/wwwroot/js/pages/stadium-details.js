@@ -5,7 +5,7 @@ function GetToken() {
     form.append("password", "users_api@dpe.go.th");
 
     var settings = {
-        "url": "http://data.dpe.go.th/api/tokens/keys/tokens",
+        "url": "https://data.dpe.go.th/api/tokens/keys/tokens",
         "method": "POST",
         "timeout": 0,
         "processData": false,
@@ -24,7 +24,7 @@ function GetStadiumDetails(token, id) {
     form.append("Token", token);
 
     var settings = {
-        "url": "http://data.dpe.go.th/api/stadium/address/getStadiumDetail",
+        "url": "https://data.dpe.go.th/api/stadium/address/getStadiumDetail",
         "method": "POST",
         "timeout": 0,
         "processData": false,
@@ -232,7 +232,7 @@ function PrintParentStadiumName(token, id) {
     form.append("Token", token);
 
     var settings = {
-        "url": "http://data.dpe.go.th/api/stadium/address/getStadiumDetail",
+        "url": "https://data.dpe.go.th/api/stadium/address/getStadiumDetail",
         "method": "POST",
         "timeout": 0,
         "processData": false,
@@ -269,7 +269,7 @@ function PrintUnderStadiumName(token, data) {
         form.append("Token", token);
 
         var settings = {
-            "url": "http://data.dpe.go.th/api/stadium/address/getStadiumDetail",
+            "url": "https://data.dpe.go.th/api/stadium/address/getStadiumDetail",
             "method": "POST",
             "timeout": 0,
             "processData": false,

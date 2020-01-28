@@ -1,4 +1,133 @@
 ﻿
+function GetToken() {
+    var form = new FormData();
+    form.append("username", "dpeusers");
+    form.append("password", "users_api@dpe.go.th");
+
+    var settings = {
+        "url": "https://data.dpe.go.th/api/tokens/keys/tokens",
+        "method": "POST",
+        "timeout": 0,
+        "processData": false,
+        "mimeType": "multipart/form-data",
+        "contentType": false,
+        "data": form
+    };
+
+    return $.ajax(settings);
+}
+
+function GetProvince(Token) {
+
+    console.log("call GetProvince");
+    var form = new FormData();
+    form.append("Token", Token);
+
+    var settings = {
+        "url": "https://data.dpe.go.th/api/stadium/location/getProvince",
+        "method": "POST",
+        "timeout": 0,
+        "processData": false,
+        "mimeType": "multipart/form-data",
+        "contentType": false,
+        "data": form
+    };
+
+    $.ajax(settings).done(function (response, textStatus, jqXHR) {
+
+        if (jqXHR.status == 200) {
+            var results = JSON.parse(response);
+            var data = results.data;
+            PROVINCE_DATA = data;
+            var items =
+                `
+            <option value="">แสดงทั้งหมด</option>
+            `
+            $.each(data, function (index, value) {
+                items +=
+                    `
+                <option value="` + value.PROV_CODE + `">` + value.PROV_NAMT + `</option>
+                `
+            });
+            $("#ddlProvince").html(items);
+        }
+    });
+}
+
+function GetAmphur(token, PROV_CODE) {
+
+
+    var form = new FormData();
+    form.append("PROV_CODE", PROV_CODE);
+    form.append("Token", token);
+
+    var settings = {
+        "url": "https://data.dpe.go.th/api/stadium/location/getAmpher",
+        "method": "POST",
+        "timeout": 0,
+        "processData": false,
+        "mimeType": "multipart/form-data",
+        "contentType": false,
+        "data": form
+    };
+
+    $.ajax(settings).done(function (response, textStatus, jqXHR) {
+
+        if (jqXHR.status == 200) {
+            var results = JSON.parse(response);
+            var data = results.data;
+            var items =
+                `
+            <option value="">แสดงทั้งหมด</option>
+            `
+            $.each(data, function (index, value) {
+                items +=
+                    `
+                <option value="` + value.AMP_CODE + `">` + value.AMP_NAMT + `</option>
+                `
+            });
+            $("#ddlAmphur").html(items);
+        }
+    });
+}
+
+function GetTambon(token, PROV_CODE, AMP_CODE) {
+
+    var form = new FormData();
+    form.append("PROV_CODE", PROV_CODE);
+    form.append("AMP_CODE", AMP_CODE);
+    form.append("Token", token);
+
+    var settings = {
+        "url": "https://data.dpe.go.th/api/stadium/location/getTambol",
+        "method": "POST",
+        "timeout": 0,
+        "processData": false,
+        "mimeType": "multipart/form-data",
+        "contentType": false,
+        "data": form
+    };
+
+    $.ajax(settings).done(function (response, textStatus, jqXHR) {
+
+        if (jqXHR.status == 200) {
+            var results = JSON.parse(response);
+            var data = results.data;
+            var items =
+                `
+            <option value="">แสดงทั้งหมด</option>
+            `
+            $.each(data, function (index, value) {
+                items +=
+                    `
+                <option value="` + value.TAM_CODE + `">` + value.TAM_NAMT + `</option>
+                `
+            });
+            $("#ddlTambon").html(items);
+        }
+    });
+}
+
 function GetSportType() {
 
     var options = {};
@@ -31,94 +160,6 @@ function GetSportType() {
     $.ajax(options);
 }
 
-
-function GetProvince() {
-
-    var options = {};
-
-    options.url = "http://103.208.27.224/mots_sport/service/get.php?MOD=province";
-    options.contentType = "application/json";
-    options.method = "GET";
-
-    options.success = function (_data) {
-        data = JSON.parse(_data);
-        PROVINCE_DATA = data.DATA;
-        //console.log('PROVINCE_DATA', PROVINCE_DATA);
-        var items =
-            `
-            <option value="">กรุณาเลือก</option>
-            `
-        $.each(data.DATA, function (index, value) {
-            items +=
-                `
-                <option value="` + value.pcode + `">` + value.province + `</option>
-                `
-        });
-        $("#ddlProvince").html(items);
-    };
-    options.error = function (a, b, c) {
-        console.log("Error while calling the Web API!(" + b + " - " + c + ")");
-    };
-    $.ajax(options);
-}
-
-function GetAmphur(provinceId) {
-
-    var options = {};
-
-    options.url = "http://103.208.27.224/mots_sport/service/get.php?MOD=amphur&province=" + provinceId;
-    options.contentType = "application/json";
-    options.method = "GET";
-
-    options.success = function (_data) {
-        data = JSON.parse(_data);
-        var items =
-            `
-            <option value="">กรุณาเลือก</option>
-            `
-        $.each(data.DATA, function (index, value) {
-            items +=
-                `
-                <option value="` + value.pcode + `">` + value.amphur + `</option>
-                `
-        });
-        $("#ddlAmphur").html(items);
-    };
-    options.error = function (a, b, c) {
-        console.log("Error while calling the Web API!(" + b + " - " + c + ")");
-    };
-    $.ajax(options);
-}
-
-function GetTambon(provinceId, amphurId) {
-
-    var options = {};
-
-    options.url = "http://103.208.27.224/mots_sport/service/get.php?MOD=tambon&province=" + provinceId + "&amphur=" + amphurId;
-    options.contentType = "application/json";
-    options.method = "GET";
-
-    options.success = function (_data) {
-        data = JSON.parse(_data);
-        var items =
-            `
-            <option value="">กรุณาเลือก</option>
-            `
-        $.each(data.DATA, function (index, value) {
-            items +=
-                `
-                <option value="` + value.pcode + `">` + value.tambon + `</option>
-                `
-        });
-        $("#ddlTambon").html(items);
-    };
-    options.error = function (a, b, c) {
-        console.log("Error while calling the Web API!(" + b + " - " + c + ")");
-    };
-    $.ajax(options);
-}
-
-
 function GetAnswers() {
 
     var answerValue_1 = $("[name='AnswerValue_1']").val();
@@ -128,46 +169,46 @@ function GetAnswers() {
     var answerValue_5 = $("[name='AnswerValue_5']").val();
     var answerValue_6 = $("[name='AnswerValue_6']").val();
     var answerValue_7 = $("[name='AnswerValue_7']").val();
-    var answerValue_8 = $("[name='AnswerValue_8']").val();
+    var answerValue_8 = $("[name='AnswerValue_8']:checked").val();
     var answerValue_9 = $("[name='AnswerValue_9']").val();
     var answerValue_10 = $("[name='AnswerValue_10']").val();
     var answerValue_11 = $("[name='AnswerValue_11']").val();
     var answerValue_12 = $("[name='AnswerValue_12']").val();
     var answerValue_13 = $("[name='AnswerValue_13']").val();
     var answerValue_14 = $("[name='AnswerValue_14']").val();
-    var answerValue_15 = $("[name='AnswerValue_15']").val();
+    var answerValue_15 = $("[name='AnswerValue_15']:checked").val();
     var answerValue_16 = $("[name='AnswerValue_16']").val();
     var answerValue_17 = $("[name='AnswerValue_17']").val();
     var answerValue_18 = $("[name='AnswerValue_18']").val();
     var answerValue_19 = $("[name='AnswerValue_19']").val();
     var answerValue_20 = $("[name='AnswerValue_20']").val();
-    var answerValue_21 = $("[name='AnswerValue_21']").val();
-    var answerValue_22 = $("[name='AnswerValue_22']").val();
+    var answerValue_21 = $("[name='AnswerValue_21']:checked").val();
+    var answerValue_22 = $("[name='AnswerValue_22']:checked").val();
     var answerValue_23 = $("[name='AnswerValue_23']").val();
-    var answerValue_24 = $("[name='AnswerValue_24']").val(); var answerValue_24_txt = $("[name='AnswerValue_24_txt']").val();
-    var answerValue_25 = $("[name='AnswerValue_25']").val(); var answerValue_25_txt = $("[name='AnswerValue_25_txt']").val();
-    var answerValue_26 = $("[name='AnswerValue_26']").val(); var answerValue_26_txt = $("[name='AnswerValue_26_txt']").val();
-    var answerValue_27 = $("[name='AnswerValue_27']").val(); var answerValue_27_txt = $("[name='AnswerValue_27_txt']").val();
-    var answerValue_28 = $("[name='AnswerValue_28']").val(); var answerValue_28_txt = $("[name='AnswerValue_28_txt']").val();
-    var answerValue_29 = $("[name='AnswerValue_29']").val(); var answerValue_29_txt = $("[name='AnswerValue_29_txt']").val();
+    var answerValue_24 = $("[name='AnswerValue_24']:checked").val(); var answerValue_24_txt = $("[name='AnswerValue_24_txt']").val();
+    var answerValue_25 = $("[name='AnswerValue_25']:checked").val(); var answerValue_25_txt = $("[name='AnswerValue_25_txt']").val();
+    var answerValue_26 = $("[name='AnswerValue_26']:checked").val(); var answerValue_26_txt = $("[name='AnswerValue_26_txt']").val();
+    var answerValue_27 = $("[name='AnswerValue_27']:checked").val(); var answerValue_27_txt = $("[name='AnswerValue_27_txt']").val();
+    var answerValue_28 = $("[name='AnswerValue_28']:checked").val(); var answerValue_28_txt = $("[name='AnswerValue_28_txt']").val();
+    var answerValue_29 = $("[name='AnswerValue_29']:checked").val(); var answerValue_29_txt = $("[name='AnswerValue_29_txt']").val();
     var answerValue_30 = $("[name='AnswerValue_30']").val();
     var answerValue_31 = $("[name='AnswerValue_31']").val();
-    var answerValue_32 = $("[name='AnswerValue_32']").val();
-    var answerValue_33 = $("[name='AnswerValue_33']").val();
+    var answerValue_32 = $("[name='AnswerValue_32']:checked").val();
+    var answerValue_33 = $("[name='AnswerValue_33']:checked").val();
     var answerValue_34 = $("[name='AnswerValue_34']").val();
-    var answerValue_35 = $("[name='AnswerValue_35']").val();
+    var answerValue_35 = $("[name='AnswerValue_35']:checked").val();
     var answerValue_36 = $("[name='AnswerValue_36']").val();
     var answerValue_37 = $("[name='AnswerValue_37']").val();
     var answerValue_38 = $("[name='AnswerValue_38']").val();
-    var answerValue_39 = $("[name='AnswerValue_39']").val();
+    var answerValue_39 = $("[name='AnswerValue_39']:checked").val();
     var answerValue_40 = $("[name='AnswerValue_40']").val();
     var answerValue_41 = $("[name='AnswerValue_41']").val();
     var answerValue_42 = $("[name='AnswerValue_42']").val();
-    var answerValue_43 = $("[name='AnswerValue_43']").val();
+    var answerValue_43 = $("[name='AnswerValue_43']:checked").val();
     var answerValue_44 = $("[name='AnswerValue_44']").val();
     var answerValue_45 = $("[name='AnswerValue_45']").val();
     var answerValue_46 = $("[name='AnswerValue_46']").val();
-    var answerValue_47 = $("[name='AnswerValue_47']").val();
+    var answerValue_47 = $("[name='AnswerValue_47']:checked").val();
     var answerValue_48 = $("[name='AnswerValue_48']").val();
     var answerValue_49 = $("[name='AnswerValue_49']").val();
     var answerValue_50 = $("[name='AnswerValue_50']").val();
@@ -331,10 +372,13 @@ function EnableDisableQuestion_15() {
 
     var answerValue_50 = $("[name='AnswerValue_50']");
     if (answerValue_50.prop("checked") == true) {
+        $("#tr_15_1_1, #tr_15_1_2, #tr_15_1_3, #tr_15_1_4").find('input').removeAttr('checked').val("");
+        $("#tr_15_1_1, #tr_15_1_2, #tr_15_1_3, #tr_15_1_4").addClass("disabledbutton");
         $("#dv_15_2, #dv_15_3, #dv_15_4").addClass("disabledbutton");
         $("#dv_15_5").removeClass("disabledbutton");
     }
     else {
+        $("#tr_15_1_1, #tr_15_1_2, #tr_15_1_3, #tr_15_1_4").removeClass("disabledbutton");
         $("#dv_15_2, #dv_15_3, #dv_15_4").removeClass("disabledbutton");
         $("#dv_15_5").addClass("disabledbutton");
     }
@@ -342,8 +386,17 @@ function EnableDisableQuestion_15() {
 
 $(document).ready(function () {
 
-    GetProvince();
-    GetSportType();
+    GetToken().done(function (response) {
+        var token = JSON.parse(response).data;
+        localStorage.setItem("token", token);
+        console.log("localStorage.token", localStorage.getItem("token"));
+
+        GetProvince(token);
+
+        //Need to change
+        //GetSportType();
+    });
+
     EnableDisableQuestion_15();
 
     $("#ddlProvince").change(function () {
@@ -353,24 +406,28 @@ $(document).ready(function () {
             $("#ddlTambon").html(`<option value="">กรุณาเลือก</option>`);
         }
         else {
-            GetAmphur(provinceId);
+            var token = localStorage.getItem("token");
+            GetAmphur(token, provinceId);
             $("#ddlTambon").html(`<option value="">กรุณาเลือก</option>`);
         }
     });
 
     $("#ddlAmphur").change(function () {
         var provinceId = $("#ddlProvince").val();
-        var amphurId = $("#ddlAmphur").val() == "" ? "" : $("#ddlAmphur").val().substr(2, 2);
+        var amphurId = $("#ddlAmphur").val();
 
         if (amphurId == "") {
             $("#ddlTambon").html(`<option value="">กรุณาเลือก</option>`);
         }
         else {
-            GetTambon(provinceId, amphurId);
+            var token = localStorage.getItem("token");
+            GetTambon(token, provinceId, amphurId);
         }
     });
 
+
     $("#lblAnswerValue_50").click(function () {
+
         EnableDisableQuestion_15();
     });
 
