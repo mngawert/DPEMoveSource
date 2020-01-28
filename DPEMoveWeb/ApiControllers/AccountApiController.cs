@@ -89,6 +89,51 @@ namespace DPEMoveWeb.ApiControllers
             return await GetToken(user);
         }
 
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IActionResult> FacebookLogin(User model)
+        {
+            var user = await userManager.FindByEmailAsync(model.Email);
+            if (user == null)
+            {
+                user = new ApplicationUser
+                {
+                    UserName = model.Email,
+                    Email = model.Email,
+                    AccountType = "1",
+                    Status = "1",
+                    GroupId = 1
+                };
+
+                await userManager.CreateAsync(user);
+            }
+
+            var claims = new List<Claim>
+                {
+                    new Claim(JwtRegisteredClaimNames.Sub, user.UserName),
+                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                };
+
+            var userRoles = await userManager.GetRolesAsync(user);
+            foreach (var role in userRoles)
+            {
+                claims.Add(new Claim(ClaimTypes.Role, role));
+            }
+
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JwtKey"]));
+            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+            var expires = DateTime.Now.AddDays(Convert.ToDouble(configuration["JwtExpireDays"]));
+
+            var token = new JwtSecurityToken(
+                issuer: configuration["JwtIssuer"],
+                audience: configuration["JwtAudience"],
+                claims: claims,
+                expires: expires,
+                signingCredentials: creds
+            );
+
+            return Ok(new JwtSecurityTokenHandler().WriteToken(token));
+        }
 
         [HttpPost]
         [AllowAnonymous]
