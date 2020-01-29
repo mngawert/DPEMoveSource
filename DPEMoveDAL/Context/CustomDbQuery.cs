@@ -15,6 +15,7 @@ namespace DPEMoveDAL.Models
         public DbQuery<VoteAvgDbQuery> VoteAvgDbQuery { get; set; }
         public DbQuery<VoteTotalAvgDbQuery> VoteTotalAvgDbQuery { get; set; }
         public DbQuery<VoteTotalAvgDetailsDbQuery> VoteTotalAvgDetailsDbQuery { get; set; }
+        public DbQuery<ReportEvent1DbQuery> ReportEvent1DbQuery { get; set; }
 
     }
 }
