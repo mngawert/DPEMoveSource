@@ -45,7 +45,7 @@
                                         จังหวัด
                                     </div>
                                     <div class="c field">
-                                        <select class="input-field">
+                                        <select id="ddlProvince" class="input-field" style="width:150px">
                                             <option value="">แสดงทั้งหมด</option>
                                         </select>
                                     </div>
@@ -57,7 +57,7 @@
                                         อำเภอ
                                     </div>
                                     <div class="c field">
-                                        <select class="input-field">
+                                        <select id="ddlAmphur" class="input-field" style="width:150px">
                                             <option value="">แสดงทั้งหมด</option>
                                         </select>
                                     </div>
@@ -71,7 +71,7 @@
                                         ตำบล
                                     </div>
                                     <div class="c field">
-                                        <select class="input-field">
+                                        <select id="ddlTambon" class="input-field" style="width:150px">
                                             <option value="">แสดงทั้งหมด</option>
                                         </select>
                                         <div class="col-advsearch"><a href="javascript:void(0);">ค้นหาขั้นสูง</a></div>
@@ -87,7 +87,7 @@
                                             ประเภทบุคลากรการกีฬา
                                         </div>
                                         <div class="c field">
-                                            <select class="input-field">
+                                            <select class="input-field" style="width:150px">
                                                 <option value="">ผู้ตัดสินกีฬา</option>
                                             </select>
                                         </div>
@@ -101,7 +101,7 @@
                                             ชนิดกีฬา
                                         </div>
                                         <div class="c field">
-                                            <select class="input-field">
+                                            <select class="input-field" style="width:150px">
                                                 <option value="">ฟุตบอล</option>
                                             </select>
                                         </div>
@@ -115,7 +115,7 @@
                                             ระดับ
                                         </div>
                                         <div class="c field">
-                                            <select class="input-field">
+                                            <select class="input-field" style="width:150px">
                                                 <option value="">ชาติ</option>
                                             </select>
                                         </div>
@@ -129,23 +129,23 @@
                                             ค้นจาก
                                         </div>
                                         <div class="c field">
-                                            <select class="input-field" style="margin-bottom: 8px;">
+                                            <select class="input-field" style="margin-bottom: 8px; width:150px">
                                                 <option value="">ชื่อ-สกุล</option>
                                             </select>
-                                            <input type="text" name="" />
+                                            <input id="txtName" type="text" name="" />
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="row-button"><a href="#" class="button darkgreen">แสดงข้อมูล</a></div>
+                        <div class="row-button"><a id="btnSearchPSN" href="javascript:void(0);" class="button darkgreen">แสดงข้อมูล</a></div>
                     </form>
                 </div>
             </div>
         </div>
         <div class="row search-person-result">
             <div class="col-12">
-                <ul>
+                <ul id="ul-search-person-result">
                     <li>
                         <div class="row">
                             <div class="col-12 col-sm-3">
@@ -157,7 +157,7 @@
                                 <div class="clearfix">
                                     <div class="col-traininghistory">
                                         <ol>
-                                            <li>ผู้ฝึกอบรมกีฬา/ฟุตบอล/ฝึกอบรมผู้ฝึกสอนกีฬาฟุตบอล T-License</li>
+                                            <li>--</li>
                                         </ol>
                                     </div>
                                     <div class="col-th-btn">
@@ -191,5 +191,22 @@
                 </ul>
             </div>
         </div>
+
+        <div style="display:none">
+            <span id="lbl_now_page"></span>/<span id="lbl_all_pages"></span>
+            <input type="hidden" id="now_page" name="now_page" value="1" />
+            <a href="javascript:void(0);" id="btnPrev">Prev</a>
+            <a href="javascript:void(0);" id="btnNext">Next</a>
+        </div>
+        <div class="text-center">
+            <a href="javascript:void(0);" id="btnLoadMore" style="display:none">เพิ่มเติม >></a>
+        </div>
+
     </div>
 </div>
+
+@section Scripts {
+
+    <script src="~/js/pages/psn-index.js"></script>
+}
+
