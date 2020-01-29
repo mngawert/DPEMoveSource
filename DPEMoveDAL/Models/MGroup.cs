@@ -5,7 +5,7 @@ namespace DPEMoveDAL.Models
 {
     public partial class MGroup
     {
-        public int GroupId { get; set; }
+        public decimal GroupId { get; set; }
         public string GroupName { get; set; }
         public string Description { get; set; }
         public int? Status { get; set; }

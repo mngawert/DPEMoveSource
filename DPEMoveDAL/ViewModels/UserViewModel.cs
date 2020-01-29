@@ -15,7 +15,7 @@ namespace DPEMoveDAL.ViewModels
         public string Name { get; set; }
         public string AccountType { get; set; }
         public string Status { get; set; }
-        public int? GroupId { get; set; }
+        public decimal? GroupId { get; set; }
         public bool Selected { get; set; }
     }
 
@@ -28,7 +28,7 @@ namespace DPEMoveDAL.ViewModels
         public string Name { get; set; }
         public string AccountType { get; set; }
         public string Status { get; set; }
-        public int? GroupId { get; set; }
+        public decimal? GroupId { get; set; }
         public int AppUserId { get; set; }
     }
 

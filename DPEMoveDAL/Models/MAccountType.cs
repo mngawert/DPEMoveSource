@@ -7,7 +7,7 @@ namespace DPEMoveDAL.Models
     {
         public string AccountTypeId { get; set; }
         public string AccountTypeName { get; set; }
-        public int? DefaultGroupId { get; set; }
+        public decimal? DefaultGroupId { get; set; }
         public string RequireProfileBoo { get; set; }
     }
 }

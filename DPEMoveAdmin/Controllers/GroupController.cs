@@ -78,7 +78,7 @@ namespace DPEMoveWebApi.Controllers
 
         public async Task<IActionResult> Edit(int id)
         {
-            var rolegroup = await context.MGroup.FindAsync(id);
+            var rolegroup = await context.MGroup.Where(a => a.GroupId == id).FirstOrDefaultAsync();
 
             var members = new List<RoleViewModel>();
 
@@ -159,7 +159,7 @@ namespace DPEMoveWebApi.Controllers
 
         public async Task<IActionResult> EditUsers(int id)
         {
-            var group = await context.MGroup.FindAsync(id);
+            var group = await context.MGroup.Where(a => a.GroupId == id).FirstOrDefaultAsync();
 
             var members = new List<UserViewModel>();
 
@@ -220,7 +220,7 @@ namespace DPEMoveWebApi.Controllers
         {
             if (ModelState.IsValid)
             {
-                var q = await context.MGroup.FindAsync(id);
+                var q = await context.MGroup.Where(a => a.GroupId == id).FirstOrDefaultAsync();
 
                 if (q != null)
                 {

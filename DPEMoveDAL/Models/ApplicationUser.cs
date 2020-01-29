@@ -13,7 +13,11 @@ namespace DPEMoveDAL.Models
         public string Name { get; set; }
         public string AccountType { get; set; }
         public string Status { get; set; }
-        public int? GroupId { get; set; }
+        public decimal? GroupId { get; set; }
         public int AppUserId { get; set; }
+        public string FacebookId { get; set; }
+        public DateTime? BirthDate { get; set; }
+        public decimal? Height { get; set; }
+        public decimal? Weight { get; set; }
     }
 }
