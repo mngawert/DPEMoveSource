@@ -211,7 +211,7 @@ function GetAnswers() {
     var answerValue_47 = $("[name='AnswerValue_47']:checked").val();
     var answerValue_48 = $("[name='AnswerValue_48']").val();
     var answerValue_49 = $("[name='AnswerValue_49']").val();
-    var answerValue_50 = $("[name='AnswerValue_50']").val();
+    var answerValue_50 = $("[name='AnswerValue_50']:checked").val();
     var answerValue_51 = $("[name='AnswerValue_51']").val();
     var answerValue_52 = $("[name='AnswerValue_52']").val();
     var answerValue_53 = $("[name='AnswerValue_53']").val();

@@ -102,7 +102,8 @@ namespace DPEMoveWeb.ApiControllers
                     Email = model.Email,
                     AccountType = "1",
                     Status = "1",
-                    GroupId = 1
+                    GroupId = 1,
+                    FacebookId = model.FacebookId
                 };
 
                 await userManager.CreateAsync(user);
