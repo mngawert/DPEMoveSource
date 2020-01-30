@@ -48,7 +48,7 @@
                                         ช่วงวันที่
                                     </div>
                                     <div class="c field">
-                                        <input id="txtEventStart" class="input-field" type="text" data-provide="datepicker" data-date-language="th-th">
+                                        <input id="txtEventStart" class="input-field" type="text" value="@(DateTime.Now.ToShortDateString())" data-provide="datepicker" data-date-language="th-th">
                                     </div>
                                 </div>
                             </div>
@@ -58,7 +58,7 @@
                                         ถึงวันที่
                                     </div>
                                     <div class="c field">
-                                        <input id="txtEventFinish" class="input-field" type="text" data-provide="datepicker" data-date-language="th-th">
+                                        <input id="txtEventFinish" class="input-field" type="text" value="@(DateTime.Now.AddMonths(1).ToShortDateString())" data-provide="datepicker" data-date-language="th-th">
                                     </div>
                                 </div>
                             </div>
@@ -208,7 +208,7 @@
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
 
-                    <form action="/Events/CreateEvent" method="post">
+                    <form action="/Events/CreateEvent" method="post" autocomplete="off">
 
                         <div class="modal-header">
 

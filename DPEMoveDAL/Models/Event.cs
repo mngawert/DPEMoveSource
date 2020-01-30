@@ -8,6 +8,7 @@ namespace DPEMoveDAL.Models
         public Event()
         {
             EventFacilities = new HashSet<EventFacilities>();
+            EventFee = new HashSet<EventFee>();
             EventGoal = new HashSet<EventGoal>();
             EventJoinPersonType = new HashSet<EventJoinPersonType>();
             EventLevelNavigation = new HashSet<EventLevel>();
@@ -54,6 +55,7 @@ namespace DPEMoveDAL.Models
         public MEventLevel EventLevel { get; set; }
         public MEventType EventType { get; set; }
         public ICollection<EventFacilities> EventFacilities { get; set; }
+        public ICollection<EventFee> EventFee { get; set; }
         public ICollection<EventGoal> EventGoal { get; set; }
         public ICollection<EventJoinPersonType> EventJoinPersonType { get; set; }
         public ICollection<EventLevel> EventLevelNavigation { get; set; }

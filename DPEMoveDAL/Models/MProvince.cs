@@ -5,7 +5,7 @@ namespace DPEMoveDAL.Models
 {
     public partial class MProvince
     {
-        public string ProvinceCode { get; set; }
-        public string ProvinceName { get; set; }
+        public string ProvCode { get; set; }
+        public string ProvNamt { get; set; }
     }
 }
