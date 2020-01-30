@@ -357,16 +357,16 @@
                 </div>
             </div>
             @*<div class="col-sm-12 col-md-12 col-lg-6">
-                <div class="bt_survey shadow">
-                    <h5>
-                        <a href="/Survey">
-                            <img src="/images/ic_survey.png" width="69" height="69" alt="" />แบบสารวจประชาชนที่ออกกาลังกาย หรือเล่นกีฬาอย่างสม่าเสมอประจาปีงบประมาณ พ.ศ. 2563
-                        </a>
-                    </h5>
-                </div>
-                <br>
-                <br>
-            </div>*@
+                    <div class="bt_survey shadow">
+                        <h5>
+                            <a href="/Survey">
+                                <img src="/images/ic_survey.png" width="69" height="69" alt="" />แบบสารวจประชาชนที่ออกกาลังกาย หรือเล่นกีฬาอย่างสม่าเสมอประจาปีงบประมาณ พ.ศ. 2563
+                            </a>
+                        </h5>
+                    </div>
+                    <br>
+                    <br>
+                </div>*@
         </div>
     </div>
 </div>
@@ -401,7 +401,7 @@
                                     <div class="text-center">
                                         <h3>สรุปจำนวนคนออกกำลังกาย</h3>
                                     </div>
-                                    <br/>
+                                    <br />
                                     <div id="chartContainer" style="height: 370px; max-width: 920px; margin: 0px auto;"></div>
                                     <script>
                                         window.onload = function () {
@@ -418,15 +418,15 @@
                                                         { y: 6027, label: "ม.ค. 62 : 6,027 คน" },
                                                         { y: 5027, label: "ก.พ. 62 : 5,027 คน" },
                                                         { y: 6500, label: "มี.ค. 62 : 6,500 คน" },
-                                                        { y: 6120, label: "เม.ย. 62 : 6,120 คน"},
-                                                        { y: 5010, label: "พ.ค. 62 : 5,010 คน"},
-                                                        { y: 6100, label: "มิ.ย. 62 : 6,100 คน"},
-                                                        { y: 5850, label: "ก.ค. 62 : 5,850 คน"},
-                                                        { y: 5800, label: "ส.ค. 62 : 5,800 คน"},
-                                                        { y: 5820, label: "ก.ย. 62 : 5,820 คน"},
-                                                        { y: 5950, label: "ต.ค. 62 : 5,950 คน"},
-                                                        { y: 6000, label: "พ.ย. 62 : 6,000 คน"},
-                                                        { y: 6027, label: "ธ.ค. 62 : 6,027 คน"},
+                                                        { y: 6120, label: "เม.ย. 62 : 6,120 คน" },
+                                                        { y: 5010, label: "พ.ค. 62 : 5,010 คน" },
+                                                        { y: 6100, label: "มิ.ย. 62 : 6,100 คน" },
+                                                        { y: 5850, label: "ก.ค. 62 : 5,850 คน" },
+                                                        { y: 5800, label: "ส.ค. 62 : 5,800 คน" },
+                                                        { y: 5820, label: "ก.ย. 62 : 5,820 คน" },
+                                                        { y: 5950, label: "ต.ค. 62 : 5,950 คน" },
+                                                        { y: 6000, label: "พ.ย. 62 : 6,000 คน" },
+                                                        { y: 6027, label: "ธ.ค. 62 : 6,027 คน" },
                                                     ]
                                                 }]
                                             });
@@ -449,11 +449,11 @@
                                 <div class="tab-pane fade" id="acti" role="tabpanel" aria-labelledby="acti-tab">
                                     <div class="text-center">
                                         <h3>สรุปจำนวนกิจกรรมในภาคกลาง</h3>
-                                        <p><strong>รวม 700 กิจกรรม</strong></p>
+                                        <p id="lblReportEvent1Count"><strong>รวม - กิจกรรม</strong></p>
                                     </div>
-                                    <br/>
+                                    <br />
                                     <div class="table_summary table-responsive2">
-                                        <table class="table table-bordered2">
+                                        <table id="tblReportEvent1" class="table table-bordered2">
                                             <thead>
                                                 <tr>
                                                     <th scope="col" class="tx_green"><h5>จังหวัด</h5></th>
@@ -530,7 +530,7 @@
                                         <h3>สรุปจำนวนสถานที่ในภาคกลาง</h3>
                                         <p><strong>รวม 700 สถานที่</strong></p>
                                     </div>
-                                    <br/>
+                                    <br />
                                     <div class="table_summary table-responsive2">
                                         <table class="table table-bordered2">
                                             <thead>
@@ -609,7 +609,7 @@
                                         <h3>สรุปจำนวนบุคลากรในภาคกลาง</h3>
                                         <p><strong>รวม 700 คน</strong></p>
                                     </div>
-                                    <br/>
+                                    <br />
                                     <div class="table_summary table-responsive2">
                                         <table class="table table-bordered2">
                                             <thead>
@@ -700,7 +700,7 @@
 
     <!--     slide location     -->
     <script>
-    $(document).ready(function () {
+        $(document).ready(function () {
             var itemsMainDiv = ('.MultiCarousel');
             var itemsDiv = ('.MultiCarousel-inner');
             var itemWidth = "";
@@ -809,4 +809,19 @@
 
     </script>
 
+
+    <script type="text/javascript">
+        @*var routeId = @ViewBag.routeId;
+        var model = @Html.Raw(Json.Serialize(Model));
+        var address = @Html.Raw(Json.Serialize(ViewBag.Address as Address));
+
+        console.log('routeid=', routeId);
+        console.log('model=', model);
+        console.log('address=', address);*@
+    </script>
+
+    <script src="~/js/pages/home-index.js"></script>
 }
+
+
+

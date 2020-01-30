@@ -30,6 +30,10 @@ namespace DPEMoveDAL.ViewModels
         public string Status { get; set; }
         public decimal? GroupId { get; set; }
         public int AppUserId { get; set; }
+        public string FacebookId { get; set; }
+        public DateTime? BirthDate { get; set; }
+        public decimal? Height { get; set; }
+        public decimal? Weight { get; set; }
     }
 
 }

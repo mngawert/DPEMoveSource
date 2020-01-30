@@ -19,5 +19,13 @@
 		if( $('.MultiCarousel .MultiCarousel-inner .item > div').length ) {
 			$('.MultiCarousel .MultiCarousel-inner .item > div').matchHeight();
 		}
+		if( $('#btn-advsearch').length ) {
+			$('#btn-advsearch').click(function() {
+				if( $('#section-advsearch').hasClass('active') )
+					$('#section-advsearch').removeClass('active');
+				else
+					$("#section-advsearch").addClass("active");
+			});
+		}
 	});
 })(jQuery, this);

@@ -225,7 +225,7 @@ namespace DPEMoveWeb.ApiControllers
 
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> GetProfile(ForgotPasswordViewModel model)
+        public async Task<IActionResult> GetProfile(UserViewModel2 model)
         {
             var user = await userManager.FindByEmailAsync(model.Email);
 
@@ -242,7 +242,10 @@ namespace DPEMoveWeb.ApiControllers
                 AccountType = user.AccountType,
                 GroupId = user.GroupId,
                 Status = user.Status,
-                AppUserId = user.AppUserId,
+                FacebookId = user.FacebookId,
+                BirthDate = user.BirthDate,
+                Height = user.Height,
+                Weight = user.Weight
             };
 
             return Ok(q);
@@ -264,6 +267,10 @@ namespace DPEMoveWeb.ApiControllers
             user.AccountType = model.AccountType;
             user.GroupId = model.GroupId;
             user.Status = model.Status;
+            user.FacebookId = model.FacebookId;
+            user.BirthDate = model.BirthDate;
+            user.Height = model.Height;
+            user.Weight = model.Weight;
 
             var result = await userManager.UpdateAsync(user);
 
@@ -277,7 +284,6 @@ namespace DPEMoveWeb.ApiControllers
 
             return BadRequest(ModelState);
         }
-
 
         [Authorize]
         //[HttpGet("claims")]
