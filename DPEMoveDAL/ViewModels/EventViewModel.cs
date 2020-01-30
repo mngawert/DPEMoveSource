@@ -137,6 +137,7 @@ namespace DPEMoveDAL.ViewModels
         public string ContactPersonMobile { get; set; }
         public string ContactPersonFax { get; set; }
         public string ContactPersonLineid { get; set; }
+        public string IsFree { get; set; }
 
         public List<UploadedFile> UploadedFile { get; set; }
 

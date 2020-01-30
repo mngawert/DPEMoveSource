@@ -1,6 +1,4 @@
 ﻿
-
-
 function GetMEventFacilitiesTopic() {
 
     console.log('start GetMEventFacilitiesTopic');
@@ -67,12 +65,12 @@ function GetEventFacilitiesFromSession(obj) {
 function AddEventFacilitiesToSession(eventId, mEventFacilitiesTopicId) {
     console.log('start AddEventFacilitiesToSession ');
 
-    if ($("#txtFacilityName_" + mEventFacilitiesTopicId).val() == "")
+    if (!$("#frmAddEventFacilities_" + mEventFacilitiesTopicId)[0].checkValidity()) {
+
+        $("#frmAddEventFacilities_" + mEventFacilitiesTopicId)[0].reportValidity()
         return false;
-    //if ($("#txtFacilityAmount_" + mEventFacilitiesTopicId).val() == "")
-    //    return false;
-    //if ($("#txtFacilityUnit_" + mEventFacilitiesTopicId).val() == "")
-    //    return false;
+    }
+    
 
     var options = {};
 
@@ -96,6 +94,8 @@ function AddEventFacilitiesToSession(eventId, mEventFacilitiesTopicId) {
     options.method = "POST";
     options.success = function (data) {
         console.log("success add");
+        $("#ModalTopic_" + mEventFacilitiesTopicId).modal("toggle");
+
         // re-load data from session.
         var obj = {};
         obj.eventId = eventId;
@@ -137,6 +137,148 @@ function DeleteEventFacilitiesFromSession(eventId, mEventFacilitiesTopicId, even
     };
     $.ajax(options);
 }
+
+
+
+
+
+function GetMFee() {
+
+    console.log('start GetMFee');
+    var options = {};
+
+    options.url = "/webapi/Events/GetMFee";
+    options.contentType = "application/json";
+    options.method = "GET";
+
+    options.success = function (data) {
+        $.each(data, function (index, value) {
+
+            var obj = {};
+            obj.eventId = routeId;
+            obj.feeId = value.feeId;
+            options.data = JSON.stringify(obj);
+            console.log("input", options.data);
+
+            GetEventFeeFromSession(obj)
+        });
+    };
+    options.error = function (a, b, c) {
+        console.log("Error while calling the Web API!(" + b + " - " + c + ")");
+    };
+    $.ajax(options);
+}
+
+function GetEventFeeFromSession(obj) {
+
+    console.log('start GetEventFeeFromSession');
+    var options = {};
+    var input = {};
+    input.eventId = obj.eventId;
+    input.feeId = obj.feeId;
+    options.data = JSON.stringify(input);
+    console.log("input", options.data);
+
+    options.url = "/webapi/Events/GetEventFeeFromSession";
+    options.contentType = "application/json";
+    options.method = "POST";
+
+    options.success = function (data) {
+        var items = '';
+        $.each(data, function (index, value) {
+            items +=
+                `
+                <tr>
+                    <td>` + value.eventFeeName + `</td>
+                    <td>` + (value.eventFeeAmount == null ? "" : value.eventFeeAmount) + `</td>
+                    <td>` + (value.eventFeeUnit == null ? "" : value.eventFeeUnit) + `</td>
+                    <td class="center"><button type="button" onclick="DeleteEventFeeFromSession(` + value.eventId + `,` + value.feeId + `,` + value.eventFeeId + `)" class="button small red">&nbsp;ลบ&nbsp;</button></td>
+                </tr>
+                `
+        });
+
+        $("#tblFee_" + obj.feeId + " > tbody").html(items);
+    };
+    options.error = function (a, b, c) {
+        console.log("Error while calling the Web API!(" + b + " - " + c + ")");
+    };
+    $.ajax(options);
+}
+
+function AddEventFeeToSession(eventId, feeId) {
+    console.log('start AddEventFeeToSession ');
+
+    if (!$("#frmAddEventFee_" + feeId)[0].checkValidity()) {
+
+        $("#frmAddEventFee_" + feeId)[0].reportValidity()
+        return false;
+    }
+
+    var options = {};
+
+    var input = {};
+    input.eventId = eventId;
+    input.feeId = feeId;
+    input.eventFeeName = $("#txtEventFeeName_" + feeId).val();
+    input.eventFeeAmount = $("#txtEventFeeAmount_" + feeId).val();
+    input.eventFeeUnit = $("#txtEventFeeUnit_" + feeId).val();
+    input.createdBy = "0";
+    options.data = JSON.stringify(input);
+    console.log("input", options.data);
+
+    // clear texbox.
+    $("#txtEventFeeName_" + feeId).val("");
+    $("#txtEventFeeAmount_" + feeId).val("");
+    $("#txtEventFeeUnit_" + feeId).val("");
+
+    options.url = "/webapi/Events/AddEventFeeToSession";
+    options.contentType = "application/json";
+    options.method = "POST";
+    options.success = function (data) {
+        console.log("success add");
+        $("#ModalFee_" + feeId).modal("toggle");
+        // re-load data from session.
+        var obj = {};
+        obj.eventId = eventId;
+        obj.feeId = feeId;
+        GetEventFeeFromSession(obj);
+    };
+    options.error = function (a, b, c) {
+        console.log("Error while calling the Web API!(" + b + " - " + c + ")");
+    };
+    $.ajax(options);
+}
+
+
+function DeleteEventFeeFromSession(eventId, feeId, eventFeeId) {
+    console.log('start DeleteEventFeeFromSession');
+
+    var options = {};
+
+    var input = {};
+    input.eventId = eventId;
+    input.feeId = feeId;
+    input.eventFeeId = eventFeeId;
+
+    options.data = JSON.stringify(input);
+    console.log("input", options.data);
+
+    options.url = "/webapi/Events/DeleteEventFeeFromSession";
+    options.contentType = "application/json";
+    options.method = "POST";
+    options.success = function (data) {
+        console.log("success add");
+        var obj = {};
+        obj.eventId = eventId;
+        obj.feeId = feeId;
+        GetEventFeeFromSession(obj);
+    };
+    options.error = function (a, b, c) {
+        console.log("Error while calling the Web API!(" + b + " - " + c + ")");
+    };
+    $.ajax(options);
+}
+
 
 
 function GetEventNearbyFromSession(eventId) {
@@ -553,6 +695,7 @@ $(document).ready(function () {
     console.log("eventId=", eventId);
 
     GetMEventFacilitiesTopic();
+    GetMFee();
     GetEventNearbyFromSession(eventId);
     GetUploadedFile(eventId);
 

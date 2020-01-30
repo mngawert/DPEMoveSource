@@ -43,6 +43,7 @@
                         <span class="tab">สิ่งอำนวยความสะดวก</span>
                         <span class="tab">รายละเอียด</span>
                         <span class="tab">ภาพประกอบ</span>
+                        <span class="tab">ค่าบริการ/ค่าสมัคร</span>
                     </div>
                     <div class="tab_content">
                         <div class="tab_item">
@@ -544,128 +545,8 @@
                                             </div>
                                         </div>
                                     </div>
-
-                                    <div class="modal fade bd-example-modal-lg" id="ModalTopic_@topic.EventFacilitiesTopicId" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog modal-lg">
-                                            <div class="modal-content">
-
-                                                <div class="modal-header">
-
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                        <span aria-hidden="true">ปิด</span>
-                                                    </button>
-                                                    <div>เพิ่ม @topic.EventFacilitiesTopicName</div>
-                                                </div>
-
-                                                <div class="modal-body">
-                                                    <div class="row">
-                                                        <div class="col-12">
-                                                            <table cellspacing="0" class="tbl-data">
-                                                                <tr>
-                                                                    <th class="name">ชื่อ</th>
-                                                                    <th class="amount">จำนวน</th>
-                                                                    <th class="unit">หน่วย</th>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td><input type="text" id="txtFacilityName_@topic.EventFacilitiesTopicId" name="" value="" class="input-field" /></td>
-                                                                    <td><input type="text" id="txtFacilityAmount_@topic.EventFacilitiesTopicId" name="" value="" class="input-field" /></td>
-                                                                    <td><input type="text" id="txtFacilityUnit_@topic.EventFacilitiesTopicId" name="" value="" class="input-field" /></td>
-                                                                </tr>
-                                                            </table>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-12 text-right">
-                                                            <button type="button" class="button darkgreen" data-dismiss="modal" onclick="AddEventFacilitiesToSession(@Model.EventId, @topic.EventFacilitiesTopicId)">เพิ่ม</button>
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-                                                <div class="modal-footer">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
                                 </div>
                             }
-
-
-                            @*<div class="block-group">
-                                <div class="heading">Topic 2 <div class="button-container"><a href="#" class="button small darkgreen">+เพิ่มรายการ</a></div></div>
-                                <div class="entry-data">
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                            <table cellspacing="0" class="tbl-data" width="100%">
-                                                <tr>
-                                                    <th class="name">ชื่อ</th>
-                                                    <th class="amount">จำนวน</th>
-                                                    <th class="unit">หน่วย</th>
-                                                    <th class="manage center">จัดการ</th>
-                                                </tr>
-                                                <tr>
-                                                    <td>ที่จอดรถ</td>
-                                                    <td>200</td>
-                                                    <td>คัน</td>
-                                                    <td class="center"><a href="#" class="button small red">&nbsp;ลบ&nbsp;</a> <a href="#" class="button small darkgreen">แก้ไข</a></td>
-                                                </tr>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="block-group">
-                                <div class="heading">Topic 3 <div class="button-container"><a href="#" class="button small darkgreen">+เพิ่มรายการ</a></div></div>
-                                <div class="entry-data">
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                            <table cellspacing="0" class="tbl-data" width="100%">
-                                                <tr>
-                                                    <th class="name">ชื่อ</th>
-                                                    <th class="amount">จำนวน</th>
-                                                    <th class="unit">หน่วย</th>
-                                                    <th class="manage center">จัดการ</th>
-                                                </tr>
-                                                <tr>
-                                                    <td>ร้านอาหารและเครื่องดื่ม</td>
-                                                    <td>20</td>
-                                                    <td>ร้านค้า</td>
-                                                    <td class="center"><a href="#" class="button small red">&nbsp;ลบ&nbsp;</a> <a href="#" class="button small darkgreen">แก้ไข</a></td>
-                                                </tr>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="block-group">
-                                <div class="heading">Topic 4 <div class="button-container"><a href="#" class="button small darkgreen">+เพิ่มรายการ</a></div></div>
-                                <div class="entry-data">
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                            <table cellspacing="0" class="tbl-data" width="100%">
-                                                <tr>
-                                                    <th class="name">ชื่อ</th>
-                                                    <th class="amount">จำนวน</th>
-                                                    <th class="unit">หน่วย</th>
-                                                    <th class="manage">จัดการ</th>
-                                                </tr>
-                                                <tr>
-                                                    <td>ห้องปฐมพยาบาล</td>
-                                                    <td>12</td>
-                                                    <td>ห้อง</td>
-                                                    <td class="center"><a href="#" class="button small red">&nbsp;ลบ&nbsp;</a> <a href="#" class="button small darkgreen">แก้ไข</a></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>ห้องน้ำ</td>
-                                                    <td>24</td>
-                                                    <td>ห้อง</td>
-                                                    <td class="center"><a href="#" class="button small red">&nbsp;ลบ&nbsp;</a> <a href="#" class="button small darkgreen">แก้ไข</a></td>
-                                                </tr>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>*@
 
                         </div>
                         <div class="tab_item">
@@ -674,7 +555,7 @@
                                 <div class="entry-data">
                                     <div class="row">
                                         <div class="col-sm-12">
-                                            <textarea class="myTextEditor" name="EventDescription" > @Model.EventDescription </textarea>
+                                            <textarea class="myTextEditor" name="EventDescription"> @Model.EventDescription </textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -740,11 +621,166 @@
 
 
                         </div>
+
+
+                        <div class="tab_item">
+
+                            <div class="block-group">
+                                <div class="heading">ค่าใช้จ่าย</div>
+                                <div class="entry-data">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+
+                                            <input type="checkbox" name="IsFree" value="1" checked="@Model.IsFree?.Equals("1")" /> ไม่มีค่าใช้จ่าย
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            @foreach (var topic in ViewBag.MFee as List<MFee>)
+                            {
+                                <div class="block-group">
+                                    <div class="heading">@topic.FeeName<div class="button-container"><button type="button" class="button small darkgreen" data-toggle="modal" data-target="#ModalFee_@topic.FeeId">+เพิ่มรายการ</button></div></div>
+                                    <div class="entry-data">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <table cellspacing="0" class="tbl-data" width="100%" id="tblFee_@topic.FeeId">
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="name">ชื่อ</th>
+                                                            <th class="amount">จำนวน</th>
+                                                            <th class="unit">หน่วย</th>
+                                                            <th class="manage center">จัดการ</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            }
+
+                        </div>
+
+
+
+                    </div>
+                </div>
+            </div>
+        </form>
+
+
+        @*  POPUP Event Facilities *@
+
+        @foreach (var topic in ViewBag.MEventFacilitiesTopic as List<MEventFacilitiesTopic>)
+        {
+            <div class="modal fade bd-example-modal-lg" id="ModalTopic_@topic.EventFacilitiesTopicId" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+
+                        <form id="frmAddEventFacilities_@topic.EventFacilitiesTopicId">
+
+                            <div class="modal-header">
+
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">ปิด</span>
+                                </button>
+                                <div>เพิ่ม @topic.EventFacilitiesTopicName</div>
+                            </div>
+
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <table cellspacing="0" class="tbl-data">
+                                            <tr>
+                                                <th class="name">ชื่อ</th>
+                                                <th class="amount">จำนวน</th>
+                                                <th class="unit">หน่วย</th>
+                                            </tr>
+                                            <tr>
+                                                <td><input type="text" id="txtFacilityName_@topic.EventFacilitiesTopicId" name="nn" value="" class="input-field" required /></td>
+                                                <td><input type="text" id="txtFacilityAmount_@topic.EventFacilitiesTopicId" name="aa" value="" class="input-field" /></td>
+                                                <td><input type="text" id="txtFacilityUnit_@topic.EventFacilitiesTopicId" name="uu" value="" class="input-field" /></td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12 text-right">
+                                        <button type="button" class="button darkgreen" onclick="AddEventFacilitiesToSession(@Model.EventId, @topic.EventFacilitiesTopicId)">เพิ่ม</button>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="modal-footer">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        }
+
+
+
+        @*  POPUP Fee *@
+
+        @foreach (var topic in ViewBag.MFee as List<MFee>)
+        {
+            <div class="modal fade bd-example-modal-lg" id="ModalFee_@topic.FeeId" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+
+                        <form id="frmAddEventFee_@topic.FeeId">
+
+
+                            <div class="modal-header">
+
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">ปิด</span>
+                                </button>
+                                <div>เพิ่ม @topic.FeeName</div>
+                            </div>
+
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <table cellspacing="0" class="tbl-data">
+                                            <tr>
+                                                <th class="name">ชื่อ</th>
+                                                <th class="amount">จำนวน</th>
+                                                <th class="unit">หน่วย</th>
+                                            </tr>
+                                            <tr>
+                                                <td><input type="text" id="txtEventFeeName_@topic.FeeId" name="" value="" class="input-field" required /></td>
+                                                <td><input type="text" id="txtEventFeeAmount_@topic.FeeId" name="" value="" class="input-field" /></td>
+                                                <td><input type="text" id="txtEventFeeUnit_@topic.FeeId" name="" value="" class="input-field" /></td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12 text-right">
+                                        <button type="button" class="button darkgreen" onclick="AddEventFeeToSession(@Model.EventId, @topic.FeeId)">เพิ่ม</button>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="modal-footer">
+                            </div>
+
+                        </form>
                     </div>
                 </div>
             </div>
 
-        </form>
+        }
+
+        @*  POPUP EventNearby *@
+
         <div class="modal fade bd-example-modal-lg" id="Modal_AddEventNearby" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
@@ -791,6 +827,11 @@
                 </div>
             </div>
         </div>
+
+
+
+
+
 
 
     </div>

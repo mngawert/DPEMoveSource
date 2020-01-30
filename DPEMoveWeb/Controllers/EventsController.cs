@@ -141,6 +141,7 @@ namespace DPEMoveWeb.Controllers
             }
 
             ViewBag.MEventFacilitiesTopic = _context.MEventFacilitiesTopic.ToList();
+            ViewBag.MFee = _context.MFee.ToList();
             ViewBag.MEventLevel = _context.MEventLevel.ToList();
             ViewBag.Address = _context.Event.Where(a => a.EventId == id).FirstOrDefault()?.Address;
             ViewBag.MSport = _context.MSport.ToList();
@@ -230,6 +231,44 @@ namespace DPEMoveWeb.Controllers
                         HttpContext.Session.Set<List<EventFacilities>>(sessionName, null);
                     }
                 }
+
+                /* EVENT_Fee */
+                foreach (var topic in _context.MFee)
+                {
+                    string sessionName = "Session_EventFee_" + model.EventId + "_" + topic.FeeId;
+                    var eventFeeSession = HttpContext.Session.Get<List<EventFee>>(sessionName);
+                    if (eventFeeSession != null)
+                    {
+                        var existingEventFee = _context.EventFee.Where(a => a.EventId == model.EventId && a.FeeId == topic.FeeId);
+                        foreach (var k in existingEventFee)
+                        {
+                            _context.Entry(k).State = EntityState.Deleted;
+                            _context.SaveChanges();
+                        }
+
+                        foreach (var k in eventFeeSession)
+                        {
+                            var qq = new EventFee
+                            {
+                                EventId = k.EventId,
+                                FeeId = k.FeeId,
+                                EventFeeName = k.EventFeeName,
+                                EventFeeAmount = k.EventFeeAmount,
+                                EventFeeUnit = k.EventFeeUnit,
+                                Status = k.Status,
+                                CreatedBy = k.CreatedBy,
+                                CreatedDate = k.CreatedDate
+                            };
+
+                            _context.Entry(qq).State = EntityState.Added;
+                        }
+                        _context.SaveChanges();
+
+                        // Clear session after Saved.
+                        HttpContext.Session.Set<List<EventFee>>(sessionName, null);
+                    }
+                }
+
 
                 /* EVENT_NEARBY */
                 foreach (var topic in _context.EventNearby)

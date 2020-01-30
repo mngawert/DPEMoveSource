@@ -50,6 +50,7 @@ namespace DPEMoveDAL.Models
         public string ContactPersonFax { get; set; }
         public string ContactPersonLineid { get; set; }
         public string EventDescription { get; set; }
+        public string IsFree { get; set; }
 
         public Address Address { get; set; }
         public MEventLevel EventLevel { get; set; }

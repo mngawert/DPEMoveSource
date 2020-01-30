@@ -354,6 +354,7 @@ namespace DPEMoveDAL.Services
             ev.PublishUrl = model.PublishUrl;
             ev.EventLevelId = model.EventLevelId;
             ev.EventLevelEtc = model.EventLevelEtc;
+            ev.IsFree = model.IsFree;
 
             _context.Update(ev).State = EntityState.Modified;
             _context.SaveChanges();

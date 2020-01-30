@@ -119,6 +119,8 @@ function GetProvince(Token) {
                 `
             });
             $("#ddlProvince").html(items);
+
+            GetEvent();
         }
     });
 }
@@ -250,8 +252,6 @@ $(document).ready(function () {
             GetTambon(token, provinceId, amphurId);
         }
     });
-
-    GetEvent();
 });
 
 

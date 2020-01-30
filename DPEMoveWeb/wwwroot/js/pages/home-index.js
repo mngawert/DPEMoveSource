@@ -2,7 +2,7 @@
 function GetToken(email, password) {
 
     var settings = {
-        "url": "https://localhost:44388/api/Account/GetToken",
+        "url": "/api/Account/GetToken",
         "method": "POST",
         "timeout": 0,
         "headers": {

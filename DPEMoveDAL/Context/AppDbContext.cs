@@ -831,6 +831,10 @@ namespace DPEMoveDAL.Models
 
                 entity.Property(e => e.EventTypeId).HasColumnName("EVENT_TYPE_ID");
 
+                entity.Property(e => e.IsFree)
+                    .HasColumnName("IS_FREE")
+                    .HasColumnType("VARCHAR2(1)");
+
                 entity.Property(e => e.ProjectCode)
                     .HasColumnName("PROJECT_CODE")
                     .HasColumnType("VARCHAR2(32)");

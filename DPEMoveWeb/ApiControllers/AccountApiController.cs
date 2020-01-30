@@ -241,6 +241,7 @@ namespace DPEMoveWeb.ApiControllers
                 IdcardNo = user.IdcardNo,
                 AccountType = user.AccountType,
                 GroupId = user.GroupId,
+                AppUserId = user.AppUserId,
                 Status = user.Status,
                 FacebookId = user.FacebookId,
                 BirthDate = user.BirthDate,

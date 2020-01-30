@@ -251,8 +251,84 @@ namespace DPEMoveWeb.ApiWebControllers
             return Ok();
         }
 
+        //[Authorize]
+        public IActionResult GetMFee()
+        {
+            var q = _context.MFee.ToList();
+
+            return Ok(q);
+        }
+
+        [HttpPost]
+        [Authorize]
+        public List<EventFee> GetEventFeeFromSession(EventFee model)
+        {
+            string SessionName = "Session_EventFee_" + model.EventId + "_" + model.FeeId;
+
+            if (HttpContext.Session.Get<List<EventFee>>(SessionName) == null)
+            {
+                var data = _context.EventFee.Where(a => a.EventId == model.EventId && a.FeeId == model.FeeId).ToList();
+                HttpContext.Session.Set<List<EventFee>>(SessionName, data);
+            }
+
+            var q = HttpContext.Session.Get<List<EventFee>>(SessionName);
+
+            return q;
+        }
+
+        [HttpPost]
+        [Authorize]
+        public IActionResult AddEventFeeToSession(EventFee model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var data = GetEventFeeFromSession(model);
+
+            var q = new EventFee
+            {
+                EventFeeId = new Random().Next(-100000, -1),
+                EventId = model.EventId,
+                FeeId = model.FeeId,
+                EventFeeName = model.EventFeeName,
+                EventFeeAmount = model.EventFeeAmount,
+                EventFeeUnit = model.EventFeeUnit,
+                Status = 1,
+                CreatedBy = model.CreatedBy,
+                CreatedDate = DateTime.Now
+            };
+
+            data.Add(q);
+
+            string sessionName = "Session_EventFee_" + model.EventId + "_" + model.FeeId;
+            HttpContext.Session.Set<List<EventFee>>(sessionName, data);
+
+            return Ok();
+        }
 
 
+        [HttpPost]
+        [Authorize]
+        public IActionResult DeleteEventFeeFromSession(EventFee model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var data = GetEventFeeFromSession(model);
+
+            var q = data.Where(a => a.EventFeeId == model.EventFeeId).FirstOrDefault();
+
+            data.Remove(q);
+
+            string sessionName = "Session_EventFee_" + model.EventId + "_" + model.FeeId;
+            HttpContext.Session.Set<List<EventFee>>(sessionName, data);
+
+            return Ok();
+        }
 
 
         [HttpPost]
