@@ -1,4 +1,5 @@
-﻿
+﻿@model IEnumerable<VwSurveyAnswerDbQuery>
+
 <div class="page-breadcrumbs" style="background-image: url('/images/bg-bc.jpg')">
     <div class="wellcome_sec">
         <div class="container">
@@ -20,11 +21,40 @@
         <div class="row">
             <div class="col-12">
 
-                <h5>List</h5>
-
+                <div style="height: 400px; overflow-y:auto">
+                    <table cellspacing="0" class="tbl-data" width="100%" id="tblSurverAnswer">
+                        <thead>
+                            <tr>
+                                <th class="amount">รายการ</th>
+                                <th class="name">ชื่อแบบสำรวจ</th>
+                                <th class="unit">ผู้กรอก</th>
+                                <th>จัดการ</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
 
             </div>
         </div>
     </div>
 </div>
 
+
+@section Scripts {
+
+    <script type="text/javascript">
+        @*var routeId = @ViewBag.routeId;
+
+        var model = @Html.Raw(Json.Serialize(Model));
+
+        var address = @Html.Raw(Json.Serialize(ViewBag.Address as Address));
+
+        console.log('routeid=', routeId);
+        console.log('model=', model);
+        console.log('address=', address);*@
+    </script>
+
+    <script src="~/js/pages/survey-list.js"></script>
+}

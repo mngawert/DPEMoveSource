@@ -20,10 +20,40 @@
         <div class="row">
             <div class="col-12">
 
-                <h5>Details</h5>
+                <div>
+                    <table cellspacing="0" class="tbl-data" width="100%" id="tblSurverAnswerDetails">
+                        <thead>
+                            <tr>
+                                <th class="amount">รายการ</th>
+                                <th class="name">คำถาม</th>
+                                <th class="unit">ตอบ</th>
+                                <th class="unit"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
 
             </div>
         </div>
     </div>
 </div>
 
+
+@section Scripts {
+
+    <script type="text/javascript">
+        @*var routeId = @ViewBag.routeId;
+
+        var model = @Html.Raw(Json.Serialize(Model));
+
+        var address = @Html.Raw(Json.Serialize(ViewBag.Address as Address));
+
+        console.log('routeid=', routeId);
+        console.log('model=', model);
+        console.log('address=', address);*@
+    </script>
+
+    <script src="~/js/pages/survey-details.js"></script>
+}

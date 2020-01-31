@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using DPEMoveDAL.Models;
+using DPEMoveDAL.Services;
 using DPEMoveDAL.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -18,6 +19,7 @@ namespace DPEMoveWeb.Controllers
         private readonly AppDbContext _context;
         private readonly ILogger<SurveyController> _logger;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly ISurveyService _surveyService;
 
         private async Task<int> GetLoginAppUserId()
         {
@@ -35,11 +37,12 @@ namespace DPEMoveWeb.Controllers
             return -1;
         }
 
-        public SurveyController(AppDbContext context, ILogger<SurveyController> logger, UserManager<ApplicationUser> userManager)
+        public SurveyController(AppDbContext context, ILogger<SurveyController> logger, UserManager<ApplicationUser> userManager, ISurveyService surveyService)
         {
             _context = context;
             _logger = logger;
             _userManager = userManager;
+            _surveyService = surveyService;
         }
 
         [Authorize(Roles = "SURVEY_VIEW")]
@@ -55,8 +58,9 @@ namespace DPEMoveWeb.Controllers
         }
 
         [Authorize(Roles = "SURVEY_VIEW")]
-        public IActionResult Details()
+        public IActionResult Details(int id)
         {
+
             return View();
         }
 

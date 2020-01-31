@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using DPEMoveDAL.Models;
+using DPEMoveDAL.Services;
 using DPEMoveDAL.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -21,12 +22,13 @@ namespace DPEMoveWeb.ApiWebControllers
         private readonly AppDbContext _context;
         private readonly ILogger<SurveyWebApiController> _logger;
         private readonly UserManager<ApplicationUser> _userManager;
-        
-        public SurveyWebApiController(AppDbContext context, ILogger<SurveyWebApiController> logger, UserManager<ApplicationUser> userManager)
+        private readonly ISurveyService _surveyService;
+        public SurveyWebApiController(AppDbContext context, ILogger<SurveyWebApiController> logger, UserManager<ApplicationUser> userManager, ISurveyService surveyService)
         {
             _context = context;
             _logger = logger;
             _userManager = userManager;
+            _surveyService = surveyService;
         }
 
         private async Task<int> GetLoginAppUserId()
@@ -78,6 +80,25 @@ namespace DPEMoveWeb.ApiWebControllers
             }
 
             return Ok();
+        }
+
+
+        //[Authorize(Roles = "SURVEY_VIEW")]
+        //[HttpPost]
+        public IActionResult GetSurveyAnswer(VwSurveyAnswerDbQuery model)
+        {
+            var q = _surveyService.GetVwSurveyAnswer(model);
+
+            return Ok(q);
+        }
+
+        //[Authorize(Roles = "SURVEY_VIEW")]
+        //[HttpPost]
+        public IActionResult GetSurveyAnswerDetails(VwSurveyAnswerDetailsDbQuery model)
+        {
+            var q = _surveyService.GetVwSurveyAnswerDetails(model);
+
+            return Ok(q);
         }
 
 
