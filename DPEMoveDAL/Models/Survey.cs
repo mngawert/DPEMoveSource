@@ -7,6 +7,7 @@ namespace DPEMoveDAL.Models
     {
         public Survey()
         {
+            SurveyAnswer = new HashSet<SurveyAnswer>();
             SurveyQuestion = new HashSet<SurveyQuestion>();
         }
 
@@ -16,6 +17,7 @@ namespace DPEMoveDAL.Models
         public DateTime? EndDate { get; set; }
         public int? Status { get; set; }
 
+        public ICollection<SurveyAnswer> SurveyAnswer { get; set; }
         public ICollection<SurveyQuestion> SurveyQuestion { get; set; }
     }
 }

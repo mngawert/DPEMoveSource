@@ -331,6 +331,7 @@ function GetAnswers() {
 
     var data = JSON.stringify(
         {
+            "SurveyId" : "1",
             "SurveyAnswer": SurveyAnswer
         });
 

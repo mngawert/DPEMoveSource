@@ -48,37 +48,18 @@ namespace DPEMoveWeb.Controllers
             return View("Create");
         }
 
-        //[Authorize(Roles = "SURVEY_VIEW")]
-        //[HttpPost]
-        //public async Task<IActionResult> Create(SurveyAnswerViewModel model)
-        //{
-        //    int appUserId = await GetLoginAppUserId();
-        //    if (appUserId != -1)
-        //    {
-        //        var q_1 = new SurveyAnswer
-        //        {
-        //            QuestionId = 1,
-        //            AnswerValue = model.AnswerValue_1,
-        //            CreatedDate = DateTime.Now,
-        //            CreatedBy = appUserId,
-        //        };
-        //        var q_2 = new SurveyAnswer
-        //        {
-        //            QuestionId = 2,
-        //            AnswerValue = model.AnswerValue_2,
-        //            CreatedDate = DateTime.Now,
-        //            CreatedBy = appUserId,
-        //        };
+        [Authorize(Roles = "SURVEY_VIEW")]
+        public IActionResult List()
+        {
+            return View();
+        }
 
-        //        _context.Entry(q_1).State = EntityState.Added;
-        //        _context.Entry(q_2).State = EntityState.Added;
-        //        _context.SaveChanges();
-        //    }
+        [Authorize(Roles = "SURVEY_VIEW")]
+        public IActionResult Details()
+        {
+            return View();
+        }
 
-        //    ViewBag.OKMessage = "OK";
-
-        //    return View("CreateOK");
-        //}
 
     }
 }

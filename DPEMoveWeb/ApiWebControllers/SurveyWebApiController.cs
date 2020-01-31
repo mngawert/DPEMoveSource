@@ -54,9 +54,11 @@ namespace DPEMoveWeb.ApiWebControllers
             {
                 var q = new SurveyAnswer
                 {
+                    SurveyId = model.SurveyId,
                     CreatedDate = DateTime.Now,
                     CreatedBy = appUserId
                 };
+
                 _context.Entry(q).State = EntityState.Added;
 
                 foreach (var m in model.SurveyAnswer)
@@ -72,7 +74,6 @@ namespace DPEMoveWeb.ApiWebControllers
                     };
                     _context.Entry(q_details).State = EntityState.Added;
                 }
-
                 _context.SaveChanges();
             }
 

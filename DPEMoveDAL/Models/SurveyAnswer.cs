@@ -13,7 +13,9 @@ namespace DPEMoveDAL.Models
         public int SurveyAnswerId { get; set; }
         public DateTime? CreatedDate { get; set; }
         public int? CreatedBy { get; set; }
+        public int? SurveyId { get; set; }
 
+        public Survey Survey { get; set; }
         public ICollection<SurveyAnswerDetails> SurveyAnswerDetails { get; set; }
     }
 }

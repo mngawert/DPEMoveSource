@@ -2598,6 +2598,13 @@ namespace DPEMoveDAL.Models
                 entity.Property(e => e.CreatedDate)
                     .HasColumnName("CREATED_DATE")
                     .HasColumnType("DATE");
+
+                entity.Property(e => e.SurveyId).HasColumnName("SURVEY_ID");
+
+                entity.HasOne(d => d.Survey)
+                    .WithMany(p => p.SurveyAnswer)
+                    .HasForeignKey(d => d.SurveyId)
+                    .HasConstraintName("SURVEY_ANSWER_R01");
             });
 
             modelBuilder.Entity<SurveyAnswerDetails>(entity =>

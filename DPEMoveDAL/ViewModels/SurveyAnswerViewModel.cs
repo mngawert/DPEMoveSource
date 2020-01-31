@@ -7,6 +7,7 @@ namespace DPEMoveDAL.ViewModels
 
     public partial class SurveyAnswerViewModel
     {
+        public int? SurveyId { get; set; }
         public SurveyAnswerDetailsViewModel[] SurveyAnswer { get; set; }
     }
 
