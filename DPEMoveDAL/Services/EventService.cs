@@ -55,9 +55,29 @@ namespace DPEMoveDAL.Services
                     .ThenInclude(b => b.Sport)
                 .Include(a => a.EventFacilities)
                     .ThenInclude(b => b.MEventFacilitiesTopic)
+                .Include(a => a.EventFee)
+                    .ThenInclude(b => b.Fee)
                 .Where(a => a.EventId == id)
                 .FirstOrDefaultAsync();
 
+            return q;
+        }
+
+        public List<EventFacilities> GetEventFacilities(int id)
+        {
+            var q = _context.EventFacilities
+                .Where(a => a.EventId == id)
+                .Include(b => b.MEventFacilitiesTopic)
+                .ToList()
+                .Select(c => new EventFacilities { 
+                    EventFacilitiesId = c.EventFacilitiesId,
+                    EventFacilitiesName = c.EventFacilitiesName,
+                    MEventFacilitiesTopic = new MEventFacilitiesTopic { 
+                        EventFacilitiesTopicId = c.MEventFacilitiesTopic.EventFacilitiesTopicId,
+                        EventFacilitiesTopicName = c.MEventFacilitiesTopic.EventFacilitiesTopicName
+                    } 
+                })
+                .ToList();
 
             return q;
         }
@@ -164,13 +184,28 @@ namespace DPEMoveDAL.Services
             //    }
             //}
 
+            var listEvents = q.ToList();
+
+            if (!string.IsNullOrEmpty(model.Address?.ProvinceCode))
+            {
+                listEvents = listEvents.Where(a => a.Address.ProvinceCode == model.Address.ProvinceCode).ToList();
+            }
+            if (!string.IsNullOrEmpty(model.Address?.AmphurCode))
+            {
+                listEvents = listEvents.Where(a => a.Address.AmphurCode == model.Address.AmphurCode).ToList();
+            }
+            if (!string.IsNullOrEmpty(model.Address?.TambonCode))
+            {
+                listEvents = listEvents.Where(a => a.Address.TambonCode == model.Address.TambonCode).ToList();
+            }
+
             if (model.Address != null)
             {
                 if (model.Address?.Latitude != null && model.Address?.Longitude != null)
                 {
                     var eventsNearby = new List<EventViewModel>();
 
-                    foreach (var e in q)
+                    foreach (var e in listEvents)
                     {
                         if (e.Address?.Latitude != null && e.Address?.Longitude != null)
                         {
@@ -204,9 +239,9 @@ namespace DPEMoveDAL.Services
                 }
             }
 
-            _logger.LogDebug("q = ", q);
+            _logger.LogDebug("q = ", listEvents);
 
-            var qq = q.OrderByDescending(a => a.EventStartTimestamp);
+            var qq = listEvents.OrderByDescending(a => a.EventStartTimestamp);
 
             return PaginatedList<EventViewModel>.Create(qq, model.LimitStart ?? 1, model.LimitSize ?? 10000);
         }

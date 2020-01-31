@@ -75,6 +75,20 @@ namespace DPEMoveWeb.ApiControllers
             return Ok(@event);
         }
 
+
+        [HttpGet("{id}")]
+        public IActionResult GetEventFacilities([FromRoute] int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var q = _eventService.GetEventFacilities(id);
+
+            return Ok(q);
+        }
+
         // PUT: api/Events/5
         [HttpPut("{id}")]
         public async Task<IActionResult> PutEvent([FromRoute] int id, [FromBody] Event @event)
