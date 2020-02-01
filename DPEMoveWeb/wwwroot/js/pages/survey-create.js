@@ -367,7 +367,7 @@ function SurveyCreate(inputData) {
 function ShowPopupSurveyCreateSuccess() {
 
     var settings = {
-        "url": "https://localhost:44388/WebApi/Master/GetConfig",
+        "url": "/WebApi/Master/GetConfig",
         "method": "POST",
         "timeout": 0,
         "headers": {
