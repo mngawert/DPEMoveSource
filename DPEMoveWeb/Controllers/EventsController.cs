@@ -55,15 +55,18 @@ namespace DPEMoveWeb.Controllers
         // GET: Events
         public async Task<IActionResult> Index()
         {
-            var appDbContext = _context.Event.Where(a => a.Status == 1)
-                .Include(@a => @a.Address)
-                .Include(@a => @a.EventLevel)
-                .Include(@a => @a.EventType)
-                .Include(a => a.EventUploadedFile)
-                    .ThenInclude(b => b.UploadedFile)
-                ;
+            ViewBag.AppUserId = await GetLoginAppUserId();
 
-            return View(await appDbContext.ToListAsync());
+            //var appDbContext = _context.Event.Where(a => a.Status == 1)
+            //    .Include(@a => @a.Address)
+            //    .Include(@a => @a.EventLevel)
+            //    .Include(@a => @a.EventType)
+            //    .Include(a => a.EventUploadedFile)
+            //        .ThenInclude(b => b.UploadedFile)
+            //    ;
+
+            //return View(await appDbContext.ToListAsync());
+            return View();
         }
 
         public async Task<IActionResult> Details(int? id)

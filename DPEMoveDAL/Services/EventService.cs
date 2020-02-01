@@ -279,6 +279,11 @@ namespace DPEMoveDAL.Services
 
             q = q.Where(a => a.Status == 1);
 
+            if (model.OnlyMyEvent != null)
+            {
+                q = q.Where(a => a.CreatedBy == model.OnlyMyEvent);
+            
+            }
             if (!string.IsNullOrEmpty(model.EventCode))
             {
                 q = q.Where(a => a.EventCode.Contains(model.EventCode));

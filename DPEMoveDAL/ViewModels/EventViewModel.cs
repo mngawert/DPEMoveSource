@@ -70,6 +70,7 @@ namespace DPEMoveDAL.ViewModels
         public string OrderDesc { get; set; }
         public string EventStart { get; set; }
         public string EventFinish { get; set; }
+        public int? OnlyMyEvent { get; set; }
     }
 
     public class EventDbQuery

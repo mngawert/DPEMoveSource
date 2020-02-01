@@ -12,6 +12,7 @@ function GetEvent() {
     input.provinceCode = $("#ddlProvince").val();
     input.amphurCode = $("#ddlAmphur").val();
     input.tambonCode = $("#ddlTambon").val();
+    input.onlyMyEvent = $("#chkOnlyMyEvent").prop("checked") == true ? $("#chkOnlyMyEvent").val() : "";
 
     console.log("input", input);
 
