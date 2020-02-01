@@ -359,6 +359,29 @@ function SurveyCreate(inputData) {
         if (jqXHR.status == 200) {
 
             console.log("SurveyCreate data", data);
+            ShowPopupSurveyCreateSuccess();
+        }
+    });
+}
+
+function ShowPopupSurveyCreateSuccess() {
+
+    var settings = {
+        "url": "https://localhost:44388/WebApi/Master/GetConfig",
+        "method": "POST",
+        "timeout": 0,
+        "headers": {
+            "Content-Type": "application/json"
+        },
+        "data": JSON.stringify({ "name": "SurveyCreateSuccessMessage" }),
+    };
+
+    $.ajax(settings).done(function (data, textStatus, jqXHR) {
+
+        if (jqXHR.status == 200) {
+            $.each(data, function (index, value) {
+                $("#dvSurveyCreateSuccessMessage").html(value.value);
+            });
             $("#Modal_Results").modal("show");
         }
     });
