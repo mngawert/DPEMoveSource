@@ -146,6 +146,7 @@ namespace DPEMoveDAL.ViewModels
         public string SportEtc { get; set; }
 
         public List<EventFacilities> EventFacilities { get; set; }
+        public List<EventFee> EventFee { get; set; }
         public List<EventNearby> EventNearby { get; set; }
 
         public List<EventObjectivePerson> EventObjectivePerson { get; set; }

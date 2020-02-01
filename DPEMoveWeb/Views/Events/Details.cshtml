@@ -56,17 +56,12 @@
                         <div class="share">
                             <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=@Context.Request.GetEncodedUrl()" class="fb-xfbml-parse-ignore"><img src="/images/ic_share-01.png" alt="" /></a>
                             <a target="_blank" href="https://twitter.com/intent/tweet?url=@Context.Request.GetEncodedUrl()"><img src="/images/ic_share-02.png" alt="" /></a>
-                            <a href="mailto:@(Model.ContactPersonEmail)"><img src="/images/ic_share-03.png" alt="" /></a>
+                            @if (!string.IsNullOrEmpty(Model.ContactPersonEmail))
+                            {
+                                <a href="mailto:@(Model.ContactPersonEmail)"><img src="/images/ic_share-03.png" alt="" /></a>
+                            }
                         </div>
-
-
-                            @*<div class="share">
-            <a href="#"><img src="/images/ic_share-01.png" alt="" /></a>
-            <a href="#"><img src="/images/ic_share-02.png" alt="" /></a>
-            <img src="/images/ic_share-03.png" alt="" />
-            <img src="/images/ic_share-04.png" alt="" />
-        </div>*@
-</div>
+                    </div>
                     <div class="col-sm-12 col-md-12 col-lg-3">
                         <div class="rateing_box">
                             <div class="row con_right">
@@ -130,10 +125,43 @@
 
                             </p>
                             <hr>
+
+                            <h4>ค่าสมัคร/ค่าบริการ</h4>
+                            <div class="row">
+                                <div class="col-12">
+                                    @if (Model.IsFree == "1")
+                                    {
+                                        <p class="m-0">ไม่มีค่าใช้จ่าย (ฟรี)</p>
+                                    }
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    @if (Model.EventFee.Any(a => a.FeeId == 5001))
+                                    {
+                                        <p class="m-0">ค่าสมัคร</p>
+                                        foreach (var x in Model.EventFee.Where(a => a.FeeId == 5001))
+                                        {
+                                            <p class="m-0">@x.EventFeeName @x.EventFeeAmount @x.EventFeeUnit</p>
+                                        }
+                                    }
+                                </div>
+                                <div class="col-6">
+                                    @if (Model.EventFee.Any(a => a.FeeId == 5002))
+                                    {
+                                        <p class="m-0">ค่าบริการ</p>
+                                        foreach (var x in Model.EventFee.Where(a => a.FeeId == 5002))
+                                        {
+                                            <p class="m-0">@x.EventFeeName @x.EventFeeAmount @x.EventFeeUnit</p>
+                                        }
+                                    }
+                                </div>
+                            </div>
+                            <hr>
+
                             <h4>สถานที่จัดกิจกรรม</h4>
                             <div class="map">
-                                @*<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1937.7772876989332!2d100.52683082566166!3d13.745396002971782!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30e29932a95480ab%3A0xeab9f76cf7025f3a!2z4Liq4LiZ4Liy4Lih4LiB4Li14Lis4Liy4LmB4Lir4LmI4LiH4LiK4Liy4LiV4Li0!5e0!3m2!1sth!2sth!4v1576312277149!5m2!1sth!2sth" width="100" height="250" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
-                                    <iframe id="gmap" src="https://maps.google.com/maps?q=13.73574120,100.52648960&hl=th&z=14&amp;output=embed" width="100" height="100" frameborder="0" style="border:0;" allowfullscreen=""></iframe>*@
+                                <iframe id="googlemap" src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDBro62OhioE6oXZ97CV8Y4AnrzfVIt4HA&language=th&q=@(Model.Latitude),@(Model.Longitude)" width="100%" height="100" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
                             </div>
                             <p>
                                 <img src="/images/ic_pin.png" width="28" height="39" alt="" />
@@ -143,7 +171,7 @@
                                 <span id="lblProvinceName"></span>
                             </p>
                             <div class="right">
-                                <button type="button" class="btn btn-outline-default btn-round">ดูแผนที่</button>
+                                <a href="https://www.google.com/maps/search/?api=1&query=@(Model.Latitude),@(Model.Longitude)" target="_blank" class="btn btn-outline-default btn-round">ดูแผนที่</a>
                             </div>
 
                             @if (!string.IsNullOrEmpty(Model.ContactPersonMobile))

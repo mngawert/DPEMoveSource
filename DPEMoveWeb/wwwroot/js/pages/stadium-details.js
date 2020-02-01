@@ -44,8 +44,9 @@ function GetStadiumDetails(token, id) {
             $("[name='lbl_NAME_LABEL']").html(value.NAME_LABEL)
             $("#lbl_ADDRESS").append(value.ADDRESS + " " + value.TAM_NAMT + " " + value.AMP_NAMT + " " + value.PROV_NAMT);
 
-            var goolemapUrl = `https://www.google.com/maps/embed/v1/place?key=AIzaSyDBro62OhioE6oXZ97CV8Y4AnrzfVIt4HA&q=` + value.LATITUDE + `,` + value.LONGITUDE + ``;
+            var goolemapUrl = `https://www.google.com/maps/embed/v1/place?key=AIzaSyDBro62OhioE6oXZ97CV8Y4AnrzfVIt4HA&language=th&q=` + value.LATITUDE + `,` + value.LONGITUDE + ``;
             $("#googlemap").attr("src", goolemapUrl);
+            $("#btnOpenMap").attr("href", `https://www.google.com/maps/search/?api=1&query=${value.LATITUDE},${value.LONGITUDE}`);
 
             console.log("goolemapUrl", goolemapUrl);
             console.log("googlemap.src", $("#googlemap").attr("src"));

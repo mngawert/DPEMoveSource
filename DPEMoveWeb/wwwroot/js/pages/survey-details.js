@@ -26,8 +26,8 @@
                 <tr>
                     <td>${value.questionId}</td>
                     <td>${value.questionText}</td>
-                    <td>${value.answerValue}</td>
-                    <td>${value.answerText}</td>
+                    <td>${value.answerValue == null ? "-" : value.answerValue}</td>
+                    <td>${value.answerText == null ? "-" : value.answerText}</td>
                 </tr>
                 `
             });
