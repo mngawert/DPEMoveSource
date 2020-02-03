@@ -200,17 +200,10 @@ function GetEventFeeFromSession(obj) {
         $("#tblFee_" + obj.feeId + " > tbody").html(items);
 
         var rowCount = $('#tblFee_5001 >tbody >tr').length + $('#tblFee_5002 >tbody >tr').length;
-        console.log("rowCount", rowCount);
-
-        var chk = $('input[name="IsFree"]').prop("checked");
-        console.log("chk", chk);
-
         if (rowCount > 0) {
-            console.log("chk prop1", $('input[name="IsFree"]').prop("checked"));
             $('input[name="IsFree"]').prop("checked", false);
         }
         else {
-            console.log("chk prop0", $('input[name="IsFree"]').prop("checked"));
             $('input[name="IsFree"]').prop("checked", true);
         }
 
