@@ -68,7 +68,7 @@
             </div>
             <div class="col-sm-12 col-md-12 col-lg-5 con_center">
                 <div class="table_map table-responsive2">
-                    <table class="table table-bordered2 shadow">
+                    <table class="table table-bordered2 shadow" id="tblReportStadium1">
                         <thead>
                             <tr>
                                 <th colspan="2" scope="col" class="con_center bg_green"><h3>จำนวนสนามกีฬาแบ่งตามจังหวัด</h3></th>
@@ -718,15 +718,90 @@
         'packages':['geochart'],
         // Note: you will need to get a mapsApiKey for your project.
         // See: https://developers.google.com/chart/interactive/docs/basic_load_libs#load-settings
-        'mapsApiKey': 'AIzaSyDBro62OhioE6oXZ97CV8Y4AnrzfVIt4HA'
+        'mapsApiKey': 'AIzaSyBW_ZloATWKeCRioFkeAQIaqTJErmD-IQA'
       });
       google.charts.setOnLoadCallback(drawRegionsMap);
 
       function drawRegionsMap() {
         var data = google.visualization.arrayToDataTable([
-          ['City', 'Popularity'],
-          ['Samut Prakan', 2761477],
-          ['Bangkok', 1324110]
+            ['City', 'Popularity'],
+            ['Chiang Mai', 298],
+            ['Chiang Rai', 393],
+            ['Phetchaburi', 348],
+            ['Phetchabun', 404],
+            ['Loei', 719],
+            ['Phrae', 169],
+            ['Mae Hong Son', 234],
+            ['Krabi', 429],
+            ['Bangkok', 173],
+            ['Kanchanaburi', 417],
+            ['Kalasin', 579],
+            ['Kamphaeng Phet', 352],
+            ['Khon Kaen', 891],
+            ['Chanthaburi', 112],
+            ['Chachoengsao', 272],
+            ['Chonburi', 391],
+            ['Chai Nat', 472],
+            ['Chaiyaphum', 1067],
+            ['Chumphon', 362],
+            ['Trang', 292],
+            ['Trat', 156],
+            ['Tak', 211],
+            ['Nakhon Nayok', 89],
+            ['Nakhon Pathom', 863],
+            ['Nakhon Phanom', 622],
+            ['Nakhon Ratchasima', 2427],
+            ['Nakhon Si Thammarat', 735],
+            ['Nakhon Sawan', 879],
+            ['Nonthaburi', 167],
+            ['Narathiwat', 143],
+            ['Nan', 154],
+            ['Bueng Kan', 124],
+            ['Buriram', 852],
+            ['Pathum Thani', 144],
+            ['Prachuap Khiri Khan', 172],
+            ['Prachinburi', 431],
+            ['Pattani', 139],
+            ['Phra Nakhon Si Ayutthaya', 426],
+            ['Phayao', 229],
+            ['Phang Nga', 77],
+            ['Phatthalung', 418],
+            ['Phichit', 252],
+            ['Phitsanulok', 759],
+            ['Phuket', 53],
+            ['Maha Sarakham', 389],
+            ['Mukdahan', 156],
+            ['Yasothon', 591],
+            ['Yala', 109],
+            ['Roi Et', 615],
+            ['Ranong', 68],
+            ['Rayong', 405],
+            ['Ratchaburi', 211],
+            ['Lopburi', 382],
+            ['Lampang', 487],
+            ['Lamphun', 154],
+            ['Sisaket', 1535],
+            ['Sakon Nakhon', 1668],
+            ['Songkhla', 317],
+            ['Satun', 109],
+            ['Samut Prakan', 126],
+            ['Samut Songkhram', 54],
+            ['Samut Sakhon', 208],
+            ['Sa Kaeo', 99],
+            ['Saraburi', 347],
+            ['Sing Buri', 149],
+            ['Sukhothai (Sukhothai Thani)', 504],
+            ['Suphan Buri', 311],
+            ['Surat Thani', 347],
+            ['Surin', 1533],
+            ['Nong Khai', 185],
+            ['Nong Bua Lam Phu', 439],
+            ['Ang Thong', 141],
+            ['Amnat Charoen', 569],
+            ['Udon Thani', 1024],
+            ['Uttaradit', 227],
+            ['Uthai Thani', 231],
+            ['Ubon Ratchathani', 1886]
         ]);
 
           var options = {
