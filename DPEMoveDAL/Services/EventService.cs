@@ -259,6 +259,7 @@ namespace DPEMoveDAL.Services
                     EventStartTimestamp = a.EventStartTimestamp,
                     EventStartTH = a.EventStartTimestamp.ToString("d MMM yy"),
                     EventFinishTimestamp = a.EventFinishTimestamp,
+                    IsFree = a.IsFree,
                     Status = a.Status,
                     CreatedDate = a.CreatedDate,
                     CreatedBy = a.CreatedBy,

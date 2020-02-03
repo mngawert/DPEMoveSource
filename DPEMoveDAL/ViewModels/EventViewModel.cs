@@ -87,6 +87,7 @@ namespace DPEMoveDAL.ViewModels
         public string FileUrl { get; set; }
         public int ReadCount { get; set; }
         public int CommentCount { get; set; }
+        public string IsFree { get; set; }
         public int Status { get; set; }
         public DateTime CreatedDate { get; set; }
         public int CreatedBy { get; set; }
