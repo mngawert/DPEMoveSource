@@ -50,6 +50,23 @@ function GetEvent() {
                                 ` + $("<div />").html(value.eventDescription).text().substring(0,100) + `<br />
                                 ` + GetProvinceNameById(value.provinceCode) +  `
                             </div>
+                            
+                            <div class="row">
+                                <div class="col-12">
+                                    <br />
+                                    <h5> ${value.isFree == "1" ? "ไม่มีค่าใช้จ่าย (ฟรี)" : ""} </h5>
+                                </div>
+                            </div>
+                            <div class="row" id="dvEventFee_${value.eventId}">
+                                <div class="col-6">
+                                    <h5>ค่าสมัคร</h5>
+                                    <p id="pEventFee_5001_${value.eventId}"></p>
+                                </div>
+                                <div class="col-6">
+                                    <h5>ค่าบริการ</h5>
+                                    <p id="pEventFee_5002_${value.eventId}"></p>
+                                </div>
+                            </div>
                             <div class="row read-comment">
                                 <div class="col-sm-12 col-md-6">
                                     <div class="read-total">อ่านแล้ว ` + value.readCount + ` คน</div>
@@ -64,12 +81,57 @@ function GetEvent() {
             </li >`
         });
         $("#ul-search-events-result").html(items);
+        PrintEventFee(data);
     };
     options.error = function (a, b, c) {
         console.log("Error while calling the Web API!(" + b + " - " + c + ")");
     };
     $.ajax(options);
 }
+
+function PrintEventFee(data) {
+    $.each(data, function (index, value) {
+        if (value.isFree == "1") {
+            $("#dvEventFee_" + value.eventId).hide();
+        }
+        else {
+            GetEventFee(value.eventId);
+        }
+    });
+}
+
+function GetEventFee(eventId) {
+
+    var settings = {
+        "url": "/WebApi/Events/GetEventFee",
+        "method": "POST",
+        "timeout": 0,
+        "headers": {
+            "Content-Type": "application/json"
+        },
+        "data": JSON.stringify({ "eventId": eventId }),
+    };
+
+    $.ajax(settings).done(function (response, textStatus, jqXHR) {
+
+        if (jqXHR.status == 200) {
+            var data = response;
+            var item_5001 = "";
+            var item_5002 = "";
+            $.each(data, function (index, value) {
+                if (value.feeId == 5001) {
+                    item_5001 += `<p class="m-0">${value.eventFeeName} ${value.eventFeeAmount} ${value.eventFeeUnit}</p>`
+                }
+                if (value.feeId == 5002) {
+                    item_5002 += `<p class="m-0">${value.eventFeeName} ${value.eventFeeAmount} ${value.eventFeeUnit}</p>`
+                }
+            });
+            $("#pEventFee_5001_" + eventId).html(item_5001 == "" ? "-" : item_5001);
+            $("#pEventFee_5002_" + eventId).html(item_5002 == "" ? "-" : item_5002);
+        }
+    });
+}
+
 
 function GetProvinceNameById(provinceId) {
 

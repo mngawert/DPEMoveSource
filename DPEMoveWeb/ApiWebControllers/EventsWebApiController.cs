@@ -260,6 +260,15 @@ namespace DPEMoveWeb.ApiWebControllers
         }
 
         [HttpPost]
+        //[Authorize]
+        public List<EventFee> GetEventFee(EventFee model)
+        {
+            var q = _context.EventFee.Where(a => a.EventId == model.EventId).ToList();
+
+            return q;
+        }
+
+        [HttpPost]
         [Authorize]
         public List<EventFee> GetEventFeeFromSession(EventFee model)
         {

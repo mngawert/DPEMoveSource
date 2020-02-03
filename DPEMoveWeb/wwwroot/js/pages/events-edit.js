@@ -198,6 +198,15 @@ function GetEventFeeFromSession(obj) {
         });
 
         $("#tblFee_" + obj.feeId + " > tbody").html(items);
+
+        var rowCount = $('#tblFee_5001 >tbody >tr').length + $('#tblFee_5002 >tbody >tr').length;
+        if (rowCount > 0) {
+            $('input[name="IsFree"]').prop("checked", false);
+        }
+        else {
+            $('input[name="IsFree"]').prop("checked", true);
+        }
+
     };
     options.error = function (a, b, c) {
         console.log("Error while calling the Web API!(" + b + " - " + c + ")");

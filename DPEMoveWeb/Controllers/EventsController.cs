@@ -171,6 +171,7 @@ namespace DPEMoveWeb.Controllers
                     EventFinishTimestamp = model.EventFinishTimestamp,
                     ReadCount = 0,
                     EventLevelId = 1,
+                    IsFree = "1",
                     Status = 2,
                     CreatedBy = appUserId, //model.CreatedBy,
                     CreatedDate = DateTime.Now,
