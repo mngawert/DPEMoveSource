@@ -1,5 +1,16 @@
 ﻿
+<style>
+    #regions_div {
+        width: 550px;
+        overflow: hidden;
+    }
 
+    #regions_div svg {
+        margin-left: -300px;
+    }
+
+
+</style>
 <div class="page_home">
     <div class="page-breadcrumbs" style="background-image: url('/images/bg-bc.jpg')">
         <div class="full_slide">
@@ -51,7 +62,10 @@
 <div class="section gray">
     <div class="container">
         <div class="row">
-            <div class="col-sm-12 col-md-12 col-lg-7 con_center"> <img src="/images/home_map.jpg" width="800" height="847" alt="" /> </div>
+            <div class="col-sm-12 col-md-12 col-lg-7 con_center">
+                <div id="regions_div" style="width: 500px; height: 550px;"></div>
+
+            </div>
             <div class="col-sm-12 col-md-12 col-lg-5 con_center">
                 <div class="table_map table-responsive2">
                     <table class="table table-bordered2 shadow">
@@ -698,12 +712,74 @@
 
 @section Scripts {
 
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        google.charts.load('current', {
+        'packages':['geochart'],
+        // Note: you will need to get a mapsApiKey for your project.
+        // See: https://developers.google.com/chart/interactive/docs/basic_load_libs#load-settings
+        'mapsApiKey': 'AIzaSyBW_ZloATWKeCRioFkeAQIaqTJErmD-IQA'
+      });
+      google.charts.setOnLoadCallback(drawRegionsMap);
+
+      function drawRegionsMap() {
+        var data = google.visualization.arrayToDataTable([
+          ['City', 'Popularity'],
+          ['Samut Prakan', 2761477],
+          ['Bangkok', 1324110]
+        ]);
+
+          var options = {
+              width: 800,
+              height:550,
+            region: 'TH',
+            resolution: "provinces",
+            keepAspectRatio: false,
+              colorAxis: { colors: ['green', 'blue'] },
+            legend:'center'
+          };
+
+        var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
+          google.visualization.events.addOneTimeListener(chart, 'ready', fixToolTipPosition);
+        chart.draw(data, options);
+
+        }
+
+        function fixToolTipPosition() {
+            var container = $('#regions_div div:last-child ')[0];
+ 
+            function setPosition(e) {
+                var tooltip = $('.google-visualization-tooltip');
+                var left = mouse.x - tooltip.width()/2;
+                var top = mouse.y - tooltip.height() - 15;
+                tooltip.css('left', left + 'px');
+                tooltip.css('top', top + 'px');
+            }
+ 
+            if (typeof MutationObserver === 'function') {
+                var observer = new MutationObserver(function (m) {
+                    alert();
+                    setPosition(m);
+                });
+                observer.observe(container, {
+                    childList: true
+                });
+            } else if (document.addEventListener) {
+                container.addEventListener('DOMNodeInserted', setPosition);
+            } else {
+                container.attachEvent('onDOMNodeInserted', setPosition);
+            }
+        }
+    </script>
+
     <!--     slide location     -->
     <script>
         $(document).ready(function () {
             var itemsMainDiv = ('.MultiCarousel');
             var itemsDiv = ('.MultiCarousel-inner');
             var itemWidth = "";
+
+            
 
             $('.leftLst, .rightLst').click(function () {
                 var condition = $(this).hasClass("leftLst");
