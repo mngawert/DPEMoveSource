@@ -25,7 +25,7 @@
             <div class="col-sm-12 col-md-12 col-lg-4">
                 <div class="row con_right">
                     <div class="col">
-                        <button type="button" class="btn btn-lightgreen btn-round">บันทึก</button>
+                        <button id="btnSavePSN" type="button" class="btn btn-lightgreen btn-round">บันทึก</button>
                     </div>
                 </div>
             </div>
@@ -84,7 +84,7 @@
                                                     <td class="td-id">
                                                         <select class="input-field">
                                                             <option value="">ประจำตัวประชาชน</option>
-                                                        </select>&nbsp;&nbsp;<input type="text" name="" value="" class="input-field" />
+                                                        </select>&nbsp;&nbsp;<input type="text" name="HRS_ID" value="" class="input-field" />
                                                     </td>
                                                 </tr>
                                             </table>
@@ -121,7 +121,7 @@
                                             <table class="tbl-fields th-aright" cellspacing="0">
                                                 <tr>
                                                     <th width="140">ชื่อ (ไทย)<span class="req">*</span></th>
-                                                    <td><input type="text" name="" /></td>
+                                                    <td><input type="text" name="FIRST_NAME" /></td>
                                                 </tr>
                                             </table>
                                         </div>
@@ -129,7 +129,7 @@
                                             <table class="tbl-fields th-aright" cellspacing="0">
                                                 <tr>
                                                     <th width="140">ชื่อ (อังกฤษ)<span class="req">*</span></th>
-                                                    <td><input type="text" name="" /></td>
+                                                    <td><input type="text" name="FIRST_NAME_ENG" /></td>
                                                 </tr>
                                             </table>
                                         </div>
@@ -139,7 +139,7 @@
                                             <table class="tbl-fields th-aright" cellspacing="0">
                                                 <tr>
                                                     <th width="140">สกุล (ไทย)<span class="req">*</span></th>
-                                                    <td><input type="text" name="" /></td>
+                                                    <td><input type="text" name="LAST_NAME" /></td>
                                                 </tr>
                                             </table>
                                         </div>
@@ -147,7 +147,7 @@
                                             <table class="tbl-fields th-aright" cellspacing="0">
                                                 <tr>
                                                     <th width="140">สกุล (อังกฤษ)<span class="req">*</span></th>
-                                                    <td><input type="text" name="" /></td>
+                                                    <td><input type="text" name="LAST_NAME_ENG" /></td>
                                                 </tr>
                                             </table>
                                         </div>
@@ -158,8 +158,9 @@
                                                 <tr>
                                                     <th width="140">เพศ<span class="req">*</span></th>
                                                     <td>
-                                                        <select class="input-field">
-                                                            <option value="">ชาย</option>
+                                                        <select class="input-field" name="SEX">
+                                                            <option value="1">ชาย</option>
+                                                            <option value="2">หญิง</option>
                                                         </select>
                                                     </td>
                                                 </tr>
@@ -169,11 +170,7 @@
                                             <table class="tbl-fields th-aright" cellspacing="0">
                                                 <tr>
                                                     <th width="140">ศาสนา<span class="req">*</span></th>
-                                                    <td>
-                                                        <select class="input-field">
-                                                            <option value=""></option>
-                                                        </select>
-                                                    </td>
+                                                    <td><input type="text" name="RELIGION" /></td>
                                                 </tr>
                                             </table>
                                         </div>
@@ -184,15 +181,7 @@
                                                 <tr>
                                                     <th width="140">วันเกิด (วัน-เดือน-ปี)<span class="req">*</span></th>
                                                     <td>
-                                                        <select class="input-field">
-                                                            <option value="">dd</option>
-                                                        </select>
-                                                        <select class="input-field">
-                                                            <option value="">MM</option>
-                                                        </select>
-                                                        <select class="input-field">
-                                                            <option value="">yyyy</option>
-                                                        </select>
+                                                        <input name="BIRTH_DATE" class="input-field" type="text" data-provide="datepicker" data-date-language="th-th">
                                                     </td>
                                                 </tr>
                                             </table>
@@ -204,8 +193,8 @@
                                                 <tr>
                                                     <th width="140">ระดับการศึกษา</th>
                                                     <td>
-                                                        <select class="input-field">
-                                                            <option value="">ปริญญาตรี</option>
+                                                        <select class="input-field" name="EDU_ID" id="ddlEDU_ID" style="width:165px">
+                                                            <option value="">กรุณาเลือก</option>
                                                         </select>
                                                     </td>
                                                 </tr>
@@ -229,11 +218,7 @@
                                             <table class="tbl-fields th-aright" cellspacing="0">
                                                 <tr>
                                                     <th width="140">อาชีพ</th>
-                                                    <td>
-                                                        <select class="input-field">
-                                                            <option value="">กรุณาเลือก</option>
-                                                        </select>
-                                                    </td>
+                                                    <td><input type="text" name="JOB_SUBJECT" /></td>
                                                 </tr>
                                             </table>
                                         </div>
@@ -241,7 +226,7 @@
                                             <table class="tbl-fields th-aright" cellspacing="0">
                                                 <tr>
                                                     <th width="140">ตำแหน่งงานปัจจุบัน</th>
-                                                    <td><input type="text" name="" /></td>
+                                                    <td><input type="text" name="JOB_POSITION" /></td>
                                                 </tr>
                                             </table>
                                         </div>
@@ -1042,7 +1027,7 @@
             <div class="modal-body">
                 <div class="row person-details">
                     <div class="col-12 col-sm-4 col-lg-3 col-xl-3">
-                        <div class="img-center-mobile"><img src="images/psn010101_01.png" /></div>
+                        <div class="img-center-mobile"><img src="/images/psn010101_01.png" /></div>
                     </div>
                     <div class="col-12 col-sm-8 col-lg-9 col-xl-9">
                         <h4>นายอำนวย อยู่ดอน</h4>
@@ -1077,3 +1062,7 @@
     </div>
 </div>
 
+@section Scripts {
+
+    <script src="~/js/pages/psn-create.js"></script>
+}

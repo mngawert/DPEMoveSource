@@ -144,13 +144,12 @@ function GetToken() {
     return $.ajax(settings);
 }
 
-function GetStadiumType(Token) {
-
+function getEducation(token, selectedValue) {
     var form = new FormData();
-    form.append("Token", Token);
+    form.append("Token", token);
 
     var settings = {
-        "url": "https://data.dpe.go.th/api/stadium/stadiumType/getStadiumType",
+        "url": "https://data.dpe.go.th/api/personal/education/getEducation",
         "method": "POST",
         "timeout": 0,
         "processData": false,
@@ -159,36 +158,60 @@ function GetStadiumType(Token) {
         "data": form
     };
 
-    $.ajax(settings).done(function (response) {
-        var results = JSON.parse(response);
-        var data = results.data;
-        var items = '';
-        $.each(data, function (index, value) {
-
-            items +=
+    $.ajax(settings).done(function (response, status, xhr) {
+        if (xhr.status == 200) {
+            var data = JSON.parse(response).data
+            var items =
                 `
-                <option value="` + value.GROUP_ID + `">` + value.GROUP_NAME + `</option>
+            <option value="">กรุณาเลือก</option>
             `
-        });
-        $("#ddlStadiumType").append(items);
+            $.each(data, function (index, value) {
+                items +=
+                    `
+                <option value="` + value.EDU_ID + `">` + value.EDU_NAME + `</option>
+                `
+            });
+            $("#ddlEDU_ID").html(items);
+            $("#ddlEDU_ID").val(selectedValue);
+        }
     });
 }
 
-//function SearchPSN(token, DATA_REPLACE_OR_APPEND, PAGE) {
+function getPrefix(token) {
+    var form = new FormData();
+    form.append("Token", token);
 
-//    var txtName = $("#txtName").val();
-//    var provinceId = $("#ddlProvince").val();
-//    var amphurId = $("#ddlAmphur").val();
-//    var tambonId = $("#ddlTambon").val();
+    var settings = {
+        "url": "https://data.dpe.go.th/api/personal/prefix/getPrefix",
+        "method": "POST",
+        "timeout": 0,
+        "processData": false,
+        "mimeType": "multipart/form-data",
+        "contentType": false,
+        "data": form
+    };
 
-//    GetPSN(token, DATA_REPLACE_OR_APPEND, PAGE, txtName, provinceId, amphurId);
-//}
+    $.ajax(settings).done(function (response, status, xhr) {
+        if (xhr.status == 200) {
+            var data = JSON.parse(response).data
 
-function GetPSN(token, HRS_ID) {
+            var item_1 = `<option value="">กรุณาเลือก</option>`
+            var item_2 = `<option value="">กรุณาเลือก</option>`
+            $.each(data, function (index, value) {
+                item_1 += `<option value="` + value.PREFIX_ID + `">` + value.PREFIX_TH + `</option>`
+                item_2 += `<option value="` + value.PREFIX_ID + `">` + value.PREFIX_EN + `</option>`
+            });
+            $("#ddlPREFIX_TH").html(item_1);
+            $("#ddlPREFIX_EN").html(item_2);
+        }
+    });
+}
+
+function getGmsMember(token, MEMBER_ID) {
 
     var form = new FormData();
     form.append("Token", token);
-    form.append("HRS_ID", HRS_ID);
+    form.append("MEMBER_ID", MEMBER_ID);
 
     var settings = {
         "url": "https://data.dpe.go.th/api/personal/member/getGmsMember",
@@ -213,99 +236,122 @@ function GetPSN(token, HRS_ID) {
             $("#dvMEMBER_IMAGE").html(`<img src="${value.MEMBER_IMAGE == null ? "/images/psn010101_02.png" : value.MEMBER_IMAGE }" />`);
             $("#lblName").html(`${value.FIRST_NAME} ${value.LAST_NAME}`);
             $("#lblTYPE_SUBJECT").html(`ความชำนาญ : ${value.TYPE_SUBJECT == null ? "-" : value.TYPE_SUBJECT}`);
+            $("#txtHRS_ID").val(value.HRS_ID);
+            $("#txtFIRST_NAME").val(value.FIRST_NAME);
+            $("#txtLAST_NAME").val(value.LAST_NAME);
+            $("#txtFIRST_NAME_EN").val(value.FIRST_NAME_EN);
+            $("#txtLAST_NAME_EN").val(value.LAST_NAME_EN);
 
+            PrintGMS_HISTORY(value.GMS_HISTORY);
+            getEducationHistory(token, value.MEMBER_ID);
+            getWorkHistory(token, value.MEMBER_ID);
+
+            // Load Dropdownlist and set selected value.
+            getEducation(token);
+            getPrefix(token);
         });
 
-        //PrintCommentCount(data);
-        //PrintVoteAvg(data);
     });
 }
 
 function PrintGMS_HISTORY(data) {
 
     console.log("PrintGMS_HISTORY data", data)
-    var html = "";
+    var items = "";
 
     $.each(data, function (index, value) {
-        html += `<li>${value.COURSE_SUBJECT}</li>`;
-
+        items += `
+                <tr>
+                    <td>${index+1}</td>
+                    <td></td>
+                    <td>${value.COURSE_SUBJECT}</td>
+                    <td>${value.SPORT_SUBJECT}</td>
+                    <td>${value.LEVEL_DETAIL}</td>
+                    <td class="center"><a href="#" class="button small red">&nbsp;ลบ&nbsp;</a> <a href="#" class="button small darkgreen">แก้ไข</a></td>
+                </tr>
+        `;
     });
 
-    return html;
+    $("#tblGMS_HISTORY >tbody").html(items);
 }
 
+function getEducationHistory(token, MEMBER_ID) {
+    console.log("getEducationHistory");
 
-function PrintCommentCount(data) {
+    var form = new FormData();
+    form.append("Token", token);
+    form.append("MEMBER_ID", MEMBER_ID);
 
-    //console.log("PrintCommentCount");
-    $.each(data, function (index, value) {
-        GetCommentCount("2", value.STADIUM_ID);
-    });
-}
-
-function PrintVoteAvg(data) {
-
-    //console.log("PrintVoteAvg");
-    $.each(data, function (index, value) {
-        GetVoteTotalAvg("2", value.STADIUM_ID);
-    });
-}
-
-function GetCommentCount(commentOf, eventOrStadiumCode) {
-
-    //console.log("GetCommentCount");
     var settings = {
-        "url": "/WebApi/Comments/GetCommentCount",
+        "url": "https://data.dpe.go.th/api/personal/memberHistoryEdu/getHistory",
         "method": "POST",
         "timeout": 0,
-        "headers": {
-            "Content-Type": "application/json"
-        },
-        "data": JSON.stringify({ "commentOf": commentOf, "eventOrStadiumCode": eventOrStadiumCode }),
+        "processData": false,
+        "mimeType": "multipart/form-data",
+        "contentType": false,
+        "data": form
     };
 
-    $.ajax(settings).done(function (data, textStatus, jqXHR) {
-        //console.log("GetCommentCount data", data);
-
-        if (jqXHR.status == 200) {
-            $("#lblComment_" + eventOrStadiumCode).html(data);
+    $.ajax(settings).done(function (response, status, xhr) {
+        if (xhr.status == 200) {
+            var data = JSON.parse(response).data
+            var items = "";
+            $.each(data, function (index, value) {
+                items += `
+                    <tr>
+                        <td>1</td>
+                        <td>${value.EDU_YR}</td>
+                        <td>${value.EDU_LEVEL}</td>
+                        <td>${value.EDU_DEPT}</td>
+                        <td>${value.EDU_INSTITUTE}</td>
+                        <td class="center"><a href="#" class="button small red">&nbsp;ลบ&nbsp;</a> <a href="#" class="button small darkgreen">แก้ไข</a></td>
+                    </tr>
+                `
+            });
+            $("#tblEduHistory >tbody").html(items);
         }
     });
 }
 
-function GetVoteTotalAvg(voteOf, eventOrStadiumCode) {
+function getWorkHistory(token, MEMBER_ID) {
+    console.log("getEducationHistory");
 
-    //console.log("GetVoteTotalAvg");
+    var form = new FormData();
+    form.append("Token", token);
+    form.append("MEMBER_ID", MEMBER_ID);
+
     var settings = {
-        "url": "/WebApi/Votes/GetVoteTotalAvg",
+        "url": "https://data.dpe.go.th/api/personal/memberHistoryWork/getHistory",
         "method": "POST",
-        "headers": {
-            "Content-Type": "application/json"
-        },
-        "data": JSON.stringify({ "voteOf": voteOf, "eventOrStadiumCode": eventOrStadiumCode }),
+        "timeout": 0,
+        "processData": false,
+        "mimeType": "multipart/form-data",
+        "contentType": false,
+        "data": form
     };
 
-    //console.log("settings", settings)
-
-    $.ajax(settings).done(function (data, textStatus, jqXHR) {
-        //console.log("GetVoteTotalAvg reponse", data);
-        //var value = JSON.parse(response);
-
-        if (jqXHR.status == 200) {
-            var value = data;
-
-            var item = 
-            `
-                <span class="fa fa-star` + (value.voteAvg > 0 ? (value.voteAvg < 1 ? "-half-o checked" : " checked") : "") + `"></span>
-                <span class="fa fa-star` + (value.voteAvg > 1 ? (value.voteAvg < 2 ? "-half-o checked" : " checked") : "") + `"></span>
-                <span class="fa fa-star` + (value.voteAvg > 2 ? (value.voteAvg < 3 ? "-half-o checked" : " checked") : "") + `"></span>
-                <span class="fa fa-star` + (value.voteAvg > 3 ? (value.voteAvg < 4 ? "-half-o checked" : " checked") : "") + `"></span>
-                <span class="fa fa-star` + (value.voteAvg > 4 ? (value.voteAvg < 5 ? "-half-o checked" : " checked") : "") + `"></span>
-            `
-            $("#dvRating_" + eventOrStadiumCode).html(item);
+    $.ajax(settings).done(function (response, status, xhr) {
+        if (xhr.status == 200) {
+            var data = JSON.parse(response).data
+            var items = "";
+            $.each(data, function (index, value) {
+                items += `
+                    <tr>
+                        <td>1</td>
+                        <td>${value.WORK_SUBJECT}</td>
+                        <td>${value.SPORT_SUBJECT}</td>
+                        <td>${value.LEVEL_DETAIL}</td>
+                        <td>${value.WORK_LOCATION}</td>
+                        <td>${value.WORK_TIME_START.replace("00:00:00", "")} - ${value.WORK_TIME_END.replace("00:00:00", "")}</td>
+                        <td class="center"><a href="#" class="button small red">&nbsp;ลบ&nbsp;</a> <a href="#" class="button small darkgreen">แก้ไข</a></td>
+                    </tr>
+                `
+            });
+            $("#tblWorkHistory >tbody").html(items);
         }
     });
 }
+
 
 
 $(document).ready(function () {
@@ -315,13 +361,19 @@ $(document).ready(function () {
         localStorage.setItem("token", token);
         console.log("localStorage.token", localStorage.getItem("token"));
 
-        //GetProvince(token);
+        getEducation(token);
+        getPrefix(token);
+    });
+
+    GetToken().done(function (response) {
+        var token = JSON.parse(response).data;
+        localStorage.setItem("token", token);
+        console.log("localStorage.token", localStorage.getItem("token"));
 
         var url = window.location.href;
-        console.log("url", url);
         var id = url.substring(url.lastIndexOf('/') + 1);
 
-        GetPSN(token, id);
+        getGmsMember(token, id);
 
 
     });

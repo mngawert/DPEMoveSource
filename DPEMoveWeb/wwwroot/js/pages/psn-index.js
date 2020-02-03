@@ -246,7 +246,7 @@ function GetPSN(token, DATA_REPLACE_OR_APPEND, PAGE, NAME, PROV_CODE, AMP_CODE) 
                             </ol>
                         </div>
                         <div class="col-th-btn">
-                            <a href="/PSN/Edit/${value.HRS_ID}" class="button darkgreen medium">แก้ไข</a>
+                            <a href="/PSN/Edit/${value.MEMBER_ID}" class="button darkgreen medium">แก้ไข</a>
                         </div>
                     </div>
                 </div>
@@ -277,80 +277,6 @@ function PrintGMS_HISTORY(data) {
 
     return html;
 }
-
-
-function PrintCommentCount(data) {
-
-    //console.log("PrintCommentCount");
-    $.each(data, function (index, value) {
-        GetCommentCount("2", value.STADIUM_ID);
-    });
-}
-
-function PrintVoteAvg(data) {
-
-    //console.log("PrintVoteAvg");
-    $.each(data, function (index, value) {
-        GetVoteTotalAvg("2", value.STADIUM_ID);
-    });
-}
-
-function GetCommentCount(commentOf, eventOrStadiumCode) {
-
-    //console.log("GetCommentCount");
-    var settings = {
-        "url": "/WebApi/Comments/GetCommentCount",
-        "method": "POST",
-        "timeout": 0,
-        "headers": {
-            "Content-Type": "application/json"
-        },
-        "data": JSON.stringify({ "commentOf": commentOf, "eventOrStadiumCode": eventOrStadiumCode }),
-    };
-
-    $.ajax(settings).done(function (data, textStatus, jqXHR) {
-        //console.log("GetCommentCount data", data);
-
-        if (jqXHR.status == 200) {
-            $("#lblComment_" + eventOrStadiumCode).html(data);
-        }
-    });
-}
-
-function GetVoteTotalAvg(voteOf, eventOrStadiumCode) {
-
-    //console.log("GetVoteTotalAvg");
-    var settings = {
-        "url": "/WebApi/Votes/GetVoteTotalAvg",
-        "method": "POST",
-        "headers": {
-            "Content-Type": "application/json"
-        },
-        "data": JSON.stringify({ "voteOf": voteOf, "eventOrStadiumCode": eventOrStadiumCode }),
-    };
-
-    //console.log("settings", settings)
-
-    $.ajax(settings).done(function (data, textStatus, jqXHR) {
-        //console.log("GetVoteTotalAvg reponse", data);
-        //var value = JSON.parse(response);
-
-        if (jqXHR.status == 200) {
-            var value = data;
-
-            var item = 
-            `
-                <span class="fa fa-star` + (value.voteAvg > 0 ? (value.voteAvg < 1 ? "-half-o checked" : " checked") : "") + `"></span>
-                <span class="fa fa-star` + (value.voteAvg > 1 ? (value.voteAvg < 2 ? "-half-o checked" : " checked") : "") + `"></span>
-                <span class="fa fa-star` + (value.voteAvg > 2 ? (value.voteAvg < 3 ? "-half-o checked" : " checked") : "") + `"></span>
-                <span class="fa fa-star` + (value.voteAvg > 3 ? (value.voteAvg < 4 ? "-half-o checked" : " checked") : "") + `"></span>
-                <span class="fa fa-star` + (value.voteAvg > 4 ? (value.voteAvg < 5 ? "-half-o checked" : " checked") : "") + `"></span>
-            `
-            $("#dvRating_" + eventOrStadiumCode).html(item);
-        }
-    });
-}
-
 
 $(document).ready(function () {
 
