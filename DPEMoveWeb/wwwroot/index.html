@@ -18,8 +18,8 @@
     <link href="/assets/css/demo.css" rel="stylesheet" />
 
     <!--     Fonts and icons     -->
-    <link href='http://fonts.googleapis.com/css?family=Montserrat:400,300,700' rel='stylesheet' type='text/css'>
-    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Montserrat:400,300,700' rel='stylesheet' type='text/css'>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
     <link href="/assets/css/nucleo-icons.css" rel="stylesheet" />
     <link href="/css/master.css" rel="stylesheet" />
     <link href="/css/datepicker.css" rel="stylesheet" />
@@ -41,7 +41,7 @@
             <div class="col-sm-12 col-md-4 col-lg-4 loadapp">
                 <a href="#"><img src="/images/bt_play.png" width="134" height="44" alt="" /></a><a href="#"><img src="/images/bt-store.png" width="134" height="44" alt="" /></a>
                 <div class="login-link">
-                    <img src="/images/ic_login.png" width="30" height="28" alt="" /><a href="/Account/Login">เข้าสู่ระบบ</a>
+                        <img src="/images/ic_login.png" width="30" height="28" alt="" /><a href="/Account/Login">เข้าสู่ระบบ</a>
                 </div>
             </div>
         </div>
@@ -67,7 +67,18 @@
     <div class="wrapper">
 
 
+<style>
+    #regions_div {
+        width: 550px;
+        overflow: hidden;
+    }
 
+    #regions_div svg {
+        margin-left: -300px;
+    }
+
+
+</style>
 <div class="page_home">
     <div class="page-breadcrumbs" style="background-image: url('/images/bg-bc.jpg')">
         <div class="full_slide">
@@ -119,10 +130,13 @@
 <div class="section gray">
     <div class="container">
         <div class="row">
-            <div class="col-sm-12 col-md-12 col-lg-7 con_center"> <img src="/images/home_map.jpg" width="800" height="847" alt="" /> </div>
+            <div class="col-sm-12 col-md-12 col-lg-7 con_center">
+                <div id="regions_div" style="width: 500px; height: 550px;"></div>
+
+            </div>
             <div class="col-sm-12 col-md-12 col-lg-5 con_center">
                 <div class="table_map table-responsive2">
-                    <table class="table table-bordered2 shadow">
+                    <table class="table table-bordered2 shadow" id="tblReportStadium1">
                         <thead>
                             <tr>
                                 <th colspan="2" scope="col" class="con_center bg_green"><h3>จำนวนสนามกีฬาแบ่งตามจังหวัด</h3></th>
@@ -458,7 +472,7 @@
                                     <div class="text-center">
                                         <h3>สรุปจำนวนคนออกกำลังกาย</h3>
                                     </div>
-                                    <br/>
+                                    <br />
                                     <div id="chartContainer" style="height: 370px; max-width: 920px; margin: 0px auto;"></div>
                                     <script>
                                         window.onload = function () {
@@ -475,15 +489,15 @@
                                                         { y: 6027, label: "ม.ค. 62 : 6,027 คน" },
                                                         { y: 5027, label: "ก.พ. 62 : 5,027 คน" },
                                                         { y: 6500, label: "มี.ค. 62 : 6,500 คน" },
-                                                        { y: 6120, label: "เม.ย. 62 : 6,120 คน"},
-                                                        { y: 5010, label: "พ.ค. 62 : 5,010 คน"},
-                                                        { y: 6100, label: "มิ.ย. 62 : 6,100 คน"},
-                                                        { y: 5850, label: "ก.ค. 62 : 5,850 คน"},
-                                                        { y: 5800, label: "ส.ค. 62 : 5,800 คน"},
-                                                        { y: 5820, label: "ก.ย. 62 : 5,820 คน"},
-                                                        { y: 5950, label: "ต.ค. 62 : 5,950 คน"},
-                                                        { y: 6000, label: "พ.ย. 62 : 6,000 คน"},
-                                                        { y: 6027, label: "ธ.ค. 62 : 6,027 คน"},
+                                                        { y: 6120, label: "เม.ย. 62 : 6,120 คน" },
+                                                        { y: 5010, label: "พ.ค. 62 : 5,010 คน" },
+                                                        { y: 6100, label: "มิ.ย. 62 : 6,100 คน" },
+                                                        { y: 5850, label: "ก.ค. 62 : 5,850 คน" },
+                                                        { y: 5800, label: "ส.ค. 62 : 5,800 คน" },
+                                                        { y: 5820, label: "ก.ย. 62 : 5,820 คน" },
+                                                        { y: 5950, label: "ต.ค. 62 : 5,950 คน" },
+                                                        { y: 6000, label: "พ.ย. 62 : 6,000 คน" },
+                                                        { y: 6027, label: "ธ.ค. 62 : 6,027 คน" },
                                                     ]
                                                 }]
                                             });
@@ -505,12 +519,12 @@
                                 </div>
                                 <div class="tab-pane fade" id="acti" role="tabpanel" aria-labelledby="acti-tab">
                                     <div class="text-center">
-                                        <h3>สรุปจำนวนกิจกรรมในภาคกลาง</h3>
-                                        <p><strong>รวม 700 กิจกรรม</strong></p>
+                                        <h3>สรุปจำนวนกิจกรรม</h3>
+                                        <p id="lblReportEvent1Count"><strong>รวม - กิจกรรม</strong></p>
                                     </div>
-                                    <br/>
+                                    <br />
                                     <div class="table_summary table-responsive2">
-                                        <table class="table table-bordered2">
+                                        <table id="tblReportEvent1" class="table table-bordered2">
                                             <thead>
                                                 <tr>
                                                     <th scope="col" class="tx_green"><h5>จังหวัด</h5></th>
@@ -587,7 +601,7 @@
                                         <h3>สรุปจำนวนสถานที่ในภาคกลาง</h3>
                                         <p><strong>รวม 700 สถานที่</strong></p>
                                     </div>
-                                    <br/>
+                                    <br />
                                     <div class="table_summary table-responsive2">
                                         <table class="table table-bordered2">
                                             <thead>
@@ -666,7 +680,7 @@
                                         <h3>สรุปจำนวนบุคลากรในภาคกลาง</h3>
                                         <p><strong>รวม 700 คน</strong></p>
                                     </div>
-                                    <br/>
+                                    <br />
                                     <div class="table_summary table-responsive2">
                                         <table class="table table-bordered2">
                                             <thead>
@@ -758,6 +772,9 @@
 
 
 
+
+
+
         <div class="footer_top">
             <div class="container">
                 <div class="row">
@@ -767,7 +784,7 @@
                         FAX : 0-2216-4408<br>
                         EMAIL : webmaster@dpe.go.th
                     </div>
-                    <div class="col-sm-12 col-md-6 col-lg-6 center">
+                    <div class="col-sm-12 col-md-6 col-lg-6">
                         <h2>กรมพลศึกษา </h2>
                         <h5>DEPARTMENT OF PHYSICAL EDUCATION</h5>
                         เลขที่ 154 ถนนพระราม 1 แขวงวังใหม่ เขตปทุมวัน กรุงเทพฯ 10330<br>
@@ -775,12 +792,10 @@
                         กรมพลศึกษายุคใหม่ มีนโยบายและแนวทางส่งเสริมและพัฒนาการพลศึกษา สุขภาพ การกีฬา นันทนาการ วิทยาศาสตร์การกีฬา และการพัฒนาบุคลากรสาขาที่เกี่ยวข้อง
                     </div>
                     <div class="col-sm-12 col-md-3 col-lg-3">
-                        <h4>สถิติผู้เข้าเยี่ยมชมเว็บไซต์</h4>
-                        ทั้งหมด 791,932<br>
-                        วันนี้ 1,226<br>
-                        เมื่อวาน 4,616<br>
-                        เดือนนี้ 40,095<br>
-                        เดือนที่แล้ว
+                        <div class="bt-store">
+                            <a href="#" style="padding-bottom:10px;"><img src="/images/bt_play.png" width="134" height="44" alt="" /></a>
+                            <a href="#" style="padding-bottom:10px;"><img src="/images/bt-store.png" width="134" height="44" alt="" /></a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -793,7 +808,7 @@
                         <div class="">
                             <img src="/images/logo_footer.png" width="61" height="85" alt="" />
                             <h5>สงวนลิขสิทธิ์ โดยกรมพลศึกษา</h5>
-                            แผนผังเว็บไซต์... | นโยบายเว็บไซต์ | นโยบายคุ้มครองข้อมูลส่วนบุคคล | นโยบายรักษาความมันคงปลอดภัยเว็บไซต์
+                            แผนผังเว็บไซต์...
                         </div>
                     </div>
                 </div>
@@ -858,12 +873,149 @@
 
 
 
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        google.charts.load('current', {
+        'packages':['geochart'],
+        // Note: you will need to get a mapsApiKey for your project.
+        // See: https://developers.google.com/chart/interactive/docs/basic_load_libs#load-settings
+        'mapsApiKey': 'AIzaSyBW_ZloATWKeCRioFkeAQIaqTJErmD-IQA'
+      });
+      google.charts.setOnLoadCallback(drawRegionsMap);
+
+      function drawRegionsMap() {
+        var data = google.visualization.arrayToDataTable([
+            ['City', 'Popularity'],
+            ['Chiang Mai', 298],
+            ['Chiang Rai', 393],
+            ['Phetchaburi', 348],
+            ['Phetchabun', 404],
+            ['Loei', 719],
+            ['Phrae', 169],
+            ['Mae Hong Son', 234],
+            ['Krabi', 429],
+            ['Bangkok', 173],
+            ['Kanchanaburi', 417],
+            ['Kalasin', 579],
+            ['Kamphaeng Phet', 352],
+            ['Khon Kaen', 891],
+            ['Chanthaburi', 112],
+            ['Chachoengsao', 272],
+            ['Chonburi', 391],
+            ['Chai Nat', 472],
+            ['Chaiyaphum', 1067],
+            ['Chumphon', 362],
+            ['Trang', 292],
+            ['Trat', 156],
+            ['Tak', 211],
+            ['Nakhon Nayok', 89],
+            ['Nakhon Pathom', 863],
+            ['Nakhon Phanom', 622],
+            ['Nakhon Ratchasima', 2427],
+            ['Nakhon Si Thammarat', 735],
+            ['Nakhon Sawan', 879],
+            ['Nonthaburi', 167],
+            ['Narathiwat', 143],
+            ['Nan', 154],
+            ['Bueng Kan', 124],
+            ['Buriram', 852],
+            ['Pathum Thani', 144],
+            ['Prachuap Khiri Khan', 172],
+            ['Prachinburi', 431],
+            ['Pattani', 139],
+            ['Phra Nakhon Si Ayutthaya', 426],
+            ['Phayao', 229],
+            ['Phang Nga', 77],
+            ['Phatthalung', 418],
+            ['Phichit', 252],
+            ['Phitsanulok', 759],
+            ['Phuket', 53],
+            ['Maha Sarakham', 389],
+            ['Mukdahan', 156],
+            ['Yasothon', 591],
+            ['Yala', 109],
+            ['Roi Et', 615],
+            ['Ranong', 68],
+            ['Rayong', 405],
+            ['Ratchaburi', 211],
+            ['Lopburi', 382],
+            ['Lampang', 487],
+            ['Lamphun', 154],
+            ['Sisaket', 1535],
+            ['Sakon Nakhon', 1668],
+            ['Songkhla', 317],
+            ['Satun', 109],
+            ['Samut Prakan', 126],
+            ['Samut Songkhram', 54],
+            ['Samut Sakhon', 208],
+            ['Sa Kaeo', 99],
+            ['Saraburi', 347],
+            ['Sing Buri', 149],
+            ['Sukhothai (Sukhothai Thani)', 504],
+            ['Suphan Buri', 311],
+            ['Surat Thani', 347],
+            ['Surin', 1533],
+            ['Nong Khai', 185],
+            ['Nong Bua Lam Phu', 439],
+            ['Ang Thong', 141],
+            ['Amnat Charoen', 569],
+            ['Udon Thani', 1024],
+            ['Uttaradit', 227],
+            ['Uthai Thani', 231],
+            ['Ubon Ratchathani', 1886]
+        ]);
+
+          var options = {
+              width: 800,
+              height:550,
+            region: 'TH',
+            resolution: "provinces",
+            keepAspectRatio: false,
+              colorAxis: { colors: ['green', 'blue'] },
+            legend:'center'
+          };
+
+        var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
+          google.visualization.events.addOneTimeListener(chart, 'ready', fixToolTipPosition);
+        chart.draw(data, options);
+
+        }
+
+        function fixToolTipPosition() {
+            var container = $('#regions_div div:last-child ')[0];
+
+            function setPosition(e) {
+                var tooltip = $('.google-visualization-tooltip');
+                var left = mouse.x - tooltip.width()/2;
+                var top = mouse.y - tooltip.height() - 15;
+                tooltip.css('left', left + 'px');
+                tooltip.css('top', top + 'px');
+            }
+
+            if (typeof MutationObserver === 'function') {
+                var observer = new MutationObserver(function (m) {
+                    alert();
+                    setPosition(m);
+                });
+                observer.observe(container, {
+                    childList: true
+                });
+            } else if (document.addEventListener) {
+                container.addEventListener('DOMNodeInserted', setPosition);
+            } else {
+                container.attachEvent('onDOMNodeInserted', setPosition);
+            }
+        }
+    </script>
+
     <!--     slide location     -->
     <script>
-    $(document).ready(function () {
+        $(document).ready(function () {
             var itemsMainDiv = ('.MultiCarousel');
             var itemsDiv = ('.MultiCarousel-inner');
             var itemWidth = "";
+
+
 
             $('.leftLst, .rightLst').click(function () {
                 var condition = $(this).hasClass("leftLst");
@@ -969,6 +1121,11 @@
 
     </script>
 
+
+    <script type="text/javascript">
+    </script>
+
+    <script src="/js/pages/home-index.js"></script>
 
 </body>
 </html>
