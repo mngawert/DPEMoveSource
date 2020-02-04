@@ -17,11 +17,11 @@ function GetToken() {
     return $.ajax(settings);
 }
 
-function GetProvince(Token) {
+function GetProvince(token) {
 
     console.log("call GetProvince");
     var form = new FormData();
-    form.append("Token", Token);
+    form.append("Token", token);
 
     var settings = {
         "url": "https://data.dpe.go.th/api/stadium/location/getProvince",
@@ -50,8 +50,78 @@ function GetProvince(Token) {
                 `
             });
             $("#ddlProvince").html(items);
+
+            // reload save answer
+            var savedProvinceId = localStorage.getItem("saveAns_10");
+            if (savedProvinceId != null) {
+                $("#ddlProvince").val(savedProvinceId);
+                GetAmphur(token, savedProvinceId);
+            }
         }
     });
+}
+
+function SaveSection_1() {
+
+    console.log("SaveSection_1");
+
+    localStorage.setItem("saveAns_1", $("[name='AnswerValue_1']").val());
+    localStorage.setItem("saveAns_2", $("[name='AnswerValue_2']").val());
+    localStorage.setItem("saveAns_3", $("[name='AnswerValue_3']").val());
+    localStorage.setItem("saveAns_4", $("[name='AnswerValue_4']").val());
+    localStorage.setItem("saveAns_5", $("[name='AnswerValue_5']").val());
+    localStorage.setItem("saveAns_6", $("[name='AnswerValue_6']").val());
+    localStorage.setItem("saveAns_7", $("[name='AnswerValue_7']").val());
+    localStorage.setItem("saveAns_8", $("[name='AnswerValue_8']:checked").val());
+    localStorage.setItem("saveAns_9", $("[name='AnswerValue_9']").val());
+    localStorage.setItem("saveAns_10", $("[name='AnswerValue_10']").val());
+    localStorage.setItem("saveAns_11", $("[name='AnswerValue_11']").val());
+    localStorage.setItem("saveAns_12", $("[name='AnswerValue_12']").val());
+    localStorage.setItem("saveAns_13", $("[name='AnswerValue_13']").val());
+    localStorage.setItem("saveAns_14", $("[name='AnswerValue_14']").val());
+    localStorage.setItem("saveAns_15", $("[name='AnswerValue_15']:checked").val());
+    localStorage.setItem("saveAns_16", $("[name='AnswerValue_16']").val());
+    localStorage.setItem("saveAns_17", $("[name='AnswerValue_17']").val());
+    localStorage.setItem("saveAns_18", $("[name='AnswerValue_18']").val());
+}
+
+function ReloadSection_1() {
+
+    console.log("ReloadSection_1");
+    console.log("ddl_10", localStorage.getItem("saveAns_10"));
+    console.log("ddl_11", localStorage.getItem("saveAns_11"));
+    console.log("ddl_12", localStorage.getItem("saveAns_12"));
+
+    if (localStorage.getItem("saveAns_1") != null) $("[name='AnswerValue_1']").val(localStorage.getItem("saveAns_1"));
+    if (localStorage.getItem("saveAns_2") != null) $("[name='AnswerValue_2']").val(localStorage.getItem("saveAns_2"));
+    if (localStorage.getItem("saveAns_3") != null) $("[name='AnswerValue_3']").val(localStorage.getItem("saveAns_3"));
+    if (localStorage.getItem("saveAns_4") != null) $("[name='AnswerValue_4']").val(localStorage.getItem("saveAns_4"));
+    if (localStorage.getItem("saveAns_5") != null) $("[name='AnswerValue_5']").val(localStorage.getItem("saveAns_5"));
+    if (localStorage.getItem("saveAns_6") != null) $("[name='AnswerValue_6']").val(localStorage.getItem("saveAns_6"));
+    if (localStorage.getItem("saveAns_7") != null) $("[name='AnswerValue_7']").val(localStorage.getItem("saveAns_7"));
+    //if (localStorage.getItem("saveAns_8") != null) $("[name='AnswerValue_8']").val(localStorage.getItem("saveAns_8"));
+    if (localStorage.getItem("saveAns_9") != null) $("[name='AnswerValue_9']").val(localStorage.getItem("saveAns_9"));
+    //if (localStorage.getItem("saveAns_10") != null) $("[name='AnswerValue_10']").val(localStorage.getItem("saveAns_10"));
+    //if (localStorage.getItem("saveAns_11") != null) $("[name='AnswerValue_11']").val(localStorage.getItem("saveAns_11"));
+    //if (localStorage.getItem("saveAns_12") != null) $("[name='AnswerValue_12']").val(localStorage.getItem("saveAns_12"));
+    if (localStorage.getItem("saveAns_13") != null) $("[name='AnswerValue_13']").val(localStorage.getItem("saveAns_13"));
+    if (localStorage.getItem("saveAns_14") != null) $("[name='AnswerValue_14']").val(localStorage.getItem("saveAns_14"));
+    //if (localStorage.getItem("saveAns_15") != null) $("[name='AnswerValue_15']").val(localStorage.getItem("saveAns_15"));
+    if (localStorage.getItem("saveAns_16") != null) $("[name='AnswerValue_16']").val(localStorage.getItem("saveAns_16"));
+    if (localStorage.getItem("saveAns_17") != null) $("[name='AnswerValue_17']").val(localStorage.getItem("saveAns_17"));
+    if (localStorage.getItem("saveAns_18") != null) $("[name='AnswerValue_18']").val(localStorage.getItem("saveAns_18"));
+
+    $("[name='AnswerValue_8']").each(function () {
+        if ($(this).val() == localStorage.getItem("saveAns_8")) {
+            $(this).prop("checked", true);
+        }
+    });
+    $("[name='AnswerValue_15']").each(function () {
+        if ($(this).val() == localStorage.getItem("saveAns_15")) {
+            $(this).prop("checked", true);
+        }
+    });
+
 }
 
 function GetAmphur(token, PROV_CODE) {
@@ -87,6 +157,12 @@ function GetAmphur(token, PROV_CODE) {
                 `
             });
             $("#ddlAmphur").html(items);
+
+            var savedAmphurId = localStorage.getItem("saveAns_11");
+            if (savedAmphurId != null) {
+                $("#ddlAmphur").val(savedAmphurId);
+                GetTambon(token, PROV_CODE, savedAmphurId);
+            }
         }
     });
 }
@@ -124,6 +200,11 @@ function GetTambon(token, PROV_CODE, AMP_CODE) {
                 `
             });
             $("#ddlTambon").html(items);
+
+            var savedTambonId = localStorage.getItem("saveAns_12");
+            if (savedTambonId != null) {
+                $("#ddlTambon").val(savedTambonId);
+            }
         }
     });
 }
@@ -416,6 +497,7 @@ $(document).ready(function () {
         console.log("localStorage.token", localStorage.getItem("token"));
 
         GetProvince(token);
+        ReloadSection_1();
 
         //Need to change
         //GetSportType();
@@ -424,6 +506,10 @@ $(document).ready(function () {
     EnableDisableQuestion_15();
 
     $("#ddlProvince").change(function () {
+        localStorage.removeItem("saveAns_10")
+        localStorage.removeItem("saveAns_11")
+        localStorage.removeItem("saveAns_12")
+
         var provinceId = $("#ddlProvince").val();
         if (provinceId == "") {
             $("#ddlAmphur").html(`<option value="">กรุณาเลือก</option>`);
@@ -437,6 +523,10 @@ $(document).ready(function () {
     });
 
     $("#ddlAmphur").change(function () {
+        localStorage.removeItem("saveAns_10")
+        localStorage.removeItem("saveAns_11")
+        localStorage.removeItem("saveAns_12")
+
         var provinceId = $("#ddlProvince").val();
         var amphurId = $("#ddlAmphur").val();
 
@@ -482,6 +572,8 @@ $(document).ready(function () {
 
         console.log("inputData", inputData);
         //return false;
+
+        SaveSection_1();
 
         SurveyCreate(inputData);
     });
