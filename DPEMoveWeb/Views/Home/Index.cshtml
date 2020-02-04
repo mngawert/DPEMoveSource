@@ -969,6 +969,13 @@
         console.log('routeid=', routeId);
         console.log('model=', model);
         console.log('address=', address);*@
+
+
+        if (typeof jQuery != 'undefined') {  
+        // jQuery is loaded => print the version
+            console.log("jQuery.fn.jquery", jQuery.fn.jquery);
+        }
+
     </script>
 
     <script src="~/js/pages/home-index.js"></script>
