@@ -491,6 +491,8 @@ function EnableDisableQuestion_15() {
 
 $(document).ready(function () {
 
+    $("#Modal_Results").modal("show");
+
     GetToken().done(function (response) {
         var token = JSON.parse(response).data;
         localStorage.setItem("token", token);
