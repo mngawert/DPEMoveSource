@@ -152,7 +152,7 @@ function PrintSurvey(data) {
     $.each(data, function (index, value) {
         //console.log(value);
 
-        sumPoint += Number(value.POINT);
+        //sumPoint += Number(value.POINT);
 
         //// limit display to 8 items
         //if (index < data.length/2) {
@@ -207,10 +207,10 @@ function PrintSurvey(data) {
 
     });
 
-    if (data.length > 0) {
-        var avg = sumPoint / data.length / 10;
-        $("#lbl_SURVEY_POINT_AVG").html(avg % 1 == 0 ? avg: avg.toFixed(1));
-    }
+    //if (data.length > 0) {
+    //    var avg = sumPoint / data.length / 10;
+    //    $("#lbl_SURVEY_POINT_AVG").html(avg % 1 == 0 ? avg: avg.toFixed(1));
+    //}
 
     //$("#dv_SURVEY_1A").html(item_1A);
     //$("#dv_SURVEY_1B").html(item_1B);
