@@ -143,8 +143,8 @@ function PrintPlaceNear(data) {
 
 function PrintSurvey(data) {
     console.log("PrintSurvey");
-    var item_1A = "";
-    var item_1B = "";
+    //var item_1A = "";
+    //var item_1B = "";
     var item_2 = "";
     var sumPoint = 0;
     var item_icon = "";
@@ -154,39 +154,39 @@ function PrintSurvey(data) {
 
         sumPoint += Number(value.POINT);
 
-        // limit display to 8 items
-        if (index < data.length/2) {
-            item_1A +=
-                `
-                <h3>` + value.SURV_NAME + `</h3>
-                <div class="row">
-                    <div class="col-sm-10 col-md-10 col-lg-10">
-                        <div class="progress">
-                            <div class="progress-bar progress-bar-success" role="progressbar" style="width: `+ value.POINT + `%" aria-valuenow="` + value.POINT + `" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-                    </div>
-                    <div class="col-sm-2col-md-2 col-lg-2">
-                        <h5>` + value.POINT + `</h5>
-                    </div>
-                </div>
-            `;
-        }
-        else if (index < 8) {
-            item_1B +=
-                `
-                <h3>` + value.SURV_NAME + `</h3>
-                <div class="row">
-                    <div class="col-sm-10 col-md-10 col-lg-10">
-                        <div class="progress">
-                            <div class="progress-bar progress-bar-success" role="progressbar" style="width: ` + value.POINT + `%" aria-valuenow="` + value.POINT + `" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-                    </div>
-                    <div class="col-sm-2col-md-2 col-lg-2">
-                        <h5>` + value.POINT + `</h5>
-                    </div>
-                </div>
-            `;
-        }
+        //// limit display to 8 items
+        //if (index < data.length/2) {
+        //    item_1A +=
+        //        `
+        //        <h3>` + value.SURV_NAME + `</h3>
+        //        <div class="row">
+        //            <div class="col-sm-10 col-md-10 col-lg-10">
+        //                <div class="progress">
+        //                    <div class="progress-bar progress-bar-success" role="progressbar" style="width: `+ value.POINT + `%" aria-valuenow="` + value.POINT + `" aria-valuemin="0" aria-valuemax="100"></div>
+        //                </div>
+        //            </div>
+        //            <div class="col-sm-2col-md-2 col-lg-2">
+        //                <h5>` + value.POINT + `</h5>
+        //            </div>
+        //        </div>
+        //    `;
+        //}
+        //else if (index < 8) {
+        //    item_1B +=
+        //        `
+        //        <h3>` + value.SURV_NAME + `</h3>
+        //        <div class="row">
+        //            <div class="col-sm-10 col-md-10 col-lg-10">
+        //                <div class="progress">
+        //                    <div class="progress-bar progress-bar-success" role="progressbar" style="width: ` + value.POINT + `%" aria-valuenow="` + value.POINT + `" aria-valuemin="0" aria-valuemax="100"></div>
+        //                </div>
+        //            </div>
+        //            <div class="col-sm-2col-md-2 col-lg-2">
+        //                <h5>` + value.POINT + `</h5>
+        //            </div>
+        //        </div>
+        //    `;
+        //}
 
         item_2 +=
             `
@@ -212,8 +212,8 @@ function PrintSurvey(data) {
         $("#lbl_SURVEY_POINT_AVG").html(avg % 1 == 0 ? avg: avg.toFixed(1));
     }
 
-    $("#dv_SURVEY_1A").html(item_1A);
-    $("#dv_SURVEY_1B").html(item_1B);
+    //$("#dv_SURVEY_1A").html(item_1A);
+    //$("#dv_SURVEY_1B").html(item_1B);
     $("#dv_SURVEY_2").html(item_2);
     $("#dv_facility_ICON").prepend(item_icon);
 }
@@ -500,9 +500,78 @@ function GetVoteTotalAvg(voteOf, eventOrStadiumCode) {
             var value = data;
             $("#lbl_VoteAvg").html(value.voteAvg == null ? "-" : value.voteAvg);
             $("#lbl_VoteText").html(value.voteText == null ? "-" : value.voteText);
+            $("#lbl_SURVEY_POINT_AVG").html(value.voteAvg == null ? "-" : value.voteAvg);
+            $("#lbl_SURVEY_POINT_TXT").html(value.voteText == null ? "-" : value.voteText);
         }
     });
 }
+
+function GetVoteTotalAvgDetails(voteOf, eventOrStadiumCode) {
+
+    console.log("GetVoteTotalAvgDetails");
+    var settings = {
+        "url": "/WebApi/Votes/GetVoteTotalAvgDetails",
+        "method": "POST",
+        "headers": {
+            "Content-Type": "application/json"
+        },
+        "data": JSON.stringify({ "voteOf": voteOf, "eventOrStadiumCode": eventOrStadiumCode }),
+    };
+
+    console.log("settings", settings)
+
+    $.ajax(settings).done(function (data, textStatus, jqXHR) {
+        if (jqXHR.status == 200) {
+
+            var item_1A = "";
+            var item_1B = "";
+
+            $.each(data, function (index, value) {
+                //console.log(value);
+
+                var POINT = (value.voteAvg / 5) * 100;
+                console.log("value.voteAvg", value.voteAvg);
+                console.log("POINT", POINT);
+
+                // limit display to 8 items
+                if (index < data.length / 2) {
+                    item_1A +=
+                        `
+                <h3>` + value.voteType + `</h3>
+                <div class="row">
+                    <div class="col-sm-10 col-md-10 col-lg-10">
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-success" role="progressbar" style="width: `+ POINT + `%" aria-valuenow="` + value.voteAvg + `" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                    <div class="col-sm-2col-md-2 col-lg-2">
+                        <h5>` + value.voteAvg + `</h5>
+                    </div>
+                </div>`;
+                }
+                else if (index < 8) {
+                    item_1B +=
+                        `
+                <h3>` + value.voteType + `</h3>
+                <div class="row">
+                    <div class="col-sm-10 col-md-10 col-lg-10">
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-success" role="progressbar" style="width: ` + POINT + `%" aria-valuenow="` + POINT + `" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                    <div class="col-sm-2col-md-2 col-lg-2">
+                        <h5>` + value.voteAvg + `</h5>
+                    </div>
+                </div>`;
+                }
+            });
+
+            $("#dv_SURVEY_1A").html(item_1A);
+            $("#dv_SURVEY_1B").html(item_1B);
+        }
+    });
+}
+
 
 function AddOrEditVote(voteOf, eventOrStadiumCode, voteTypeId, voteValue, createdBy) {
 
@@ -527,6 +596,7 @@ function AddOrEditVote(voteOf, eventOrStadiumCode, voteTypeId, voteValue, create
             GetVote(voteOf, eventOrStadiumCode, voteTypeId, createdBy);
             GetVoteAvg(voteOf, eventOrStadiumCode, createdBy);
             GetVoteTotalAvg(voteOf, eventOrStadiumCode);
+            GetVoteTotalAvgDetails(voteOf, eventOrStadiumCode);
         }
     });
 }
@@ -547,6 +617,7 @@ $(document).ready(function () {
     GetVoteType("2", stadiumId);
     GetVoteAvg("2", stadiumId, appUserId);
     GetVoteTotalAvg("2", stadiumId);
+    GetVoteTotalAvgDetails("2", stadiumId);
 
 
     GetCommentsByStadiumId(stadiumId);
