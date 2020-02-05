@@ -630,6 +630,7 @@ function GetVoteTotalAvg(voteOf, eventOrStadiumCode) {
             var value = data;
             $("#lbl_VoteAvg").html(value.voteAvg == null ? "-" : value.voteAvg);
             $("#lbl_VoteText").html(value.voteText == null ? "-" : value.voteText);
+            $(".rating_box").css("background", value.ratingColor);
         }
     });
 }

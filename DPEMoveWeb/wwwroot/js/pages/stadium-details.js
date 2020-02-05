@@ -502,6 +502,7 @@ function GetVoteTotalAvg(voteOf, eventOrStadiumCode) {
             $("#lbl_VoteText").html(value.voteText == null ? "-" : value.voteText);
             $("#lbl_SURVEY_POINT_AVG").html(value.voteAvg == null ? "-" : value.voteAvg);
             $("#lbl_SURVEY_POINT_TXT").html(value.voteText == null ? "-" : value.voteText);
+            $(".rating_box").css("background", value.ratingColor);
         }
     });
 }
@@ -541,7 +542,7 @@ function GetVoteTotalAvgDetails(voteOf, eventOrStadiumCode) {
                 <div class="row">
                     <div class="col-sm-10 col-md-10 col-lg-10">
                         <div class="progress">
-                            <div class="progress-bar progress-bar-success" role="progressbar" style="width: `+ POINT + `%" aria-valuenow="` + value.voteAvg + `" aria-valuemin="0" aria-valuemax="100"></div>
+                            <div class="progress-bar progress-bar-success" role="progressbar" style="width: ${POINT}%; background-color:${value.ratingColor}" aria-valuenow="` + POINT + `" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
                     </div>
                     <div class="col-sm-2col-md-2 col-lg-2">
@@ -556,7 +557,7 @@ function GetVoteTotalAvgDetails(voteOf, eventOrStadiumCode) {
                 <div class="row">
                     <div class="col-sm-10 col-md-10 col-lg-10">
                         <div class="progress">
-                            <div class="progress-bar progress-bar-success" role="progressbar" style="width: ` + POINT + `%" aria-valuenow="` + POINT + `" aria-valuemin="0" aria-valuemax="100"></div>
+                            <div class="progress-bar progress-bar-success" role="progressbar" style="width: ${POINT}%; background-color:${value.ratingColor}" aria-valuenow="` + POINT + `" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
                     </div>
                     <div class="col-sm-2col-md-2 col-lg-2">
