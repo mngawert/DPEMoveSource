@@ -213,21 +213,19 @@ function GetSportType() {
 
     var options = {};
 
-    options.url = "http://103.208.27.224/mots_sport/service/get.php?MOD=sports_type";
+    options.url = "/WebApi/Master/GetMSport";
     options.contentType = "application/json";
-    options.method = "GET";
+    options.method = "POST";
 
-    options.success = function (_data) {
-        data = JSON.parse(_data);
-        PROVINCE_DATA = data.DATA;
+    options.success = function (data) {
         var items =
             `
             <option value="">- ระบุ -</option>
             `
-        $.each(data.DATA, function (index, value) {
+        $.each(data, function (index, value) {
             items +=
                 `
-                <option value="` + value.SPORTS_TYPE_ID + `">` + value.SPORTS_TYPE_NAME + `</option>
+                <option value="` + value.sportId + `">` + value.sportName + `</option>
                 `
         });
         $("#ddlSportType_1").html(items);
@@ -503,7 +501,7 @@ $(document).ready(function () {
         ReloadSection_1();
 
         //Need to change
-        //GetSportType();
+        GetSportType();
     });
 
     EnableDisableQuestion_15();

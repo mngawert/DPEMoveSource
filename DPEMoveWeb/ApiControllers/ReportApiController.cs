@@ -36,5 +36,23 @@ namespace DPEMoveWeb.ApiControllers
             return q.ToList();
         }
 
+        [HttpPost]
+        [Authorize]
+        public IEnumerable<VW_RPT_SURVEY_15_1_A_DbQuery> GetReportSurvey151A(VW_RPT_SURVEY_15_1_A_Request model)
+        {
+            string sql = @"
+                SELECT   sport_id, sport_name, SUM (sum_attr) AS sum_attr
+                    FROM vw_rpt_survey_15_1_a
+                   WHERE created_date BETWEEN {0} AND {1}
+                GROUP BY sport_id, sport_name
+                 ORDER BY 1,2
+                ";
+
+            var q = _context.VW_RPT_SURVEY_15_1_A_DbQuery.FromSql(sql, model.CreatedDateFrom, model.CreatedDateTo);
+
+            return q.ToList();
+        }
+
+
     }
 }

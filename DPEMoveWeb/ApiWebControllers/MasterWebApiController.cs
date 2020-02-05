@@ -62,5 +62,14 @@ namespace DPEMoveWeb.ApiControllers
             return q;
         }
 
+        [HttpPost]
+        [Authorize]
+        public IEnumerable<MSport> GetMSport()
+        {
+            var q = _context.MSport.ToList();
+
+            return q;
+        }
+
     }
 }

@@ -14,4 +14,20 @@ namespace DPEMoveDAL.ViewModels
         public int NoOfEvents { get; set; }
     }
 
+
+    public class VW_RPT_SURVEY_15_1_A_Request
+    {
+        public DateTime CreatedDateFrom { get; set; }
+        public DateTime CreatedDateTo { get; set; }
+    }
+    public class VW_RPT_SURVEY_15_1_A_DbQuery
+    {
+        [Column("SPORT_ID")]
+        public int SportId { get; set; }
+        [Column("SPORT_NAME")]
+        public string SportName { get; set; }
+        [Column("SUM_ATTR")]
+        public int SumAttr { get; set; }
+    }
+
 }
