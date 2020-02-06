@@ -18,6 +18,7 @@
 
         if (jqXHR.status == 200) {
             console.log("GetSurveyAnswer data", data);
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
 
             var items = '';
             $.each(data, function (index, value) {
@@ -27,6 +28,7 @@
                     <td>${value.surveyAnswerId}</td>
                     <td>${value.surveyDescription}</td>
                     <td>${value.createdByEmail}</td>
+                    <td>${value.createdDate}</td >
                     <td><a href="/Survey/Details/${value.surveyAnswerId}" class="button darkgreen small">รายละเอียด</a></td>
                 </tr>
                 `

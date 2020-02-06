@@ -2288,6 +2288,10 @@ namespace DPEMoveDAL.Models
                     .HasColumnName("VOTE_FROM")
                     .HasColumnType("NUMBER");
 
+                entity.Property(e => e.RatingColor)
+                    .HasColumnName("RATING_COLOR")
+                    .HasColumnType("VARCHAR2(20)");
+
                 entity.Property(e => e.VoteText)
                     .HasColumnName("VOTE_TEXT")
                     .HasColumnType("VARCHAR2(200)");

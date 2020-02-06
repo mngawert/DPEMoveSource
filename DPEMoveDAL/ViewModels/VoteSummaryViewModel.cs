@@ -77,6 +77,8 @@ namespace DPEMoveDAL.ViewModels
         public double? VoteAvg { get; set; }
         [Column("VOTE_TEXT")]
         public string VoteText { get; set; }
+        [Column("RATING_COLOR")]
+        public string RatingColor { get; set; }
     }
 
     public class VoteTotalAvgDbQuery
@@ -91,6 +93,8 @@ namespace DPEMoveDAL.ViewModels
         public double? VoteAvg { get; set; }
         [Column("VOTE_TEXT")]
         public string VoteText { get; set; }
+        [Column("RATING_COLOR")]
+        public string RatingColor { get; set; }
     }
 
     public class VoteTotalAvgDetailsDbQuery
@@ -109,6 +113,8 @@ namespace DPEMoveDAL.ViewModels
         public double? VoteAvg { get; set; }
         [Column("VOTE_TEXT")]
         public string VoteText { get; set; }
+        [Column("RATING_COLOR")]
+        public string RatingColor { get; set; }
     }
 
 }

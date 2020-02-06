@@ -113,7 +113,6 @@ $(document).ready(function () {
     GetInternalToken(email, password).done(function (response) {
         var token = response;
         localStorage.setItem("token", token);
-        console.log("localStorage.token", localStorage.getItem("token"));
 
         GetReportEvent1(token);
     });

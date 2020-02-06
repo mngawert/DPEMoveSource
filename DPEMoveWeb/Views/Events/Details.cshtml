@@ -519,35 +519,6 @@
 
 
 
-
-@section Scripts {
-
-    <script type="text/javascript">
-        var routeId = @ViewBag.routeId;
-        var model = @Html.Raw(Json.Serialize(Model));
-        var eventOrStadiumCode = model.eventCode;
-        var appUserId = @ViewBag.AppUserId;
-
-        var address = @Html.Raw(Json.Serialize(ViewBag.Address as Address));
-
-        console.log('routeid=', routeId);
-        console.log('appUserId=', appUserId);
-        console.log('model=', model);
-        console.log('address=', address);
-    </script>
-
-    <script src="~/js/pages/events-details.js"></script>
-
-
-    @*<script type="text/javascript">
-            $(function () {
-                $('#datetimepicker2').datetimepicker();
-            });
-        </script>*@
-
-}
-
-
 <div class="modal fade bd-example-modal-lg" id="Modal_DeleteEvent" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -667,3 +638,31 @@
         </div>
     </div>
 </div>
+
+
+@section Scripts {
+
+    <script type="text/javascript">
+        var routeId = @ViewBag.routeId;
+        var model = @Html.Raw(Json.Serialize(Model));
+        var eventOrStadiumCode = model.eventCode;
+        var appUserId = @ViewBag.AppUserId;
+
+        var address = @Html.Raw(Json.Serialize(ViewBag.Address as Address));
+
+        console.log('routeid=', routeId);
+        console.log('appUserId=', appUserId);
+        console.log('model=', model);
+        console.log('address=', address);
+    </script>
+
+    <script src="~/js/jquery.profanityfilter.js"></script>
+    <script src="~/js/pages/events-details.js"></script>
+
+    @*<script type="text/javascript">
+            $(function () {
+                $('#datetimepicker2').datetimepicker();
+            });
+        </script>*@
+
+}

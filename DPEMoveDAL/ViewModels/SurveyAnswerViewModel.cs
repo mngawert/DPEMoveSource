@@ -33,6 +33,8 @@ namespace DPEMoveDAL.ViewModels
         public int SurveyAnswerId { get; set; }
         [Column("CREATED_BY_EMAIL")]
         public string CreatedByEmail { get; set; }
+        [Column("CREATED_DATE")]
+        public DateTime CreatedDate { get; set; }
     }
 
     public class VwSurveyAnswerDetailsDbQuery
@@ -45,6 +47,8 @@ namespace DPEMoveDAL.ViewModels
         public int SurveyAnswerId { get; set; }
         [Column("CREATED_BY_EMAIL")]
         public string CreatedByEmail { get; set; }
+        [Column("CREATED_DATE")]
+        public DateTime CreatedDate { get; set; }
         [Column("QUESTION_ID")]
         public int QuestionId { get; set; }
         [Column("QUESTION_TEXT")]

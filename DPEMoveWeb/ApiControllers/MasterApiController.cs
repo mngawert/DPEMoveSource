@@ -48,6 +48,16 @@ namespace DPEMoveWeb.ApiControllers
 
             return q;
         }
+
+        [HttpPost]
+        [Authorize]
+        public CpeConfig GetConfigByName(CpeConfig model)
+        {
+            var q = _context.CpeConfig.Where(a => a.Name == model.Name).FirstOrDefault();
+
+            return q;
+        }
+
         [HttpGet]
         [Authorize]
         public CpeConfig GetTermAndCondition()

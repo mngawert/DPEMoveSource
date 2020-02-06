@@ -467,6 +467,14 @@ function AddComment(eventId) {
 
     console.log('start AddComment');
 
+    console.log("checking swearWords");
+    $(document).profanityFilter({
+        customSwears: ['ass', 'shit', 'กะปิ'],
+        //externalSwears: '/swearWords.json'
+    });
+    console.log("done swearWords");
+
+
     if ($("#txtComment").val() == "")
         return false;
 
@@ -622,6 +630,7 @@ function GetVoteTotalAvg(voteOf, eventOrStadiumCode) {
             var value = data;
             $("#lbl_VoteAvg").html(value.voteAvg == null ? "-" : value.voteAvg);
             $("#lbl_VoteText").html(value.voteText == null ? "-" : value.voteText);
+            $(".rating_box").css("background", value.ratingColor);
         }
     });
 }
