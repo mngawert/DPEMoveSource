@@ -4,6 +4,12 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DPEMoveDAL.ViewModels
 {
+    public class ReportEvent1Request
+    {
+        public DateTime EventDateFrom { get; set; }
+        public DateTime EventDateTo { get; set; }
+    }
+
     public class ReportEvent1DbQuery
     {
         [Column("PROV_CODE")]
@@ -13,8 +19,6 @@ namespace DPEMoveDAL.ViewModels
         [Column("NO_OF_EVENTS")]
         public int NoOfEvents { get; set; }
     }
-
-
     public class VW_RPT_SURVEY_15_1_A_Request
     {
         public DateTime CreatedDateFrom { get; set; }

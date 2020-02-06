@@ -34,6 +34,7 @@ function GetToken() {
 }
 
 function GetReportEvent1(token) {
+
     var settings = {
         "url": "https://dpemove.dpe.go.th/api/Report/GetReportEvent1",
         "method": "POST",
@@ -42,6 +43,7 @@ function GetReportEvent1(token) {
             "Content-Type": "application/json",
             "Authorization": `Bearer ${token}`
         },
+        "data": JSON.stringify({ "eventDateFrom": "2020-01-01", "eventDateTo": "2099-12-31" }),
     };
 
     $.ajax(settings).done(function (response, textStatus, jqXHR) {

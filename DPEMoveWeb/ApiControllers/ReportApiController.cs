@@ -26,12 +26,17 @@ namespace DPEMoveWeb.ApiControllers
 
         [HttpPost]
         [Authorize]
-        public IEnumerable<ReportEvent1DbQuery> GetReportEvent1()
+        public IEnumerable<ReportEvent1DbQuery> GetReportEvent1(ReportEvent1Request model)
         {
+            string sql = @"
+                select prov_code, prov_namt, sum(no_of_events) as no_of_events
+                from VW_RPT_EVENT_1
+                where event_start between {0} and {1}
+                group by prov_code, prov_namt
+                order by 3 desc
+                ";
 
-            string sql = "select * from VW_RPT_EVENT_1";
-
-            var q = _context.ReportEvent1DbQuery.FromSql(sql);
+            var q = _context.ReportEvent1DbQuery.FromSql(sql, model.EventDateFrom, model.EventDateTo);
 
             return q.ToList();
         }
