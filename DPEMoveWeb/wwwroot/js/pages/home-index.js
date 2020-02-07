@@ -106,6 +106,24 @@ function GetReportStadium1(token) {
     });
 }
 
+function GetStadiumData() {
+        $.ajax({
+            method: "POST",
+            url: "/Home/GetStadiumData",
+            dataType: 'json',
+            error: function (jqXHR, exception) {
+                alert("error");
+            }
+        })
+        .done(function (obj) {
+            alert(obj.row);
+
+            if (obj.row > 0) {
+                alert(obj.data[0]["NAME_LABEL"]);
+            }
+        });
+}
+
 
 $(document).ready(function () {
 
@@ -123,5 +141,7 @@ $(document).ready(function () {
         var token = JSON.parse(response).data;
         GetReportStadium1(token);
     });
+
+    GetStadiumData();
 });
 
