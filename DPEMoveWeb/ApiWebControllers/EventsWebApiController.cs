@@ -339,6 +339,93 @@ namespace DPEMoveWeb.ApiWebControllers
             return Ok();
         }
 
+        //[Authorize]
+        public IActionResult GetMParticipant()
+        {
+            var q = _context.MParticipant.ToList();
+
+            return Ok(q);
+        }
+
+        [HttpPost]
+        //[Authorize]
+        public List<EventParticipant> GetEventParticipant(EventParticipant model)
+        {
+            var q = _context.EventParticipant.Where(a => a.EventId == model.EventId).ToList();
+
+            return q;
+        }
+
+        [HttpPost]
+        [Authorize]
+        public List<EventParticipant> GetEventParticipantFromSession(EventParticipant model)
+        {
+            string SessionName = "Session_EventParticipant_" + model.EventId + "_" + model.ParticipantId;
+
+            if (HttpContext.Session.Get<List<EventParticipant>>(SessionName) == null)
+            {
+                var data = _context.EventParticipant.Where(a => a.EventId == model.EventId && a.ParticipantId == model.ParticipantId).ToList();
+                HttpContext.Session.Set<List<EventParticipant>>(SessionName, data);
+            }
+
+            var q = HttpContext.Session.Get<List<EventParticipant>>(SessionName);
+
+            return q;
+        }
+
+        [HttpPost]
+        [Authorize]
+        public IActionResult AddEventParticipantToSession(EventParticipant model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var data = GetEventParticipantFromSession(model);
+
+            var q = new EventParticipant
+            {
+                EventParticipantId = new Random().Next(-100000, -1),
+                EventId = model.EventId,
+                ParticipantId = model.ParticipantId,
+                EventParticipantName = model.EventParticipantName,
+                EventParticipantAmount = model.EventParticipantAmount,
+                EventParticipantUnit = model.EventParticipantUnit,
+                Status = 1,
+                CreatedBy = model.CreatedBy,
+                CreatedDate = DateTime.Now
+            };
+
+            data.Add(q);
+
+            string sessionName = "Session_EventParticipant_" + model.EventId + "_" + model.ParticipantId;
+            HttpContext.Session.Set<List<EventParticipant>>(sessionName, data);
+
+            return Ok();
+        }
+
+
+        [HttpPost]
+        [Authorize]
+        public IActionResult DeleteEventParticipantFromSession(EventParticipant model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var data = GetEventParticipantFromSession(model);
+
+            var q = data.Where(a => a.EventParticipantId == model.EventParticipantId).FirstOrDefault();
+
+            data.Remove(q);
+
+            string sessionName = "Session_EventParticipant_" + model.EventId + "_" + model.ParticipantId;
+            HttpContext.Session.Set<List<EventParticipant>>(sessionName, data);
+
+            return Ok();
+        }
 
         [HttpPost]
         [Authorize]

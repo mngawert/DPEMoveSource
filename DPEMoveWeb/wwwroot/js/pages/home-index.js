@@ -116,10 +116,10 @@ function GetStadiumData() {
             }
         })
         .done(function (obj) {
-            alert(obj.row);
+            //alert(obj.row);
 
             if (obj.row > 0) {
-                alert(obj.data[0]["NAME_LABEL"]);
+                //alert(obj.data[0]["NAME_LABEL"]);
             }
         });
 }

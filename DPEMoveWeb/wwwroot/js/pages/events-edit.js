@@ -290,6 +290,145 @@ function DeleteEventFeeFromSession(eventId, feeId, eventFeeId) {
 
 
 
+function GetMParticipant() {
+
+    console.log('start GetMParticipant');
+    var options = {};
+
+    options.url = "/webapi/Events/GetMParticipant";
+    options.contentType = "application/json";
+    options.method = "GET";
+
+    options.success = function (data) {
+        $.each(data, function (index, value) {
+
+            var obj = {};
+            obj.eventId = routeId;
+            obj.participantId = value.participantId;
+            options.data = JSON.stringify(obj);
+            console.log("input", options.data);
+
+            GetEventParticipantFromSession(obj)
+        });
+    };
+    options.error = function (a, b, c) {
+        console.log("Error while calling the Web API!(" + b + " - " + c + ")");
+    };
+    $.ajax(options);
+}
+
+function GetEventParticipantFromSession(obj) {
+
+    console.log('start GetEventParticipantFromSession');
+    var options = {};
+    var input = {};
+    input.eventId = obj.eventId;
+    input.participantId = obj.participantId;
+    options.data = JSON.stringify(input);
+    console.log("input", options.data);
+
+    options.url = "/webapi/Events/GetEventParticipantFromSession";
+    options.contentType = "application/json";
+    options.method = "POST";
+
+    options.success = function (data) {
+        var items = '';
+        $.each(data, function (index, value) {
+            items +=
+                `
+                <tr>
+                    <td>` + value.eventParticipantName + `</td>
+                    <td>` + (value.eventParticipantAmount == null ? "" : value.eventParticipantAmount) + `</td>
+                    <td>` + (value.eventParticipantUnit == null ? "" : value.eventParticipantUnit) + `</td>
+                    <td class="center"><button type="button" onclick="DeleteEventParticipantFromSession(` + value.eventId + `,` + value.participantId + `,` + value.eventParticipantId + `)" class="button small red">&nbsp;ลบ&nbsp;</button></td>
+                </tr>
+                `
+        });
+
+        $("#tblParticipant_" + obj.participantId + " > tbody").html(items);
+    };
+    options.error = function (a, b, c) {
+        console.log("Error while calling the Web API!(" + b + " - " + c + ")");
+    };
+    $.ajax(options);
+}
+
+function AddEventParticipantToSession(eventId, participantId) {
+    console.log('start AddEventParticipantToSession ');
+
+    if (!$("#frmAddEventParticipant_" + participantId)[0].checkValidity()) {
+
+        $("#frmAddEventParticipant_" + participantId)[0].reportValidity()
+        return false;
+    }
+
+    var options = {};
+
+    var input = {};
+    input.eventId = eventId;
+    input.participantId = participantId;
+    input.eventParticipantName = $("#txtEventParticipantName_" + participantId).val();
+    input.eventParticipantAmount = $("#txtEventParticipantAmount_" + participantId).val();
+    input.eventParticipantUnit = $("#txtEventParticipantUnit_" + participantId).val();
+    input.createdBy = "0";
+    options.data = JSON.stringify(input);
+    console.log("input", options.data);
+
+    // clear texbox.
+    $("#txtEventParticipantName_" + participantId).val("");
+    $("#txtEventParticipantAmount_" + participantId).val("");
+    $("#txtEventParticipantUnit_" + participantId).val("");
+
+    options.url = "/webapi/Events/AddEventParticipantToSession";
+    options.contentType = "application/json";
+    options.method = "POST";
+    options.success = function (data) {
+        console.log("success add");
+        $("#ModalParticipant_" + participantId).modal("toggle");
+        // re-load data from session.
+        var obj = {};
+        obj.eventId = eventId;
+        obj.participantId = participantId;
+        GetEventParticipantFromSession(obj);
+    };
+    options.error = function (a, b, c) {
+        console.log("Error while calling the Web API!(" + b + " - " + c + ")");
+    };
+    $.ajax(options);
+}
+
+
+function DeleteEventParticipantFromSession(eventId, participantId, eventParticipantId) {
+    console.log('start DeleteEventParticipantFromSession');
+
+    var options = {};
+
+    var input = {};
+    input.eventId = eventId;
+    input.participantId = participantId;
+    input.eventParticipantId = eventParticipantId;
+
+    options.data = JSON.stringify(input);
+    console.log("input", options.data);
+
+    options.url = "/webapi/Events/DeleteEventParticipantFromSession";
+    options.contentType = "application/json";
+    options.method = "POST";
+    options.success = function (data) {
+        console.log("success add");
+        var obj = {};
+        obj.eventId = eventId;
+        obj.participantId = participantId;
+        GetEventParticipantFromSession(obj);
+    };
+    options.error = function (a, b, c) {
+        console.log("Error while calling the Web API!(" + b + " - " + c + ")");
+    };
+    $.ajax(options);
+}
+
+
+
 function GetEventNearbyFromSession(eventId) {
 
     console.log('start GetEventNearbyFromSession');
@@ -705,6 +844,7 @@ $(document).ready(function () {
 
     GetMEventFacilitiesTopic();
     GetMFee();
+    GetMParticipant();
     GetEventNearbyFromSession(eventId);
     GetUploadedFile(eventId);
 

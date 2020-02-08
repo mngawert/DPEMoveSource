@@ -57,6 +57,8 @@ namespace DPEMoveDAL.Services
                     .ThenInclude(b => b.MEventFacilitiesTopic)
                 .Include(a => a.EventFee)
                     .ThenInclude(b => b.Fee)
+                .Include(a => a.EventParticipant)
+                    .ThenInclude(b => b.Participant)
                 .Where(a => a.EventId == id)
                 .FirstOrDefaultAsync();
 
@@ -396,6 +398,8 @@ namespace DPEMoveDAL.Services
             ev.EventLevelId = model.EventLevelId;
             ev.EventLevelEtc = model.EventLevelEtc;
             ev.IsFree = model.IsFree;
+            ev.IsCancel = model.IsCancel;
+            ev.CancelReason = model.CancelReason;
 
             _context.Update(ev).State = EntityState.Modified;
             _context.SaveChanges();
