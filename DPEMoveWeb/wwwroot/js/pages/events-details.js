@@ -469,8 +469,8 @@ function AddComment(eventId) {
 
     console.log("checking swearWords");
     $(document).profanityFilter({
-        customSwears: ['ass', 'shit', 'กะปิ'],
-        //externalSwears: '/swearWords.json'
+        //customSwears: ['ass', 'shit', 'กะปิ'],
+        externalSwears: '/swearWords.json'
     });
     console.log("done swearWords");
 
