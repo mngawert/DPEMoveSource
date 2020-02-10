@@ -58,13 +58,13 @@ function GetReportEvent1(token) {
                 `
                     <tr>
                         <th scope="row">${value.provNamt}</th>
-                        <td>${value.noOfEvents}</td>
+                        <td>${parseInt(value.noOfEvents).toLocaleString()}</td>
                     </tr>
                 `
                 totalEvents += parseInt(value.noOfEvents);
             });
-            $("#lblReportEvent1Count").html(`<strong>รวม ${totalEvents} กิจกรรม</strong>`);
             $("#tblReportEvent1 >tbody").html(items);
+            $("#lblReportEvent1Count").html(totalEvents.toLocaleString());
         }
     });
 }
@@ -92,17 +92,22 @@ function GetReportStadium1(token) {
             data.sort(function (a, b) { return b.TOTAL - a.TOTAL });
             data = data.slice(0, 15);
             var items = "";
+            var sumTotal = 0;
             $.each(data, function (index, value) {
                 items +=
                     `
                     <tr>
                         <th scope="row">${value.PROV_NAMT}</th>
-                        <td>${value.TOTAL}</td>
+                        <td>${parseInt(value.TOTAL).toLocaleString()}</td>
                     </tr>
                 `;
+                sumTotal += parseInt(value.TOTAL);
                 reportData.push({ "PROV_NAMT": value.PROV_NAMT, "TOTAL": value.TOTAL});
             });
             $("#tblReportStadium1 >tbody").html(items);
+            $("#tblReportStadium2 >tbody").html(items);
+            $("#lblReportStadiumCount").html(sumTotal.toLocaleString());
+
             //var dataTableData = google.visualization.arrayToDataTable(reportData);
             //console.log("dataTableData", dataTableData);
             //DrawGoogleMap();
