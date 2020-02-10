@@ -837,10 +837,104 @@ $("#frmAddEventNearby").on("submit", function (e) {
     AddEventNearbyToSession($("#t_eventId").val());
 });
 
+function GetSection(token, selectedSection) {
+
+    var form = new FormData();
+    form.append("Token", token);
+
+    var settings = {
+        "url": "https://data.dpe.go.th/api/activity/section/getSection",
+        "method": "POST",
+        "timeout": 0,
+        "processData": false,
+        "mimeType": "multipart/form-data",
+        "contentType": false,
+        "data": form
+    };
+
+    $.ajax(settings).done(function (response, textStatus, jqXHR) {
+
+        if (jqXHR.status == 200) {
+            var results = JSON.parse(response);
+            var data = results.data;
+            PROVINCE_DATA = data;
+            var items = `<option value="">กรุณาเลือก</option>`;
+            $.each(data, function (index, value) {
+                items +=
+                    `
+                <option value="` + value.SECTION_CAT_ID + `">` + value.SECTION_CAT_NAME + `</option>
+                `
+            });
+            $("#ddlSection").html(items);
+
+            if (selectedSection != null) {
+                $("#ddlSection").val(selectedSection);
+                GetActivityType(token, selectedSection, model.actTypeId);
+
+                if (selectedSection != "0") {
+                    $("[name='SectionCatEtc']").val("");
+                    $("[name='SectionCatEtc']").hide();
+                }
+                else {
+                    $("[name='SectionCatEtc']").show();
+                }
+            }
+        }
+    });
+}
+
+function GetActivityType(token, SECTION_CAT_ID, selectedActivityType) {
+    var form = new FormData();
+    form.append("Token", token);
+    form.append("SECTION_CAT_ID", SECTION_CAT_ID);
+
+    var settings = {
+        "url": "https://data.dpe.go.th/api/activity/type/getActivityType",
+        "method": "POST",
+        "timeout": 0,
+        "processData": false,
+        "mimeType": "multipart/form-data",
+        "contentType": false,
+        "data": form
+    };
+
+    $.ajax(settings).done(function (response, textStatus, jqXHR) {
+
+        if (jqXHR.status == 200) {
+            var results = JSON.parse(response);
+            var data = results.data;
+            PROVINCE_DATA = data;
+            var items = ``;
+
+            $.each(data, function (index, value) {
+                items +=
+                `
+                    <div class="col-3">
+                        <label><input type="radio" name="ActTypeId" value="${value.ACT_TYPE_ID}" class="input-field" /> ${value.ACT_TYPE_NAME}</label>
+                    </div>                
+                `
+            });
+            $("#dvActivityType > .row").html(items);
+
+            if (selectedActivityType != null) {
+                $("[name='ActTypeId']").each(function () {
+                    if ($(this).val() == selectedActivityType) {
+                        $(this).prop("checked", true);
+                    }
+                });
+            }
+        }
+    });
+}
+
 $(document).ready(function () {
 
     var eventId = routeId;
     console.log("eventId=", eventId);
+    console.log("model.sectionCatId", model.sectionCatId);
+    console.log("model.sectionCatEtc", model.sectionCatEtc);
+    console.log("model.actTypeId", model.actTypeId);
+    console.log("model.actTypeEtc", model.actTypeEtc);
 
     GetMEventFacilitiesTopic();
     GetMFee();
@@ -854,6 +948,7 @@ $(document).ready(function () {
         console.log("localStorage.token", localStorage.getItem("token"));
 
         GetAddressFromDatabase(token);
+        GetSection(token, model.sectionCatId);
     });
 
     $("#ddlProvince").change(function () {
@@ -881,5 +976,20 @@ $(document).ready(function () {
             GetTambon(token, provinceId, amphurId, null);
         }
     });
+
+    $("#ddlSection").change(function () {
+        var selectedSection = $("#ddlSection").val();
+        if (selectedSection != "0") {
+            $("[name='SectionCatEtc']").val("");
+            $("[name='SectionCatEtc']").hide();
+        }
+        else {
+            $("[name='SectionCatEtc']").show();
+        }
+
+        var token = localStorage.getItem("token");
+        GetActivityType(token, selectedSection, null);
+    });
+
 });
 

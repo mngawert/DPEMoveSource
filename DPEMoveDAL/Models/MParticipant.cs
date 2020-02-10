@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 
 namespace DPEMoveDAL.Models
@@ -15,6 +16,7 @@ namespace DPEMoveDAL.Models
         public string ParticipantName { get; set; }
         public int? Status { get; set; }
 
+        [JsonIgnore]
         public ICollection<EventParticipant> EventParticipant { get; set; }
     }
 }

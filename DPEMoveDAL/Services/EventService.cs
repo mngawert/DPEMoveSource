@@ -400,6 +400,10 @@ namespace DPEMoveDAL.Services
             ev.IsFree = model.IsFree;
             ev.IsCancel = model.IsCancel;
             ev.CancelReason = model.CancelReason;
+            ev.SectionCatId = model.SectionCatId;
+            ev.SectionCatEtc = model.SectionCatEtc;
+            ev.ActTypeId = model.ActTypeId;
+            ev.ActTypeEtc = model.ActTypeEtc;
 
             _context.Update(ev).State = EntityState.Modified;
             _context.SaveChanges();

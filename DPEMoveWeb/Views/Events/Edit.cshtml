@@ -289,12 +289,28 @@
                                             <div class="row-field clearfix">
                                                 <div class="c field">
                                                     ด้าน
-                                                    <select class="input-field">
-                                                        <option value="">กีฬา</option>
+                                                    <select class="input-field" id="ddlSection" name="SectionCatId">
+                                                        <option value="">กรุณาเลือก</option>
                                                     </select>
+                                                    <input type="text" name="SectionCatEtc" value="@Model.SectionCatEtc" class="input-field" />                                                    
                                                 </div>
                                             </div>
                                             <br />
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <div id="dvActivityType">
+                                                        <div class="row">
+                                                            <div class="col-3">
+                                                                @*<label><input type="radio" /> กีฬาเพื่อมวลชน</label>*@
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+
+                                            @*<br />
                                             <div class="row-field clearfix">
                                                 <div class="c field">
                                                     ชนิดกีฬา
@@ -309,12 +325,8 @@
                                                             <div><input type="checkbox" name="SportIds" value="@x.SportId" class="input-field" checked="@(Model.EventSport.Any(b => b.SportId == x.SportId))" /> อื่นๆ โปรดระบุ <input type="text" name="SportEtc" value="@(Model.EventSport.Where(b => b.SportId == x.SportId).FirstOrDefault()?.SportEtc )" class="input-field" /></div>
                                                         }
                                                     }
-                                                    @*<div><input type="checkbox" name="" value="" class="input-field" /> ฟุตบอล</div>
-                                                    <div><input type="checkbox" name="" value="" class="input-field" /> วอลเล่บอล</div>
-                                                    <div><input type="checkbox" name="" value="" class="input-field" /> บาสเก็ตบอล</div>
-                                                    <div><input type="checkbox" name="" value="" class="input-field" /> อื่นๆ โปรดระบุ <input type="text" name="" value="" class="input-field" /></div>*@
                                                 </div>
-                                            </div>
+                                            </div>*@
                                         </div>
                                     </div>
                                 </div>
