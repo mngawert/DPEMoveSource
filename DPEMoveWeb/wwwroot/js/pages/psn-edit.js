@@ -236,13 +236,17 @@ function getGmsMember(token, MEMBER_ID) {
             $("#dvMEMBER_IMAGE").html(`<img src="${value.MEMBER_IMAGE == null ? "/images/psn010101_02.png" : value.MEMBER_IMAGE }" />`);
             $("#lblName").html(`${value.FIRST_NAME} ${value.LAST_NAME}`);
             $("#lblTYPE_SUBJECT").html(`ความชำนาญ : ${value.TYPE_SUBJECT == null ? "-" : value.TYPE_SUBJECT}`);
+            $("#lblEXPERTISE").html(value.EXPERTISE);
+            $("#lblE_MAIL").html(value.E_MAIL);
+
+
             $("#txtHRS_ID").val(value.HRS_ID);
             $("#txtFIRST_NAME").val(value.FIRST_NAME);
             $("#txtLAST_NAME").val(value.LAST_NAME);
             $("#txtFIRST_NAME_EN").val(value.FIRST_NAME_EN);
             $("#txtLAST_NAME_EN").val(value.LAST_NAME_EN);
 
-            PrintGMS_HISTORY(value.GMS_HISTORY);
+            GetHistory(token, value.MEMBER_ID);
             getEducationHistory(token, value.MEMBER_ID);
             getWorkHistory(token, value.MEMBER_ID);
 
@@ -254,25 +258,44 @@ function getGmsMember(token, MEMBER_ID) {
     });
 }
 
-function PrintGMS_HISTORY(data) {
+function GetHistory(token, MEMBER_ID) {
+    console.log("GetHistory ", MEMBER_ID);
 
-    console.log("PrintGMS_HISTORY data", data)
-    var items = "";
+    var form = new FormData();
+    form.append("Token", token);
+    form.append("MEMBER_ID", MEMBER_ID);
 
-    $.each(data, function (index, value) {
-        items += `
+    var settings = {
+        "url": "https://data.dpe.go.th/api/personal/memberHistoryTrain/getHistory",
+        "method": "POST",
+        "timeout": 0,
+        "processData": false,
+        "mimeType": "multipart/form-data",
+        "contentType": false,
+        "data": form
+    };
+
+    $.ajax(settings).done(function (response, textStatus, jqXHR) {
+
+        if (jqXHR.status == 200) {
+            var results = JSON.parse(response);
+            var data = results.data;
+            var items = ``
+            $.each(data, function (index, value) {
+                items += `
                 <tr>
-                    <td>${index+1}</td>
-                    <td></td>
+                    <td>${index + 1}</td>
+                    <td>${value.TERM_YEAR}</td>
                     <td>${value.COURSE_SUBJECT}</td>
                     <td>${value.SPORT_SUBJECT}</td>
                     <td>${value.LEVEL_DETAIL}</td>
                     <td class="center"><a href="#" class="button small red">&nbsp;ลบ&nbsp;</a> <a href="#" class="button small darkgreen">แก้ไข</a></td>
                 </tr>
-        `;
+                `;
+            });
+            $("#tblGMS_HISTORY >tbody").html(items);
+        }
     });
-
-    $("#tblGMS_HISTORY >tbody").html(items);
 }
 
 function getEducationHistory(token, MEMBER_ID) {
@@ -314,7 +337,7 @@ function getEducationHistory(token, MEMBER_ID) {
 }
 
 function getWorkHistory(token, MEMBER_ID) {
-    console.log("getEducationHistory");
+    console.log("getWorkHistory");
 
     var form = new FormData();
     form.append("Token", token);

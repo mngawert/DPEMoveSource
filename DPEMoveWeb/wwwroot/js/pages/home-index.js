@@ -139,7 +139,7 @@ function DrawGoogleMap() {
         'packages': ['geochart'],
         // Note: you will need to get a mapsApiKey for your project.
         // See: https://developers.google.com/chart/interactive/docs/basic_load_libs#load-settings
-        'mapsApiKey': 'AIzaSyBW_ZloATWKeCRioFkeAQIaqTJErmD-IQA'
+        'mapsApiKey': 'AIzaSyDBro62OhioE6oXZ97CV8Y4AnrzfVIt4HA'
     });
     google.charts.setOnLoadCallback(drawRegionsMap);
 }

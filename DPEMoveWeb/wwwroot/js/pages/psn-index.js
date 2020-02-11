@@ -17,7 +17,7 @@ function GetProvinceNameById(provinceId) {
 
 function GetProvince(Token) {
 
-    console.log("call GetProvince");
+    //console.log("call GetProvince");
     var form = new FormData();
     form.append("Token", Token);
 
@@ -240,9 +240,8 @@ function GetPSN(token, DATA_REPLACE_OR_APPEND, PAGE, NAME, PROV_CODE, AMP_CODE) 
                     <h4>${value.FIRST_NAME} ${value.LAST_NAME}</h4>
                     <div class="training-history">ประวัติการฝึกอบรม</div>
                     <div class="clearfix">
-                        <div class="col-traininghistory">
+                        <div class="col-traininghistory" id="dvHistory_${value.MEMBER_ID}">
                             <ol>
-                                ${PrintGMS_HISTORY(value.GMS_HISTORY)}
                             </ol>
                         </div>
                         <div class="col-th-btn">
@@ -260,22 +259,51 @@ function GetPSN(token, DATA_REPLACE_OR_APPEND, PAGE, NAME, PROV_CODE, AMP_CODE) 
         else
             $("#ul-search-person-result").html(items);
 
-        //PrintCommentCount(data);
-        //PrintVoteAvg(data);
+        PrintHistory(token, data);
     });
 }
 
-function PrintGMS_HISTORY(data) {
+function PrintHistory(token, data) {
 
-    console.log("PrintGMS_HISTORY data", data)
-    var html = "";
+    //console.log("PrintHistory data", data)
 
     $.each(data, function (index, value) {
-        html += `<li>${value.COURSE_SUBJECT}</li>`;
-
+        GetHistory(token, value.MEMBER_ID);
     });
+}
 
-    return html;
+function GetHistory(token, MEMBER_ID) {
+    //console.log("GetHistory ", MEMBER_ID);
+
+    var form = new FormData();
+    form.append("Token", token);
+    form.append("MEMBER_ID", MEMBER_ID);
+
+    var settings = {
+        "url": "https://data.dpe.go.th/api/personal/memberHistoryTrain/getHistory",
+        "method": "POST",
+        "timeout": 0,
+        "processData": false,
+        "mimeType": "multipart/form-data",
+        "contentType": false,
+        "data": form
+    };
+
+    $.ajax(settings).done(function (response, textStatus, jqXHR) {
+
+        if (jqXHR.status == 200) {
+            var results = JSON.parse(response);
+            var data = results.data;
+            var items = ``
+            $.each(data, function (index, value) {
+                items +=
+                `
+                <li> ${ value.COURSE_SUBJECT }</li >
+                `
+            });
+            $("#dvHistory_" + MEMBER_ID + " > ol").html(items);
+        }
+    });
 }
 
 $(document).ready(function () {
@@ -283,7 +311,7 @@ $(document).ready(function () {
     GetToken().done(function (response) {
         var token = JSON.parse(response).data;
         localStorage.setItem("token", token);
-        console.log("localStorage.token", localStorage.getItem("token"));
+        //console.log("localStorage.token", localStorage.getItem("token"));
 
         GetProvince(token);
 
