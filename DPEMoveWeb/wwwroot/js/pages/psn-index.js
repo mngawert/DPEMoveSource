@@ -174,6 +174,84 @@ function GetStadiumType(Token) {
     });
 }
 
+function getPrefix(token, selectedValue) {
+    var form = new FormData();
+    form.append("Token", token);
+
+    var settings = {
+        "url": "https://data.dpe.go.th/api/personal/prefix/getPrefix",
+        "method": "POST",
+        "timeout": 0,
+        "processData": false,
+        "mimeType": "multipart/form-data",
+        "contentType": false,
+        "data": form
+    };
+
+    $.ajax(settings).done(function (response, status, xhr) {
+        if (xhr.status == 200) {
+            var data = JSON.parse(response).data
+
+            var item_1 = `<option value="">กรุณาเลือก</option>`
+            var item_2 = `<option value="">กรุณาเลือก</option>`
+            $.each(data, function (index, value) {
+                item_1 += `<option value="` + value.PREFIX_ID + `">` + value.PREFIX_TH + `</option>`
+                item_2 += `<option value="` + value.PREFIX_ID + `">` + value.PREFIX_EN + `</option>`
+            });
+            $("#ddlPREFIX_TH").html(item_1);
+            $("#ddlPREFIX_EN").html(item_2);
+
+            if (selectedValue != null) {
+                $("#ddlPREFIX_TH").val(selectedValue);
+                $("#ddlPREFIX_EN").val(selectedValue);
+            }
+
+        }
+    });
+}
+
+function CreateGmsMember(token) {
+
+    var form = new FormData();
+    form.append("Token", token);
+    form.append("FIRST_NAME", $("[name='FIRST_NAME']").val());
+    form.append("LAST_NAME", $("[name='LAST_NAME']").val());
+    form.append("SEX", $("[name='SEX']").val());
+    form.append("BIRTH_DATE", "1957-01-01");
+    form.append("FIRST_NAME_ENG", $("[name='FIRST_NAME_ENG']").val());
+    form.append("LAST_NAME_ENG", $("[name='LAST_NAME_ENG']").val());
+    form.append("PREFIX_ID", $("[name='PREFIX_ID']").val());
+    form.append("MEMBER_USERNAME", $("[name='HRS_ID']").val());
+    form.append("MEMBER_PASSWORD", $("[name='HRS_ID']").val());
+    form.append("CLASS_ID", "1");
+    form.append("HRS_ID", $("[name='HRS_ID']").val());
+
+    var settings = {
+        "url": "https://data.dpe.go.th/api/personal/member/pushGmsMember",
+        "method": "POST",
+        "timeout": 0,
+        "processData": false,
+        "mimeType": "multipart/form-data",
+        "contentType": false,
+        "data": form
+    };
+
+    $.ajax(settings).done(function (response, textStatus, jqXHR) {
+
+        if (jqXHR.status == 200) {
+            var results = JSON.parse(response);
+            console.log("results", results);
+            var data = results.data;
+
+            if (data.length > 0) {
+                window.location.href = window.location.href + "/Edit/" + data[0].MEMBER_ID;
+            }
+        }
+    });
+
+}
+
+
 function SearchPSN(token, DATA_REPLACE_OR_APPEND, PAGE) {
 
     var txtName = $("#txtName").val();
@@ -315,8 +393,18 @@ $(document).ready(function () {
 
         GetProvince(token);
 
+        getPrefix(token, null);
+
         //PAGE=1
         SearchPSN(token, "REFRESH_DATA", "1");
+    });
+
+    $("#btnCreate").click(function () {
+
+        GetToken().done(function (response) {
+            var token = JSON.parse(response).data;
+            CreateGmsMember(token);
+        });
     });
 
 

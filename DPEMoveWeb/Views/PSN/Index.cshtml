@@ -25,7 +25,7 @@
                 <div class="row con_right">
                     <div class="col">
                         @*<button type="button" class="btn btn-lightgreen btn-round">ลงทะเบียน</button>*@
-                        <a href="/PSN/Create" class="btn btn-lightgreen btn-round">ลงทะเบียน</a>
+                        <a href="javascript:void(0);" class="btn btn-lightgreen btn-round" data-toggle="modal" data-target="#Modal3">ลงทะเบียน</a>
                     </div>
                 </div>
             </div>
@@ -147,47 +147,47 @@
             <div class="col-12">
                 <ul id="ul-search-person-result">
                     @*<li>
-                        <div class="row">
-                            <div class="col-12 col-sm-3">
-                                <div class="thumb-img"><img src="images/psn010101_01.png" /></div>
-                            </div>
-                            <div class="col-12 col-sm-9">
-                                <h4>นายอำนวย อยู่ดอน</h4>
-                                <div class="training-history">ประวัติการฝึกอบรม</div>
-                                <div class="clearfix">
-                                    <div class="col-traininghistory">
-                                        <ol>
-                                            <li>--</li>
-                                        </ol>
-                                    </div>
-                                    <div class="col-th-btn">
-                                        <a href="/PSN/Edit/1" class="button darkgreen medium">แก้ไข</a>
+                            <div class="row">
+                                <div class="col-12 col-sm-3">
+                                    <div class="thumb-img"><img src="images/psn010101_01.png" /></div>
+                                </div>
+                                <div class="col-12 col-sm-9">
+                                    <h4>นายอำนวย อยู่ดอน</h4>
+                                    <div class="training-history">ประวัติการฝึกอบรม</div>
+                                    <div class="clearfix">
+                                        <div class="col-traininghistory">
+                                            <ol>
+                                                <li>--</li>
+                                            </ol>
+                                        </div>
+                                        <div class="col-th-btn">
+                                            <a href="/PSN/Edit/1" class="button darkgreen medium">แก้ไข</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="row">
-                            <div class="col-12 col-sm-3">
-                                <div class="thumb-img"><img src="images/psn010101_02.png" /></div>
-                            </div>
-                            <div class="col-12 col-sm-9">
-                                <h4>นายบุคลากร 1</h4>
-                                <div class="training-history">ประวัติการฝึกอบรม</div>
-                                <div class="clearfix">
-                                    <div class="col-traininghistory">
-                                        <ol>
-                                            <li>ผู้ฝึกอบรมกีฬา/ฟุตบอล/ฝึกอบรมผู้ฝึกสอนกีฬาฟุตบอล T-License</li>
-                                        </ol>
-                                    </div>
-                                    <div class="col-th-btn">
-                                        <a href="/PSN/Edit/2" class="button darkgreen medium">แก้ไข</a>
+                        </li>
+                        <li>
+                            <div class="row">
+                                <div class="col-12 col-sm-3">
+                                    <div class="thumb-img"><img src="images/psn010101_02.png" /></div>
+                                </div>
+                                <div class="col-12 col-sm-9">
+                                    <h4>นายบุคลากร 1</h4>
+                                    <div class="training-history">ประวัติการฝึกอบรม</div>
+                                    <div class="clearfix">
+                                        <div class="col-traininghistory">
+                                            <ol>
+                                                <li>ผู้ฝึกอบรมกีฬา/ฟุตบอล/ฝึกอบรมผู้ฝึกสอนกีฬาฟุตบอล T-License</li>
+                                            </ol>
+                                        </div>
+                                        <div class="col-th-btn">
+                                            <a href="/PSN/Edit/2" class="button darkgreen medium">แก้ไข</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </li>*@
+                        </li>*@
                 </ul>
             </div>
         </div>
@@ -210,3 +210,132 @@
     <script src="~/js/pages/psn-index.js"></script>
 }
 
+<div class="modal fade bd-example-modal-lg" id="Modal3" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" style="display:none;" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">ปิด</span>
+                </button>
+                <div>ลงทะเบียน</div>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-12">
+
+
+                        <div class="entry-data">
+                            <div class="row">
+                                <div class="col-12 col-md-10">
+                                    <table class="tbl-fields th-aright" cellspacing="0">
+                                        <tr>
+                                            <th width="140">เลข<span class="req">*</span></th>
+                                            <td class="td-id">
+                                                <select class="input-field">
+                                                    <option value="">ประจำตัวประชาชน</option>
+                                                </select>&nbsp;&nbsp;<input type="text" name="HRS_ID" id="txtHRS_ID" value="" class="input-field" />
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 col-md-6 col-xl-5">
+                                    <table class="tbl-fields th-aright" cellspacing="0">
+                                        <tr>
+                                            <th width="140">คำนำหน้า (ไทย)<span class="req">*</span></th>
+                                            <td>
+                                                <select class="input-field" name="PREFIX_ID" id="ddlPREFIX_TH" style="width: 165px">
+                                                    <option value="">กรุณาเลือก</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="col-12 col-md-6 col-xl-5">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 col-md-6 col-xl-5">
+                                    <table class="tbl-fields th-aright" cellspacing="0">
+                                        <tr>
+                                            <th width="140">ชื่อ (ไทย)<span class="req">*</span></th>
+                                            <td><input type="text" name="FIRST_NAME" id="txtFIRST_NAME" /></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="col-12 col-md-6 col-xl-5">
+                                    <table class="tbl-fields th-aright" cellspacing="0">
+                                        <tr>
+                                            <th width="140">ชื่อ (อังกฤษ)<span class="req">*</span></th>
+                                            <td><input type="text" name="FIRST_NAME_ENG" id="txtFIRST_NAME_ENG" /></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 col-md-6 col-xl-5">
+                                    <table class="tbl-fields th-aright" cellspacing="0">
+                                        <tr>
+                                            <th width="140">สกุล (ไทย)<span class="req">*</span></th>
+                                            <td><input type="text" name="LAST_NAME" id="txtLAST_NAME" /></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="col-12 col-md-6 col-xl-5">
+                                    <table class="tbl-fields th-aright" cellspacing="0">
+                                        <tr>
+                                            <th width="140">สกุล (อังกฤษ)<span class="req">*</span></th>
+                                            <td><input type="text" name="LAST_NAME_ENG" id="txtLAST_NAME_ENG" /></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 col-md-6 col-xl-5">
+                                    <table class="tbl-fields th-aright" cellspacing="0">
+                                        <tr>
+                                            <th width="140">เพศ<span class="req">*</span></th>
+                                            <td>
+                                                <select class="input-field" name="SEX" id="ddlSEX">
+                                                    <option value="1">ชาย</option>
+                                                    <option value="2">หญิง</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="col-12 col-md-6 col-xl-5">
+
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    @*<table class="tbl-fields th-aright" cellspacing="0">
+                                        <tr>
+                                            <th width="140">วันเกิด (วัน-เดือน-ปี)<span class="req">*</span></th>
+                                            <td>
+                                                <input id="txtBIRTH_DATE" name="BIRTH_DATE" class="input-field" type="text" data-provide="datepicker" data-date-language="th-th">
+                                            </td>
+                                        </tr>
+                                    </table>*@
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row">
+                                <div class="col-12 text-center">
+                                    <input id="btnCreate" type="button" value="ลงทะเบียน" class="button darkgreen" />
+                                </div>
+                            </div>
+                            <br />
+                        </div>
+
+
+
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
