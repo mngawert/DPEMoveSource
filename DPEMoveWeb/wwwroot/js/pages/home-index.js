@@ -111,6 +111,7 @@ function GetStadiumData() {
             method: "POST",
             url: "/Home/GetStadiumData",
             dataType: 'json',
+            data: $("#pageForm-test").serialize(),
             error: function (jqXHR, exception) {
                 alert("error");
             }
