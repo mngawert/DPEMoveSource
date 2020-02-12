@@ -741,7 +741,7 @@
                         </div>
                         <div class="tab_item">
                             <div class="block-group">
-                                <div class="heading">ประวัติการปฏิบัติหน้าที่ <div class="button-container"><a href="javascript:void(0);" class="button small-long darkgreen" data-toggle="modal" data-target="#Modal3">เพิ่ม</a></div></div>
+                                <div class="heading">ประวัติการปฏิบัติหน้าที่ <div class="button-container"><a href="javascript:void(0);" class="button small-long darkgreen" data-toggle="modal" data-target="#Modal_AddWorkHistory">เพิ่ม</a></div></div>
                                 <div class="entry-data">
                                     <div class="row">
                                         <div class="col-sm-12">
@@ -752,13 +752,13 @@
                                                         <th>รายการ</th>
                                                         <th>หน้าที่/ชนิดกีฬา</th>
                                                         <th>ระดับ</th>
-                                                        <th>สังกัด</th>
+                                                        <th>สถานที่ปฎิบัติงาน</th>
                                                         <th>วันที่ปฏิบัติหน้าที่</th>
                                                         <th class="manage center">จัดการ</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr>
+                                                    @*<tr>
                                                         <td>1</td>
                                                         <td>แข่งขันยิงธนู</td>
                                                         <td>ผู้ตัดสิน/ยิงธนู</td>
@@ -775,7 +775,7 @@
                                                         <td>-</td>
                                                         <td>1 ต.ค. 57 - 31 ต.ค. 57</td>
                                                         <td class="center"><a href="#" class="button small red">&nbsp;ลบ&nbsp;</a> <a href="#" class="button small darkgreen">แก้ไข</a></td>
-                                                    </tr>
+                                                    </tr>*@
                                                 </tbody>
                                             </table>
                                         </div>
@@ -927,63 +927,74 @@
         </div>
     </div>
 </div>
-<div class="modal fade bd-example-modal-lg" id="Modal3" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" style="display:none;" aria-hidden="true">
+<div class="modal fade bd-example-modal-lg" id="Modal_AddWorkHistory" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" style="display:none;" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">ปิด</span>
-                </button>
-                <div>เพิ่ม ประวัติการปฏิบัติหน้าที่</div>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-12">
-                        <table class="tbl-fields" cellspacing="0">
-                            <tr>
-                                <th width="120">ชื่อรายการ</th>
-                                <td><input type="text" name="" /></td>
-                            </tr>
-                            <tr>
-                                <th>หน้าที่/ชนิดกีฬา</th>
-                                <td>
-                                    <select name="">
-                                        <option value="">กรุณาเลือก</option>
-                                    </select>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>ระดับ</th>
-                                <td>
-                                    <select name="">
-                                        <option value="">กรุณาเลือก</option>
-                                    </select>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>สังกัด</th>
-                                <td>
-                                    <select name="">
-                                        <option value="">กรุณาเลือก</option>
-                                    </select>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>วันที่เริ่มกิจกรรม</th>
-                                <td><input type="text" name="" /></td>
-                            </tr>
-                            <tr>
-                                <th>วันที่สิ้นสุดกิจกรรม</th>
-                                <td><input type="text" name="" /></td>
-                            </tr>
-                            <tr><td>&nbsp;</td></tr>
-                            <tr>
-                                <td colspan="2" align="center"><input type="submit" name="submit" value="ส่ง" class="button btn btn-lightgreen" /></td>
-                            </tr>
-                        </table>
+
+            <form id="frmAddWorkHistory">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">ปิด</span>
+                    </button>
+                    <div>เพิ่ม ประวัติการปฏิบัติหน้าที่</div>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <table class="tbl-fields" cellspacing="0">
+                                <tr>
+                                    <th width="200">หัวข้อการปฎิบัติงาน</th>
+                                    <td><input type="text" name="WORK_SUBJECT" /></td>
+                                </tr>
+                                <tr>
+                                    <th>รายละเอียดงาน</th>
+                                    <td><input type="text" name="WORK_DETAIL" /></td>
+                                </tr>
+                                <tr>
+                                    <th>สถานที่ปฎิบัติงาน</th>
+                                    <td><input type="text" name="WORK_LOCATION" /></td>
+                                </tr>
+                                <tr>
+                                    <th>หน้าที่/ชนิดกีฬา</th>
+                                    <td>
+                                        <select name="SPORT_ID" id="ddlSPORT_ID" style="width: 200px;">
+                                            <option value="">กรุณาเลือก</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>ระดับ</th>
+                                    <td>
+                                        <select name="WORK_LEVEL" id="ddlLEVEL_ID" style="width: 200px;">
+                                            <option value="">กรุณาเลือก</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>จำนวนครั้งที่ปฎิบัติหน้าที่</th>
+                                    <td><input type="text" name="WORK_SEQ" /></td>
+                                </tr>
+                                <tr>
+                                    <th>ปีงบประมาณ</th>
+                                    <td><input type="text" name="WORK_YEAR" /></td>
+                                </tr>
+                                <tr>
+                                    <th>วันที่เริ่มกิจกรรม</th>
+                                    <td><input type="text" name="WORK_TIME_START" data-provide="datepicker" data-date-language="th-th" /></td>
+                                </tr>
+                                <tr>
+                                    <th>วันที่สิ้นสุดกิจกรรม</th>
+                                    <td><input type="text" name="WORK_TIME_END" data-provide="datepicker" data-date-language="th-th" /></td>
+                                </tr>
+                                <tr><td>&nbsp;</td></tr>
+                                <tr>
+                                    <td colspan="2" align="center"><input type="button" id="btnAddWorkHistory" value="ส่ง" class="button btn btn-lightgreen" /></td>
+                                </tr>
+                            </table>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
 </div>

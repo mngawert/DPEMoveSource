@@ -136,7 +136,7 @@ function GetToken() {
     return $.ajax(settings);
 }
 
-function getEducation(token, selectedValue) {
+function GetEducation(token, selectedValue) {
     var form = new FormData();
     form.append("Token", token);
 
@@ -169,7 +169,7 @@ function getEducation(token, selectedValue) {
     });
 }
 
-function getPrefix(token, selectedValue) {
+function GetPrefix(token, selectedValue) {
     var form = new FormData();
     form.append("Token", token);
 
@@ -235,6 +235,70 @@ function GetGmsType(token, selectedValue) {
         }
     });
 }
+
+function GetGmsWorkLevel(token, selectedValue) {
+
+    var form = new FormData();
+    form.append("Token", token);
+
+    var settings = {
+        "url": "https://data.dpe.go.th/api/personal/level/getGmsWorkLevel",
+        "method": "POST",
+        "timeout": 0,
+        "processData": false,
+        "mimeType": "multipart/form-data",
+        "contentType": false,
+        "data": form
+    };
+
+    $.ajax(settings).done(function (response, status, xhr) {
+        if (xhr.status == 200) {
+            var data = JSON.parse(response).data
+
+            var item_1 = `<option value="">กรุณาเลือก</option>`
+            $.each(data, function (index, value) {
+                item_1 += `<option value="` + value.LEVEL_ID + `">` + value.LEVEL_DETAIL + `</option>`
+            });
+            $("#ddlLEVEL_ID").html(item_1);
+
+            if (selectedValue != null) {
+                $("#ddlLEVEL_ID").val(selectedValue);
+            }
+        }
+    });
+}
+
+function GetGmsSport(token, selectedValue) {
+    var form = new FormData();
+    form.append("Token", token);
+
+    var settings = {
+        "url": "https://data.dpe.go.th/api/personal/sport/getGmsSport",
+        "method": "POST",
+        "timeout": 0,
+        "processData": false,
+        "mimeType": "multipart/form-data",
+        "contentType": false,
+        "data": form
+    };
+
+    $.ajax(settings).done(function (response, status, xhr) {
+        if (xhr.status == 200) {
+            var data = JSON.parse(response).data
+
+            var item_1 = `<option value="">กรุณาเลือก</option>`
+            $.each(data, function (index, value) {
+                item_1 += `<option value="` + value.SPORT_ID + `">` + value.SPORT_SUBJECT + `</option>`
+            });
+            $("#ddlSPORT_ID").html(item_1);
+
+            if (selectedValue != null) {
+                $("#ddlSPORT_ID").val(selectedValue);
+            }
+        }
+    });
+}
+
 
 function ConvertDateToTH(input) {
     //'1986-02-12' to '12/02/2529'
@@ -331,13 +395,13 @@ function EditGmsMember(token, MEMBER_ID) {
             $("#Modal_Results").modal("show");
             var memberId = localStorage.getItem("memberId");
             console.log("memberId", memberId);
-            getGmsMember(token, memberId);
+            GetGmsMember(token, memberId);
         }
     });
 }
 
 
-function getGmsMember(token, MEMBER_ID) {
+function GetGmsMember(token, MEMBER_ID) {
 
     var form = new FormData();
     form.append("Token", token);
@@ -390,13 +454,15 @@ function getGmsMember(token, MEMBER_ID) {
             $("#txtBIRTH_DATE").val(bdTH);
 
             GetHistory(token, value.MEMBER_ID);
-            getEducationHistory(token, value.MEMBER_ID);
-            getWorkHistory(token, value.MEMBER_ID);
+            GetEducationHistory(token, value.MEMBER_ID);
+            GetWorkHistory(token, value.MEMBER_ID);
 
             // Load Dropdownlist and set selected value.
-            getEducation(token, value.EDU_ID);
-            getPrefix(token, value.PREFIX_ID);
+            GetEducation(token, value.EDU_ID);
+            GetPrefix(token, value.PREFIX_ID);
             GetGmsType(token, value.TYPE_ID);
+            GetGmsWorkLevel(token, null);
+            GetGmsSport(token, null);
 
 
             $("#txtCON_ADDR").val(value.CON_ADDR);
@@ -490,7 +556,7 @@ function AddEducationHistory(token, MEMBER_ID) {
     $.ajax(settings).done(function (response) {
         console.log(response);
         $("#Modal_AddEdu").modal("hide");
-        getEducationHistory(token, MEMBER_ID);
+        GetEducationHistory(token, MEMBER_ID);
     });
 }
 
@@ -511,12 +577,12 @@ function DeleteEducationHistory(token, MEMBER_ID, DI_EDU_ID) {
 
     $.ajax(settings).done(function (response) {
         console.log(response);
-        getEducationHistory(token, MEMBER_ID);
+        GetEducationHistory(token, MEMBER_ID);
     });
 }
 
-function getEducationHistory(token, MEMBER_ID) {
-    console.log("getEducationHistory");
+function GetEducationHistory(token, MEMBER_ID) {
+    console.log("GetEducationHistory");
 
     var form = new FormData();
     form.append("Token", token);
@@ -553,8 +619,68 @@ function getEducationHistory(token, MEMBER_ID) {
     });
 }
 
-function getWorkHistory(token, MEMBER_ID) {
-    console.log("getWorkHistory");
+function AddWorkHistory(token, MEMBER_ID) {
+    var form = new FormData();
+    form.append("Token", token);
+    form.append("MEMBER_ID", MEMBER_ID);
+    //form.append("PROVINCE_ID", "13");
+    //form.append("AMPHUR_ID", "03");
+    //form.append("TUMBOL_ID", "02");
+    form.append("WORK_SUBJECT", $("[name='WORK_SUBJECT']").val());
+    form.append("WORK_DETAIL", $("[name='WORK_DETAIL']").val());
+    form.append("WORK_TIME_START", ConvertDateToEN($("[name='WORK_TIME_START']").val()));
+    form.append("WORK_TIME_END", ConvertDateToEN($("[name='WORK_TIME_END']").val()));
+    form.append("WORK_LOCATION", $("[name='WORK_LOCATION']").val());
+    form.append("WORK_LEVEL", $("[name='WORK_LEVEL']").val());
+    form.append("SPORT_ID", $("[name='SPORT_ID']").val());
+    form.append("WORK_SEQ", $("[name='WORK_SEQ']").val());
+    form.append("WORK_YEAR", $("[name='WORK_YEAR']").val());
+
+    var settings = {
+        "url": "https://data.dpe.go.th/api/personal/memberHistoryWork/pushHistory",
+        "method": "POST",
+        "timeout": 0,
+        "processData": false,
+        "mimeType": "multipart/form-data",
+        "contentType": false,
+        "data": form
+    };
+
+    $.ajax(settings).done(function (response, status, xhr) {
+        if (xhr.status == 200) {
+            $("#Modal_AddWorkHistory").modal("hide");
+            $("#frmAddWorkHistory").trigger("reset");
+            GetWorkHistory(token, MEMBER_ID);
+        }
+    });
+}
+
+function DeleteWorkHistory(token, MEMBER_ID, WORK_ID) {
+
+    var form = new FormData();
+    form.append("Token", token);
+    form.append("WORK_ID", WORK_ID);
+
+    var settings = {
+        "url": "https://data.dpe.go.th/api/personal/memberHistoryWork/delHistory",
+        "method": "POST",
+        "timeout": 0,
+        "processData": false,
+        "mimeType": "multipart/form-data",
+        "contentType": false,
+        "data": form
+    };
+
+    $.ajax(settings).done(function (response, status, xhr) {
+        if (xhr.status == 200) {
+            GetWorkHistory(token, MEMBER_ID);
+        }
+    });
+}
+
+
+function GetWorkHistory(token, MEMBER_ID) {
+    console.log("GetWorkHistory");
 
     var form = new FormData();
     form.append("Token", token);
@@ -583,7 +709,7 @@ function getWorkHistory(token, MEMBER_ID) {
                         <td>${value.LEVEL_DETAIL}</td>
                         <td>${value.WORK_LOCATION}</td>
                         <td>${value.WORK_TIME_START.replace("00:00:00", "")} - ${value.WORK_TIME_END.replace("00:00:00", "")}</td>
-                        <td class="center"><a href="#" class="button small red">&nbsp;ลบ&nbsp;</a> <a href="#" class="button small darkgreen">แก้ไข</a></td>
+                        <td class="center"><a href="javascript:void(0);" onclick="DeleteWorkHistory('${token}', '${MEMBER_ID}', '${value.WORK_ID}');" class="button small red">&nbsp;ลบ&nbsp;</a> <a href="#" class="button small darkgreen">แก้ไข</a></td>
                     </tr>
                 `
             });
@@ -619,7 +745,7 @@ $(document).ready(function () {
         var id = url.substring(url.lastIndexOf('/') + 1);
 
         localStorage.setItem("memberId", id);
-        getGmsMember(token, id);
+        GetGmsMember(token, id);
     });
 
     $("#btnSave").click(function () {
@@ -635,6 +761,14 @@ $(document).ready(function () {
         GetToken().done(function (response) {
             var token = JSON.parse(response).data;
             AddEducationHistory(token, localStorage.getItem("memberId"));
+        });
+    });
+
+    $("#btnAddWorkHistory").click(function () {
+
+        GetToken().done(function (response) {
+            var token = JSON.parse(response).data;
+            AddWorkHistory(token, localStorage.getItem("memberId"));
         });
     });
 

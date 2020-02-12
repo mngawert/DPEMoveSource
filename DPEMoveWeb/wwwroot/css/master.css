@@ -270,11 +270,13 @@ body { overflow-x: hidden !important; }
 .survey-manipulate .tab:hover,
 .survey-manipulate .tab.active { color: #147b5e; }
 .survey-manipulate .block-group { border: 1px solid #cdcdcd; -webkit-border-radius: 4px; -moz-border-radius: 4px; -ms-border-radius: 4px; -o-border-radius: 4px; margin-bottom: 6px; }
-.survey-manipulate .block-group .heading { position: relative; background: #f5f5f5; border-bottom: 1px solid #cdcdcd; padding: 10px 15px; color: #000000; }
+.survey-manipulate .block-group .heading { position: relative; background: #00855b; border-bottom: 1px solid #cdcdcd; padding: 10px 15px; color: #ffffff; }
 .survey-manipulate .block-group .heading span { font-weight: normal; margin-left: 50px; }
 .survey-manipulate .block-group .heading label { display: inline-block; width: 15%; min-width: 100px; }
 .survey-manipulate .block-group .heading .button-container { position: absolute; right: 15px; top: 10px; text-align: right; }
 .survey-manipulate .block-group .entry-data { padding: 20px 35px; }
+.survey-manipulate .block-group .entry-data.for-table { padding-left: 5px; padding-right: 5px; }
+.survey-manipulate .block-group .entry-data.for-table .info { padding-left: 30px; padding-right: 30px; }
 .event-manipulate .block-group { border: 1px solid #cdcdcd; -webkit-border-radius: 4px; -moz-border-radius: 4px; -ms-border-radius: 4px; -o-border-radius: 4px; margin-bottom: 6px; }
 .event-manipulate .block-group .heading { position: relative; background: #f5f5f5; border-bottom: 1px solid #cdcdcd; padding: 10px 15px; color: #000000; }
 .event-manipulate .block-group .heading span { font-weight: normal; margin-left: 50px; }
@@ -292,6 +294,7 @@ span.req { color: #ff0000; }
 .tbl-ex input[type=text] { width: 40%; }
 .tbl-ex .a input[type=text] { width: 60%; }
 .tbl-ex th { background: #007051; color: #ffffff; font-weight: normal; padding: 5px 10px; vertical-align: top; }
+.tbl-ex.th-no-bg th { background: none; color: #000000; border-bottom: 1px solid #eaeaea; }
 .tbl-ex th.b { width: 25%; }
 .tbl-ex th.c,
 .tbl-ex th.d { width: 20%; }
@@ -367,6 +370,17 @@ button:focus { outline: none; }
 .bt-store { text-align: right; font-size: 0; }
 .bt-store a { width: 48%; display: inline-block; margin-right: 5px; }
 .bt-store a:last-child { margin-right: 0; }
+:focus { outline: none; }
+.page-survey textarea,
+.page-survey input[type=text],
+.page-survey input[type=tel],
+.page-survey input[type=number],
+.page-survey input[type=email] { padding: 8px 10px; }
+.txt-bigger,
+.txt-bigger p { font-size: 16px; }
+.page-survey select.c-dropdown:focus { outline: none; }
+.page-survey select.c-dropdown { font-size: 14px; line-height: 20px; color: #000000; border: none; box-shadow: none; padding: 0 45px 0 10px; min-height: 36px; width: auto; -webkit-appearance: none; background: #f2f2f2 url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20width%3D%2220%22%20height%3D%2220%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M5%206l5%205%205-5%202%201-7%207-7-7%202-1z%22%20fill%3D%22%23555%22%2F%3E%3C%2Fsvg%3E') no-repeat right 5px top 55%; background-size: 16px 16px; cursor: pointer; vertical-align: middle }
+
 /**/
 
 @media screen and (max-width: 480px) {
@@ -409,6 +423,8 @@ button:focus { outline: none; }
 	.event-manipulate .tab { font-size: 11px; padding-left: 0; padding-right: 0; }
 	.person-details { text-align: center; }
 	.person-details .x { top: initial; left: 0; position: initial; display: block; margin-top: 8px; }
+	.survey-manipulate .block-group .entry-data { padding-left: 15px; padding-right: 15px; }
+	.survey-manipulate .block-group .entry-data.for-table .info { padding-left: 10px; padding-right: 10px; }
 }
 /**/
 @media screen and (max-width: 991px) {
@@ -431,7 +447,7 @@ button:focus { outline: none; }
 	.person-details .x { top: -24px; left: 35%; }
 	.td-id select { margin-bottom: 5px; }
 	.tbl-fields th,
-	.tbl-fields td { display: block; padding-top: 10px; padding-bottom: 0; }
+	.tbl-fields td { display: block; padding-top: 10px; padding-bottom: 0; width: 100% !important; }
 	.tbl-fields td { padding-top: 0; }
 	.tbl-fields.th-aright th { text-align: left; }
 	.survey-manipulate .tabs { margin-bottom: 18px; }
