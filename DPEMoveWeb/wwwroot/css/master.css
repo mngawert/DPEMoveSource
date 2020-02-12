@@ -445,6 +445,8 @@ button:focus { outline: none; }
 	.field-road { width: 96%; }
 	.bt_survey { width: 80%; }
 	.bt-store a { width: 100%; display: block; margin: 0 0 5px; }
+	.loadapp { margin: 15px 0 10px; text-align: right; }
+	.login-link { position: absolute; top: 115px; left: -195%; z-index: 99; }
 	/**/
 }
 @media screen and (max-width: 1530px) and (min-width: 769px) {
@@ -462,8 +464,6 @@ button:focus { outline: none; }
 	/**/
 	.bt_survey { width: 100%; padding: 55px 25px; }
 	.img-center-mobile { text-align: center; margin-bottom: 10px; }
-	.loadapp {margin: 0; }
-	.login-link { position: absolute; top: 56px; z-index: 99; }
 	.search-person .col-advsearch { display: block; margin-left: 0; margin-top: 10px; }
 	.row-field .c.lbl,
 	.search-events .row-field .c.lbl { width:30%; }
@@ -472,5 +472,7 @@ button:focus { outline: none; }
 	.bt-store { margin-top: 30px; text-align: left; }
 	.bt-store a { width: auto; display: inline-block; margin: 0 5px 0 0; }
 	.bt-store a:last-child { margin-right: 0; }
+	.loadapp { text-align: center; }
+	.login-link { top: 66px; left: 15px; }
 	/**/
 }
