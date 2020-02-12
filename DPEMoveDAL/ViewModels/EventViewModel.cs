@@ -140,6 +140,12 @@ namespace DPEMoveDAL.ViewModels
         public string ContactPersonFax { get; set; }
         public string ContactPersonLineid { get; set; }
         public string IsFree { get; set; }
+        public string IsCancel { get; set; }
+        public string CancelReason { get; set; }
+        public int? SectionCatId { get; set; }
+        public string SectionCatEtc { get; set; }
+        public int? ActTypeId { get; set; }
+        public string ActTypeEtc { get; set; }
 
         public List<UploadedFile> UploadedFile { get; set; }
 

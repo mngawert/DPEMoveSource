@@ -161,7 +161,8 @@
 
             // We've got an array of swears, let's proceed with removing them from the element.
             for (i = 0; i < badWords.length; i += 1) {
-                re = new RegExp('\\b' + badWords[i] + '\\b', 'gi');
+                //re = new RegExp('\\b' + badWords[i] + '\\b', 'gi');
+                re = new RegExp(badWords[i], 'gi');
 
                 var rand = generateRandomNumber(options.replaceWith.length -1);
 

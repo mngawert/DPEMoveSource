@@ -17,7 +17,7 @@ function GetProvinceNameById(provinceId) {
 
 function GetProvince(Token) {
 
-    console.log("call GetProvince");
+    //console.log("call GetProvince");
     var form = new FormData();
     form.append("Token", Token);
 
@@ -174,6 +174,84 @@ function GetStadiumType(Token) {
     });
 }
 
+function getPrefix(token, selectedValue) {
+    var form = new FormData();
+    form.append("Token", token);
+
+    var settings = {
+        "url": "https://data.dpe.go.th/api/personal/prefix/getPrefix",
+        "method": "POST",
+        "timeout": 0,
+        "processData": false,
+        "mimeType": "multipart/form-data",
+        "contentType": false,
+        "data": form
+    };
+
+    $.ajax(settings).done(function (response, status, xhr) {
+        if (xhr.status == 200) {
+            var data = JSON.parse(response).data
+
+            var item_1 = `<option value="">กรุณาเลือก</option>`
+            var item_2 = `<option value="">กรุณาเลือก</option>`
+            $.each(data, function (index, value) {
+                item_1 += `<option value="` + value.PREFIX_ID + `">` + value.PREFIX_TH + `</option>`
+                item_2 += `<option value="` + value.PREFIX_ID + `">` + value.PREFIX_EN + `</option>`
+            });
+            $("#ddlPREFIX_TH").html(item_1);
+            $("#ddlPREFIX_EN").html(item_2);
+
+            if (selectedValue != null) {
+                $("#ddlPREFIX_TH").val(selectedValue);
+                $("#ddlPREFIX_EN").val(selectedValue);
+            }
+
+        }
+    });
+}
+
+function CreateGmsMember(token) {
+
+    var form = new FormData();
+    form.append("Token", token);
+    form.append("FIRST_NAME", $("[name='FIRST_NAME']").val());
+    form.append("LAST_NAME", $("[name='LAST_NAME']").val());
+    form.append("SEX", $("[name='SEX']").val());
+    form.append("BIRTH_DATE", "1957-01-01");
+    form.append("FIRST_NAME_ENG", $("[name='FIRST_NAME_ENG']").val());
+    form.append("LAST_NAME_ENG", $("[name='LAST_NAME_ENG']").val());
+    form.append("PREFIX_ID", $("[name='PREFIX_ID']").val());
+    form.append("MEMBER_USERNAME", $("[name='HRS_ID']").val());
+    form.append("MEMBER_PASSWORD", $("[name='HRS_ID']").val());
+    form.append("CLASS_ID", "1");
+    form.append("HRS_ID", $("[name='HRS_ID']").val());
+
+    var settings = {
+        "url": "https://data.dpe.go.th/api/personal/member/pushGmsMember",
+        "method": "POST",
+        "timeout": 0,
+        "processData": false,
+        "mimeType": "multipart/form-data",
+        "contentType": false,
+        "data": form
+    };
+
+    $.ajax(settings).done(function (response, textStatus, jqXHR) {
+
+        if (jqXHR.status == 200) {
+            var results = JSON.parse(response);
+            console.log("results", results);
+            var data = results.data;
+
+            if (data.length > 0) {
+                window.location.href = window.location.href + "/Edit/" + data[0].MEMBER_ID;
+            }
+        }
+    });
+
+}
+
+
 function SearchPSN(token, DATA_REPLACE_OR_APPEND, PAGE) {
 
     var txtName = $("#txtName").val();
@@ -240,9 +318,8 @@ function GetPSN(token, DATA_REPLACE_OR_APPEND, PAGE, NAME, PROV_CODE, AMP_CODE) 
                     <h4>${value.FIRST_NAME} ${value.LAST_NAME}</h4>
                     <div class="training-history">ประวัติการฝึกอบรม</div>
                     <div class="clearfix">
-                        <div class="col-traininghistory">
+                        <div class="col-traininghistory" id="dvHistory_${value.MEMBER_ID}">
                             <ol>
-                                ${PrintGMS_HISTORY(value.GMS_HISTORY)}
                             </ol>
                         </div>
                         <div class="col-th-btn">
@@ -260,22 +337,51 @@ function GetPSN(token, DATA_REPLACE_OR_APPEND, PAGE, NAME, PROV_CODE, AMP_CODE) 
         else
             $("#ul-search-person-result").html(items);
 
-        //PrintCommentCount(data);
-        //PrintVoteAvg(data);
+        PrintHistory(token, data);
     });
 }
 
-function PrintGMS_HISTORY(data) {
+function PrintHistory(token, data) {
 
-    console.log("PrintGMS_HISTORY data", data)
-    var html = "";
+    //console.log("PrintHistory data", data)
 
     $.each(data, function (index, value) {
-        html += `<li>${value.COURSE_SUBJECT}</li>`;
-
+        GetHistory(token, value.MEMBER_ID);
     });
+}
 
-    return html;
+function GetHistory(token, MEMBER_ID) {
+    //console.log("GetHistory ", MEMBER_ID);
+
+    var form = new FormData();
+    form.append("Token", token);
+    form.append("MEMBER_ID", MEMBER_ID);
+
+    var settings = {
+        "url": "https://data.dpe.go.th/api/personal/memberHistoryTrain/getHistory",
+        "method": "POST",
+        "timeout": 0,
+        "processData": false,
+        "mimeType": "multipart/form-data",
+        "contentType": false,
+        "data": form
+    };
+
+    $.ajax(settings).done(function (response, textStatus, jqXHR) {
+
+        if (jqXHR.status == 200) {
+            var results = JSON.parse(response);
+            var data = results.data;
+            var items = ``
+            $.each(data, function (index, value) {
+                items +=
+                `
+                <li> ${ value.COURSE_SUBJECT }</li >
+                `
+            });
+            $("#dvHistory_" + MEMBER_ID + " > ol").html(items);
+        }
+    });
 }
 
 $(document).ready(function () {
@@ -283,12 +389,22 @@ $(document).ready(function () {
     GetToken().done(function (response) {
         var token = JSON.parse(response).data;
         localStorage.setItem("token", token);
-        console.log("localStorage.token", localStorage.getItem("token"));
+        //console.log("localStorage.token", localStorage.getItem("token"));
 
         GetProvince(token);
 
+        getPrefix(token, null);
+
         //PAGE=1
         SearchPSN(token, "REFRESH_DATA", "1");
+    });
+
+    $("#btnCreate").click(function () {
+
+        GetToken().done(function (response) {
+            var token = JSON.parse(response).data;
+            CreateGmsMember(token);
+        });
     });
 
 

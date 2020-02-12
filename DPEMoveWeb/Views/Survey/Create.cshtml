@@ -31,9 +31,9 @@
             </div>
         </div>
     </div>
-    <div class="section no-top">
+    <div class="section page-survey no-top">
         <div class="container">
-            <div class="row person-details">
+            <div class="row person-details txt-bigger">
                 <div class="col-12">
                     <div class="text-center">
                         <h3 style="margin-bottom:6px;">แบบสารวจการออกกาลังกาย หรือเล่นกีฬาของประชาชน</h3>
@@ -49,7 +49,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row survey-manipulate">
+            <div class="row survey-manipulate txt-bigger skin-square">
                 <div class="col-12">
                     <div class="tabs">
                         <span class="tab">ตอนที่ 1 ข้อมูลที่อยู่อาศัย:พนักงานเก็บข้อมูลทำการบันทึกข้อมูล</span>
@@ -517,91 +517,96 @@
                         </div>
                         <div class="tab_item">
                             <form id="frmSurveyCreate_3">
-
-                                <p>ข้อ 15.1 โดยปกติคุณออกกาลังกายหรือเล่นกีฬาหรือไม่</p>
-                                <table class="tbl-ex" cellspacing="0">
-                                    <tr>
-                                        <th class="a">ก. ประเภทการออกกำลังกาย/เล่นกีฬา (รวมทั้งการออกกำลังกายในการประกอบอาชีพและการออกกำลังกายในชีวิตประจำวัน)</th>
-                                        <th class="b">ข. ระดับของกิจกรรม (ความหนัก)**</th>
-                                        <th class="c">ค. เวลาที่ออกกำลังกายหรือเล่นกีฬาต่อวัน (นาที)</th>
-                                        <th class="d">ง. จำนวนวันที่ออกกำลังกายหรือเล่นกีฬาต่อสัปดาห์</th>
-                                    </tr>
-                                    <tr id="tr_15_1_1">
-                                        <td class="a">
-                                            <input type="checkbox" name="" value="" /> 1. <select id="ddlSportType_1" name="AnswerValue_34">
-                                                <option value="">- ระบุ -</option>
-                                            </select>
-                                        </td>
-                                        <td class="b">
-                                            <input type="radio" name="AnswerValue_35" value="1" /> 1. ระดับปานกลาง<br />
-                                            <input type="radio" name="AnswerValue_35" value="2" /> 2. ระดับหนัก
-                                        </td>
-                                        <td class="c"><input type="text" name="AnswerValue_36" class="input-field" /> นาที</td>
-                                        <td class="d"><input type="text" name="AnswerValue_37" class="input-field" /> วัน</td>
-                                    </tr>
-                                    <tr id="tr_15_1_2">
-                                        <td class="a">
-                                            <input type="checkbox" name="" value="" /> 2.
-                                            <select id="ddlSportType_2" name="AnswerValue_38">
-                                                <option value="">- ระบุ -</option>
-                                            </select>
-                                        </td>
-                                        <td class="b">
-                                            <input type="radio" name="AnswerValue_39" value="" /> 1. ระดับปานกลาง<br />
-                                            <input type="radio" name="AnswerValue_39" value="" /> 2. ระดับหนัก
-                                        </td>
-                                        <td class="c"><input type="text" name="AnswerValue_40" class="input-field" /> นาที</td>
-                                        <td class="d"><input type="text" name="AnswerValue_41" class="input-field" /> วัน</td>
-                                    </tr>
-                                    <tr id="tr_15_1_3">
-                                        <td class="a">
-                                            <input type="checkbox" name="" value="" /> 3.
-                                            <select id="ddlSportType_3" name="AnswerValue_42">
-                                                <option value="">- ระบุ -</option>
-                                            </select>
-                                        </td>
-                                        <td class="b">
-                                            <input type="radio" name="AnswerValue_43" value="" /> 1. ระดับปานกลาง<br />
-                                            <input type="radio" name="AnswerValue_43" value="" /> 2. ระดับหนัก
-                                        </td>
-                                        <td class="c"><input type="text" name="AnswerValue_44" class="input-field" /> นาที</td>
-                                        <td class="d"><input type="text" name="AnswerValue_45" class="input-field" /> วัน</td>
-                                    </tr>
-                                    <tr id="tr_15_1_4">
-                                        <td class="a">
-                                            <input type="checkbox" name="" value="" /> 4.
-                                            <select id="ddlSportType_4" name="AnswerValue_46">
-                                                <option value="">- ระบุ -</option>
-                                            </select>
-                                        </td>
-                                        <td class="b">
-                                            <input type="radio" name="AnswerValue_47" value="1" /> 1. ระดับปานกลาง<br />
-                                            <input type="radio" name="AnswerValue_47" value="2" /> 2. ระดับหนัก
-                                        </td>
-                                        <td class="c"><input type="text" name="AnswerValue_48" class="input-field" /> นาที</td>
-                                        <td class="d"><input type="text" name="AnswerValue_49" class="input-field" /> วัน</td>
-                                    </tr>
-                                    <tr id="tr_15_1_5">
-                                        <td><label id="lblAnswerValue_50"><input type="checkbox" name="AnswerValue_50" value="1" /> 5. ไม่มีการออกกำลังกาย</label></td>
-                                        <td colspan="3" class="text-center">ข้ามไปตอบข้อ 15.5</td>
-                                    </tr>
-                                </table>
-                                <h6>หมายเหตุ</h6>
-                                ** คำอธิบายระดับความหนักของกิจกรรม
-                                <p>
-                                    <strong>1. <u>ระดับปานกลาง</u></strong> คือ การหายใจเร็วขึ้นจากปกติ ไม่ถึงกับหอบ ติดต่อกันเป็นระยะเวลา อย่างน้อย 10
-                                    นาที เช่น การเดินเร็ว ถีบจักรยาน ว่ายน้า เป็นต้น
-                                </p>
-                                <p>
-                                    <strong>2. <u>ระดับหนัก</u></strong> คือ การหายใจแรงและเร็วกว่าปกติมาก หรือหอบติดต่อกันเป็นระยะเวลาอย่างน้อย 10
-                                    นาที เช่น วิ่งกระโดดเชือก เล่นบาสเกตบอล หรือเล่นฟุตบอล เป็นต้น
-                                </p>
-                                <h6>คำอธิบาย</h6>
-                                <p>
-                                    <u>การออกกำลังกาย</u> หมายถึง การกระทำใดๆ ที่มีการเคลื่อนไหวส่วนต่างๆ ของร่างกายเพ่ือสุขภาพ เพื่อความ
-                                    สนุกสนาน และเพื่อสังคม รวมทั้งการออกกำลังกายในการประกอบอาชีพ และการออกกำลังกายในชีวิตประจำวัน
-                                </p>
-                                <p><u>การเล่นกีฬา</u> หมายถึง การออกกำลังกายโดยใช้ทักษะกีฬาพื้นฐาน และมีวัตถุประสงค์เพื่อสร้างเสริมสุขภาพ ความสนุกสนานเพื่อสังคม เพ่ือการแข่งขัน <em>(การเล่นกีฬาเป็นส่วนหนึ่งของการออกกำลังกาย)</em></p>
+                                <div class="block-group">
+                                    <div class="heading">ข้อ 15.1 โดยปกติคุณออกกาลังกายหรือเล่นกีฬาหรือไม่</div>
+                                    <div class="entry-data for-table">
+                                        <table class="tbl-ex th-no-bg" cellspacing="0">
+                                            <tr>
+                                                <th class="a">ก. ประเภทการออกกำลังกาย/เล่นกีฬา (รวมทั้งการออกกำลังกายในการประกอบอาชีพและการออกกำลังกายในชีวิตประจำวัน)</th>
+                                                <th class="b">ข. ระดับของกิจกรรม (ความหนัก)**</th>
+                                                <th class="c">ค. เวลาที่ออกกำลังกายหรือเล่นกีฬาต่อวัน (นาที)</th>
+                                                <th class="d">ง. จำนวนวันที่ออกกำลังกายหรือเล่นกีฬาต่อสัปดาห์</th>
+                                            </tr>
+                                            <tr id="tr_15_1_1">
+                                                <td class="a">
+                                                    <input type="checkbox" name="" value="" /> 1. <select id="ddlSportType_1" name="AnswerValue_34">
+                                                        <option value="">- ระบุ -</option>
+                                                    </select>
+                                                </td>
+                                                <td class="b">
+                                                    <input type="radio" name="AnswerValue_35" value="1" /> 1. ระดับปานกลาง<br />
+                                                    <input type="radio" name="AnswerValue_35" value="2" /> 2. ระดับหนัก
+                                                </td>
+                                                <td class="c"><input type="text" name="AnswerValue_36" class="input-field" /> นาที</td>
+                                                <td class="d"><input type="text" name="AnswerValue_37" class="input-field" /> วัน</td>
+                                            </tr>
+                                            <tr id="tr_15_1_2">
+                                                <td class="a">
+                                                    <input type="checkbox" name="" value="" /> 2.
+                                                    <select id="ddlSportType_2" name="AnswerValue_38">
+                                                        <option value="">- ระบุ -</option>
+                                                    </select>
+                                                </td>
+                                                <td class="b">
+                                                    <input type="radio" name="AnswerValue_39" value="" /> 1. ระดับปานกลาง<br />
+                                                    <input type="radio" name="AnswerValue_39" value="" /> 2. ระดับหนัก
+                                                </td>
+                                                <td class="c"><input type="text" name="AnswerValue_40" class="input-field" /> นาที</td>
+                                                <td class="d"><input type="text" name="AnswerValue_41" class="input-field" /> วัน</td>
+                                            </tr>
+                                            <tr id="tr_15_1_3">
+                                                <td class="a">
+                                                    <input type="checkbox" name="" value="" /> 3.
+                                                    <select id="ddlSportType_3" name="AnswerValue_42">
+                                                        <option value="">- ระบุ -</option>
+                                                    </select>
+                                                </td>
+                                                <td class="b">
+                                                    <input type="radio" name="AnswerValue_43" value="" /> 1. ระดับปานกลาง<br />
+                                                    <input type="radio" name="AnswerValue_43" value="" /> 2. ระดับหนัก
+                                                </td>
+                                                <td class="c"><input type="text" name="AnswerValue_44" class="input-field" /> นาที</td>
+                                                <td class="d"><input type="text" name="AnswerValue_45" class="input-field" /> วัน</td>
+                                            </tr>
+                                            <tr id="tr_15_1_4">
+                                                <td class="a">
+                                                    <input type="checkbox" name="" value="" /> 4.
+                                                    <select id="ddlSportType_4" name="AnswerValue_46">
+                                                        <option value="">- ระบุ -</option>
+                                                    </select>
+                                                </td>
+                                                <td class="b">
+                                                    <input type="radio" name="AnswerValue_47" value="1" /> 1. ระดับปานกลาง<br />
+                                                    <input type="radio" name="AnswerValue_47" value="2" /> 2. ระดับหนัก
+                                                </td>
+                                                <td class="c"><input type="text" name="AnswerValue_48" class="input-field" /> นาที</td>
+                                                <td class="d"><input type="text" name="AnswerValue_49" class="input-field" /> วัน</td>
+                                            </tr>
+                                            <tr id="tr_15_1_5">
+                                                <td><label id="lblAnswerValue_50"><input type="checkbox" name="AnswerValue_50" value="1" /> 5. ไม่มีการออกกำลังกาย</label></td>
+                                                <td colspan="3" class="text-center">ข้ามไปตอบข้อ 15.5</td>
+                                            </tr>
+                                        </table>
+                                        <div class="info">
+                                            <h6>หมายเหตุ</h6>
+                                            ** คำอธิบายระดับความหนักของกิจกรรม
+                                            <p>
+                                                <strong>1. <u>ระดับปานกลาง</u></strong> คือ การหายใจเร็วขึ้นจากปกติ ไม่ถึงกับหอบ ติดต่อกันเป็นระยะเวลา อย่างน้อย 10
+                                                นาที เช่น การเดินเร็ว ถีบจักรยาน ว่ายน้า เป็นต้น
+                                            </p>
+                                            <p>
+                                                <strong>2. <u>ระดับหนัก</u></strong> คือ การหายใจแรงและเร็วกว่าปกติมาก หรือหอบติดต่อกันเป็นระยะเวลาอย่างน้อย 10
+                                                นาที เช่น วิ่งกระโดดเชือก เล่นบาสเกตบอล หรือเล่นฟุตบอล เป็นต้น
+                                            </p>
+                                            <h6>คำอธิบาย</h6>
+                                            <p>
+                                                <u>การออกกำลังกาย</u> หมายถึง การกระทำใดๆ ที่มีการเคลื่อนไหวส่วนต่างๆ ของร่างกายเพ่ือสุขภาพ เพื่อความ
+                                                สนุกสนาน และเพื่อสังคม รวมทั้งการออกกำลังกายในการประกอบอาชีพ และการออกกำลังกายในชีวิตประจำวัน
+                                            </p>
+                                            <p><u>การเล่นกีฬา</u> หมายถึง การออกกำลังกายโดยใช้ทักษะกีฬาพื้นฐาน และมีวัตถุประสงค์เพื่อสร้างเสริมสุขภาพ ความสนุกสนานเพื่อสังคม เพ่ือการแข่งขัน <em>(การเล่นกีฬาเป็นส่วนหนึ่งของการออกกำลังกาย)</em></p>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="sep small"></div>
                                 <p>ข้อ 15.2 - 15.4 การออกกำลังกายหรือการเล่นกีฬา คุณมักออกกำลังหรือเล่นกีฬาท่ีใด เวลาใด และบ่อยคร้ังเพียงใด</p>
                                 <div class="block-group" id="dv_15_2">
@@ -751,6 +756,64 @@
                                         </table>
                                     </div>
                                 </div>
+                                <div class="block-group" id="dv_15_6">
+                                    <div class="heading">ข้อ 15.6 นอกเหนือจากการออกกำลังกายและเล่นกีฬา ท่านทำกิจกรรมนันทนาการใดบ้าง และบ่อยครั้งเพียงใด (ตอบได้มากกว่า 1 ข้อ)</div>
+                                    <div class="entry-data for-table">
+                                        <table class="tbl-ex th-no-bg" cellspacing="0">
+                                            <tr>
+                                                <th class="a">กิจกรรมนันทนาการ</th>
+                                                <th class="b">เวลาที่ทำกิจกรรมนันทนาการต่อวัน (นาที)</th>
+                                                <th class="b">จำนวนวันที่ทำกิจกรรมนันทนาการต่อสัปดาห์</th>
+                                            </tr>
+                                            <tr>
+                                                <td class="a">
+                                                    <input type="checkbox" name="" value="" /> 1. <select name="AnswerValue_55">
+                                                        <option value="">- ระบุ -</option>
+                                                    </select>
+                                                </td>
+                                                <td class="b"><input type="text" name="AnswerValue_56" class="input-field" /> นาที</td>
+                                                <td class="b"><input type="text" name="AnswerValue_57" class="input-field" /> วัน</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="a">
+                                                    <input type="checkbox" name="" value="" /> 2. <select name="AnswerValue_58">
+                                                        <option value="">- ระบุ -</option>
+                                                    </select>
+                                                </td>
+                                                <td class="b"><input type="text" name="AnswerValue_59" class="input-field" /> นาที</td>
+                                                <td class="b"><input type="text" name="AnswerValue_60" class="input-field" /> วัน</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="a">
+                                                    <input type="checkbox" name="" value="" /> 3. <select name="AnswerValue_61">
+                                                        <option value="">- ระบุ -</option>
+                                                    </select>
+                                                </td>
+                                                <td class="b"><input type="text" name="AnswerValue_62" class="input-field" /> นาที</td>
+                                                <td class="b"><input type="text" name="AnswerValue_63" class="input-field" /> วัน</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="a">
+                                                    <input type="checkbox" name="" value="" /> 4. <select name="AnswerValue_64">
+                                                        <option value="">- ระบุ -</option>
+                                                    </select>
+                                                </td>
+                                                <td class="b"><input type="text" name="AnswerValue_65" class="input-field" /> นาที</td>
+                                                <td class="b"><input type="text" name="AnswerValue_66" class="input-field" /> วัน</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="a">
+                                                    <input type="checkbox" name="" value="" /> 5. อื่นๆ ระบุ <input type="text" name="AnswerValue_67" value="" />
+                                                </td>
+                                                <td class="b"><input type="text" name="AnswerValue_68" class="input-field" /> นาที</td>
+                                                <td class="b"><input type="text" name="AnswerValue_69" class="input-field" /> วัน</td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="4"><input type="checkbox" name="AnswerValue_70" value="1" />  ไม่ได้ทำกิจกรรมนันทนาการ เนื่องจาก <input type="text" name="AnswerValue_71" value="" /></td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
                                 <div class="row">
                                     <div class="col-6">
                                         <p><a href="javascript:void(0);" class="change-tab to-1"><< ตอนที่ 2</a></p>
@@ -771,23 +834,23 @@
                                             <div class="col-sm-12">
                                                 <table class="tbl-fields th-aright" cellspacing="0">
                                                     <tr>
-                                                        <td><label><input type="checkbox" name="AnswerValue_55_1" value="1" /> 1. ความรู้ในการออกกำลังกาย</label></td>
-                                                        <td><label><input type="checkbox" name="AnswerValue_55_2" value="2" /> 2. ทัศนคติในการออกกำลังกาย</label></td>
+                                                        <td><label><input type="checkbox" name="AnswerValue_72_1" value="1" /> 1. ความรู้ในการออกกำลังกาย</label></td>
+                                                        <td><label><input type="checkbox" name="AnswerValue_72_2" value="2" /> 2. ทัศนคติในการออกกำลังกาย</label></td>
                                                     </tr>
                                                     <tr>
-                                                        <td><label><input type="checkbox" name="AnswerValue_55_3" value="3" /> 3.สนามกีฬาหรือสถานที่ที่มีความสวยงาม มีมาตรฐาน</label></td>
-                                                        <td><label><input type="checkbox" name="AnswerValue_55_4" value="4" /> 4. ผู้นำการออกกำลังกาย</label></td>
+                                                        <td><label><input type="checkbox" name="AnswerValue_72_3" value="3" /> 3.สนามกีฬาหรือสถานที่ที่มีความสวยงาม มีมาตรฐาน</label></td>
+                                                        <td><label><input type="checkbox" name="AnswerValue_72_4" value="4" /> 4. ผู้นำการออกกำลังกาย</label></td>
                                                     </tr>
                                                     <tr>
-                                                        <td><label><input type="checkbox" name="AnswerValue_55_5" value="5" /> 5. การจัดกิจกรรมที่น่าสนใจ</label></td>
-                                                        <td><label><input type="checkbox" name="AnswerValue_55_6" value="6" /> 6. ดารา/นักร้อง/บุคคลที่มีชื่อเสียง</label></td>
+                                                        <td><label><input type="checkbox" name="AnswerValue_72_5" value="5" /> 5. การจัดกิจกรรมที่น่าสนใจ</label></td>
+                                                        <td><label><input type="checkbox" name="AnswerValue_72_6" value="6" /> 6. ดารา/นักร้อง/บุคคลที่มีชื่อเสียง</label></td>
                                                     </tr>
                                                     <tr>
-                                                        <td><label><input type="checkbox" name="AnswerValue_55_7" value="7" /> 7. ญาติพี่น้อง/เพื่อน</label></td>
-                                                        <td><label><input type="checkbox" name="AnswerValue_55_8" value="8" /> 8. อาสาสมัครทางการกีฬามาให้ความรู้</label></td>
+                                                        <td><label><input type="checkbox" name="AnswerValue_72_7" value="7" /> 7. ญาติพี่น้อง/เพื่อน</label></td>
+                                                        <td><label><input type="checkbox" name="AnswerValue_72_8" value="8" /> 8. อาสาสมัครทางการกีฬามาให้ความรู้</label></td>
                                                     </tr>
                                                     <tr>
-                                                        <td colspan="2"><label><input type="checkbox" name="AnswerValue_55_9" value="9" /> 9. อื่นๆ ระบุ </label><input type="text" name="AnswerValue_55_9_txt" class="input-field" /></td>
+                                                        <td colspan="2"><label><input type="checkbox" name="AnswerValue_72_9" value="9" /> 9. อื่นๆ ระบุ </label><input type="text" name="AnswerValue_72_9_txt" class="input-field" /></td>
                                                     </tr>
                                                 </table>
                                             </div>
@@ -801,31 +864,31 @@
                                             <div class="col-sm-12">
                                                 <table class="tbl-fields th-aright" cellspacing="0">
                                                     <tr>
-                                                        <td><label><input type="checkbox" name="AnswerValue_56_1" value="1" /> 1. สร้างสวนสาธารณะเพิ่มขึ้น</label></td>
+                                                        <td><label><input type="checkbox" name="AnswerValue_73_1" value="1" /> 1. สร้างสวนสาธารณะเพิ่มขึ้น</label></td>
                                                     </tr>
                                                     <tr>
-                                                        <td><label><input type="checkbox" name="AnswerValue_56_2" value="2" /> 2. ปรับปรุงซ่อมแซมสวนสาธารณะที่มีอยู่เดิมให้มีสภาพที่ดี มีความปลอดภัยและพร้อมใช้งาน เช่น มีไฟฟ้าส่องสว่าง มียาม รักษาการณ์คอยสอดส่องดูแลความปลอดภัยของผู้มาใช้บริการ</label></td>
+                                                        <td><label><input type="checkbox" name="AnswerValue_73_2" value="2" /> 2. ปรับปรุงซ่อมแซมสวนสาธารณะที่มีอยู่เดิมให้มีสภาพที่ดี มีความปลอดภัยและพร้อมใช้งาน เช่น มีไฟฟ้าส่องสว่าง มียาม รักษาการณ์คอยสอดส่องดูแลความปลอดภัยของผู้มาใช้บริการ</label></td>
                                                     </tr>
                                                     <tr>
-                                                        <td><label><input type="checkbox" name="AnswerValue_56_3" value="3" /> 3. สนับสนุนอุปกรณ์การกีฬา เครื่อง ออกกำลังกายกลางแจ้ง เครื่องออกกำลังกายในร่ม อุปกรณ์เครื่องเล่นในยิม ฯลฯ</label></td>
+                                                        <td><label><input type="checkbox" name="AnswerValue_73_3" value="3" /> 3. สนับสนุนอุปกรณ์การกีฬา เครื่อง ออกกำลังกายกลางแจ้ง เครื่องออกกำลังกายในร่ม อุปกรณ์เครื่องเล่นในยิม ฯลฯ</label></td>
                                                     </tr>
                                                     <tr>
-                                                        <td><label><input type="checkbox" name="AnswerValue_56_4" value="4" /> 4. จัดกิจกรรมรณรงค์ชักชวนให้ ประชาชนออกกำลังกายหรือเล่นกีฬา</label></td>
+                                                        <td><label><input type="checkbox" name="AnswerValue_73_4" value="4" /> 4. จัดกิจกรรมรณรงค์ชักชวนให้ ประชาชนออกกำลังกายหรือเล่นกีฬา</label></td>
                                                     </tr>
                                                     <tr>
-                                                        <td><label><input type="checkbox" name="AnswerValue_56_5" value="5" /> 5. อุปกรณ์การกีฬาควรมีราคาถูกลง</label></td>
+                                                        <td><label><input type="checkbox" name="AnswerValue_73_5" value="5" /> 5. อุปกรณ์การกีฬาควรมีราคาถูกลง</label></td>
                                                     </tr>
                                                     <tr>
-                                                        <td><label><input type="checkbox" name="AnswerValue_56_6" value="6" /> 6. จัดให้มีบุคลากรทางการกีฬามาให้ ความรู้ในการออกกำลังกายหรือเล่นกีฬา เช่น อาสาสมัครทางการกีฬา เจ้าหน้าที่พลศึกษา ผู้ฝึกสอนกีฬา เป็นต้น</label></td>
+                                                        <td><label><input type="checkbox" name="AnswerValue_73_6" value="6" /> 6. จัดให้มีบุคลากรทางการกีฬามาให้ ความรู้ในการออกกำลังกายหรือเล่นกีฬา เช่น อาสาสมัครทางการกีฬา เจ้าหน้าที่พลศึกษา ผู้ฝึกสอนกีฬา เป็นต้น</label></td>
                                                     </tr>
                                                     <tr>
-                                                        <td><label><input type="checkbox" name="AnswerValue_56_7" value="7" /> 7. แหล่งรวบรวมข้อมูลด้านการออกกาลังกายหรือเล่นกีฬาที่สามารถสืบค้นผ่านระบบออนไลน์ เพื่อส่งเสริมให้ประชาชนออกกำลังกายอย่างถูกวิธี ถูกต้อง และปลอดภัย</label></td>
+                                                        <td><label><input type="checkbox" name="AnswerValue_73_7" value="7" /> 7. แหล่งรวบรวมข้อมูลด้านการออกกาลังกายหรือเล่นกีฬาที่สามารถสืบค้นผ่านระบบออนไลน์ เพื่อส่งเสริมให้ประชาชนออกกำลังกายอย่างถูกวิธี ถูกต้อง และปลอดภัย</label></td>
                                                     </tr>
                                                     <tr>
-                                                        <td><label><input type="checkbox" name="AnswerValue_56_8" value="8" /> 8. ส่งเสริมให้ประชาชนออกกาลังกาย โดยสามารถนำผลของการออกกำลังกายหรือเล่นกีฬามาใช้เป็นส่วนลดบริการของภาครัฐ และภาคเอกชนเช่น ส่วนลดค่าโดยสารการเดินทางสาธารณะ ส่วนลดค่าสาธารณูปโภค ลดหย่อนภาษี ส่วนลดสินค้าอุปโภคบริโภค ต่างๆ เป็นต้น</label></td>
+                                                        <td><label><input type="checkbox" name="AnswerValue_73_8" value="8" /> 8. ส่งเสริมให้ประชาชนออกกาลังกาย โดยสามารถนำผลของการออกกำลังกายหรือเล่นกีฬามาใช้เป็นส่วนลดบริการของภาครัฐ และภาคเอกชนเช่น ส่วนลดค่าโดยสารการเดินทางสาธารณะ ส่วนลดค่าสาธารณูปโภค ลดหย่อนภาษี ส่วนลดสินค้าอุปโภคบริโภค ต่างๆ เป็นต้น</label></td>
                                                     </tr>
                                                     <tr>
-                                                        <td><label><input type="checkbox" name="AnswerValue_56_9" value="9" /> 9. อื่นๆ ระบุ </label> <input type="text" name="AnswerValue_56_9_txt" class="input-field" /></td>
+                                                        <td><label><input type="checkbox" name="AnswerValue_73_9" value="9" /> 9. อื่นๆ ระบุ </label> <input type="text" name="AnswerValue_73_9_txt" class="input-field" /></td>
                                                     </tr>
                                                 </table>
                                             </div>

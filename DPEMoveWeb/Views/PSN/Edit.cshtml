@@ -25,7 +25,7 @@
             <div class="col-sm-12 col-md-12 col-lg-4">
                 <div class="row con_right">
                     <div class="col">
-                        <button type="button" class="btn btn-lightgreen btn-round">บันทึก</button>
+                        <button id="btnSave" type="button" class="btn btn-lightgreen btn-round">บันทึก</button>
                     </div>
                 </div>
             </div>
@@ -39,13 +39,13 @@
                 <div class="block-border">
                     <div class="row">
                         <div class="col-12 col-md-4 col-lg-3 col-xl-2">
-                            <div id="dvMEMBER_IMAGE" class="thumb-img"><img src="/images/psn010101_01.png" /></div>
+                            <div id="dvMEMBER_IMAGE" class="thumb-img"><img src="/images/psn010101_02.png" /></div>
                         </div>
                         <div class="col-12 col-md-8 col-lg-6 col-xl-8">
                             <h4 id="lblName">-</h4>
-                            <p>ระดับ : xx</p>
+                            <p>ระดับ ความชำนาญ : <label id="lblEXPERTISE"></label> </p>
                             <p id="lblTYPE_SUBJECT">ความชำนาญ : - </p>
-                            <p>อีเมล์ : <a href="#">xx</a></p>
+                            <p>อีเมล์ : <a href="#"> <label id="lblE_MAIL"></label> </a></p>
                         </div>
                         <div class="col-12 col-md-12 col-lg-3 col-xl-2">
                             <div class="x">
@@ -96,7 +96,7 @@
                                                 <tr>
                                                     <th width="140">คำนำหน้า (ไทย)<span class="req">*</span></th>
                                                     <td>
-                                                        <select class="input-field" name="PREFIX_TH" id="ddlPREFIX_TH" style="width: 165px">
+                                                        <select class="input-field" name="PREFIX_ID" id="ddlPREFIX_TH" style="width: 165px">
                                                             <option value="">กรุณาเลือก</option>
                                                         </select>
                                                     </td>
@@ -129,7 +129,7 @@
                                             <table class="tbl-fields th-aright" cellspacing="0">
                                                 <tr>
                                                     <th width="140">ชื่อ (อังกฤษ)<span class="req">*</span></th>
-                                                    <td><input type="text" name="FIRST_NAME_EN" id="txtFIRST_NAME_EN" /></td>
+                                                    <td><input type="text" name="FIRST_NAME_ENG" id="txtFIRST_NAME_ENG" /></td>
                                                 </tr>
                                             </table>
                                         </div>
@@ -147,7 +147,7 @@
                                             <table class="tbl-fields th-aright" cellspacing="0">
                                                 <tr>
                                                     <th width="140">สกุล (อังกฤษ)<span class="req">*</span></th>
-                                                    <td><input type="text" name="LAST_NAME_EN" id="txtLAST_NAME_EN" /></td>
+                                                    <td><input type="text" name="LAST_NAME_ENG" id="txtLAST_NAME_ENG" /></td>
                                                 </tr>
                                             </table>
                                         </div>
@@ -158,7 +158,7 @@
                                                 <tr>
                                                     <th width="140">เพศ<span class="req">*</span></th>
                                                     <td>
-                                                        <select class="input-field" name="SEX">
+                                                        <select class="input-field" name="SEX" id="ddlSEX">
                                                             <option value="1">ชาย</option>
                                                             <option value="2">หญิง</option>
                                                         </select>
@@ -171,9 +171,7 @@
                                                 <tr>
                                                     <th width="140">ศาสนา<span class="req">*</span></th>
                                                     <td>
-                                                        <select class="input-field">
-                                                            <option value=""></option>
-                                                        </select>
+                                                        <input type="text" name="RELIGION" id="txtRELIGION" class="input-field" />
                                                     </td>
                                                 </tr>
                                             </table>
@@ -185,7 +183,7 @@
                                                 <tr>
                                                     <th width="140">วันเกิด (วัน-เดือน-ปี)<span class="req">*</span></th>
                                                     <td>
-                                                        <input name="BIRTH_DATE" class="input-field" type="text" data-provide="datepicker" data-date-language="th-th">
+                                                        <input id="txtBIRTH_DATE" name="BIRTH_DATE" class="input-field" type="text" data-provide="datepicker" data-date-language="th-th">
                                                     </td>
                                                 </tr>
                                             </table>
@@ -219,22 +217,22 @@
                                             </table>
                                         </div>
                                         <div class="col-12 col-md-6 col-xl-5">
-                                            <table class="tbl-fields th-aright" cellspacing="0">
-                                                <tr>
-                                                    <th width="140">อาชีพ</th>
-                                                    <td>
-                                                        <select class="input-field">
-                                                            <option value="">กรุณาเลือก</option>
-                                                        </select>
-                                                    </td>
-                                                </tr>
-                                            </table>
+                                            @*<table class="tbl-fields th-aright" cellspacing="0">
+                                                    <tr>
+                                                        <th width="140">อาชีพ</th>
+                                                        <td>
+                                                            <input name="" class="input-field" type="text">
+                                                        </td>
+                                                    </tr>
+                                                </table>*@
                                         </div>
                                         <div class="col-12">
                                             <table class="tbl-fields th-aright" cellspacing="0">
                                                 <tr>
                                                     <th width="140">ตำแหน่งงานปัจจุบัน</th>
-                                                    <td><input type="text" name="" /></td>
+                                                    <td>
+                                                        <label id="lblCurrentSPORT_SUBJECT">-</label>
+                                                    </td>
                                                 </tr>
                                             </table>
                                         </div>
@@ -245,9 +243,7 @@
                                                 <tr>
                                                     <th width="140">ระดับ</th>
                                                     <td>
-                                                        <select class="input-field">
-                                                            <option value="">ระดับชาติ</option>
-                                                        </select>
+                                                        <label id="lblCurrentLEVEL_DETAIL">-</label>
                                                     </td>
                                                 </tr>
                                             </table>
@@ -258,28 +254,32 @@
                                             <table class="tbl-fields th-aright" cellspacing="0">
                                                 <tr>
                                                     <th width="140">ประเภทบุคลากร</th>
-                                                    <td><a href="#" class="button darkgreen small-long">เพิ่ม</a></td>
+                                                    <td>
+                                                        <select class="input-field" name="TYPE_ID" id="ddlTYPE_ID" style="width:165px">
+                                                            <option value="">กรุณาเลือก</option>
+                                                        </select>
+                                                    </td>
                                                 </tr>
                                             </table>
                                         </div>
                                     </div>
-                                    <br />
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <table cellspacing="0" class="tbl-data" width="100%">
-                                                <tr>
-                                                    <th>ลำดับ</th>
-                                                    <th>ประเภทบุคลากร</th>
-                                                    <th class="manage center">จัดการ</th>
-                                                </tr>
-                                                <tr>
-                                                    <td>1</td>
-                                                    <td>ผู้ตัดสินกีฬา - ฟุตบอล</td>
-                                                    <td class="center"><a href="#" class="button small red">&nbsp;ลบ&nbsp;</a> <a href="#" class="button small darkgreen">แก้ไข</a></td>
-                                                </tr>
-                                            </table>
-                                        </div>
-                                    </div>
+                                    @*<br />
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <table cellspacing="0" class="tbl-data" width="100%">
+                                                    <tr>
+                                                        <th>ลำดับ</th>
+                                                        <th>ประเภทบุคลากร</th>
+                                                        <th class="manage center">จัดการ</th>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>1</td>
+                                                        <td>ผู้ตัดสินกีฬา - ฟุตบอล</td>
+                                                        <td class="center"><a href="#" class="button small red">&nbsp;ลบ&nbsp;</a> <a href="#" class="button small darkgreen">แก้ไข</a></td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div>*@
                                 </div>
                             </div>
                         </div>
@@ -304,7 +304,7 @@
                                                     <table class="tbl-fields th-aright" cellspacing="0">
                                                         <tr>
                                                             <th width="120">หมู่บ้าน/อาคาร<span class="req">*</span></th>
-                                                            <td><input type="text" name="" value="" class="input-field" /></td>
+                                                            <td><input type="text" name="CON_ADDR_NAME" id="txtCON_ADDR_NAME" value="" class="input-field" /></td>
                                                         </tr>
                                                     </table>
                                                 </div>
@@ -314,9 +314,9 @@
                                                     <table class="tbl-fields th-aright" cellspacing="0">
                                                         <tr>
                                                             <th width="120">เลขที่<span class="req">*</span></th>
-                                                            <td><input type="text" name="" class="field-houseno" /></td>
+                                                            <td><input type="text" name="CON_ADDR" id="txtCON_ADDR" class="field-houseno" /></td>
                                                             <th width="90">หมู่</th>
-                                                            <td><input type="text" name="" class="field-moo" /></td>
+                                                            <td><input type="text" name="CON_MOO" id="txtCON_MOO" class="field-moo" /></td>
                                                         </tr>
                                                     </table>
                                                 </div>
@@ -326,9 +326,9 @@
                                                     <table class="tbl-fields th-aright" cellspacing="0">
                                                         <tr>
                                                             <th width="120">ซอย</th>
-                                                            <td><input type="text" class="field-soi" /></td>
+                                                            <td><input type="text" class="field-soi" name="CON_SOI" id="txtCON_SOI" /></td>
                                                             <th width="90">ถนน<span class="req">*</span></th>
-                                                            <td><input type="text" name="" class="field-road" /></td>
+                                                            <td><input type="text" name="CON_ROAD" class="field-road" id="txtCON_ROAD" /></td>
                                                         </tr>
                                                     </table>
                                                 </div>
@@ -338,7 +338,7 @@
                                                     <table class="tbl-fields th-aright" cellspacing="0">
                                                         <tr>
                                                             <th width="120">โทรศัพท์</th>
-                                                            <td><input type="text" name="" /></td>
+                                                            <td><input type="text" name="CON_TEL" id="txtCON_TEL" /></td>
                                                         </tr>
                                                     </table>
                                                 </div>
@@ -361,7 +361,7 @@
                                                         <tr>
                                                             <th width="120">จังหวัด<span class="req">*</span></th>
                                                             <td>
-                                                                <select class="input-field">
+                                                                <select class="input-field" id="ddlCON_PROV">
                                                                     <option value="">กรุณาเลือก</option>
                                                                 </select>
                                                             </td>
@@ -375,7 +375,7 @@
                                                         <tr>
                                                             <th width="120">อำเภอ<span class="req">*</span></th>
                                                             <td>
-                                                                <select class="input-field">
+                                                                <select class="input-field" id="ddlCON_AMPHUR">
                                                                     <option value="">กรุณาเลือก</option>
                                                                 </select>
                                                             </td>
@@ -389,7 +389,7 @@
                                                         <tr>
                                                             <th width="120">ตำบล<span class="req">*</span></th>
                                                             <td>
-                                                                <select class="input-field">
+                                                                <select class="input-field" id="ddlCON_TUMBOL">
                                                                     <option value="">กรุณาเลือก</option>
                                                                 </select>
                                                             </td>
@@ -402,7 +402,7 @@
                                                     <table class="tbl-fields th-aright" cellspacing="0">
                                                         <tr>
                                                             <th width="120">รหัสไปรษณีย์<span class="req">*</span></th>
-                                                            <td><input type="text" name="" /></td>
+                                                            <td><input type="text" name="CON_POST" id="txtCON_POST" /></td>
                                                         </tr>
                                                     </table>
                                                 </div>
@@ -539,7 +539,7 @@
                                                     <table class="tbl-fields th-aright" cellspacing="0">
                                                         <tr>
                                                             <th width="120">หมู่บ้าน/อาคาร<span class="req">*</span></th>
-                                                            <td><input type="text" name="" value="" class="input-field" /></td>
+                                                            <td><input type="text" name="REGHOME_ADDR_NAME" id="txtREGHOME_ADDR_NAME" value="" class="input-field" /></td>
                                                         </tr>
                                                     </table>
                                                 </div>
@@ -549,9 +549,9 @@
                                                     <table class="tbl-fields th-aright" cellspacing="0">
                                                         <tr>
                                                             <th width="120">เลขที่<span class="req">*</span></th>
-                                                            <td><input type="text" name="" class="field-houseno" /></td>
+                                                            <td><input type="text" name="REGHOME_ADDR" id="txtREGHOME_ADDR" class="field-houseno" /></td>
                                                             <th width="90">หมู่</th>
-                                                            <td><input type="text" name="" class="field-moo" /></td>
+                                                            <td><input type="text" name="REGHOME_MOO" id="txtREGHOME_MOO" class="field-moo" /></td>
                                                         </tr>
                                                     </table>
                                                 </div>
@@ -561,31 +561,31 @@
                                                     <table class="tbl-fields th-aright" cellspacing="0">
                                                         <tr>
                                                             <th width="120">ซอย</th>
-                                                            <td><input type="text" class="field-soi" /></td>
+                                                            <td><input type="text" class="field-soi" name="REGHOME_SOI" id="txtREGHOME_SOI" /></td>
                                                             <th width="90">ถนน<span class="req">*</span></th>
-                                                            <td><input type="text" name="" class="field-road" /></td>
+                                                            <td><input type="text" name="REGHOME_ROAD" id="txtREGHOME_ROAD" class="field-road" /></td>
                                                         </tr>
                                                     </table>
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="col-12">
-                                                    <table class="tbl-fields th-aright" cellspacing="0">
-                                                        <tr>
-                                                            <th width="120">โทรศัพท์</th>
-                                                            <td><input type="text" name="" /></td>
-                                                        </tr>
-                                                    </table>
+                                                    @*<table class="tbl-fields th-aright" cellspacing="0">
+                                                            <tr>
+                                                                <th width="120">โทรศัพท์</th>
+                                                                <td><input type="text" name="" /></td>
+                                                            </tr>
+                                                        </table>*@
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="col-12">
-                                                    <table class="tbl-fields th-aright" cellspacing="0">
-                                                        <tr>
-                                                            <th width="120">โทรสาร</th>
-                                                            <td><input type="text" name="" /></td>
-                                                        </tr>
-                                                    </table>
+                                                    @*<table class="tbl-fields th-aright" cellspacing="0">
+                                                            <tr>
+                                                                <th width="120">โทรสาร</th>
+                                                                <td><input type="text" name="" /></td>
+                                                            </tr>
+                                                        </table>*@
                                                 </div>
                                             </div>
                                         </div>
@@ -596,7 +596,7 @@
                                                         <tr>
                                                             <th width="120">จังหวัด<span class="req">*</span></th>
                                                             <td>
-                                                                <select class="input-field">
+                                                                <select class="input-field" id="ddlREGHOME_PROV">
                                                                     <option value="">กรุณาเลือก</option>
                                                                 </select>
                                                             </td>
@@ -610,7 +610,7 @@
                                                         <tr>
                                                             <th width="120">อำเภอ<span class="req">*</span></th>
                                                             <td>
-                                                                <select class="input-field">
+                                                                <select class="input-field" id="ddlREGHOME_AMPHUR">
                                                                     <option value="">กรุณาเลือก</option>
                                                                 </select>
                                                             </td>
@@ -624,7 +624,7 @@
                                                         <tr>
                                                             <th width="120">ตำบล<span class="req">*</span></th>
                                                             <td>
-                                                                <select class="input-field">
+                                                                <select class="input-field" id="ddlREGHOME_TUMBOL">
                                                                     <option value="">กรุณาเลือก</option>
                                                                 </select>
                                                             </td>
@@ -637,7 +637,7 @@
                                                     <table class="tbl-fields th-aright" cellspacing="0">
                                                         <tr>
                                                             <th width="120">รหัสไปรษณีย์<span class="req">*</span></th>
-                                                            <td><input type="text" name="" /></td>
+                                                            <td><input type="text" name="REGHOME_POST" id="txtREGHOME_POST" /></td>
                                                         </tr>
                                                     </table>
                                                 </div>
@@ -649,7 +649,7 @@
                         </div>
                         <div class="tab_item">
                             <div class="block-group">
-                                <div class="heading">ประวัติการศึกษา <div class="button-container"><a href="่javascript:void(0);" class="button small-long darkgreen" data-toggle="modal" data-target="#Modal1">เพิ่ม</a></div></div>
+                                <div class="heading">ประวัติการศึกษา <div class="button-container"><a href="javascript:void(0);" class="button small-long darkgreen" data-toggle="modal" data-target="#Modal_AddEdu">เพิ่ม</a></div></div>
                                 <div class="entry-data">
                                     <div class="row">
                                         <div class="col-sm-12">
@@ -665,14 +665,14 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    @*<tr>
-                                                        <td>1</td>
-                                                        <td>2543</td>
-                                                        <td>ปริญญาตรี</td>
-                                                        <td>วิทยาศาสตร์การกีฬา</td>
-                                                        <td>ราชภัฏสวนสุนันทา</td>
-                                                        <td class="center"><a href="#" class="button small red">&nbsp;ลบ&nbsp;</a> <a href="#" class="button small darkgreen">แก้ไข</a></td>
-                                                    </tr>*@
+                                                    <tr>
+                                                            <td>1</td>
+                                                            <td>2543</td>
+                                                            <td>ปริญญาตรี</td>
+                                                            <td>วิทยาศาสตร์การกีฬา</td>
+                                                            <td>ราชภัฏสวนสุนันทา</td>
+                                                            <td class="center"><a href="#" class="button small red">&nbsp;ลบ&nbsp;</a> <a href="#" class="button small darkgreen">แก้ไข</a></td>
+                                                        </tr>
                                                 </tbody>
                                             </table>
                                         </div>
@@ -699,29 +699,29 @@
                                                 </thead>
                                                 <tbody>
                                                     @*<tr>
-                                                        <td>1</td>
-                                                        <td>2543</td>
-                                                        <td>การพัฒนาบุคลากรทางการกีฬาระดับชาติ ด้านผู้ตัดสินกีฬาร่มร่อนระดับชาติ</td>
-                                                        <td>กีฬาทางอากาศ</td>
-                                                        <td>ผู้ตัดสิน (ร่มร่อน) ระดับชาติ</td>
-                                                        <td class="center"><a href="#" class="button small red">&nbsp;ลบ&nbsp;</a> <a href="#" class="button small darkgreen">แก้ไข</a></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>2</td>
-                                                        <td>2557</td>
-                                                        <td>การอบรมผู้ตัดสิน ยิงธนู Level 1</td>
-                                                        <td>ยิงธนู</td>
-                                                        <td>ผู้ตัดสินกีฬา Level 1</td>
-                                                        <td class="center"><a href="#" class="button small red">&nbsp;ลบ&nbsp;</a> <a href="#" class="button small darkgreen">แก้ไข</a></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>3</td>
-                                                        <td>2556</td>
-                                                        <td>การอบรมผู้ตัดสิน กีฬายิงธนู Level 1</td>
-                                                        <td>ยิงธนู</td>
-                                                        <td>ผู้ตัดสินกีฬา Level 1</td>
-                                                        <td class="center"><a href="#" class="button small red">&nbsp;ลบ&nbsp;</a> <a href="#" class="button small darkgreen">แก้ไข</a></td>
-                                                    </tr>*@
+                                                            <td>1</td>
+                                                            <td>2543</td>
+                                                            <td>การพัฒนาบุคลากรทางการกีฬาระดับชาติ ด้านผู้ตัดสินกีฬาร่มร่อนระดับชาติ</td>
+                                                            <td>กีฬาทางอากาศ</td>
+                                                            <td>ผู้ตัดสิน (ร่มร่อน) ระดับชาติ</td>
+                                                            <td class="center"><a href="#" class="button small red">&nbsp;ลบ&nbsp;</a> <a href="#" class="button small darkgreen">แก้ไข</a></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>2</td>
+                                                            <td>2557</td>
+                                                            <td>การอบรมผู้ตัดสิน ยิงธนู Level 1</td>
+                                                            <td>ยิงธนู</td>
+                                                            <td>ผู้ตัดสินกีฬา Level 1</td>
+                                                            <td class="center"><a href="#" class="button small red">&nbsp;ลบ&nbsp;</a> <a href="#" class="button small darkgreen">แก้ไข</a></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>3</td>
+                                                            <td>2556</td>
+                                                            <td>การอบรมผู้ตัดสิน กีฬายิงธนู Level 1</td>
+                                                            <td>ยิงธนู</td>
+                                                            <td>ผู้ตัดสินกีฬา Level 1</td>
+                                                            <td class="center"><a href="#" class="button small red">&nbsp;ลบ&nbsp;</a> <a href="#" class="button small darkgreen">แก้ไข</a></td>
+                                                        </tr>*@
                                                 </tbody>
                                             </table>
                                         </div>
@@ -741,7 +741,7 @@
                         </div>
                         <div class="tab_item">
                             <div class="block-group">
-                                <div class="heading">ประวัติการปฏิบัติหน้าที่ <div class="button-container"><a href="javascript:void(0);" class="button small-long darkgreen" data-toggle="modal" data-target="#Modal3">เพิ่ม</a></div></div>
+                                <div class="heading">ประวัติการปฏิบัติหน้าที่ <div class="button-container"><a href="javascript:void(0);" class="button small-long darkgreen" data-toggle="modal" data-target="#Modal_AddWorkHistory">เพิ่ม</a></div></div>
                                 <div class="entry-data">
                                     <div class="row">
                                         <div class="col-sm-12">
@@ -752,13 +752,13 @@
                                                         <th>รายการ</th>
                                                         <th>หน้าที่/ชนิดกีฬา</th>
                                                         <th>ระดับ</th>
-                                                        <th>สังกัด</th>
+                                                        <th>สถานที่ปฎิบัติงาน</th>
                                                         <th>วันที่ปฏิบัติหน้าที่</th>
                                                         <th class="manage center">จัดการ</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr>
+                                                    @*<tr>
                                                         <td>1</td>
                                                         <td>แข่งขันยิงธนู</td>
                                                         <td>ผู้ตัดสิน/ยิงธนู</td>
@@ -775,7 +775,7 @@
                                                         <td>-</td>
                                                         <td>1 ต.ค. 57 - 31 ต.ค. 57</td>
                                                         <td class="center"><a href="#" class="button small red">&nbsp;ลบ&nbsp;</a> <a href="#" class="button small darkgreen">แก้ไข</a></td>
-                                                    </tr>
+                                                    </tr>*@
                                                 </tbody>
                                             </table>
                                         </div>
@@ -835,7 +835,7 @@
 </div>
 
 
-<div class="modal fade bd-example-modal-lg" id="Modal1" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" style="display:none;" aria-hidden="true">
+<div class="modal fade bd-example-modal-lg" id="Modal_AddEdu" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" style="display:none;" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -850,31 +850,23 @@
                         <table class="tbl-fields" cellspacing="0">
                             <tr>
                                 <th width="100">ปี</th>
-                                <td>
-                                    <select name="">
-                                        <option value="">กรุณาเลือก</option>
-                                    </select>
-                                </td>
+                                <td><input type="text" name="EDU_YR" /></td>
                             </tr>
                             <tr>
                                 <th>วุฒิการศึกษา</th>
-                                <td>
-                                    <select name="">
-                                        <option value="">กรุณาเลือก</option>
-                                    </select>
-                                </td>
+                                <td><input type="text" name="EDU_LEVEL" /></td>
                             </tr>
                             <tr>
                                 <th>สาขา</th>
-                                <td><input type="text" name="" /></td>
+                                <td><input type="text" name="EDU_DEPT" /></td>
                             </tr>
                             <tr>
                                 <th>สถาบัน</th>
-                                <td><input type="text" name="" /></td>
+                                <td><input type="text" name="EDU_INSTITUTE" /></td>
                             </tr>
                             <tr><td>&nbsp;</td></tr>
                             <tr>
-                                <td colspan="2" align="center"><input type="submit" name="submit" value="ส่ง" class="button btn btn-lightgreen" /></td>
+                                <td colspan="2" align="center"><input id="btnAddEdu" type="button" value="ส่ง" class="button btn btn-lightgreen" /></td>
                             </tr>
                         </table>
                     </div>
@@ -935,63 +927,74 @@
         </div>
     </div>
 </div>
-<div class="modal fade bd-example-modal-lg" id="Modal3" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" style="display:none;" aria-hidden="true">
+<div class="modal fade bd-example-modal-lg" id="Modal_AddWorkHistory" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" style="display:none;" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">ปิด</span>
-                </button>
-                <div>เพิ่ม ประวัติการปฏิบัติหน้าที่</div>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-12">
-                        <table class="tbl-fields" cellspacing="0">
-                            <tr>
-                                <th width="120">ชื่อรายการ</th>
-                                <td><input type="text" name="" /></td>
-                            </tr>
-                            <tr>
-                                <th>หน้าที่/ชนิดกีฬา</th>
-                                <td>
-                                    <select name="">
-                                        <option value="">กรุณาเลือก</option>
-                                    </select>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>ระดับ</th>
-                                <td>
-                                    <select name="">
-                                        <option value="">กรุณาเลือก</option>
-                                    </select>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>สังกัด</th>
-                                <td>
-                                    <select name="">
-                                        <option value="">กรุณาเลือก</option>
-                                    </select>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>วันที่เริ่มกิจกรรม</th>
-                                <td><input type="text" name="" /></td>
-                            </tr>
-                            <tr>
-                                <th>วันที่สิ้นสุดกิจกรรม</th>
-                                <td><input type="text" name="" /></td>
-                            </tr>
-                            <tr><td>&nbsp;</td></tr>
-                            <tr>
-                                <td colspan="2" align="center"><input type="submit" name="submit" value="ส่ง" class="button btn btn-lightgreen" /></td>
-                            </tr>
-                        </table>
+
+            <form id="frmAddWorkHistory">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">ปิด</span>
+                    </button>
+                    <div>เพิ่ม ประวัติการปฏิบัติหน้าที่</div>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <table class="tbl-fields" cellspacing="0">
+                                <tr>
+                                    <th width="200">หัวข้อการปฎิบัติงาน</th>
+                                    <td><input type="text" name="WORK_SUBJECT" /></td>
+                                </tr>
+                                <tr>
+                                    <th>รายละเอียดงาน</th>
+                                    <td><input type="text" name="WORK_DETAIL" /></td>
+                                </tr>
+                                <tr>
+                                    <th>สถานที่ปฎิบัติงาน</th>
+                                    <td><input type="text" name="WORK_LOCATION" /></td>
+                                </tr>
+                                <tr>
+                                    <th>หน้าที่/ชนิดกีฬา</th>
+                                    <td>
+                                        <select name="SPORT_ID" id="ddlSPORT_ID" style="width: 200px;">
+                                            <option value="">กรุณาเลือก</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>ระดับ</th>
+                                    <td>
+                                        <select name="WORK_LEVEL" id="ddlLEVEL_ID" style="width: 200px;">
+                                            <option value="">กรุณาเลือก</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>จำนวนครั้งที่ปฎิบัติหน้าที่</th>
+                                    <td><input type="text" name="WORK_SEQ" /></td>
+                                </tr>
+                                <tr>
+                                    <th>ปีงบประมาณ</th>
+                                    <td><input type="text" name="WORK_YEAR" /></td>
+                                </tr>
+                                <tr>
+                                    <th>วันที่เริ่มกิจกรรม</th>
+                                    <td><input type="text" name="WORK_TIME_START" data-provide="datepicker" data-date-language="th-th" /></td>
+                                </tr>
+                                <tr>
+                                    <th>วันที่สิ้นสุดกิจกรรม</th>
+                                    <td><input type="text" name="WORK_TIME_END" data-provide="datepicker" data-date-language="th-th" /></td>
+                                </tr>
+                                <tr><td>&nbsp;</td></tr>
+                                <tr>
+                                    <td colspan="2" align="center"><input type="button" id="btnAddWorkHistory" value="ส่ง" class="button btn btn-lightgreen" /></td>
+                                </tr>
+                            </table>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
 </div>
@@ -1047,12 +1050,12 @@
             <div class="modal-body">
                 <div class="row person-details">
                     <div class="col-12 col-sm-4 col-lg-3 col-xl-3">
-                        <div class="img-center-mobile"><img src="/images/psn010101_01.png" /></div>
+                        <div id="dvMEMBER_IMAGE2" class="img-center-mobile"><img src="/images/psn010101_02.png" /></div>
                     </div>
                     <div class="col-12 col-sm-8 col-lg-9 col-xl-9">
-                        <h4>นายอำนวย อยู่ดอน</h4>
-                        <p>ระดับ : ระดับชาติ</p>
-                        <p>อีเมล์ : <a href="#">aummuay@gmail.com</a></p>
+                        <h4 id="lblName2">-</h4>
+                        <p>ระดับ ความชำนาญ : <label id="lblEXPERTISE2"></label> </p>
+                        <p>อีเมล์ : <a href="#"> <label id="lblE_MAIL2"></label> </a></p>
                     </div>
                 </div>
                 <div class="row">
@@ -1081,6 +1084,57 @@
         </div>
     </div>
 </div>
+
+
+<div class="modal fade bd-example-modal-lg" id="Modal_Results" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <form id="frmXXX">
+
+                <div class="modal-header">
+
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">ปิด</span>
+                    </button>
+                    <div>บันทึกข้อมูลส่วนบุคคลเรียบร้อย</div>
+                </div>
+
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-12">
+
+                            <div id="dvPSNSaveSuccessMessage">
+                                <h4 class="text-center">
+                                        <img src="/images/icon_app.png" width="99" height="104" alt=""> <br />
+                                        ท่านได้บันทึกข้อมูลส่วนบุคคลเรียบร้อย <br /> <br />
+                                        <br />
+                                        <br />
+                                        <br />
+                                        <br />
+                                        <br />
+                                    </h4>
+                            </div>
+                            <div class="center">
+                                <a href="javascript:void(0);" data-dismiss="modal">คลิกที่นี่เพื่อปิด</a> | <a href="/PSN">กลับสู่หน้าหลักบุคลากร</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 text-right">
+                            @*<button type="submit" class="button darkgreen" >เพิ่ม</button>*@
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
 
 @section Scripts {
 

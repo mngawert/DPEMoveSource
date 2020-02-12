@@ -41,6 +41,7 @@ namespace DPEMoveDAL.Models
         public virtual DbSet<EventNearby> EventNearby { get; set; }
         public virtual DbSet<EventObjective> EventObjective { get; set; }
         public virtual DbSet<EventObjectivePerson> EventObjectivePerson { get; set; }
+        public virtual DbSet<EventParticipant> EventParticipant { get; set; }
         public virtual DbSet<EventSport> EventSport { get; set; }
         public virtual DbSet<EventUploadedFile> EventUploadedFile { get; set; }
         public virtual DbSet<GenerateCode> GenerateCode { get; set; }
@@ -59,6 +60,7 @@ namespace DPEMoveDAL.Models
         public virtual DbSet<MIdcardType> MIdcardType { get; set; }
         public virtual DbSet<MJoinPersonType> MJoinPersonType { get; set; }
         public virtual DbSet<MObjectivePerson> MObjectivePerson { get; set; }
+        public virtual DbSet<MParticipant> MParticipant { get; set; }
         public virtual DbSet<MPermissionGroup> MPermissionGroup { get; set; }
         public virtual DbSet<MPermissiongroupProgram> MPermissiongroupProgram { get; set; }
         public virtual DbSet<MPhoneNumberType> MPhoneNumberType { get; set; }
@@ -759,6 +761,12 @@ namespace DPEMoveDAL.Models
 
                 entity.Property(e => e.EventId).HasColumnName("EVENT_ID");
 
+                entity.Property(e => e.ActTypeEtc)
+                    .HasColumnName("ACT_TYPE_ETC")
+                    .HasColumnType("VARCHAR2(255)");
+
+                entity.Property(e => e.ActTypeId).HasColumnName("ACT_TYPE_ID");
+
                 entity.Property(e => e.AddressId).HasColumnName("ADDRESS_ID");
 
                 entity.Property(e => e.Budget)
@@ -768,6 +776,10 @@ namespace DPEMoveDAL.Models
                 entity.Property(e => e.Budgetused)
                     .HasColumnName("BUDGETUSED")
                     .HasColumnType("NUMBER");
+
+                entity.Property(e => e.CancelReason)
+                    .HasColumnName("CANCEL_REASON")
+                    .HasColumnType("VARCHAR2(500)");
 
                 entity.Property(e => e.ContactPersonEmail)
                     .HasColumnName("CONTACT_PERSON_EMAIL")
@@ -831,6 +843,10 @@ namespace DPEMoveDAL.Models
 
                 entity.Property(e => e.EventTypeId).HasColumnName("EVENT_TYPE_ID");
 
+                entity.Property(e => e.IsCancel)
+                    .HasColumnName("IS_CANCEL")
+                    .HasColumnType("VARCHAR2(1)");
+
                 entity.Property(e => e.IsFree)
                     .HasColumnName("IS_FREE")
                     .HasColumnType("VARCHAR2(1)");
@@ -860,6 +876,12 @@ namespace DPEMoveDAL.Models
                 entity.Property(e => e.ResponsiblePersonType)
                     .HasColumnName("RESPONSIBLE_PERSON_TYPE")
                     .HasColumnType("CHAR(1)");
+
+                entity.Property(e => e.SectionCatEtc)
+                    .HasColumnName("SECTION_CAT_ETC")
+                    .HasColumnType("VARCHAR2(255)");
+
+                entity.Property(e => e.SectionCatId).HasColumnName("SECTION_CAT_ID");
 
                 entity.Property(e => e.StadiumCode)
                     .HasColumnName("STADIUM_CODE")
@@ -1240,6 +1262,57 @@ namespace DPEMoveDAL.Models
                 entity.Property(e => e.UpdatedDate)
                     .HasColumnName("UPDATED_DATE")
                     .HasColumnType("TIMESTAMP(6)");
+            });
+
+            modelBuilder.Entity<EventParticipant>(entity =>
+            {
+                entity.ToTable("EVENT_PARTICIPANT");
+
+                entity.HasIndex(e => e.EventParticipantId)
+                    .HasName("EVENT_PARTICIPANT_PK")
+                    .IsUnique();
+
+                entity.Property(e => e.EventParticipantId).HasColumnName("EVENT_PARTICIPANT_ID");
+
+                entity.Property(e => e.CreatedBy).HasColumnName("CREATED_BY");
+
+                entity.Property(e => e.CreatedDate)
+                    .HasColumnName("CREATED_DATE")
+                    .HasColumnType("TIMESTAMP(6)");
+
+                entity.Property(e => e.EventId).HasColumnName("EVENT_ID");
+
+                entity.Property(e => e.EventParticipantAmount).HasColumnName("EVENT_PARTICIPANT_AMOUNT");
+
+                entity.Property(e => e.EventParticipantName)
+                    .HasColumnName("EVENT_PARTICIPANT_NAME")
+                    .HasColumnType("VARCHAR2(255)");
+
+                entity.Property(e => e.EventParticipantUnit)
+                    .HasColumnName("EVENT_PARTICIPANT_UNIT")
+                    .HasColumnType("VARCHAR2(255)");
+
+                entity.Property(e => e.ParticipantId).HasColumnName("PARTICIPANT_ID");
+
+                entity.Property(e => e.Status).HasColumnName("STATUS");
+
+                entity.Property(e => e.UpdatedBy).HasColumnName("UPDATED_BY");
+
+                entity.Property(e => e.UpdatedDate)
+                    .HasColumnName("UPDATED_DATE")
+                    .HasColumnType("TIMESTAMP(6)");
+
+                entity.HasOne(d => d.Event)
+                    .WithMany(p => p.EventParticipant)
+                    .HasForeignKey(d => d.EventId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("EVENT_PARTICIPANT_R01");
+
+                entity.HasOne(d => d.Participant)
+                    .WithMany(p => p.EventParticipant)
+                    .HasForeignKey(d => d.ParticipantId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("EVENT_PARTICIPANT_R02");
             });
 
             modelBuilder.Entity<EventSport>(entity =>
@@ -1877,6 +1950,32 @@ namespace DPEMoveDAL.Models
                 entity.Property(e => e.UpdatedDate)
                     .HasColumnName("UPDATED_DATE")
                     .HasColumnType("TIMESTAMP(6)");
+            });
+
+            modelBuilder.Entity<MParticipant>(entity =>
+            {
+                entity.HasKey(e => e.ParticipantId);
+
+                entity.ToTable("M_PARTICIPANT");
+
+                entity.HasIndex(e => e.ParticipantId)
+                    .HasName("M_PATICIPANT_PK")
+                    .IsUnique();
+
+                entity.Property(e => e.ParticipantId)
+                    .HasColumnName("PARTICIPANT_ID")
+                    .ValueGeneratedNever();
+
+                entity.Property(e => e.ParticipantCode)
+                    .IsRequired()
+                    .HasColumnName("PARTICIPANT_CODE")
+                    .HasColumnType("VARCHAR2(32)");
+
+                entity.Property(e => e.ParticipantName)
+                    .HasColumnName("PARTICIPANT_NAME")
+                    .HasColumnType("VARCHAR2(255)");
+
+                entity.Property(e => e.Status).HasColumnName("STATUS");
             });
 
             modelBuilder.Entity<MPermissionGroup>(entity =>
@@ -2955,6 +3054,8 @@ namespace DPEMoveDAL.Models
             modelBuilder.HasSequence("SQ_EVENT_OBJECTIVE");
 
             modelBuilder.HasSequence("SQ_EVENT_OBJECTIVE_PERSON");
+
+            modelBuilder.HasSequence("SQ_EVENT_PARTICIPANT");
 
             modelBuilder.HasSequence("SQ_EVENT_SPORT");
 

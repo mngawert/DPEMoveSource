@@ -44,6 +44,7 @@
                         <span class="tab">รายละเอียด</span>
                         <span class="tab">ภาพประกอบ</span>
                         <span class="tab">ค่าบริการ/ค่าสมัคร</span>
+                        <span class="tab">ผู้เข้าร่วมงาน</span>
                     </div>
                     <div class="tab_content">
                         <div class="tab_item">
@@ -77,12 +78,12 @@
                                         <div class="col-sm-12 col-lg-6">
                                             <div class="row-field clearfix">
                                                 <div class="c lbl">
-                                                    <input type="checkbox" name="ProjectSelect" value="1" checked="@Model.ProjectSelect?.Equals("1")" /> โครงการ
+                                                    @*<input type="checkbox" name="ProjectSelect" value="1" checked="@Model.ProjectSelect?.Equals("1")" /> โครงการ*@
                                                 </div>
                                                 <div class="c field">
-                                                    <select class="input-field">
+                                                    @*<select class="input-field">
                                                         <option value="">กรุณาเลือก</option>
-                                                    </select>
+                                                    </select>*@
                                                 </div>
                                             </div>
                                         </div>
@@ -288,12 +289,28 @@
                                             <div class="row-field clearfix">
                                                 <div class="c field">
                                                     ด้าน
-                                                    <select class="input-field">
-                                                        <option value="">กีฬา</option>
+                                                    <select class="input-field" id="ddlSection" name="SectionCatId">
+                                                        <option value="">กรุณาเลือก</option>
                                                     </select>
+                                                    <input type="text" name="SectionCatEtc" value="@Model.SectionCatEtc" class="input-field" />                                                    
                                                 </div>
                                             </div>
                                             <br />
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <div id="dvActivityType">
+                                                        <div class="row">
+                                                            <div class="col-3">
+                                                                @*<label><input type="radio" /> กีฬาเพื่อมวลชน</label>*@
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+
+                                            @*<br />
                                             <div class="row-field clearfix">
                                                 <div class="c field">
                                                     ชนิดกีฬา
@@ -308,12 +325,8 @@
                                                             <div><input type="checkbox" name="SportIds" value="@x.SportId" class="input-field" checked="@(Model.EventSport.Any(b => b.SportId == x.SportId))" /> อื่นๆ โปรดระบุ <input type="text" name="SportEtc" value="@(Model.EventSport.Where(b => b.SportId == x.SportId).FirstOrDefault()?.SportEtc )" class="input-field" /></div>
                                                         }
                                                     }
-                                                    @*<div><input type="checkbox" name="" value="" class="input-field" /> ฟุตบอล</div>
-                                                    <div><input type="checkbox" name="" value="" class="input-field" /> วอลเล่บอล</div>
-                                                    <div><input type="checkbox" name="" value="" class="input-field" /> บาสเก็ตบอล</div>
-                                                    <div><input type="checkbox" name="" value="" class="input-field" /> อื่นๆ โปรดระบุ <input type="text" name="" value="" class="input-field" /></div>*@
                                                 </div>
-                                            </div>
+                                            </div>*@
                                         </div>
                                     </div>
                                 </div>
@@ -624,20 +637,16 @@
 
 
                         <div class="tab_item">
-
                             <div class="block-group">
                                 <div class="heading">ค่าใช้จ่าย</div>
                                 <div class="entry-data">
                                     <div class="row">
                                         <div class="col-sm-12">
-
                                             <input type="checkbox" name="IsFree" value="1" checked="@Model.IsFree?.Equals("1")" /> ไม่มีค่าใช้จ่าย (ฟรี)
-
                                         </div>
                                     </div>
                                 </div>
                             </div>
-
                             @foreach (var topic in ViewBag.MFee as List<MFee>)
                             {
                                 <div class="block-group">
@@ -660,10 +669,47 @@
                                             </div>
                                         </div>
                                     </div>
-
                                 </div>
                             }
+                        </div>
 
+
+                        <div class="tab_item">
+                            @foreach (var topic in ViewBag.MParticipant as List<MParticipant>)
+                            {
+                                <div class="block-group">
+                                    <div class="heading">@topic.ParticipantName<div class="button-container"><button type="button" class="button small darkgreen" data-toggle="modal" data-target="#ModalParticipant_@topic.ParticipantId">+เพิ่มรายการ</button></div></div>
+                                    <div class="entry-data">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <table cellspacing="0" class="tbl-data" width="100%" id="tblParticipant_@topic.ParticipantId">
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="name">ชื่อ</th>
+                                                            <th class="amount">จำนวน</th>
+                                                            <th class="unit">หน่วย</th>
+                                                            <th class="manage center">จัดการ</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                            <div class="block-group">
+                                <div class="heading">โปรดระบุเหตุผลถ้ากิจกรรมถูกยกเลิก</div>
+                                <div class="entry-data">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <input type="checkbox" name="IsCancel" value="1" checked="@Model.IsCancel?.Equals("1")" /> กิจกรรมถูกยกเลิก
+                                            เนื่องจาก <input type="text" id="txtCancelReason" name="CancelReason" value="@Model.CancelReason" class="input-field" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
 
@@ -778,6 +824,61 @@
             </div>
 
         }
+
+
+
+        @*  POPUP Participant *@
+
+        @foreach (var topic in ViewBag.MParticipant as List<MParticipant>)
+        {
+            <div class="modal fade bd-example-modal-lg" id="ModalParticipant_@topic.ParticipantId" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+
+                        <form id="frmAddEventParticipant_@topic.ParticipantId">
+
+
+                            <div class="modal-header">
+
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">ปิด</span>
+                                </button>
+                                <div>เพิ่ม @topic.ParticipantName</div>
+                            </div>
+
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <table cellspacing="0" class="tbl-data">
+                                            <tr>
+                                                <th class="name">ชื่อ</th>
+                                                <th class="amount">จำนวน</th>
+                                                <th class="unit">หน่วย</th>
+                                            </tr>
+                                            <tr>
+                                                <td><input type="text" id="txtEventParticipantName_@topic.ParticipantId" name="" value="" class="input-field" required /></td>
+                                                <td><input type="text" id="txtEventParticipantAmount_@topic.ParticipantId" name="" value="" class="input-field" /></td>
+                                                <td><input type="text" id="txtEventParticipantUnit_@topic.ParticipantId" name="" value="" class="input-field" /></td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12 text-right">
+                                        <button type="button" class="button darkgreen" onclick="AddEventParticipantToSession(@Model.EventId, @topic.ParticipantId)">เพิ่ม</button>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="modal-footer">
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        }
+
 
         @*  POPUP EventNearby *@
 

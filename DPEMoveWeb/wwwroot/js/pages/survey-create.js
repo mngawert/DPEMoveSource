@@ -295,8 +295,27 @@ function GetAnswers() {
     var answerValue_52 = $("[name='AnswerValue_52']").val();
     var answerValue_53 = $("[name='AnswerValue_53']").val();
     var answerValue_54 = $("[name='AnswerValue_54']").val();
+
     var answerValue_55 = $("[name='AnswerValue_55']").val();
     var answerValue_56 = $("[name='AnswerValue_56']").val();
+    var answerValue_57 = $("[name='AnswerValue_57']").val();
+    var answerValue_58 = $("[name='AnswerValue_58']").val();
+    var answerValue_59 = $("[name='AnswerValue_59']").val();
+    var answerValue_60 = $("[name='AnswerValue_60']").val();
+    var answerValue_61 = $("[name='AnswerValue_61']").val();
+    var answerValue_62 = $("[name='AnswerValue_62']").val();
+    var answerValue_63 = $("[name='AnswerValue_63']").val();
+    var answerValue_64 = $("[name='AnswerValue_64']").val();
+    var answerValue_65 = $("[name='AnswerValue_65']").val();
+    var answerValue_66 = $("[name='AnswerValue_66']").val();
+    var answerValue_67 = $("[name='AnswerValue_67']").val();
+    var answerValue_68 = $("[name='AnswerValue_68']").val();
+    var answerValue_69 = $("[name='AnswerValue_69']").val();
+    var answerValue_70 = $("[name='AnswerValue_70']").val();
+    var answerValue_71 = $("[name='AnswerValue_71']").val();
+
+    var answerValue_72 = $("[name='AnswerValue_72']").val();
+    var answerValue_73 = $("[name='AnswerValue_73']").val();
 
     var SurveyAnswer =
         [
@@ -354,8 +373,27 @@ function GetAnswers() {
             //{ "questionId": "52", "answerValue": answerValue_52 },
             //{ "questionId": "53", "answerValue": answerValue_53 },
             //{ "questionId": "54", "answerValue": answerValue_54 },
-            //{ "questionId": "55", "answerValue": answerValue_55 },
-            //{ "questionId": "56", "answerValue": answerValue_56 }
+
+            { "questionId": "55", "answerValue": answerValue_55 },
+            { "questionId": "56", "answerValue": answerValue_56 },
+            { "questionId": "57", "answerValue": answerValue_57 },
+            { "questionId": "58", "answerValue": answerValue_58 },
+            { "questionId": "59", "answerValue": answerValue_59 },
+            { "questionId": "60", "answerValue": answerValue_60 },
+            { "questionId": "61", "answerValue": answerValue_61 },
+            { "questionId": "62", "answerValue": answerValue_62 },
+            { "questionId": "63", "answerValue": answerValue_63 },
+            { "questionId": "64", "answerValue": answerValue_64 },
+            { "questionId": "65", "answerValue": answerValue_65 },
+            { "questionId": "66", "answerValue": answerValue_66 },
+            { "questionId": "67", "answerValue": answerValue_67 },
+            { "questionId": "68", "answerValue": answerValue_68},
+            { "questionId": "69", "answerValue": answerValue_69 },
+            { "questionId": "70", "answerValue": answerValue_70 },
+            { "questionId": "71", "answerValue": answerValue_71 },
+
+            //{ "questionId": "72", "answerValue": answerValue_72 },
+            //{ "questionId": "73", "answerValue": answerValue_73 }
         ]
         ;
 
@@ -391,18 +429,18 @@ function GetAnswers() {
             SurveyAnswer.push(obj);
         }
     });
-    $("[name^='AnswerValue_55']").each(function () {
+    $("[name^='AnswerValue_72']").each(function () {
         if ($(this).prop("checked") == true) {
 
-            var obj = { "questionId": "55", "answerValue": $(this).val(), "answerText": $(this).val() == "9" ? $("[name='AnswerValue_55_9_txt']").val() : "" };
+            var obj = { "questionId": "72", "answerValue": $(this).val(), "answerText": $(this).val() == "9" ? $("[name='AnswerValue_72_9_txt']").val() : "" };
 
             SurveyAnswer.push(obj);
         }
     });
-    $("[name^='AnswerValue_56']").each(function () {
+    $("[name^='AnswerValue_73']").each(function () {
         if ($(this).prop("checked") == true) {
 
-            var obj = { "questionId": "56", "answerValue": $(this).val(), "answerText": $(this).val() == "9" ? $("[name='AnswerValue_56_9_txt']").val() : "" };
+            var obj = { "questionId": "73", "answerValue": $(this).val(), "answerText": $(this).val() == "9" ? $("[name='AnswerValue_73_9_txt']").val() : "" };
 
             SurveyAnswer.push(obj);
         }

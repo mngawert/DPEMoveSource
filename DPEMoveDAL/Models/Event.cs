@@ -14,6 +14,7 @@ namespace DPEMoveDAL.Models
             EventLevelNavigation = new HashSet<EventLevel>();
             EventNearby = new HashSet<EventNearby>();
             EventObjective = new HashSet<EventObjective>();
+            EventParticipant = new HashSet<EventParticipant>();
             EventSport = new HashSet<EventSport>();
             EventUploadedFile = new HashSet<EventUploadedFile>();
         }
@@ -51,6 +52,12 @@ namespace DPEMoveDAL.Models
         public string ContactPersonLineid { get; set; }
         public string EventDescription { get; set; }
         public string IsFree { get; set; }
+        public string IsCancel { get; set; }
+        public string CancelReason { get; set; }
+        public int? SectionCatId { get; set; }
+        public string SectionCatEtc { get; set; }
+        public int? ActTypeId { get; set; }
+        public string ActTypeEtc { get; set; }
 
         public Address Address { get; set; }
         public MEventLevel EventLevel { get; set; }
@@ -62,6 +69,7 @@ namespace DPEMoveDAL.Models
         public ICollection<EventLevel> EventLevelNavigation { get; set; }
         public ICollection<EventNearby> EventNearby { get; set; }
         public ICollection<EventObjective> EventObjective { get; set; }
+        public ICollection<EventParticipant> EventParticipant { get; set; }
         public ICollection<EventSport> EventSport { get; set; }
         public ICollection<EventUploadedFile> EventUploadedFile { get; set; }
     }

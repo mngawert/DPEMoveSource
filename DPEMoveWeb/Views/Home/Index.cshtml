@@ -404,7 +404,7 @@
                                 <li class="nav-item"> <a class="nav-link" id="num_acti-tab" data-toggle="tab" href="#num_acti" role="tab" aria-controls="num_acti" aria-selected="false">กิจกรรมที่กำลังจัด ณ ขณะนี้</a> </li>
                                 <li class="nav-item"> <a class="nav-link" id="behav-tab" data-toggle="tab" href="#behav" role="tab" aria-controls="behav" aria-selected="false">พฤติกรรมการออกกำลังกาย</a> </li>
                                 <li class="nav-item"> <a class="nav-link" id="acti-tab" data-toggle="tab" href="#acti" role="tab" aria-controls="acti" aria-selected="false">กิจกรรม</a> </li>
-                                <li class="nav-item"> <a class="nav-link" id="loca-tab" data-toggle="tab" href="#loca" role="tab" aria-controls="loca" aria-selected="false">สถานที่</a> </li>
+                                <li class="nav-item"> <a class="nav-link" id="loca-tab" data-toggle="tab" href="#loca" role="tab" aria-controls="loca" aria-selected="false">สถานที่ออกกำลังกาย</a> </li>
                                 <li class="nav-item"> <a class="nav-link" id="personnel-tab" data-toggle="tab" href="#personnel" role="tab" aria-controls="personnel" aria-selected="false">บุคคลกร</a> </li>
                             </ul>
                         </div>
@@ -463,7 +463,7 @@
                                 <div class="tab-pane fade" id="acti" role="tabpanel" aria-labelledby="acti-tab">
                                     <div class="text-center">
                                         <h3>สรุปจำนวนกิจกรรม</h3>
-                                        <p id="lblReportEvent1Count"><strong>รวม - กิจกรรม</strong></p>
+                                        <p><strong>รวม <label id="lblReportEvent1Count">-</label> กิจกรรม</strong></p>
                                     </div>
                                     <br />
                                     <div class="table_summary table-responsive2">
@@ -542,11 +542,11 @@
                                 <div class="tab-pane fade" id="loca" role="tabpanel" aria-labelledby="loca-tab">
                                     <div class="text-center">
                                         <h3>สรุปจำนวนสถานที่ในภาคกลาง</h3>
-                                        <p><strong>รวม 700 สถานที่</strong></p>
+                                        <p><strong>รวม <label id="lblReportStadiumCount">-</label> สถานที่</strong></p>
                                     </div>
                                     <br />
                                     <div class="table_summary table-responsive2">
-                                        <table class="table table-bordered2">
+                                        <table class="table table-bordered2" id="tblReportStadium2">
                                             <thead>
                                                 <tr>
                                                     <th scope="col" class="tx_green"><h5>จังหวัด</h5></th>
@@ -717,137 +717,136 @@
 
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
-        google.charts.load('current', {
-        'packages':['geochart'],
-        // Note: you will need to get a mapsApiKey for your project.
-        // See: https://developers.google.com/chart/interactive/docs/basic_load_libs#load-settings
-        'mapsApiKey': 'AIzaSyBW_ZloATWKeCRioFkeAQIaqTJErmD-IQA'
-      });
-      google.charts.setOnLoadCallback(drawRegionsMap);
+      //  google.charts.load('current', {
+      //  'packages':['geochart'],
+      //  // Note: you will need to get a mapsApiKey for your project.
+      //  // See: https://developers.google.com/chart/interactive/docs/basic_load_libs#load-settings
+      //  'mapsApiKey': 'AIzaSyBW_ZloATWKeCRioFkeAQIaqTJErmD-IQA'
+      //});
+      //google.charts.setOnLoadCallback(drawRegionsMap);
 
-      function drawRegionsMap() {
-        var data = google.visualization.arrayToDataTable([
-            ['City', 'Popularity'],
-            ['Chiang Mai', 298],
-            ['Chiang Rai', 393],
-            ['Phetchaburi', 348],
-            ['Phetchabun', 404],
-            ['Loei', 719],
-            ['Phrae', 169],
-            ['Mae Hong Son', 234],
-            ['Krabi', 429],
-            ['Bangkok', 173],
-            ['Kanchanaburi', 417],
-            ['Kalasin', 579],
-            ['Kamphaeng Phet', 352],
-            ['Khon Kaen', 891],
-            ['Chanthaburi', 112],
-            ['Chachoengsao', 272],
-            ['Chonburi', 391],
-            ['Chai Nat', 472],
-            ['Chaiyaphum', 1067],
-            ['Chumphon', 362],
-            ['Trang', 292],
-            ['Trat', 156],
-            ['Tak', 211],
-            ['Nakhon Nayok', 89],
-            ['Nakhon Pathom', 863],
-            ['Nakhon Phanom', 622],
-            ['Nakhon Ratchasima', 2427],
-            ['Nakhon Si Thammarat', 735],
-            ['Nakhon Sawan', 879],
-            ['Nonthaburi', 167],
-            ['Narathiwat', 143],
-            ['Nan', 154],
-            ['Bueng Kan', 124],
-            ['Buriram', 852],
-            ['Pathum Thani', 144],
-            ['Prachuap Khiri Khan', 172],
-            ['Prachinburi', 431],
-            ['Pattani', 139],
-            ['Phra Nakhon Si Ayutthaya', 426],
-            ['Phayao', 229],
-            ['Phang Nga', 77],
-            ['Phatthalung', 418],
-            ['Phichit', 252],
-            ['Phitsanulok', 759],
-            ['Phuket', 53],
-            ['Maha Sarakham', 389],
-            ['Mukdahan', 156],
-            ['Yasothon', 591],
-            ['Yala', 109],
-            ['Roi Et', 615],
-            ['Ranong', 68],
-            ['Rayong', 405],
-            ['Ratchaburi', 211],
-            ['Lopburi', 382],
-            ['Lampang', 487],
-            ['Lamphun', 154],
-            ['Sisaket', 1535],
-            ['Sakon Nakhon', 1668],
-            ['Songkhla', 317],
-            ['Satun', 109],
-            ['Samut Prakan', 126],
-            ['Samut Songkhram', 54],
-            ['Samut Sakhon', 208],
-            ['Sa Kaeo', 99],
-            ['Saraburi', 347],
-            ['Sing Buri', 149],
-            ['Sukhothai (Sukhothai Thani)', 504],
-            ['Suphan Buri', 311],
-            ['Surat Thani', 347],
-            ['Surin', 1533],
-            ['Nong Khai', 185],
-            ['Nong Bua Lam Phu', 439],
-            ['Ang Thong', 141],
-            ['Amnat Charoen', 569],
-            ['Udon Thani', 1024],
-            ['Uttaradit', 227],
-            ['Uthai Thani', 231],
-            ['Ubon Ratchathani', 1886]
-        ]);
+      //function drawRegionsMap() {
+      //  var data = google.visualization.arrayToDataTable([
+      //      ['จังหวัด', 'จำนวนสนามกีฬา'],
+      //      ['เชียงใหม่', 298],
+      //      ['Chiang Rai', 393],
+      //      ['Phetchaburi', 348],
+      //      ['Phetchabun', 404],
+      //      ['Loei', 719],
+      //      ['Phrae', 169],
+      //      ['Mae Hong Son', 234],
+      //      ['Krabi', 429],
+      //      ['Bangkok', 173],
+      //      ['Kanchanaburi', 417],
+      //      ['Kalasin', 579],
+      //      ['Kamphaeng Phet', 352],
+      //      ['Khon Kaen', 891],
+      //      ['Chanthaburi', 112],
+      //      ['Chachoengsao', 272],
+      //      ['Chonburi', 391],
+      //      ['Chai Nat', 472],
+      //      ['Chaiyaphum', 1067],
+      //      ['Chumphon', 362],
+      //      ['Trang', 292],
+      //      ['ตราด', 156],
+      //      ['Tak', 211],
+      //      ['Nakhon Nayok', 89],
+      //      ['Nakhon Pathom', 863],
+      //      ['Nakhon Phanom', 622],
+      //      ['Nakhon Ratchasima', 2427],
+      //      ['Nakhon Si Thammarat', 735],
+      //      ['Nakhon Sawan', 879],
+      //      ['Nonthaburi', 167],
+      //      ['Narathiwat', 143],
+      //      ['Nan', 154],
+      //      ['Bueng Kan', 124],
+      //      ['Buriram', 852],
+      //      ['Pathum Thani', 144],
+      //      ['Prachuap Khiri Khan', 172],
+      //      ['Prachinburi', 431],
+      //      ['Pattani', 139],
+      //      ['Phra Nakhon Si Ayutthaya', 426],
+      //      ['Phayao', 229],
+      //      ['Phang Nga', 77],
+      //      ['Phatthalung', 418],
+      //      ['Phichit', 252],
+      //      ['Phitsanulok', 759],
+      //      ['Phuket', 53],
+      //      ['Maha Sarakham', 389],
+      //      ['Mukdahan', 156],
+      //      ['Yasothon', 591],
+      //      ['Yala', 109],
+      //      ['Roi Et', 615],
+      //      ['Ranong', 68],
+      //      ['Rayong', 405],
+      //      ['Ratchaburi', 211],
+      //      ['Lopburi', 382],
+      //      ['Lampang', 487],
+      //      ['Lamphun', 154],
+      //      ['Sisaket', 1535],
+      //      ['Sakon Nakhon', 1668],
+      //      ['Songkhla', 317],
+      //      ['Satun', 109],
+      //      ['Samut Prakan', 126],
+      //      ['Samut Songkhram', 54],
+      //      ['Samut Sakhon', 208],
+      //      ['Sa Kaeo', 99],
+      //      ['Saraburi', 347],
+      //      ['Sing Buri', 149],
+      //      ['Sukhothai (Sukhothai Thani)', 504],
+      //      ['Suphan Buri', 311],
+      //      ['Surat Thani', 347],
+      //      ['Surin', 1533],
+      //      ['Nong Khai', 185],
+      //      ['Nong Bua Lam Phu', 439],
+      //      ['Ang Thong', 141],
+      //      ['Amnat Charoen', 569],
+      //      ['Udon Thani', 1024],
+      //      ['Uttaradit', 227],
+      //      ['Uthai Thani', 231],
+      //      ['Ubon Ratchathani', 1886]
+      //  ]);
 
-          var options = {
-              width: 800,
-              height:550,
-            region: 'TH',
-            resolution: "provinces",
-            keepAspectRatio: false,
-              colorAxis: { colors: ['green', 'blue'] },
-            legend:'center'
-          };
+      //    var options = {
+      //        width: 800,
+      //        height:550,
+      //        region: 'TH',
+      //        resolution: "provinces",
+      //        keepAspectRatio: false,
+      //        colorAxis: { colors: ['green'] },
+      //        legend: 'center'
+      //    };
 
-        var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
-          google.visualization.events.addOneTimeListener(chart, 'ready', fixToolTipPosition);
-        chart.draw(data, options);
+      //  var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
+      //      google.visualization.events.addOneTimeListener(chart, 'ready', fixToolTipPosition);
+      //      chart.draw(data, options);
+      //  }
 
-        }
-
-        function fixToolTipPosition() {
-            var container = $('#regions_div div:last-child ')[0];
+      //  function fixToolTipPosition() {
+      //      var container = $('#regions_div div:last-child ')[0];
  
-            function setPosition(e) {
-                var tooltip = $('.google-visualization-tooltip');
-                var left = mouse.x - tooltip.width()/2;
-                var top = mouse.y - tooltip.height() - 15;
-                tooltip.css('left', left + 'px');
-                tooltip.css('top', top + 'px');
-            }
+      //      function setPosition(e) {
+      //          var tooltip = $('.google-visualization-tooltip');
+      //          var left = mouse.x - tooltip.width()/2;
+      //          var top = mouse.y - tooltip.height() - 15;
+      //          tooltip.css('left', left + 'px');
+      //          tooltip.css('top', top + 'px');
+      //      }
  
-            if (typeof MutationObserver === 'function') {
-                var observer = new MutationObserver(function (m) {
-                    alert();
-                    setPosition(m);
-                });
-                observer.observe(container, {
-                    childList: true
-                });
-            } else if (document.addEventListener) {
-                container.addEventListener('DOMNodeInserted', setPosition);
-            } else {
-                container.attachEvent('onDOMNodeInserted', setPosition);
-            }
-        }
+      //      if (typeof MutationObserver === 'function') {
+      //          var observer = new MutationObserver(function (m) {
+      //              alert();
+      //              setPosition(m);
+      //          });
+      //          observer.observe(container, {
+      //              childList: true
+      //          });
+      //      } else if (document.addEventListener) {
+      //          container.addEventListener('DOMNodeInserted', setPosition);
+      //      } else {
+      //          container.attachEvent('onDOMNodeInserted', setPosition);
+      //      }
+      //  }
     </script>
 
     <!--     slide location     -->
@@ -973,6 +972,7 @@
         console.log('model=', model);
         console.log('address=', address);*@
 
+        var reportData = [];
 
         if (typeof jQuery != 'undefined') {  
         // jQuery is loaded => print the version
