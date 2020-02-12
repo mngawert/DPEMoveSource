@@ -139,7 +139,7 @@ hr { border-color: #e0e0e0; }
 .navbar .active { background: #256950; transform: skewX(-30deg); }
 .navbar .active a {transform: skewX(30deg); color: #fff !important; }
 .navbar .navbar-nav .nav-item .nav-link {padding: 10px 20px;}
-.wellcome_sec { background: url("../images/bg-well.jpg") no-repeat;}
+/* .wellcome_sec { background-image: url("../images/bg-well.jpg"); background-repeat: no-repeat; } */
 .wellcome {background: #81c21e; color: #226b50; padding: 10px 0; transform: skewX(-30deg); height: 44px;}
 .wellcome p {margin-bottom: 0; margin-left: 20px; transform: skewX(30deg);}
 .loadapp { margin: 10px 0 0 0; text-align: right;}
