@@ -27,5 +27,10 @@
 					$("#section-advsearch").addClass("active");
 			});
 		}
+		$('.skin-square input').iCheck({
+			checkboxClass: 'icheckbox_square-green',
+			radioClass: 'iradio_square-green',
+			increaseArea: '20%'
+		});
 	});
 })(jQuery, this);
