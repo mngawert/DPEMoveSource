@@ -5,11 +5,9 @@
         overflow: hidden;
     }
 
-    #regions_div svg {
-        margin-left: -300px;
-    }
-
-
+        #regions_div svg {
+            margin-left: -300px;
+        }
 </style>
 <div class="page_home">
     <div class="page-breadcrumbs" style="background-image: url('/images/bg-bc.jpg')">
@@ -412,42 +410,42 @@
                         <div class="col-md-9 bg_tab">
                             <div class="tab-content" id="myTabContent">
                                 @*<div class="tab-pane fade show active" id="num_people" role="tabpanel" aria-labelledby="num_people-tab">
-                                    <div class="text-center">
-                                        <h3>สรุปจำนวนคนออกกำลังกาย</h3>
-                                    </div>
-                                    <br />
-                                    <div id="chartContainer" style="height: 370px; max-width: 920px; margin: 0px auto;"></div>
-                                    <script>
-                                        window.onload = function () {
-                                            var chart = new CanvasJS.Chart("chartContainer", {
-                                                animationEnabled: true,
-                                                data: [{
-                                                    type: "doughnut",
-                                                    startAngle: 240,
-                                                    //innerRadius: 60,
-                                                    indexLabelFontSize: 15,
-                                                    indexLabel: "{label}",
-                                                    toolTipContent: "<b>{label}:</b>",
-                                                    dataPoints: [
-                                                        { y: 6027, label: "ม.ค. 62 : 6,027 คน" },
-                                                        { y: 5027, label: "ก.พ. 62 : 5,027 คน" },
-                                                        { y: 6500, label: "มี.ค. 62 : 6,500 คน" },
-                                                        { y: 6120, label: "เม.ย. 62 : 6,120 คน" },
-                                                        { y: 5010, label: "พ.ค. 62 : 5,010 คน" },
-                                                        { y: 6100, label: "มิ.ย. 62 : 6,100 คน" },
-                                                        { y: 5850, label: "ก.ค. 62 : 5,850 คน" },
-                                                        { y: 5800, label: "ส.ค. 62 : 5,800 คน" },
-                                                        { y: 5820, label: "ก.ย. 62 : 5,820 คน" },
-                                                        { y: 5950, label: "ต.ค. 62 : 5,950 คน" },
-                                                        { y: 6000, label: "พ.ย. 62 : 6,000 คน" },
-                                                        { y: 6027, label: "ธ.ค. 62 : 6,027 คน" },
-                                                    ]
-                                                }]
-                                            });
-                                            chart.render();
-                                        }
-                                    </script>
-                                </div>*@
+                                        <div class="text-center">
+                                            <h3>สรุปจำนวนคนออกกำลังกาย</h3>
+                                        </div>
+                                        <br />
+                                        <div id="chartContainer" style="height: 370px; max-width: 920px; margin: 0px auto;"></div>
+                                        <script>
+                                            window.onload = function () {
+                                                var chart = new CanvasJS.Chart("chartContainer", {
+                                                    animationEnabled: true,
+                                                    data: [{
+                                                        type: "doughnut",
+                                                        startAngle: 240,
+                                                        //innerRadius: 60,
+                                                        indexLabelFontSize: 15,
+                                                        indexLabel: "{label}",
+                                                        toolTipContent: "<b>{label}:</b>",
+                                                        dataPoints: [
+                                                            { y: 6027, label: "ม.ค. 62 : 6,027 คน" },
+                                                            { y: 5027, label: "ก.พ. 62 : 5,027 คน" },
+                                                            { y: 6500, label: "มี.ค. 62 : 6,500 คน" },
+                                                            { y: 6120, label: "เม.ย. 62 : 6,120 คน" },
+                                                            { y: 5010, label: "พ.ค. 62 : 5,010 คน" },
+                                                            { y: 6100, label: "มิ.ย. 62 : 6,100 คน" },
+                                                            { y: 5850, label: "ก.ค. 62 : 5,850 คน" },
+                                                            { y: 5800, label: "ส.ค. 62 : 5,800 คน" },
+                                                            { y: 5820, label: "ก.ย. 62 : 5,820 คน" },
+                                                            { y: 5950, label: "ต.ค. 62 : 5,950 คน" },
+                                                            { y: 6000, label: "พ.ย. 62 : 6,000 คน" },
+                                                            { y: 6027, label: "ธ.ค. 62 : 6,027 คน" },
+                                                        ]
+                                                    }]
+                                                });
+                                                chart.render();
+                                            }
+                                        </script>
+                                    </div>*@
                                 <div class="tab-pane fade show active" id="num_per" role="tabpanel" aria-labelledby="num_per-tab">
                                     <h3>จำนวนบุคลากรแต่ละพื้นที่</h3>
                                     <div class="text-center"><img src="/images/person_area.jpg" /></div>
@@ -458,7 +456,8 @@
                                 </div>
                                 <div class="tab-pane fade" id="behav" role="tabpanel" aria-labelledby="behav-tab">
                                     <h3>พฤติกรรมการออกกำลังกาย</h3>
-                                    <div class="text-center"><img src="/images/ex_behavior.jpg" /></div>
+                                    @*<div class="text-center"><img src="/images/ex_behavior.jpg" /></div>*@
+                                    <div id="columnchart_material" ></div>
                                 </div>
                                 <div class="tab-pane fade" id="acti" role="tabpanel" aria-labelledby="acti-tab">
                                     <div class="text-center">
@@ -717,136 +716,136 @@
 
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
-      //  google.charts.load('current', {
-      //  'packages':['geochart'],
-      //  // Note: you will need to get a mapsApiKey for your project.
-      //  // See: https://developers.google.com/chart/interactive/docs/basic_load_libs#load-settings
-      //  'mapsApiKey': 'AIzaSyBW_ZloATWKeCRioFkeAQIaqTJErmD-IQA'
-      //});
-      //google.charts.setOnLoadCallback(drawRegionsMap);
+        //  google.charts.load('current', {
+        //  'packages':['geochart'],
+        //  // Note: you will need to get a mapsApiKey for your project.
+        //  // See: https://developers.google.com/chart/interactive/docs/basic_load_libs#load-settings
+        //  'mapsApiKey': 'AIzaSyBW_ZloATWKeCRioFkeAQIaqTJErmD-IQA'
+        //});
+        //google.charts.setOnLoadCallback(drawRegionsMap);
 
-      //function drawRegionsMap() {
-      //  var data = google.visualization.arrayToDataTable([
-      //      ['จังหวัด', 'จำนวนสนามกีฬา'],
-      //      ['เชียงใหม่', 298],
-      //      ['Chiang Rai', 393],
-      //      ['Phetchaburi', 348],
-      //      ['Phetchabun', 404],
-      //      ['Loei', 719],
-      //      ['Phrae', 169],
-      //      ['Mae Hong Son', 234],
-      //      ['Krabi', 429],
-      //      ['Bangkok', 173],
-      //      ['Kanchanaburi', 417],
-      //      ['Kalasin', 579],
-      //      ['Kamphaeng Phet', 352],
-      //      ['Khon Kaen', 891],
-      //      ['Chanthaburi', 112],
-      //      ['Chachoengsao', 272],
-      //      ['Chonburi', 391],
-      //      ['Chai Nat', 472],
-      //      ['Chaiyaphum', 1067],
-      //      ['Chumphon', 362],
-      //      ['Trang', 292],
-      //      ['ตราด', 156],
-      //      ['Tak', 211],
-      //      ['Nakhon Nayok', 89],
-      //      ['Nakhon Pathom', 863],
-      //      ['Nakhon Phanom', 622],
-      //      ['Nakhon Ratchasima', 2427],
-      //      ['Nakhon Si Thammarat', 735],
-      //      ['Nakhon Sawan', 879],
-      //      ['Nonthaburi', 167],
-      //      ['Narathiwat', 143],
-      //      ['Nan', 154],
-      //      ['Bueng Kan', 124],
-      //      ['Buriram', 852],
-      //      ['Pathum Thani', 144],
-      //      ['Prachuap Khiri Khan', 172],
-      //      ['Prachinburi', 431],
-      //      ['Pattani', 139],
-      //      ['Phra Nakhon Si Ayutthaya', 426],
-      //      ['Phayao', 229],
-      //      ['Phang Nga', 77],
-      //      ['Phatthalung', 418],
-      //      ['Phichit', 252],
-      //      ['Phitsanulok', 759],
-      //      ['Phuket', 53],
-      //      ['Maha Sarakham', 389],
-      //      ['Mukdahan', 156],
-      //      ['Yasothon', 591],
-      //      ['Yala', 109],
-      //      ['Roi Et', 615],
-      //      ['Ranong', 68],
-      //      ['Rayong', 405],
-      //      ['Ratchaburi', 211],
-      //      ['Lopburi', 382],
-      //      ['Lampang', 487],
-      //      ['Lamphun', 154],
-      //      ['Sisaket', 1535],
-      //      ['Sakon Nakhon', 1668],
-      //      ['Songkhla', 317],
-      //      ['Satun', 109],
-      //      ['Samut Prakan', 126],
-      //      ['Samut Songkhram', 54],
-      //      ['Samut Sakhon', 208],
-      //      ['Sa Kaeo', 99],
-      //      ['Saraburi', 347],
-      //      ['Sing Buri', 149],
-      //      ['Sukhothai (Sukhothai Thani)', 504],
-      //      ['Suphan Buri', 311],
-      //      ['Surat Thani', 347],
-      //      ['Surin', 1533],
-      //      ['Nong Khai', 185],
-      //      ['Nong Bua Lam Phu', 439],
-      //      ['Ang Thong', 141],
-      //      ['Amnat Charoen', 569],
-      //      ['Udon Thani', 1024],
-      //      ['Uttaradit', 227],
-      //      ['Uthai Thani', 231],
-      //      ['Ubon Ratchathani', 1886]
-      //  ]);
+        //function drawRegionsMap() {
+        //  var data = google.visualization.arrayToDataTable([
+        //      ['จังหวัด', 'จำนวนสนามกีฬา'],
+        //      ['เชียงใหม่', 298],
+        //      ['Chiang Rai', 393],
+        //      ['Phetchaburi', 348],
+        //      ['Phetchabun', 404],
+        //      ['Loei', 719],
+        //      ['Phrae', 169],
+        //      ['Mae Hong Son', 234],
+        //      ['Krabi', 429],
+        //      ['Bangkok', 173],
+        //      ['Kanchanaburi', 417],
+        //      ['Kalasin', 579],
+        //      ['Kamphaeng Phet', 352],
+        //      ['Khon Kaen', 891],
+        //      ['Chanthaburi', 112],
+        //      ['Chachoengsao', 272],
+        //      ['Chonburi', 391],
+        //      ['Chai Nat', 472],
+        //      ['Chaiyaphum', 1067],
+        //      ['Chumphon', 362],
+        //      ['Trang', 292],
+        //      ['ตราด', 156],
+        //      ['Tak', 211],
+        //      ['Nakhon Nayok', 89],
+        //      ['Nakhon Pathom', 863],
+        //      ['Nakhon Phanom', 622],
+        //      ['Nakhon Ratchasima', 2427],
+        //      ['Nakhon Si Thammarat', 735],
+        //      ['Nakhon Sawan', 879],
+        //      ['Nonthaburi', 167],
+        //      ['Narathiwat', 143],
+        //      ['Nan', 154],
+        //      ['Bueng Kan', 124],
+        //      ['Buriram', 852],
+        //      ['Pathum Thani', 144],
+        //      ['Prachuap Khiri Khan', 172],
+        //      ['Prachinburi', 431],
+        //      ['Pattani', 139],
+        //      ['Phra Nakhon Si Ayutthaya', 426],
+        //      ['Phayao', 229],
+        //      ['Phang Nga', 77],
+        //      ['Phatthalung', 418],
+        //      ['Phichit', 252],
+        //      ['Phitsanulok', 759],
+        //      ['Phuket', 53],
+        //      ['Maha Sarakham', 389],
+        //      ['Mukdahan', 156],
+        //      ['Yasothon', 591],
+        //      ['Yala', 109],
+        //      ['Roi Et', 615],
+        //      ['Ranong', 68],
+        //      ['Rayong', 405],
+        //      ['Ratchaburi', 211],
+        //      ['Lopburi', 382],
+        //      ['Lampang', 487],
+        //      ['Lamphun', 154],
+        //      ['Sisaket', 1535],
+        //      ['Sakon Nakhon', 1668],
+        //      ['Songkhla', 317],
+        //      ['Satun', 109],
+        //      ['Samut Prakan', 126],
+        //      ['Samut Songkhram', 54],
+        //      ['Samut Sakhon', 208],
+        //      ['Sa Kaeo', 99],
+        //      ['Saraburi', 347],
+        //      ['Sing Buri', 149],
+        //      ['Sukhothai (Sukhothai Thani)', 504],
+        //      ['Suphan Buri', 311],
+        //      ['Surat Thani', 347],
+        //      ['Surin', 1533],
+        //      ['Nong Khai', 185],
+        //      ['Nong Bua Lam Phu', 439],
+        //      ['Ang Thong', 141],
+        //      ['Amnat Charoen', 569],
+        //      ['Udon Thani', 1024],
+        //      ['Uttaradit', 227],
+        //      ['Uthai Thani', 231],
+        //      ['Ubon Ratchathani', 1886]
+        //  ]);
 
-      //    var options = {
-      //        width: 800,
-      //        height:550,
-      //        region: 'TH',
-      //        resolution: "provinces",
-      //        keepAspectRatio: false,
-      //        colorAxis: { colors: ['green'] },
-      //        legend: 'center'
-      //    };
+        //    var options = {
+        //        width: 800,
+        //        height:550,
+        //        region: 'TH',
+        //        resolution: "provinces",
+        //        keepAspectRatio: false,
+        //        colorAxis: { colors: ['green'] },
+        //        legend: 'center'
+        //    };
 
-      //  var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
-      //      google.visualization.events.addOneTimeListener(chart, 'ready', fixToolTipPosition);
-      //      chart.draw(data, options);
-      //  }
+        //  var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
+        //      google.visualization.events.addOneTimeListener(chart, 'ready', fixToolTipPosition);
+        //      chart.draw(data, options);
+        //  }
 
-      //  function fixToolTipPosition() {
-      //      var container = $('#regions_div div:last-child ')[0];
- 
-      //      function setPosition(e) {
-      //          var tooltip = $('.google-visualization-tooltip');
-      //          var left = mouse.x - tooltip.width()/2;
-      //          var top = mouse.y - tooltip.height() - 15;
-      //          tooltip.css('left', left + 'px');
-      //          tooltip.css('top', top + 'px');
-      //      }
- 
-      //      if (typeof MutationObserver === 'function') {
-      //          var observer = new MutationObserver(function (m) {
-      //              alert();
-      //              setPosition(m);
-      //          });
-      //          observer.observe(container, {
-      //              childList: true
-      //          });
-      //      } else if (document.addEventListener) {
-      //          container.addEventListener('DOMNodeInserted', setPosition);
-      //      } else {
-      //          container.attachEvent('onDOMNodeInserted', setPosition);
-      //      }
-      //  }
+        //  function fixToolTipPosition() {
+        //      var container = $('#regions_div div:last-child ')[0];
+
+        //      function setPosition(e) {
+        //          var tooltip = $('.google-visualization-tooltip');
+        //          var left = mouse.x - tooltip.width()/2;
+        //          var top = mouse.y - tooltip.height() - 15;
+        //          tooltip.css('left', left + 'px');
+        //          tooltip.css('top', top + 'px');
+        //      }
+
+        //      if (typeof MutationObserver === 'function') {
+        //          var observer = new MutationObserver(function (m) {
+        //              alert();
+        //              setPosition(m);
+        //          });
+        //          observer.observe(container, {
+        //              childList: true
+        //          });
+        //      } else if (document.addEventListener) {
+        //          container.addEventListener('DOMNodeInserted', setPosition);
+        //      } else {
+        //          container.attachEvent('onDOMNodeInserted', setPosition);
+        //      }
+        //  }
     </script>
 
     <!--     slide location     -->
@@ -856,7 +855,7 @@
             var itemsDiv = ('.MultiCarousel-inner');
             var itemWidth = "";
 
-            
+
 
             $('.leftLst, .rightLst').click(function () {
                 var condition = $(this).hasClass("leftLst");
@@ -974,7 +973,7 @@
 
         var reportData = [];
 
-        if (typeof jQuery != 'undefined') {  
+        if (typeof jQuery != 'undefined') {
         // jQuery is loaded => print the version
             console.log("jQuery.fn.jquery", jQuery.fn.jquery);
         }

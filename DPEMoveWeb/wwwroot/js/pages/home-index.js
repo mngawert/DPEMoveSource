@@ -269,6 +269,38 @@ function fixToolTipPosition() {
     }
 }
 
+
+function DoDrawChart() {
+
+    google.charts.load('current', {'packages': ['bar'] });
+    google.charts.setOnLoadCallback(drawChart);
+    
+    function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+            ['กีฬา', 'ระเวลา'],
+            ['กรีฑา', 20],
+            ['กีฬาขี่ม้า', 55],
+            ['กีฬาดาบไทย', 30],
+            ['กีฬาร่มร่อนและปีกร่อน', 535]
+        ]);
+
+        var options = {
+            chart: {
+                title: '',
+                subtitle: '',
+            }
+        };
+
+    var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
+
+    chart.draw(data, google.charts.Bar.convertOptions(options));
+    }
+}
+
+
+
+
+
 $(document).ready(function () {
 
     var email = "readonly@gmail.com";
@@ -288,5 +320,7 @@ $(document).ready(function () {
 
     GetStadiumData();
     DrawGoogleMap();
+
+    DoDrawChart();
 });
 

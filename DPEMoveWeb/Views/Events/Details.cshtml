@@ -58,7 +58,7 @@
                             <a target="_blank" href="https://twitter.com/intent/tweet?url=@Context.Request.GetEncodedUrl()"><img src="/images/ic_share-02.png" alt="" /></a>
                             @if (!string.IsNullOrEmpty(Model.ContactPersonEmail))
                             {
-                                <a href="mailto:@(Model.ContactPersonEmail)?subject=@(Model.EventName) - https://dpemove.dpe.go.th/Events/Details/@(Model.EventId)"><img src="/images/ic_share-03.png" alt="" /></a>
+                                <a href="mailto:@(Model.ContactPersonEmail)?subject=DPE-Move : ข้อความจากระบบ&body=@(Model.EventName) - https://dpemove.dpe.go.th/Events/Details/@(Model.EventId)"><img src="/images/ic_share-03.png" alt="" /></a>
                             }
                         </div>
                     </div>
@@ -182,7 +182,7 @@
                                     @Model.ContactPersonMobile<br>
                                     @if (!string.IsNullOrEmpty(Model.ContactPersonEmail))
                                     {
-                                        <span>อิเมล์</span><a href="mailto:@(Model.ContactPersonEmail)?subject=@(Model.EventName) - https://dpemove.dpe.go.th/Events/Details/@(Model.EventId)">@Model.ContactPersonEmail</a>
+                                        <span>อิเมล์</span><a href="mailto:@(Model.ContactPersonEmail)?subject=DPE-Move : ข้อความจากระบบ&body=@(Model.EventName) - https://dpemove.dpe.go.th/Events/Details/@(Model.EventId)">@Model.ContactPersonEmail</a>
                                     }
                                 </p>
                             }
