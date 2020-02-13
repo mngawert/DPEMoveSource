@@ -299,6 +299,99 @@ function GetGmsSport(token, selectedValue) {
     });
 }
 
+function GetGmsTerm(token, TERM_YEAR, selectedValue) {
+    var form = new FormData();
+    form.append("Token", token);
+    form.append("TERM_YEAR", TERM_YEAR);
+
+    var settings = {
+        "url": "https://data.dpe.go.th/api/personal/term/getGmsTerm",
+        "method": "POST",
+        "timeout": 0,
+        "processData": false,
+        "mimeType": "multipart/form-data",
+        "contentType": false,
+        "data": form
+    };
+
+    $.ajax(settings).done(function (response, status, xhr) {
+        if (xhr.status == 200) {
+            var data = JSON.parse(response).data
+
+            var item_1 = `<option value="">กรุณาเลือก</option>`
+            $.each(data, function (index, value) {
+                item_1 += `<option value="${value.TERM_ID}">${value.COURSE_SUBJECT} (${value.TERM_LOCATION})</option>`
+            });
+            $("#ddlTERM_ID").html(item_1);
+
+            if (selectedValue != null) {
+                $("#ddlTERM_ID").val(selectedValue);
+            }
+        }
+    });
+}
+
+function GetTrainHistoryStatus(token, selectedValue) {
+    var form = new FormData();
+    form.append("Token", token);
+
+    var settings = {
+        "url": "https://data.dpe.go.th/api/personal/memberHistoryTrain/getHistoryStatusApprove",
+        "method": "POST",
+        "timeout": 0,
+        "processData": false,
+        "mimeType": "multipart/form-data",
+        "contentType": false,
+        "data": form
+    };
+
+    $.ajax(settings).done(function (response, status, xhr) {
+        if (xhr.status == 200) {
+            var data = JSON.parse(response).data
+
+            var item_1 = `<option value="">กรุณาเลือก</option>`
+            $.each(data, function (index, value) {
+                item_1 += `<option value="` + value.STATUS_ID + `">` + value.STATUS_NAME + `</option>`
+            });
+            $("#ddlSTATUS_ID").html(item_1);
+
+            if (selectedValue != null) {
+                $("#ddlSTATUS_ID").val(selectedValue);
+            }
+        }
+    });
+}
+
+function GetGmsTermPosition(token, selectedValue) {
+    var form = new FormData();
+    form.append("Token", token);
+
+    var settings = {
+        "url": "https://data.dpe.go.th/api/personal/position/getGmsTermPosition",
+        "method": "POST",
+        "timeout": 0,
+        "processData": false,
+        "mimeType": "multipart/form-data",
+        "contentType": false,
+        "data": form
+    };
+
+    $.ajax(settings).done(function (response, status, xhr) {
+        if (xhr.status == 200) {
+            var data = JSON.parse(response).data
+
+            var item_1 = `<option value="">กรุณาเลือก</option>`
+            $.each(data, function (index, value) {
+                item_1 += `<option value="` + value.POSITION_ID + `">` + value.POSITION_NAME + `</option>`
+            });
+            $("#ddlPOSITION_ID").html(item_1);
+
+            if (selectedValue != null) {
+                $("#ddlPOSITION_ID").val(selectedValue);
+            }
+        }
+    });
+}
 
 function ConvertDateToTH(input) {
     //'1986-02-12' to '12/02/2529'
@@ -332,26 +425,26 @@ function EditGmsMember(token, MEMBER_ID) {
     //form.append("WEIGHT", "63");
     //form.append("TALL", "165");
     form.append("BIRTH_DATE", ConvertDateToEN($("[name='BIRTH_DATE']").val()));
-    //form.append("HOME_ADDR", "231");
-    //form.append("HOME_ADDR_NAME", "หมู่บ้านพฤกษา");
-    //form.append("HOME_MOO", "1");
-    //form.append("HOME_SOI", "ซ.สันติสุข 2");
-    //form.append("HOME_ROAD", "ถ.ประชาอุทิศ");
-    //form.append("HOME_TUMBOL", "ในเมือง");
-    //form.append("HOME_PROV", "10");
-    //form.append("HOME_AMPHUR", "50");
-    //form.append("HOME_POST", "10310");
-    //form.append("HOME_TEL", "0222222222");
+    form.append("HOME_ADDR", $("[name='HOME_ADDR']").val());
+    form.append("HOME_ADDR_NAME", $("[name='HOME_ADDR_NAME']").val());
+    form.append("HOME_MOO", $("[name='HOME_MOO']").val());
+    form.append("HOME_SOI", $("[name='HOME_SOI']").val());
+    form.append("HOME_ROAD", $("[name='HOME_ROAD']").val());
+    //form.append("HOME_TUMBOL_ID", $("[name='HOME_TUMBOL']").val());
+    //form.append("HOME_AMPHUR", $("[name='HOME_AMPHUR']").val());
+    //form.append("HOME_PROV", $("[name='HOME_PROV']").val());
+    form.append("HOME_POST", $("[name='HOME_POST']").val());
+    form.append("HOME_TEL", $("[name='HOME_TEL']").val());
     //form.append("HOME_FAX", "01211231");
-    //form.append("E_MAIL", "abc@gmail.com");
+    form.append("E_MAIL", $("[name='E_MAIL']").val());
     form.append("CON_ADDR", $("[name='CON_ADDR']").val());
     form.append("CON_ADDR_NAME", $("[name='CON_ADDR_NAME']").val());
     form.append("CON_MOO", $("[name='CON_MOO']").val());
     form.append("CON_SOI", $("[name='CON_SOI']").val());
     form.append("CON_ROAD", $("[name='CON_ROAD']").val());
-    //form.append("CON_TUMBOL", "วังทองหลาง");
-    //form.append("CON_AMPHUR", "50");
-    //form.append("CON_PROV", "10");
+    form.append("CON_TUMBOL_ID", $("[name='CON_TUMBOL']").val());
+    form.append("CON_AMPHUR", $("[name='CON_AMPHUR']").val());
+    form.append("CON_PROV", $("[name='CON_PROV']").val());
     form.append("CON_POST", $("[name='CON_POST']").val());
     form.append("CON_TEL", $("[name='CON_TEL']").val());
     //form.append("CON_FAX", $("[name='CON_FAX']").val());
@@ -374,11 +467,11 @@ function EditGmsMember(token, MEMBER_ID) {
     form.append("REGHOME_MOO", $("[name='REGHOME_MOO']").val());
     form.append("REGHOME_SOI", $("[name='REGHOME_SOI']").val());
     form.append("REGHOME_ROAD", $("[name='REGHOME_ROAD']").val());
-    //form.append("REGHOME_TUMBOL", "ต.ในเมือง");
-    //form.append("REGHOME_AMPHUR", "50");
-    //form.append("REGHOME_PROV", "10");
+    //form.append("REGHOME_TUMBOL_ID", $("[name='REGHOME_TUMBOL']").val());
+    //form.append("REGHOME_AMPHUR", $("[name='REGHOME_AMPHUR']").val());
+    //form.append("REGHOME_PROV", $("[name='REGHOME_PROV']").val());
     form.append("REGHOME_POST", $("[name='REGHOME_POST']").val());
-    //form.append("EXPERTISE", "ความรู้ด้านกีฬาฟุตบอล");
+    form.append("EXPERTISE", $("[name='EXPERTISE']").val());
 
     var settings = {
         "url": "https://data.dpe.go.th/api/personal/member/editGmsMember",
@@ -432,11 +525,12 @@ function GetGmsMember(token, MEMBER_ID) {
             $("#dvMEMBER_IMAGE2").html(`<img src="${value.MEMBER_IMAGE == null ? "/images/psn010101_02.png" : value.MEMBER_IMAGE}" />`);
             $("#lblName").html(`${value.FIRST_NAME} ${value.LAST_NAME}`);
             $("#lblName2").html(`${value.FIRST_NAME} ${value.LAST_NAME}`);
-            $("#lblEXPERTISE").html(value.EXPERTISE);
+            $("#txtEXPERTISE").val(value.EXPERTISE);
             $("#lblEXPERTISE2").html(value.EXPERTISE);
-            $("#lblE_MAIL").html(value.E_MAIL);
+            $("#txtE_MAIL").val(value.E_MAIL);
+            //$("#lblE_MAIL").html(value.E_MAIL);
             $("#lblE_MAIL2").html(value.E_MAIL);
-            $("#lblTYPE_SUBJECT").html(`ความชำนาญ : ${value.TYPE_SUBJECT == null ? "-" : value.TYPE_SUBJECT}`);
+            $("#lblTYPE_SUBJECT").html(value.TYPE_SUBJECT == null ? "-" : value.TYPE_SUBJECT);
 
             $("#ddlSEX").val(value.SEX);
 
@@ -453,7 +547,7 @@ function GetGmsMember(token, MEMBER_ID) {
             console.log("bdEN", ConvertDateToEN(bdTH));
             $("#txtBIRTH_DATE").val(bdTH);
 
-            GetHistory(token, value.MEMBER_ID);
+            GetTrainHistory(token, value.MEMBER_ID);
             GetEducationHistory(token, value.MEMBER_ID);
             GetWorkHistory(token, value.MEMBER_ID);
 
@@ -463,7 +557,8 @@ function GetGmsMember(token, MEMBER_ID) {
             GetGmsType(token, value.TYPE_ID);
             GetGmsWorkLevel(token, null);
             GetGmsSport(token, null);
-
+            GetTrainHistoryStatus(token, null);
+            GetGmsTermPosition(token, null);
 
             $("#txtCON_ADDR").val(value.CON_ADDR);
             $("#txtCON_ADDR_NAME").val(value.CON_ADDR_NAME);
@@ -473,10 +568,21 @@ function GetGmsMember(token, MEMBER_ID) {
             $("#txtCON_POST").val(value.CON_POST);
             $("#txtCON_TEL").val(value.CON_TEL);
             
-
             GetProvince(token, "ddlCON_PROV", value.CON_PROV);
             GetAmphur(token, "ddlCON_AMPHUR", value.CON_PROV, value.CON_AMPHUR);
-            GetTambon(token, "ddlCON_TUMBOL", value.CON_PROV, value.CON_AMPHUR, null /*value.CON_TUMBOL*/);
+            GetTambon(token, "ddlCON_TUMBOL", value.CON_PROV, value.CON_AMPHUR, value.CON_TUMBOL_ID);
+
+            $("#txtHOME_ADDR").val(value.HOME_ADDR);
+            $("#txtHOME_ADDR_NAME").val(value.HOME_ADDR_NAME);
+            $("#txtHOME_MOO").val(value.HOME_MOO);
+            $("#txtHOME_SOI").val(value.HOME_SOI);
+            $("#txtHOME_ROAD").val(value.HOME_ROAD);
+            $("#txtHOME_POST").val(value.HOME_POST);
+            $("#txtHOME_TEL").val(value.HOME_TEL);
+
+            GetProvince(token, "ddlHOME_PROV", value.HOME_PROV);
+            GetAmphur(token, "ddlHOME_AMPHUR", value.HOME_PROV, value.HOME_AMPHUR);
+            GetTambon(token, "ddlHOME_TUMBOL", value.HOME_PROV, value.HOME_AMPHUR, value.HOME_TUMBOL_ID);
 
             $("#txtREGHOME_ADDR").val(value.REGHOME_ADDR);
             $("#txtREGHOME_ADDR_NAME").val(value.REGHOME_ADDR_NAME);
@@ -487,14 +593,74 @@ function GetGmsMember(token, MEMBER_ID) {
 
             GetProvince(token, "ddlREGHOME_PROV", value.REGHOME_PROV);
             GetAmphur(token, "ddlREGHOME_AMPHUR", value.REGHOME_PROV, value.REGHOME_AMPHUR);
-            GetTambon(token, "ddlREGHOME_TUMBOL", value.REGHOME_PROV, value.REGHOME_AMPHUR, null /*value.REGHOME_TUMBOL*/);
+            GetTambon(token, "ddlREGHOME_TUMBOL", value.REGHOME_PROV, value.REGHOME_AMPHUR, value.REGHOME_TUMBOL_ID);
         });
 
     });
 }
 
-function GetHistory(token, MEMBER_ID) {
-    console.log("GetHistory ", MEMBER_ID);
+function AddTrainHistory(token, MEMBER_ID) {
+
+    if (!$("#frmAddTrainHistory")[0].checkValidity()) {
+
+        $("#frmAddTrainHistory")[0].reportValidity()
+        return false;
+    }
+
+    var form = new FormData();
+    form.append("Token", token);
+    form.append("MEMBER_ID", MEMBER_ID);
+    form.append("TERM_ID", $("[name='TERM_ID']").val());
+    form.append("HISTORY_STATUS_REGIS", $("[name='HISTORY_STATUS_REGIS']").val());
+    form.append("HISTORY_STATUS_APPROVE", $("[name='HISTORY_STATUS_APPROVE']").val());
+    form.append("HISTORY_REMARK", $("[name='HISTORY_REMARK']").val());
+    form.append("HISTORY_TIME_REGIS", ConvertDateToEN($("[name='HISTORY_TIME_REGIS']").val()));
+    form.append("HISTORY_NO", $("[name='HISTORY_NO']").val());
+    form.append("POSITION_ID", $("[name='POSITION_ID']").val());
+
+    var settings = {
+        "url": "https://data.dpe.go.th/api/personal/memberHistoryTrain/pushHistory",
+        "method": "POST",
+        "timeout": 0,
+        "processData": false,
+        "mimeType": "multipart/form-data",
+        "contentType": false,
+        "data": form
+    };
+
+    $.ajax(settings).done(function (response, status, xhr) {
+        console.log("resp", response);
+        if (xhr.status == 200) {
+            $("#Modal_AddTrainHistory").modal("hide");
+            $("#frmAddTrainHistory").trigger("reset");
+            GetTrainHistory(token, MEMBER_ID);
+        }
+    });
+}
+
+function DeleteTrainHistory(token, MEMBER_ID, HISTORY_ID) {
+    var form = new FormData();
+    form.append("Token", token);
+    form.append("HISTORY_ID", HISTORY_ID);
+
+    var settings = {
+        "url": "https://data.dpe.go.th/api/personal/memberHistoryTrain/delHistory",
+        "method": "POST",
+        "timeout": 0,
+        "processData": false,
+        "mimeType": "multipart/form-data",
+        "contentType": false,
+        "data": form
+    };
+
+    $.ajax(settings).done(function (response) {
+        console.log(response);
+        GetTrainHistory(token, MEMBER_ID);
+    });
+}
+
+function GetTrainHistory(token, MEMBER_ID) {
+    console.log("GetTrainHistory ", MEMBER_ID);
 
     var form = new FormData();
     form.append("Token", token);
@@ -524,7 +690,7 @@ function GetHistory(token, MEMBER_ID) {
                     <td>${value.COURSE_SUBJECT}</td>
                     <td>${value.SPORT_SUBJECT}</td>
                     <td>${value.LEVEL_DETAIL}</td>
-                    <td class="center"><a href="#" class="button small red">&nbsp;ลบ&nbsp;</a> <a href="#" class="button small darkgreen">แก้ไข</a></td>
+                    <td class="center"><a href="javascript:void(0);" onclick="DeleteTrainHistory('${token}', '${MEMBER_ID}', '${value.HISTORY_ID}');" class="button small red">&nbsp;ลบ&nbsp;</a></td>
                 </tr>
                 `;
             });
@@ -534,6 +700,12 @@ function GetHistory(token, MEMBER_ID) {
 }
 
 function AddEducationHistory(token, MEMBER_ID) {
+
+    if (!$("#frmAddEducationHistory")[0].checkValidity()) {
+
+        $("#frmAddEducationHistory")[0].reportValidity()
+        return false;
+    }
 
     var form = new FormData();
     form.append("Token", token);
@@ -555,7 +727,8 @@ function AddEducationHistory(token, MEMBER_ID) {
 
     $.ajax(settings).done(function (response) {
         console.log(response);
-        $("#Modal_AddEdu").modal("hide");
+        $("#Modal_AddEduHistory").modal("hide");
+        $("#frmAddEducationHistory").trigger("reset");
         GetEducationHistory(token, MEMBER_ID);
     });
 }
@@ -610,7 +783,7 @@ function GetEducationHistory(token, MEMBER_ID) {
                         <td>${value.EDU_LEVEL}</td>
                         <td>${value.EDU_DEPT}</td>
                         <td>${value.EDU_INSTITUTE}</td>
-                        <td class="center"><a href="javascript:void(0);" onclick="DeleteEducationHistory('${token}', '${MEMBER_ID}', '${value.DI_EDU_ID}');" class="button small red">&nbsp;ลบ&nbsp;</a> <a href="#" class="button small darkgreen">แก้ไข</a></td>
+                        <td class="center"><a href="javascript:void(0);" onclick="DeleteEducationHistory('${token}', '${MEMBER_ID}', '${value.DI_EDU_ID}');" class="button small red">&nbsp;ลบ&nbsp;</a></td>
                     </tr>
                 `
             });
@@ -620,6 +793,13 @@ function GetEducationHistory(token, MEMBER_ID) {
 }
 
 function AddWorkHistory(token, MEMBER_ID) {
+
+    if (!$("#frmAddWorkHistory")[0].checkValidity()) {
+
+        $("#frmAddWorkHistory")[0].reportValidity()
+        return false;
+    }
+
     var form = new FormData();
     form.append("Token", token);
     form.append("MEMBER_ID", MEMBER_ID);
@@ -709,7 +889,7 @@ function GetWorkHistory(token, MEMBER_ID) {
                         <td>${value.LEVEL_DETAIL}</td>
                         <td>${value.WORK_LOCATION}</td>
                         <td>${value.WORK_TIME_START.replace("00:00:00", "")} - ${value.WORK_TIME_END.replace("00:00:00", "")}</td>
-                        <td class="center"><a href="javascript:void(0);" onclick="DeleteWorkHistory('${token}', '${MEMBER_ID}', '${value.WORK_ID}');" class="button small red">&nbsp;ลบ&nbsp;</a> <a href="#" class="button small darkgreen">แก้ไข</a></td>
+                        <td class="center"><a href="javascript:void(0);" onclick="DeleteWorkHistory('${token}', '${MEMBER_ID}', '${value.WORK_ID}');" class="button small red">&nbsp;ลบ&nbsp;</a></td>
                     </tr>
                 `
             });
@@ -726,15 +906,6 @@ function GetWorkHistory(token, MEMBER_ID) {
 
 
 $(document).ready(function () {
-
-    //GetToken().done(function (response) {
-    //    var token = JSON.parse(response).data;
-    //    localStorage.setItem("token", token);
-    //    console.log("localStorage.token", localStorage.getItem("token"));
-
-    //    getEducation(token);
-    //    getPrefix(token);
-    //});
 
     GetToken().done(function (response) {
         var token = JSON.parse(response).data;
@@ -756,11 +927,19 @@ $(document).ready(function () {
         });
     });
 
-    $("#btnAddEdu").click(function () {
+    $("#btnAddEduHistory").click(function () {
 
         GetToken().done(function (response) {
             var token = JSON.parse(response).data;
             AddEducationHistory(token, localStorage.getItem("memberId"));
+        });
+    });
+
+    $("#btnAddTrainHistory").click(function () {
+
+        GetToken().done(function (response) {
+            var token = JSON.parse(response).data;
+            AddTrainHistory(token, localStorage.getItem("memberId"));
         });
     });
 
@@ -772,6 +951,12 @@ $(document).ready(function () {
         });
     });
 
+    $("#txtTERM_YEAR").blur(function () {
+        GetToken().done(function (response) {
+            var token = JSON.parse(response).data;
+            GetGmsTerm(token, $("#txtTERM_YEAR").val(), null);
+        });
+    });
     
     $("#ddlCON_PROV").change(function () {
         var provinceId = $("#ddlCON_PROV").val();
@@ -796,6 +981,32 @@ $(document).ready(function () {
         else {
             var token = localStorage.getItem("token");
             GetTambon(token, "ddlCON_TUMBOL", provinceId, amphurId, null);
+        }
+    });
+
+    $("#ddlHOME_PROV").change(function () {
+        var provinceId = $("#ddlHOME_PROV").val();
+        if (provinceId == "") {
+            $("#ddlHOME_AMPHUR").html(`<option value="">แสดงทั้งหมด</option>`);
+            $("#ddlHOME_TUMBOL").html(`<option value="">แสดงทั้งหมด</option>`);
+        }
+        else {
+            var token = localStorage.getItem("token");
+            GetAmphur(token, "ddlHOME_AMPHUR", provinceId, null);
+            $("#ddlHOME_TUMBOL").html(`<option value="">แสดงทั้งหมด</option>`);
+        }
+    });
+
+    $("#ddlHOME_AMPHUR").change(function () {
+        var provinceId = $("#ddlHOME_PROV").val();
+        var amphurId = $("#ddlHOME_AMPHUR").val();
+
+        if (amphurId == "") {
+            $("#ddlHOME_TUMBOL").html(`<option value="">แสดงทั้งหมด</option>`);
+        }
+        else {
+            var token = localStorage.getItem("token");
+            GetTambon(token, "ddlHOME_TUMBOL", provinceId, amphurId, null);
         }
     });
 
@@ -825,10 +1036,6 @@ $(document).ready(function () {
         }
     });
 
-
-
-
-    ddlREGHOME_PROV
 });
 
 
