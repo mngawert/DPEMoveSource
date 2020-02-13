@@ -1,153 +1,155 @@
 ﻿
 @model DPEMoveDAL.Models.Department;
 
-    <form asp-action="DepEdit" method="post">
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-12 col-sm-6 col-md-7 col-lg-9"><label>หน่วยงาน/ศูนย์กีฬา> สร้าง </label></div>
-                <div class="col-xs-12 col-sm-6 col-md-5 col-lg-3 text-center text-sm-right">
-                    <button class="btn btn-success" asp-action="DepEdit" name="mainSave">บันทึก</button>
-                    <button class="btn btn-secondary" >ยกเลิก</button>
-                </div>
+<form asp-action="DepEdit" method="post">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-7 col-lg-9"><label>หน่วยงาน/ศูนย์กีฬา> สร้าง </label></div>
+            <div class="col-xs-12 col-sm-6 col-md-5 col-lg-3 text-center text-sm-right">
+                <button class="btn btn-success" asp-action="DepEdit" name="mainSave">บันทึก</button>
+                <button class="btn btn-secondary">ยกเลิก</button>
             </div>
-
         </div>
-        <br />
-        <div class="card">
-            <div class="card-body">
-                    <nav>
-                        <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                            <a class="nav-item nav-link active" id="nav-general-tab" data-toggle="tab" href="#nav-general" role="tab" aria-controls="nav-general" aria-selected="true">ทั่วไป</a>
-                            <a class="nav-item nav-link" id="nav-addr-tab" data-toggle="tab" href="#nav-addr" role="tab" aria-controls="nav-addr" aria-selected="false">ที่อยู่</a>
-                            <a class="nav-item nav-link" id="nav-person-tab" data-toggle="tab" href="#nav-person" role="tab" aria-controls="nav-person" aria-selected="false">บุคลากร</a>
-                            <a class="nav-item nav-link" id="nav-org-tab" data-toggle="tab" href="#nav-org" role="tab" aria-controls="nav-org" aria-selected="false">Organize Chart</a>
+
+    </div>
+    <br />
+    <div class="card">
+        <div class="card-body">
+            <nav>
+                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                    <a class="nav-item nav-link active" id="nav-general-tab" data-toggle="tab" href="#nav-general" role="tab" aria-controls="nav-general" aria-selected="true">ทั่วไป</a>
+                    <a class="nav-item nav-link" id="nav-addr-tab" data-toggle="tab" href="#nav-addr" role="tab" aria-controls="nav-addr" aria-selected="false">ที่อยู่</a>
+                    <a class="nav-item nav-link" id="nav-person-tab" data-toggle="tab" href="#nav-person" role="tab" aria-controls="nav-person" aria-selected="false">บุคลากร</a>
+                    <a class="nav-item nav-link" id="nav-org-tab" data-toggle="tab" href="#nav-org" role="tab" aria-controls="nav-org" aria-selected="false">Organize Chart</a>
+                </div>
+            </nav>
+
+            <div class="tab-content" id="nav-tabContent">
+                <div class="tab-pane show active" id="nav-general" role="tabpanel" aria-labelledby="nav-general-tab">
+                    <div class="row form-group">
+                        <div class="col-md-2 text-right">
+                            <label>ชื่อ</label><label>*</label>
                         </div>
-                    </nav>
+                        <div class="col-md-10">
+                            <input name="departmentID" type="text" value="@Model.DepartmentId" hidden="hidden" />
+                            <input name="department1" type="text" value="@Model.Department1" class=" w-50 form-control" />
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-2 text-right">
+                            <label>วิสัยทัศน์</label>
+                        </div>
+                        <div class="col-md-10">
+                            <textarea name="vistion" class="w-50  form-control">@Model.Vistion</textarea>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-2 text-right">
+                            <label>พันธกิจ</label>
+                        </div>
+                        <div class="col-md-10">
+                            <textarea name="mission" class="w-50 form-control">@Model.Vistion</textarea>
+                        </div>
+                    </div>
+                </div> <!--end tab 1-->
+                <div class="tab-pane" id="nav-addr" role="tabpanel" aria-labelledby="nav-addr-tab">
+                    <P class="bg-gradient-light">ที่อยู่</P>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group row">
+                                <!--row1-->
+                                <label class="col-md-2 text-right">หมู่บ้าน</label>
+                                <input class="col-md-3 text-left form-control" name="housePropertyName" type="text" value="@Model.Address?.HousePropertyName" />
+                                <label class="col-md-2 text-right">จังหวัด</label>
+                                <div class="col-md-4">
 
-                    <div class="tab-content" id="nav-tabContent">
-                        <div class="tab-pane show active" id="nav-general" role="tabpanel" aria-labelledby="nav-general-tab">
-                            <div class="row form-group">
-                                <div class="col-md-2 text-right">
-                                    <label>ชื่อ</label><label>*</label>
+                                    @Html.DropDownList("ProvinceId", ViewBag.ProvinceList as SelectList, new { @class = "form-control" })
                                 </div>
-                                <div class="col-md-10">
-                                    <input name="departmentID" type="text" value="@Model.DepartmentId" hidden="hidden" />
-                                    <input name="department1" type="text" value="@Model.Department1" class=" w-50 form-control" />
+                            </div> <!--row-->
+                            <div class="form-group row">
+                                <label class="col-md-2 text-right">อาคาร</label>
+                                <input class="col-md-3 text-left form-control" name="buildingName" type="text" value="@Model.Address?.BuildingName" />
+                                <label class="col-md-2 text-right">อำเภอ</label>
+                                <div class="col-md-4">
+                                    @Html.DropDownList("AmphurId", ViewBag.Ammphur as SelectList, new { @class = "form-control" })
                                 </div>
                             </div>
-                            <div class="row form-group">
-                                <div class="col-md-2 text-right">
-                                    <label>วิสัยทัศน์</label>
-                                </div>
-                                <div class="col-md-10">
-                                    <textarea name="vistion" class="w-50  form-control">@Model.Vistion</textarea>
-                                </div>
-                            </div>
-                            <div class="row form-group">
-                                <div class="col-md-2 text-right">
-                                    <label>พันธกิจ</label>
-                                </div>
-                                <div class="col-md-10">
-                                    <textarea name="mission" class="w-50 form-control">@Model.Vistion</textarea>
+                            <div class="form-group row">
+                                <label class="col-md-2 text-right">เลขที่</label>
+                                <input class="col-md-3 text-left form-control" name="no" type="text" value="@Model.Address?.No" />
+                                <label class="col-md-2 text-right">ตำบล</label>
+                                <div class="col-md-4">
+                                    @Html.DropDownList("TumbonId", ViewBag.Tambon as SelectList, new { @class = "form-control" })
                                 </div>
                             </div>
-                        </div> <!--end tab 1-->
-                        <div class="tab-pane" id="nav-addr" role="tabpanel" aria-labelledby="nav-addr-tab">
-                            <P class="bg-gradient-light">ที่อยู่</P>
-                            <br />
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group row">
-                                            <!--row1-->
-                                            <label class="col-md-2 text-right">หมู่บ้าน</label>
-                                            <input class="col-md-3 text-left form-control" name="housePropertyName" type="text" value="@Model.Address?.HousePropertyName" />
-                                            <label class="col-md-2 text-right">จังหวัด</label>
-                                            <div class="col-md-4">
-                        
-                                                @Html.DropDownList("ProvinceId", ViewBag.ProvinceList as SelectList, new { @class = "form-control" })
-                                            </div>
-                                        </div> <!--row-->
-                                        <div class="form-group row">
-                                            <label class="col-md-2 text-right">อาคาร</label>
-                                            <input class="col-md-3 text-left form-control" name="buildingName" type="text" value="@Model.Address?.BuildingName" />
-                                            <label class="col-md-2 text-right">อำเภอ</label>
-                                            <div class="col-md-4">
-                                                @Html.DropDownList("AmphurId", ViewBag.Ammphur as SelectList, new { @class = "form-control" })
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-md-2 text-right">เลขที่</label>
-                                            <input class="col-md-3 text-left form-control" name="no" type="text" value="@Model.Address?.No" />
-                                            <label class="col-md-2 text-right">ตำบล</label>
-                                            <div class="col-md-4">
-                                                @Html.DropDownList("TumbonId", ViewBag.Tambon as SelectList, new { @class = "form-control" })
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-md-2 text-right">หมู่</label>
-                                            <input class="col-md-3 text-left form-control" name="moo" type="text" value="@Model.Address?.Moo" />
-                                            <label class="col-md-2 text-right">รหัสไปรษณีย์</label> 
-                                            <input class="col-md-4 text-left form-control" name="postcode" type="text" value="@Model?.Address.Postcode" />
+                            <div class="form-group row">
+                                <label class="col-md-2 text-right">หมู่</label>
+                                <input class="col-md-3 text-left form-control" name="moo" type="text" value="@Model.Address?.Moo" />
+                                <label class="col-md-2 text-right">รหัสไปรษณีย์</label>
+                                <input class="col-md-4 text-left form-control" name="postcode" type="text" value="@Model?.Address.Postcode" />
 
 
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-md-2 text-right">ซอย</label>
-                                            <input class="col-md-3 text-left form-control" name="soi" type="text" value="@Model.Address?.Soi" />
-                                            <label class="col-md-2 text-right">โทรศัพท์</label>
-                                            <input class="col-md-4 text-left form-control" name="mobile" type="text" value="@Model.Mobile" />
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-md-2 text-right">ถนน</label>
-                                            <input class="col-md-3 text-left form-control" name="road" type="text" value="@Model.Address?.Road" />
-                                            <labe  class="col-md-2 text-right">E-mail</labe>
-                                            <input class="col-md-4 text-left form-control" name="email" type="text" value="@Model.Email" />
-                                        </div>
-                                    </div> <!--end main col-->
-                                 </div><!--main row-->
-                        </div><!--end tab-->
-                        <div class="tab-pane" id="nav-person" role="tabpanel" aria-labelledby="nav-person-tab">
-                            <P class="bg-gradient-light">บุคลากร</P>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-md-2 text-right">ซอย</label>
+                                <input class="col-md-3 text-left form-control" name="soi" type="text" value="@Model.Address?.Soi" />
+                                <label class="col-md-2 text-right">โทรศัพท์</label>
+                                <input class="col-md-4 text-left form-control" name="mobile" type="text" value="@Model.Mobile" />
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-md-2 text-right">ถนน</label>
+                                <input class="col-md-3 text-left form-control" name="road" type="text" value="@Model.Address?.Road" />
+                                <labe class="col-md-2 text-right">E-mail</labe>
+                                <input class="col-md-4 text-left form-control" name="email" type="text" value="@Model.Email" />
+                            </div>
+                        </div> <!--end main col-->
+                    </div><!--main row-->
+                </div><!--end tab-->
+                <div class="tab-pane" id="nav-person" role="tabpanel" aria-labelledby="nav-person-tab">
+                    <P class="bg-gradient-light">บุคลากร</P>
 
+                    <div class="row">
+                        <div class="col-md-12">
                             <div class="row">
-                                <div class="col-md-12">
-                                    <div class="row">
-                                        <p class="col-md-9 text-left">
-                                            แสดงรายชื่อบุคลากรของหน่วยงาน :
-                                            <input value="@Model.Department1" type="text" class="bg-transparent border-0 " />
-                                        </p>
-                                        <a class="col-md-2 btn btn-success btn-block" asp-action="DepPersonCreate" asp-route-id="@Model.DepartmentId">เพิ่มบุคลากร</a>
-                                    </div>
-                                </div>
-                             </div>
-                            <hr />
-                            <div class="row table table-sm table-striped">
-                                <div class="col-md-3">#</div>
-                                <div class="col-md-3">ชื่อ-สกุล</div>
-                                <div class="col-md-3">ตำแหน่ง</div>
-                                <div class="col-md-3">จัดการ</div>
+                                <p class="col-md-9 text-left">
+                                    แสดงรายชื่อบุคลากรของหน่วยงาน :
+                                    <input value="@Model.Department1" type="text" class="bg-transparent border-0 " />
+                                </p>
+                                <a class="col-md-2 btn btn-success btn-block" asp-action="DepPersonCreate" asp-route-id="@Model.DepartmentId">เพิ่มบุคลากร</a>
                             </div>
-                            <hr />
-                            @foreach (var i in Model.DepartmentPerson)
-                            {
-                                <div class="row table table-sm table-striped">
-                                    <div class="col-md-3">@i.DepartmentPersonId</div>
-                                    <div class="col-md-3">@i.Firstname  @i.Lastname</div>
-                                    <div class="col-md-3">@i.PositionName</div>
-                                    <div class="col-md-3">
-                                        <a class="btn btn-sm btn-primary" asp-action="DepPersonEdit" asp-route-id="@i.DepartmentPersonId">แก้ไข</a>
-                                    </div>
-                                </div>
-                            }
-                        </div>                        
-                        <div class="tab-pane" id="nav-org" role="tabpanel" aria-labelledby="nav-org-tab">
-                            <P class="bg-gradient-light"> Oranize Chart</P>
-                             <br />
-                            <div>still not complete</div>
-                             
-                        </div> <!--end tab 4-->
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row table table-sm table-striped">
+                        <div class="col-md-3">#</div>
+                        <div class="col-md-3">ชื่อ-สกุล</div>
+                        <div class="col-md-3">ตำแหน่ง</div>
+                        <div class="col-md-3">จัดการ</div>
+                    </div>
+                    <hr />
+                    @foreach (var i in Model.DepartmentPerson)
+                    {
+                        <div class="row table table-sm table-striped">
+                            <div class="col-md-3">@i.DepartmentPersonId</div>
+                            <div class="col-md-3">@i.Firstname  @i.Lastname</div>
+                            <div class="col-md-3">@i.PositionName</div>
+                            <div class="col-md-3">
+                                <a class="btn btn-sm btn-primary" asp-action="DepPersonEdit" asp-route-id="@i.DepartmentPersonId">แก้ไข</a>
+                            </div>
+                        </div>
+                    }
+                </div>
+                <div class="tab-pane" id="nav-org" role="tabpanel" aria-labelledby="nav-org-tab">
+                    <P class="bg-gradient-light"> Oranize Chart</P>
+                    <br />
+                    <div id="chart_div"></div>
 
-                    </div> <!--end nav content-->
-            </div> <!--end card body-->
-        </div> <!--end card-->
-    </form>
+                </div> <!--end tab 4-->
+
+            </div> <!--end nav content-->
+        </div> <!--end card body-->
+    </div> <!--end card-->
+</form>
+
+<partial name="DepEdit_js.cshtml" />

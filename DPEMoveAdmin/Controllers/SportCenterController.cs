@@ -83,18 +83,21 @@ namespace DPEMoveAdmin.Controllers
         // public async Task<IActionResult> Create(string productId, string productName, string productDesc)
         public  IActionResult CreateDep(Department p, AddressDropdownListClass ddl)
         {
-
-            var provCode =  context.Province.Where(a => a.ProvinceId == ddl.ProvinceId).FirstOrDefault();
-            var amphurCode = context.Amphur.Where(a => a.AmphurId == ddl.AmphurId).FirstOrDefault();
-            var tambonCode = context.Tambon.Where(a => a.TambonId == ddl.TambonId).FirstOrDefault();
-
             if (p != null && ddl != null)
             {
+                var provCode = context.Province.Where(a => a.ProvinceId == ddl.ProvinceId).FirstOrDefault();
+                var amphurCode = context.Amphur.Where(a => a.AmphurId == ddl.AmphurId).FirstOrDefault();
+                var tambonCode = context.Tambon.Where(a => a.TambonId == ddl.TambonId).FirstOrDefault();
+
+                string strProvinceCode = (provCode!=null ? provCode.ProvinceCode : "");
+                string strAmphurCode = (amphurCode != null ? amphurCode.AmphurCode : "");
+                string strTambonCode = (tambonCode != null ? tambonCode.TambonCode : "");
+
                 var adr = new Address
                 {
-                    AmphurCode = amphurCode.AmphurCode,
-                    ProvinceCode = provCode.ProvinceCode,
-                    TambonCode = tambonCode.TambonCode,
+                    AmphurCode = strAmphurCode,
+                    ProvinceCode = strProvinceCode,
+                    TambonCode = strTambonCode,
                     BuildingName = ddl.BuildingName,
                     HousePropertyName = ddl.HousePropertyName,
                     Moo = ddl.Moo,
