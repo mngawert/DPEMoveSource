@@ -551,6 +551,11 @@ function GetGmsMember(token, MEMBER_ID) {
             GetEducationHistory(token, value.MEMBER_ID);
             GetWorkHistory(token, value.MEMBER_ID);
 
+            GetInternalToken().done(function (response) {
+                var internalToken = response;
+                GetReportEvent2(internalToken, value.HRS_ID);
+            });
+
             // Load Dropdownlist and set selected value.
             GetEducation(token, value.EDU_ID);
             GetPrefix(token, value.PREFIX_ID);
@@ -888,7 +893,7 @@ function GetWorkHistory(token, MEMBER_ID) {
                         <td>${value.SPORT_SUBJECT}</td>
                         <td>${value.LEVEL_DETAIL}</td>
                         <td>${value.WORK_LOCATION}</td>
-                        <td>${value.WORK_TIME_START.replace("00:00:00", "")} - ${value.WORK_TIME_END.replace("00:00:00", "")}</td>
+                        <td>${ConvertDateToTH(value.WORK_TIME_START)} - ${ConvertDateToTH(value.WORK_TIME_END)}</td>
                         <td class="center"><a href="javascript:void(0);" onclick="DeleteWorkHistory('${token}', '${MEMBER_ID}', '${value.WORK_ID}');" class="button small red">&nbsp;ลบ&nbsp;</a></td>
                     </tr>
                 `
@@ -903,7 +908,52 @@ function GetWorkHistory(token, MEMBER_ID) {
     });
 }
 
+function GetInternalToken() {
 
+    var settings = {
+        "url": "/api/Account/GetToken",
+        "method": "POST",
+        "timeout": 0,
+        "headers": {
+            "Content-Type": "application/json"
+        },
+        "data": JSON.stringify({ "email": "readonly@gmail.com", "password": "Bossup2020" }),
+    };
+
+    return $.ajax(settings);
+}
+
+function GetReportEvent2(token, idCard) {
+
+    var settings = {
+        "url": "/api/Report/GetReportEvent2",
+        "method": "POST",
+        "timeout": 0,
+        "headers": {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + token
+        },
+        "data": JSON.stringify({ "idCard": idCard }),
+    };
+
+    $.ajax(settings).done(function (response, status, xhr) {
+        if (xhr.status == 200) {
+            var data = response;
+            var items = "";
+            $.each(data, function (index, value) {
+                items += `
+                    <tr>
+                        <td>${index + 1}</td>
+                        <td>${value.eventName}</td>
+                        <td>${value.participantCount == null ? "" : value.participantCount}</td>
+                        <td>${ConvertDateToTH(value.eventStartDate)}</td>
+                    </tr>
+                `
+            });
+            $("#tblReportEvent2 >tbody").html(items);
+        }
+    });
+}
 
 $(document).ready(function () {
 

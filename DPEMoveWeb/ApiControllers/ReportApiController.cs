@@ -43,6 +43,21 @@ namespace DPEMoveWeb.ApiControllers
 
         [HttpPost]
         [Authorize]
+        public IEnumerable<ReportEvent2DbQuery> GetReportEvent2(ReportEvent2Request model)
+        {
+            string sql = @"
+                select * 
+                from VW_RPT_EVENT_2 
+                where ID_CARD = {0}
+                ";
+
+            var q = _context.ReportEvent2DbQuery.FromSql(sql, model.IdCard);
+
+            return q.ToList();
+        }
+
+        [HttpPost]
+        [Authorize]
         public IEnumerable<VW_RPT_SURVEY_15_1_A_DbQuery> GetReportSurvey151A(VW_RPT_SURVEY_15_1_A_Request model)
         {
             string sql = @"
@@ -57,7 +72,5 @@ namespace DPEMoveWeb.ApiControllers
 
             return q.ToList();
         }
-
-
     }
 }

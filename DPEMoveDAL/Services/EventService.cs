@@ -60,6 +60,7 @@ namespace DPEMoveDAL.Services
                 .Include(a => a.EventParticipant)
                     .ThenInclude(b => b.Participant)
                 .Where(a => a.EventId == id)
+                //.Where(a => a.Status == 1)
                 .FirstOrDefaultAsync();
 
             return q;
@@ -88,6 +89,9 @@ namespace DPEMoveDAL.Services
         public async Task<EventViewModel2> GetEventDetails2(int id)
         {
             var @event = await GetEventDetails(id);
+            if (@event == null)
+                return null;
+
             var ev = _mapper.Map<EventViewModel2>(@event);
 
             var addr = @event.Address;
@@ -128,7 +132,6 @@ namespace DPEMoveDAL.Services
 
             return ev;
         }
-
 
         public IEnumerable<EventViewModel> GetEvent(EventViewModel model)
         {
@@ -370,7 +373,12 @@ namespace DPEMoveDAL.Services
             /* EVENT */
             var ev = _context.Event.Where(a => a.EventId == model.EventId).FirstOrDefault();
 
-            ev.Status = 1;
+            var defaultEventStatus = _context.CpeConfig.Where(a => a.Name == "DefaultEventStatus").FirstOrDefault();
+
+            ev.Status = 2;
+            if (defaultEventStatus != null)
+                ev.Status = int.Parse(defaultEventStatus.Value);
+
             ev.EventName = model.EventName;
             //ev.EventCode = model.EventCode;
             ev.Budget = model.Budget;

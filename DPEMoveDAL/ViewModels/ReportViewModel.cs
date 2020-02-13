@@ -19,6 +19,29 @@ namespace DPEMoveDAL.ViewModels
         [Column("NO_OF_EVENTS")]
         public int NoOfEvents { get; set; }
     }
+
+    public class ReportEvent2Request
+    {
+        public string IdCard { get; set; }
+    }
+    public class ReportEvent2DbQuery
+    {
+        [Column("EVENT_ID")]
+        public int EventId { get; set; }
+        [Column("EVENT_CODE")]
+        public string EventCode { get; set; }
+        [Column("EVENT_NAME")]
+        public string EventName { get; set; }
+        [Column("EVENT_START_DATE")]
+        public DateTime EventStartDate { get; set; }
+        [Column("PARTICIPANT_COUNT")]
+        public int? ParticipantCount { get; set; }
+        [Column("CREATED_BY")]
+        public int CreatedBy { get; set; }
+        [Column("ID_CARD")]
+        public string IdCard { get; set; }
+    }
+
     public class VW_RPT_SURVEY_15_1_A_Request
     {
         public DateTime CreatedDateFrom { get; set; }

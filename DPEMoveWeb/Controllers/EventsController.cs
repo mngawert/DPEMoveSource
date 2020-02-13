@@ -123,7 +123,11 @@ namespace DPEMoveWeb.Controllers
             
             if (eventVM == null)
             {
-                return NotFound();
+                //return NotFound();
+                
+                ViewBag.ErrorTitle = "Not Found";
+                //ViewBag.ErrorMessage = "There is no this event in the system!";
+                return View("Error");                
             }
 
             var userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
@@ -137,7 +141,7 @@ namespace DPEMoveWeb.Controllers
                     if (user.AppUserId != eventVM.CreatedBy)
                     {
                         ViewBag.ErrorTitle = "Permission Denied";
-                        ViewBag.Message = "This event does not create by you!";
+                        //ViewBag.ErrorMessage = "This event does not create by you!";
                         return View("Error");
                     }
                 }
