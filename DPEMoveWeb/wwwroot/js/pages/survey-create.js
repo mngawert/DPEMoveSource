@@ -209,35 +209,42 @@ function GetTambon(token, PROV_CODE, AMP_CODE) {
     });
 }
 
-function GetSportType() {
+function GetActivityType(token, SECTION_CAT_ID, FOR_ID) {
+    var form = new FormData();
+    form.append("Token", token);
+    form.append("SECTION_CAT_ID", SECTION_CAT_ID);
 
-    var options = {};
+    var settings = {
+        "url": "https://data.dpe.go.th/api/activity/type/getActivityType",
+        "method": "POST",
+        "timeout": 0,
+        "processData": false,
+        "mimeType": "multipart/form-data",
+        "contentType": false,
+        "data": form
+    };
 
-    options.url = "/WebApi/Master/GetMSport";
-    options.contentType = "application/json";
-    options.method = "POST";
+    $.ajax(settings).done(function (response, textStatus, jqXHR) {
 
-    options.success = function (data) {
-        var items =
-            `
+        if (jqXHR.status == 200) {
+            var results = JSON.parse(response);
+            var data = results.data;
+            PROVINCE_DATA = data;
+            var items =
+                `
             <option value="">- ระบุ -</option>
             `
-        $.each(data, function (index, value) {
-            items +=
+            $.each(data, function (index, value) {
+                items +=
+                    `
+                <option value="` + value.ACT_TYPE_NAME + `">` + value.ACT_TYPE_NAME + `</option>
                 `
-                <option value="` + value.sportId + `">` + value.sportName + `</option>
-                `
-        });
-        $("#ddlSportType_1").html(items);
-        $("#ddlSportType_2").html(items);
-        $("#ddlSportType_3").html(items);
-        $("#ddlSportType_4").html(items);
-    };
-    options.error = function (a, b, c) {
-        console.log("Error while calling the Web API!(" + b + " - " + c + ")");
-    };
-    $.ajax(options);
+            });
+            $(`[id^='${FOR_ID}']`).html(items);
+        }
+    });
 }
+
 
 function GetAnswers() {
 
@@ -539,7 +546,8 @@ $(document).ready(function () {
         ReloadSection_1();
 
         //Need to change
-        GetSportType();
+        GetActivityType(token, 1, "ddlSportType");
+        GetActivityType(token, 2, "ddlRecreation");
     });
 
     EnableDisableQuestion_15();

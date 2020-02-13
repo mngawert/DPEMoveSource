@@ -61,7 +61,7 @@ function GetStadiumDetails(token, id) {
             $("#lbl_END_TIME").html(value.END_TIME == null ? " - " : value.END_TIME);
             $("#lbl_TRANSPORT").html(value.TRANSPORT == null ? " - " : value.TRANSPORT);
             $("#dv_POLICY").html(value.POLICY == null ? " - " : value.POLICY);
-            $("#dv_AGREEMENT").html(value.AGREEMENT == null ? " - " : value.AGREEMENT);
+            //$("#dv_AGREEMENT").html(value.AGREEMENT == null ? " - " : value.AGREEMENT);
                         
             var gallery = value.GALLERY;
             PrintGallery(gallery);

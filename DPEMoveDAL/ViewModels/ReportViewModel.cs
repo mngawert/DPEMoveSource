@@ -49,8 +49,6 @@ namespace DPEMoveDAL.ViewModels
     }
     public class VW_RPT_SURVEY_15_1_A_DbQuery
     {
-        [Column("SPORT_ID")]
-        public int SportId { get; set; }
         [Column("SPORT_NAME")]
         public string SportName { get; set; }
         [Column("SUM_ATTR")]
