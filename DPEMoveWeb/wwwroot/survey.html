@@ -13,13 +13,11 @@
     <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
     <link href="assets/css/paper-kit.css?v=2.1.0" rel="stylesheet"/>
 
-    <!--  CSS for Demo Purpose, don't include it in your project     -->
-    <link href="assets/css/demo.css" rel="stylesheet" />
-
     <!--     Fonts and icons     -->
     <link href='http://fonts.googleapis.com/css?family=Montserrat:400,300,700' rel='stylesheet' type='text/css'>
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
     <link href="assets/css/nucleo-icons.css" rel="stylesheet" />
+    <link href="assets/icheck/skins/square/_all.css?v=1.0.1" rel="stylesheet">
     <link href="css/master.css" rel="stylesheet" />
 </head>
 
@@ -87,9 +85,9 @@
             </div>
           </div>
         </div>
-        <div class="section no-top">
+        <div class="section page-survey no-top">
             <div class="container">
-                <div class="row person-details">
+                <div class="row person-details txt-bigger">
                     <div class="col-12">
                         <div class="text-center">
                         <h3 style="margin-bottom:6px;">แบบสารวจการออกกาลังกาย หรือเล่นกีฬาของประชาชน</h3>
@@ -100,12 +98,12 @@
                             <h5><u>คำชี้แจง</u></h5>
                             <p>แบบสำรวจการออกกำลังกาย หรือเล่นกีฬาของประชาชน ประจำปีงบประมาณ พ.ศ. 2563 จัดทำขึ้นโดยกรมพลศึกษา กระทรวงการท่องเที่ยวและกีฬา เพื่อเก็บข้อมูลการออกกำลังกาย หรือเล่นกีฬาของประชาชนประจำปีงบประมาณ พ.ศ. 2563 สำหรับนำไปปรับปรุงการดำเนินงาน ทั้งนี้กรมพลศึกษาจะนำข้อมูลที่ได้มาประมวลผล โดยทุกคำตอบของท่านจะได้รับการเก็บรักษาเป็นความลับ และจะไม่มีผลกระทบใดๆ ต่อตัวท่านเพราะข้อมูลถูกนำมาใช้ในการวิเคราะห์เพื่อนำไปเป็นข้อมูลในการส่งเสริมด้านการออกกำลังกายและเล่นกีฬาของคนไทยในภาพรวมต่อไป</p>
                             <br/>
-                            <p>โปรดทำเครื่องหมาย <i class="fa fa-check-square"></i> ลงในช่องที่ตรงกับความเป็นจริงมากที่สุด</p>
+                            <p id="start-input">โปรดทำเครื่องหมาย <i class="fa fa-check-square"></i> ลงในช่องที่ตรงกับความเป็นจริงมากที่สุด</p>
                             <h5><u>กรุณาตอบให้ครบทุกข้อ</u></h5>
                         </div>
                     </div>
                 </div>
-                <div class="row survey-manipulate">
+                <div class="row survey-manipulate txt-bigger skin-square">
                     <div class="col-12">
                         <form action="" enctype="multipart/form-data">
                             <div class="tabs">
@@ -189,7 +187,7 @@
                                                     <table class="tbl-fields th-aright" cellspacing="0">
                                                         <tr>
                                                             <td><input type="checkbox" name="" value="" /> 1. ในเขตเทศบาล&nbsp;&nbsp;&nbsp;&nbsp;
-                                                            <input type="checkbox" name="" value="" /> 2. นอกเขตเทศบาล</td>
+                                                            <span class="icheckbox"><input type="checkbox" name="" value="" /> 2. นอกเขตเทศบาล</span></td>
                                                         </tr>
                                                     </table>
                                                 </div>
@@ -199,7 +197,7 @@
                                                     <table class="tbl-fields th-aright" cellspacing="0">
                                                         <tr>
                                                             <th width="140">ภาค</th>
-                                                            <td><select name="" />
+                                                            <td><select class="c-dropdown" name="" />
                                                                 <option value="">กรุณาเลือก</option>
                                                             </select></td>
                                                         </tr>
@@ -209,7 +207,7 @@
                                                     <table class="tbl-fields th-aright" cellspacing="0">
                                                         <tr>
                                                             <th width="140">จังหวัด</th>
-                                                            <td><select name="" />
+                                                            <td><select class="c-dropdown" name="" />
                                                                 <option value="">กรุณาเลือก</option>
                                                             </select></td>
                                                         </tr>
@@ -221,7 +219,7 @@
                                                     <table class="tbl-fields th-aright" cellspacing="0">
                                                         <tr>
                                                             <th width="140">อำเภอ/เขต</th>
-                                                            <td><select name="" />
+                                                            <td><select class="c-dropdown" name="" />
                                                                 <option value="">กรุณาเลือก</option>
                                                             </select></td>
                                                         </tr>
@@ -231,7 +229,7 @@
                                                     <table class="tbl-fields th-aright" cellspacing="0">
                                                         <tr>
                                                             <th width="140">ตำบล/แขวง</th>
-                                                            <td><select name="" />
+                                                            <td><select class="c-dropdown" name="" />
                                                                 <option value="">กรุณาเลือก</option>
                                                             </select></td>
                                                         </tr>
@@ -540,72 +538,78 @@
                                     </div>
                                 </div>
                                 <div class="tab_item">
-                                    <p>ข้อ 15.1 โดยปกติคุณออกกาลังกายหรือเล่นกีฬาหรือไม่</p>
-                                    <table class="tbl-ex" cellspacing="0">
-                                        <tr>
-                                            <th class="a">ก. ประเภทการออกกำลังกาย/เล่นกีฬา (รวมทั้งการออกกำลังกายในการประกอบอาชีพและการออกกำลังกายในชีวิตประจำวัน)</th>
-                                            <th class="b">ข. ระดับของกิจกรรม (ความหนัก)**</th>
-                                            <th class="c">ค. เวลาที่ออกกำลังกายหรือเล่นกีฬาต่อวัน (นาที)</th>
-                                            <th class="d">ง. จำนวนวันที่ออกกำลังกายหรือเล่นกีฬาต่อสัปดาห์</th>
-                                        </tr>
-                                        <tr>
-                                            <td class="a"><input type="checkbox" name="" value="" /> 1. <select name="">
-                                                    <option value="">- ระบุ -</option>
-                                                </select>
-                                            </td>
-                                            <td class="b"><input type="radio" name="" value="" /> 1. ระดับปานกลาง<br/>
-                                            <input type="radio" name="" value="" /> 2. ระดับหนัก</td>
-                                            <td class="c"><input type="text" name="" class="input-field" /> นาที</td>
-                                            <td class="d"><input type="text" name="" class="input-field" /> วัน</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="a"><input type="checkbox" name="" value="" /> 2.
-                                                <select name="">
-                                                    <option value="">- ระบุ -</option>
-                                                </select>
-                                            </td>
-                                            <td class="b"><input type="radio" name="" value="" /> 1. ระดับปานกลาง<br/>
-                                            <input type="radio" name="" value="" /> 2. ระดับหนัก</td>
-                                            <td class="c"><input type="text" name="" class="input-field" /> นาที</td>
-                                            <td class="d"><input type="text" name="" class="input-field" /> วัน</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="a"><input type="checkbox" name="" value="" /> 3.
-                                                <select name="">
-                                                    <option value="">- ระบุ -</option>
-                                                </select>
-                                            </td>
-                                            <td class="b"><input type="radio" name="" value="" /> 1. ระดับปานกลาง<br/>
-                                            <input type="radio" name="" value="" /> 2. ระดับหนัก</td>
-                                            <td class="c"><input type="text" name="" class="input-field" /> นาที</td>
-                                            <td class="d"><input type="text" name="" class="input-field" /> วัน</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="a"><input type="checkbox" name="" value="" /> 4.
-                                                <select name="">
-                                                    <option value="">- ระบุ -</option>
-                                                </select>
-                                            </td>
-                                            <td class="b"><input type="radio" name="" value="" /> 1. ระดับปานกลาง<br/>
-                                            <input type="radio" name="" value="" /> 2. ระดับหนัก</td>
-                                            <td class="c"><input type="text" name="" class="input-field" /> นาที</td>
-                                            <td class="d"><input type="text" name="" class="input-field" /> วัน</td>
-                                        </tr>
-                                        <tr>
-                                            <td><input type="checkbox" name="" value="" /> 5. ไม่มีการออกกำลังกาย</td>
-                                            <td colspan="3" class="text-center">ข้ามไปตอบข้อ 15.5</td>
-                                        </tr>
-                                    </table>
-                                    <h6>หมายเหตุ</h6>
-                                    ** คำอธิบายระดับความหนักของกิจกรรม
-                                    <p><strong>1. <u>ระดับปานกลาง</u></strong> คือ การหายใจเร็วขึ้นจากปกติ ไม่ถึงกับหอบ ติดต่อกันเป็นระยะเวลา อย่างน้อย 10
-                                    นาที เช่น การเดินเร็ว ถีบจักรยาน ว่ายน้า เป็นต้น</p>
-                                    <p><strong>2. <u>ระดับหนัก</u></strong> คือ การหายใจแรงและเร็วกว่าปกติมาก หรือหอบติดต่อกันเป็นระยะเวลาอย่างน้อย 10
-                                    นาที เช่น วิ่งกระโดดเชือก เล่นบาสเกตบอล หรือเล่นฟุตบอล เป็นต้น</p>
-                                    <h6>คำอธิบาย</h6>
-                                    <p><u>การออกกำลังกาย</u> หมายถึง การกระทำใดๆ ที่มีการเคลื่อนไหวส่วนต่างๆ ของร่างกายเพ่ือสุขภาพ เพื่อความ
-                                     สนุกสนาน และเพื่อสังคม รวมทั้งการออกกำลังกายในการประกอบอาชีพ และการออกกำลังกายในชีวิตประจำวัน</p>
-                                    <p><u>การเล่นกีฬา</u> หมายถึง การออกกำลังกายโดยใช้ทักษะกีฬาพื้นฐาน และมีวัตถุประสงค์เพื่อสร้างเสริมสุขภาพ ความสนุกสนานเพื่อสังคม เพ่ือการแข่งขัน <em>(การเล่นกีฬาเป็นส่วนหนึ่งของการออกกำลังกาย)</em></p>
+                                    <div class="block-group">
+                                        <div class="heading">ข้อ 15.1 โดยปกติคุณออกกาลังกายหรือเล่นกีฬาหรือไม่</div>
+                                        <div class="entry-data for-table">
+                                            <table class="tbl-ex th-no-bg" cellspacing="0">
+                                                <tr>
+                                                    <th class="a">ก. ประเภทการออกกำลังกาย/เล่นกีฬา (รวมทั้งการออกกำลังกายในการประกอบอาชีพและการออกกำลังกายในชีวิตประจำวัน)</th>
+                                                    <th class="b">ข. ระดับของกิจกรรม (ความหนัก)**</th>
+                                                    <th class="c">ค. เวลาที่ออกกำลังกายหรือเล่นกีฬาต่อวัน (นาที)</th>
+                                                    <th class="d">ง. จำนวนวันที่ออกกำลังกายหรือเล่นกีฬาต่อสัปดาห์</th>
+                                                </tr>
+                                                <tr>
+                                                    <td class="a"><input type="checkbox" name="" value="" /> 1. <select class="c-dropdown" name="">
+                                                            <option value="">- ระบุ -</option>
+                                                        </select>
+                                                    </td>
+                                                    <td class="b"><input type="radio" name="" value="" /> 1. ระดับปานกลาง<br/>
+                                                    <input type="radio" name="" value="" /> 2. ระดับหนัก</td>
+                                                    <td class="c"><input type="text" name="" class="input-field" /> นาที</td>
+                                                    <td class="d"><input type="text" name="" class="input-field" /> วัน</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="a"><input type="checkbox" name="" value="" /> 2.
+                                                        <select class="c-dropdown" name="">
+                                                            <option value="">- ระบุ -</option>
+                                                        </select>
+                                                    </td>
+                                                    <td class="b"><input type="radio" name="" value="" /> 1. ระดับปานกลาง<br/>
+                                                    <input type="radio" name="" value="" /> 2. ระดับหนัก</td>
+                                                    <td class="c"><input type="text" name="" class="input-field" /> นาที</td>
+                                                    <td class="d"><input type="text" name="" class="input-field" /> วัน</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="a"><input type="checkbox" name="" value="" /> 3.
+                                                        <select class="c-dropdown" name="">
+                                                            <option value="">- ระบุ -</option>
+                                                        </select>
+                                                    </td>
+                                                    <td class="b"><input type="radio" name="" value="" /> 1. ระดับปานกลาง<br/>
+                                                    <input type="radio" name="" value="" /> 2. ระดับหนัก</td>
+                                                    <td class="c"><input type="text" name="" class="input-field" /> นาที</td>
+                                                    <td class="d"><input type="text" name="" class="input-field" /> วัน</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="a"><input type="checkbox" name="" value="" /> 4.
+                                                        <select class="c-dropdown" name="">
+                                                            <option value="">- ระบุ -</option>
+                                                        </select>
+                                                    </td>
+                                                    <td class="b"><input type="radio" name="" value="" /> 1. ระดับปานกลาง<br/>
+                                                    <input type="radio" name="" value="" /> 2. ระดับหนัก</td>
+                                                    <td class="c"><input type="text" name="" class="input-field" /> นาที</td>
+                                                    <td class="d"><input type="text" name="" class="input-field" /> วัน</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><input type="checkbox" name="" value="" /> 5. ไม่มีการออกกำลังกาย</td>
+                                                    <td colspan="3" class="text-center">ข้ามไปตอบข้อ 15.5</td>
+                                                </tr>
+                                            </table>
+                                            <div class="info">
+                                                <h6>หมายเหตุ</h6>
+                                                ** คำอธิบายระดับความหนักของกิจกรรม
+                                                <p><strong>1. <u>ระดับปานกลาง</u></strong> คือ การหายใจเร็วขึ้นจากปกติ ไม่ถึงกับหอบ ติดต่อกันเป็นระยะเวลา อย่างน้อย 10
+                                                นาที เช่น การเดินเร็ว ถีบจักรยาน ว่ายน้า เป็นต้น</p>
+                                                <p><strong>2. <u>ระดับหนัก</u></strong> คือ การหายใจแรงและเร็วกว่าปกติมาก หรือหอบติดต่อกันเป็นระยะเวลาอย่างน้อย 10
+                                                นาที เช่น วิ่งกระโดดเชือก เล่นบาสเกตบอล หรือเล่นฟุตบอล เป็นต้น</p>
+                                                <h6>คำอธิบาย</h6>
+                                                <p><u>การออกกำลังกาย</u> หมายถึง การกระทำใดๆ ที่มีการเคลื่อนไหวส่วนต่างๆ ของร่างกายเพ่ือสุขภาพ เพื่อความ
+                                                 สนุกสนาน และเพื่อสังคม รวมทั้งการออกกำลังกายในการประกอบอาชีพ และการออกกำลังกายในชีวิตประจำวัน</p>
+                                                <p><u>การเล่นกีฬา</u> หมายถึง การออกกำลังกายโดยใช้ทักษะกีฬาพื้นฐาน และมีวัตถุประสงค์เพื่อสร้างเสริมสุขภาพ ความสนุกสนานเพื่อสังคม เพ่ือการแข่งขัน <em>(การเล่นกีฬาเป็นส่วนหนึ่งของการออกกำลังกาย)</em></p>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div class="sep small"></div>
                                     <p>ข้อ 15.2 - 15.4 การออกกำลังกายหรือการเล่นกีฬา คุณมักออกกำลังหรือเล่นกีฬาท่ีใด เวลาใด และบ่อยคร้ังเพียงใด</p>
                                     <div class="block-group">
@@ -755,56 +759,59 @@
                                             </table>
                                         </div>
                                     </div>
-                                    <div class="sep small"></div>
-                                    <p>ข้อ 15.6 นอกเหนือจากการออกกำลังกายและเล่นกีฬา ท่านทำกิจกรรมนันทนาการใดบ้าง และบ่อยครั้งเพียงใด (ตอบได้มากกว่า 1 ข้อ)</p>
-                                    <table class="tbl-ex" cellspacing="0">
-                                            <tr>
-                                                <th class="a">กิจกรรมนันทนาการ</th>
-                                                <th class="b">เวลาที่ทำกิจกรรมนันทนาการต่อวัน (นาที)</th>
-                                                <th class="b">จำนวนวันที่ทำกิจกรรมนันทนาการต่อสัปดาห์</th>
-                                            </tr>
-                                            <tr>
-                                                <td class="a"><input type="checkbox" name="" value="" /> 1. <select name="">
-                                                        <option value="">- ระบุ -</option>
-                                                    </select>
-                                                </td>
-                                                <td class="b"><input type="text" name="" class="input-field" /> นาที</td>
-                                                <td class="b"><input type="text" name="" class="input-field" /> วัน</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="a"><input type="checkbox" name="" value="" /> 2. <select name="">
-                                                        <option value="">- ระบุ -</option>
-                                                    </select>
-                                                </td>
-                                                <td class="b"><input type="text" name="" class="input-field" /> นาที</td>
-                                                <td class="b"><input type="text" name="" class="input-field" /> วัน</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="a"><input type="checkbox" name="" value="" /> 3. <select name="">
-                                                        <option value="">- ระบุ -</option>
-                                                    </select>
-                                                </td>
-                                                <td class="b"><input type="text" name="" class="input-field" /> นาที</td>
-                                                <td class="b"><input type="text" name="" class="input-field" /> วัน</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="a"><input type="checkbox" name="" value="" /> 4. <select name="">
-                                                        <option value="">- ระบุ -</option>
-                                                    </select>
-                                                </td>
-                                                <td class="b"><input type="text" name="" class="input-field" /> นาที</td>
-                                                <td class="b"><input type="text" name="" class="input-field" /> วัน</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="a"><input type="checkbox" name="" value="" /> 5. อื่นๆ ระบุ <input type="text" name="" value="" />
-                                                </td>
-                                                <td class="b"><input type="text" name="" class="input-field" /> นาที</td>
-                                                <td class="b"><input type="text" name="" class="input-field" /> วัน</td>
-                                            </tr>
-                                            <tr>
-                                                <td colspan="4"><input type="checkbox" name="" value="" />  ไม่ได้ทำกิจกรรมนันทนาการ เนื่องจาก <input type="text" name="" value="" /></td>
-                                            </tr>
-                                    </table>
+                                    <div class="block-group">
+                                        <div class="heading">ข้อ 15.6 นอกเหนือจากการออกกำลังกายและเล่นกีฬา ท่านทำกิจกรรมนันทนาการใดบ้าง และบ่อยครั้งเพียงใด (ตอบได้มากกว่า 1 ข้อ)</div>
+                                        <div class="entry-data for-table">
+                                            <table class="tbl-ex th-no-bg" cellspacing="0">
+                                                    <tr>
+                                                        <th class="a">กิจกรรมนันทนาการ</th>
+                                                        <th class="b">เวลาที่ทำกิจกรรมนันทนาการต่อวัน (นาที)</th>
+                                                        <th class="b">จำนวนวันที่ทำกิจกรรมนันทนาการต่อสัปดาห์</th>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="a"><input type="checkbox" name="" value="" /> 1. <select class="c-dropdown" name="">
+                                                                <option value="">- ระบุ -</option>
+                                                            </select>
+                                                        </td>
+                                                        <td class="b"><input type="text" name="" class="input-field" /> นาที</td>
+                                                        <td class="b"><input type="text" name="" class="input-field" /> วัน</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="a"><input type="checkbox" name="" value="" /> 2. <select class="c-dropdown" name="">
+                                                                <option value="">- ระบุ -</option>
+                                                            </select>
+                                                        </td>
+                                                        <td class="b"><input type="text" name="" class="input-field" /> นาที</td>
+                                                        <td class="b"><input type="text" name="" class="input-field" /> วัน</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="a"><input type="checkbox" name="" value="" /> 3. <select class="c-dropdown" name="">
+                                                                <option value="">- ระบุ -</option>
+                                                            </select>
+                                                        </td>
+                                                        <td class="b"><input type="text" name="" class="input-field" /> นาที</td>
+                                                        <td class="b"><input type="text" name="" class="input-field" /> วัน</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="a"><input type="checkbox" name="" value="" /> 4. <select class="c-dropdown" name="">
+                                                                <option value="">- ระบุ -</option>
+                                                            </select>
+                                                        </td>
+                                                        <td class="b"><input type="text" name="" class="input-field" /> นาที</td>
+                                                        <td class="b"><input type="text" name="" class="input-field" /> วัน</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="a"><input type="checkbox" name="" value="" /> 5. อื่นๆ ระบุ <input type="text" name="" value="" />
+                                                        </td>
+                                                        <td class="b"><input type="text" name="" class="input-field" /> นาที</td>
+                                                        <td class="b"><input type="text" name="" class="input-field" /> วัน</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="4"><input type="checkbox" name="" value="" />  ไม่ได้ทำกิจกรรมนันทนาการ เนื่องจาก <input type="text" name="" value="" /></td>
+                                                    </tr>
+                                            </table>
+                                        </div>
+                                    </div>
                                     <div class="row">
                                         <div class="col-6">
                                             <p><a href="javascript:void(0);" class="change-tab to-1"><< ตอนที่ 2</a></p>
@@ -967,8 +974,18 @@
 
     <!--  Paper Kit Initialization and functons -->
     <script src="assets/js/paper-kit.js?v=2.1.0"></script>
-
+    <script src="assets/icheck/icheck.js?v=1.0.1"></script>
     <script src="js/scripts.js"></script>
+
+    <script>
+    $(document).ready(function(){
+      $('.skin-square input').iCheck({
+        checkboxClass: 'icheckbox_square-green',
+        radioClass: 'iradio_square-green',
+        increaseArea: '20%'
+      });
+    });
+    </script>
 
 </body>
 </html>

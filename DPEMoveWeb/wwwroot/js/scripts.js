@@ -14,6 +14,11 @@
 				c = c.substring(n+3, c.length);
 				$(".tab").removeClass("active").eq( c ).addClass("active");
 				$(".tab_item").hide().eq( c ).fadeIn();
+				setTimeout(function(){}, 2000);
+				$('body').animate({
+                    scrollTop: $("#start-input").offset().top - 30
+                }, 2000);
+
 			});
 		}
 		if( $('.MultiCarousel .MultiCarousel-inner .item > div').length ) {
