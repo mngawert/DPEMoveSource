@@ -11,21 +11,15 @@
     <title>DPE-Move ระบบ Mobile Application ด้านการพลศึกษา สุขภาพ กีฬา นันทนาการ วิทยาศาสตร์การกีฬา และพัฒนาบุคลากรการกีฬา</title>
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
     <meta name="viewport" content="width=device-width" />
-
     <!-- Bootstrap core CSS     -->
     <link href="~/assets/css/bootstrap.min.css" rel="stylesheet" />
     <link href="~/assets/css/paper-kit.css?v=2.1.0" rel="stylesheet" />
-    @*<link href="~/assets/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />*@
-
     <!--     Fonts and icons     -->
     <link href='https://fonts.googleapis.com/css?family=Montserrat:400,300,700' rel='stylesheet' type='text/css'>
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
     <link href="~/assets/css/nucleo-icons.css" rel="stylesheet" />
     <link href="~/assets/icheck/skins/square/_all.css?v=1.0.1" rel="stylesheet">
-    <link href="~/assets/pickadate.js-3.6.2/lib/themes/default.css" rel="stylesheet" />
-    <link href="~/assets/pickadate.js-3.6.2/lib/themes/default.date.css" rel="stylesheet" />
-    <link href="~/assets/pickadate.js-3.6.2/lib/themes/default.time.css" rel="stylesheet" />
-    <link href="~/css/datepicker.css" rel="stylesheet" />
+    <link href="~/assets/bootstrap-datepicker/css/datepicker.css" rel="stylesheet" />
     <link href="~/css/master.css" rel="stylesheet" />
 
 </head>
@@ -162,15 +156,14 @@
     <!--  Plugins for Slider -->
     <script src="~/assets/js/nouislider.js"></script>
 
-    <!--  Plugins for DateTimePicker -->
-    @*<script src="~/assets/js/moment.min.js"></script>
-        <script src="~/assets/js/bootstrap-datetimepicker.min.js"></script>
-        <script src="~/assets/js/th.js"></script>*@
-
     <!--  Paper Kit Initialization and functons -->
     <script src="~/assets/js/paper-kit.js?v=2.1.0"></script>
-
     <script src="~/assets/icheck/icheck.js?v=1.0.1"></script>
+    <script src="~/canvasjs/canvasjs.min.js"></script>
+    <script src="~/js/jquery.matchHeight-min.js"></script>
+    <script src="~/assets/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+    <script src="~/assets/bootstrap-datepicker/js/bootstrap-datepicker-thai.js"></script>
+    <script src="~/assets/bootstrap-datepicker/js/locales/bootstrap-datepicker.th.js"></script>
     <script src="~/js/scripts.js"></script>
 
     <script src="~/tinymce/js/tinymce/tinymce.min.js"></script>
@@ -203,19 +196,6 @@
         });
 
     </script>
-
-    <script src="~/assets/pickadate.js-3.6.2/lib/picker.js"></script>
-    <script src="~/assets/pickadate.js-3.6.2/lib/picker.date.js"></script>
-    <script src="~/assets/pickadate.js-3.6.2/lib/picker.time.js"></script>
-    <script src="~/assets/pickadate.js-3.6.2/lib/translations/th_TH.js"></script>
-    <script src="~/js/pickadate-setup.js"></script>
-
-    <script src="~/js/bootstrap-datepicker.js"></script>
-    <script src="~/js/bootstrap-datepicker-thai.js"></script>
-    <script src="~/js/locales/bootstrap-datepicker.th.js"></script>
-
-    <script src="~/canvasjs/canvasjs.min.js"></script>
-    <script src="~/js/jquery.matchHeight-min.js"></script>
 
     @RenderSection("Scripts", required: false)
 </body>

@@ -126,6 +126,26 @@ function GetTambon(token, PROV_CODE, AMP_CODE) {
     });
 }
 
+function ConvertDateToTH(input) {
+    //'1986-02-12' to '12/02/2529'
+    if (input != null) {
+        return input.substr(8, 2) + "/" + input.substr(5, 2) + "/" + (parseInt(input.substr(0, 4)) + 543);
+    }
+    else {
+        return null;
+    }
+}
+
+function ConvertDateToEN(input) {
+    //'12/02/2529' to '1986-02-12'
+    if (input != null) {
+        return (parseInt(input.substr(6, 4)) - 543) + "-" + input.substr(3, 2) + "-" + input.substr(0, 2);
+    }
+    else {
+        return null;
+    }
+}
+
 function GetToken() {
     var form = new FormData();
     form.append("username", "dpeusers");
@@ -264,9 +284,11 @@ function GetGmsType(token, selectedValue) {
                 item_1 += `<option value="` + value.TYPE_ID + `">` + value.TYPE_SUBJECT + `</option>`
             });
             $("#ddlTYPE_ID").html(item_1);
+            $("#ddlTYPE_ID_SEARCH").html(item_1);
 
             if (selectedValue != null) {
                 $("#ddlTYPE_ID").val(selectedValue);
+                $("#ddlTYPE_ID_SEARCH").val(selectedValue);
             }
         }
     });
@@ -285,7 +307,7 @@ function CreateGmsMember(token) {
     form.append("FIRST_NAME", $("[name='FIRST_NAME']").val());
     form.append("LAST_NAME", $("[name='LAST_NAME']").val());
     form.append("SEX", $("[name='SEX']").val());
-    form.append("BIRTH_DATE", "1957-01-01");
+    form.append("BIRTH_DATE", ConvertDateToEN($("[name='BIRTH_DATE']").val()));
     form.append("FIRST_NAME_ENG", $("[name='FIRST_NAME_ENG']").val());
     form.append("LAST_NAME_ENG", $("[name='LAST_NAME_ENG']").val());
     form.append("PREFIX_ID", $("[name='PREFIX_ID']").val());
@@ -293,6 +315,7 @@ function CreateGmsMember(token) {
     form.append("MEMBER_PASSWORD", $("[name='HRS_ID']").val());
     form.append("CLASS_ID", "1");
     form.append("HRS_ID", $("[name='HRS_ID']").val());
+    form.append("TYPE_ID", $("[name='TYPE_ID']").val());
 
     var settings = {
         "url": "https://data.dpe.go.th/api/personal/member/pushGmsMember",
@@ -319,7 +342,6 @@ function CreateGmsMember(token) {
 
 }
 
-
 function SearchPSN(token, DATA_REPLACE_OR_APPEND, PAGE) {
 
     var txtName = $("#txtName").val();
@@ -339,7 +361,7 @@ function GetPSN(token, DATA_REPLACE_OR_APPEND, PAGE, NAME, PROV_CODE, AMP_CODE) 
     form.append("PROV_CODE", PROV_CODE);
     form.append("AMP_CODE", AMP_CODE);
     form.append("SPORT_ID", $("[name='SPORT_ID']").val());
-    form.append("TYPE_ID", $("[name='TYPE_ID']").val());
+    form.append("TYPE_ID", $("[name='TYPE_ID_SEARCH']").val());
     form.append("HRS_ID", $("[name='SEARCH_HRS_ID']").val());
 
     var settings = {

@@ -424,8 +424,6 @@ function GetGmsCareer(token, selectedValue) {
     });
 }
 
-
-
 function ConvertDateToTH(input) {
     //'1986-02-12' to '12/02/2529'
     if (input != null) {

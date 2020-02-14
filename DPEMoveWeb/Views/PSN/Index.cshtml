@@ -87,7 +87,7 @@
                                             ประเภทบุคลากรการกีฬา
                                         </div>
                                         <div class="c field">
-                                            <select class="input-field" style="width:150px" id="ddlTYPE_ID" name="TYPE_ID">
+                                            <select class="input-field" style="width:150px" id="ddlTYPE_ID_SEARCH" name="TYPE_ID_SEARCH">
                                                 <option value="">กรุณาเลือก</option>
                                             </select>
                                         </div>
@@ -229,7 +229,7 @@
                 <div>ลงทะเบียน</div>
             </div>
             <div class="modal-body">
-                <form id="frmCreateGmsMember">
+                <form id="frmCreateGmsMember" autocomplete="off">
                     <div class="row">
                         <div class="col-12">
                             <div class="entry-data">
@@ -319,14 +319,28 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-12">
-                                        @*<table class="tbl-fields th-aright" cellspacing="0">
-                                    <tr>
-                                        <th width="140">วันเกิด (วัน-เดือน-ปี)<span class="req">*</span></th>
-                                        <td>
-                                            <input id="txtBIRTH_DATE" name="BIRTH_DATE" class="input-field" type="text" data-provide="datepicker" data-date-language="th-th">
-                                        </td>
-                                    </tr>
-                                </table>*@
+                                        <table class="tbl-fields th-aright" cellspacing="0">
+                                            <tr>
+                                                <th width="140">วันเกิด (วัน-เดือน-ปี)<span class="req">*</span></th>
+                                                <td>
+                                                    <input id="txtBIRTH_DATE" name="BIRTH_DATE" class="input-field" type="text" data-provide="datepicker" data-date-language="th-th">
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <table class="tbl-fields th-aright" cellspacing="0">
+                                            <tr>
+                                                <th width="140">ประเภทบุคลากร</th>
+                                                <td>
+                                                    <select class="input-field" name="TYPE_ID" id="ddlTYPE_ID" required style="width:165px">
+                                                        <option value="">กรุณาเลือก</option>
+                                                    </select>
+                                                </td>
+                                            </tr>
+                                        </table>
                                     </div>
                                 </div>
                                 <br />
