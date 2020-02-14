@@ -547,9 +547,6 @@ function DeleteEventNearbyFromSession(eventId, eventNearbyId) {
 function GetAddressFromDatabase(token) {
 
     console.log("GetAddressFromDatabase");
-    console.log("address.provinceCode", address.provinceCode);
-    console.log("address.amphurCode", address.amphurCode);
-    console.log("address.tambonCode", address.tambonCode);
 
     // load all province and selected value
     GetProvince(token, address.provinceCode);
@@ -878,6 +875,13 @@ function GetSection(token, selectedSection) {
                 else {
                     $("[name='SectionCatEtc']").show();
                 }
+
+                if (selectedSection == "1") {
+                    $("[name='dvForSection1_Only']").show();
+                }
+                else {
+                    $("[name='dvForSection1_Only']").hide();
+                }
             }
         }
     });
@@ -985,6 +989,13 @@ $(document).ready(function () {
         }
         else {
             $("[name='SectionCatEtc']").show();
+        }
+
+        if (selectedSection == "1") {
+            $("[name='dvForSection1_Only']").show();
+        }
+        else {
+            $("[name='dvForSection1_Only']").hide();
         }
 
         var token = localStorage.getItem("token");

@@ -167,6 +167,15 @@ namespace DPEMoveWeb.Controllers
             int appUserId = await GetLoginAppUserId();
             if (ModelState.IsValid)
             {
+                // Creating default address.
+                var addr = new Address
+                {
+                    CreatedBy = appUserId,
+                    CreatedDate = DateTime.Now
+                };
+                _context.Entry(addr).State = EntityState.Added;
+                _context.SaveChanges();
+
                 var q = new Event
                 {
                     EventName = model.EventName,
@@ -180,6 +189,7 @@ namespace DPEMoveWeb.Controllers
                     Status = 2,
                     CreatedBy = appUserId, //model.CreatedBy,
                     CreatedDate = DateTime.Now,
+                    AddressId = addr.AddressId
                 };
 
                 _context.Entry(q).State = EntityState.Added;
