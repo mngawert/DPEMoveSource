@@ -995,6 +995,29 @@ function GetReportEvent2(token, idCard) {
     });
 }
 
+function previewFile() {
+
+    console.log("previewFile");
+
+    const preview = document.querySelector('#imgPreview');
+    const file = document.querySelector('#filePreview').files[0];
+    const reader = new FileReader();
+
+    console.log("preview", preview);
+    console.log("file", file);
+
+    reader.addEventListener("load", function () {
+        // convert image file to base64 string
+        preview.src = reader.result;
+        var base64result = reader.result.split(',')[1];
+        console.log("base64result", base64result);
+    }, false);
+
+    if (file) {
+        reader.readAsDataURL(file);
+    }
+}
+
 $(document).ready(function () {
 
     GetToken().done(function (response) {
