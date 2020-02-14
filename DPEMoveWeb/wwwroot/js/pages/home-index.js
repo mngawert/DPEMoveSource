@@ -1,6 +1,5 @@
 ﻿
-
-function GetInternalToken(email, password) {
+function GetInternalToken() {
 
     var settings = {
         "url": "/api/Account/GetToken",
@@ -9,7 +8,7 @@ function GetInternalToken(email, password) {
         "headers": {
             "Content-Type": "application/json"
         },
-        "data": JSON.stringify({ "email": email, "password": password }),
+        "data": JSON.stringify({ "email": "readonly@gmail.com", "password": "Bossup2020" }),
     };
 
     return $.ajax(settings);
@@ -47,8 +46,6 @@ function GetReportEvent1(token) {
     };
 
     $.ajax(settings).done(function (response, textStatus, jqXHR) {
-        console.log(response);
-
         if (jqXHR.status == 200) {
             var data = response;
             var items = "";
@@ -71,6 +68,8 @@ function GetReportEvent1(token) {
 
 function GetReportStadium1(token) {
 
+    console.log("GetReportStadium1");
+
     var form = new FormData();
     form.append("Token", token);
     form.append("limit", "100");
@@ -85,15 +84,21 @@ function GetReportStadium1(token) {
         "data": form
     };
 
-    $.ajax(settings).done(function (response, textStatus, jqXHR) {
+    return $.ajax(settings);
+
+}
+
+function PrintTableForReportStadium1(token) {
+
+    GetReportStadium1(token).done(function (response, textStatus, jqXHR) {
         if (jqXHR.status == 200) {
             var data = JSON.parse(response).data;
 
             data.sort(function (a, b) { return b.TOTAL - a.TOTAL });
-            data = data.slice(0, 15);
+            var data_15 = data.slice(0, 15);
             var items = "";
             var sumTotal = 0;
-            $.each(data, function (index, value) {
+            $.each(data_15, function (index, value) {
                 items +=
                     `
                     <tr>
@@ -102,18 +107,17 @@ function GetReportStadium1(token) {
                     </tr>
                 `;
                 sumTotal += parseInt(value.TOTAL);
-                reportData.push({ "PROV_NAMT": value.PROV_NAMT, "TOTAL": value.TOTAL});
+                reportData.push({ "PROV_NAMT": value.PROV_NAMT, "TOTAL": value.TOTAL });
             });
             $("#tblReportStadium1 >tbody").html(items);
             $("#tblReportStadium2 >tbody").html(items);
             $("#lblReportStadiumCount").html(sumTotal.toLocaleString());
 
-            //var dataTableData = google.visualization.arrayToDataTable(reportData);
-            //console.log("dataTableData", dataTableData);
-            //DrawGoogleMap();
+            DrawGoogleMap(data);
         }
     });
 }
+
 
 function GetStadiumData() {
         $.ajax({
@@ -122,7 +126,7 @@ function GetStadiumData() {
             dataType: 'json',
             data: $("#pageForm-test").serialize(),
             error: function (jqXHR, exception) {
-                alert("error");
+                //alert("error");
             }
         })
         .done(function (obj) {
@@ -134,7 +138,57 @@ function GetStadiumData() {
         });
 }
 
-function DrawGoogleMap() {
+function GetReportSurvey151A(token) {
+    var settings = {
+        "url": "https://dpemove.dpe.go.th/api/Report/GetReportSurvey151A",
+        "method": "POST",
+        "timeout": 0,
+        "headers": {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + token
+        },
+        "data": JSON.stringify({ "createdDateFrom": "2020-01-01", "createdDateTo": "2099-01-01" }),
+    };
+
+    return $.ajax(settings);
+}
+
+function DrawChartForReportSurvey151A(token) {
+
+    google.charts.load('current', { 'packages': ['bar'] });
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+
+        GetReportSurvey151A(token).done(function (response, textStatus, jqXHR) {
+            if (jqXHR.status == 200) {
+
+                var data = new google.visualization.DataTable();
+                data.addColumn('string', 'กีฬา');
+                data.addColumn('number', 'ระยะเวลา');
+
+                $.each(response, function (index, value) {
+                    data.addRow([value.sportName, value.sumAttr]);
+                });
+
+                var options = {
+                    width: 620,
+                    height: 300,
+                    //legend: { position: 'none' },
+                    chart: {
+                        title: '',
+                        subtitle: '',
+                    }
+                };
+
+                var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
+                chart.draw(data, google.charts.Bar.convertOptions(options));
+            }
+        });
+    }
+}
+
+function DrawGoogleMap(inputData) {
 
     google.charts.load('current', {
         'packages': ['geochart'],
@@ -143,104 +197,30 @@ function DrawGoogleMap() {
         'mapsApiKey': 'AIzaSyDBro62OhioE6oXZ97CV8Y4AnrzfVIt4HA'
     });
     google.charts.setOnLoadCallback(drawRegionsMap);
-}
 
-function drawRegionsMap() {
+    function drawRegionsMap() {
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'จังหวัด');
+        data.addColumn('number', 'จำนวนสนามกีฬา');
 
-    var data = google.visualization.arrayToDataTable([
-        ['จังหวัด', 'จำนวนสนามกีฬา'],
-        ['เชียงใหม่', 298],
-        ['Chiang Rai', 393],
-        ['Phetchaburi', 348],
-        ['Phetchabun', 404],
-        ['Loei', 719],
-        ['Phrae', 169],
-        ['Mae Hong Son', 234],
-        ['Krabi', 429],
-        ['Bangkok', 173],
-        ['Kanchanaburi', 417],
-        ['Kalasin', 579],
-        ['Kamphaeng Phet', 352],
-        ['Khon Kaen', 891],
-        ['Chanthaburi', 112],
-        ['Chachoengsao', 272],
-        ['Chonburi', 391],
-        ['Chai Nat', 472],
-        ['Chaiyaphum', 1067],
-        ['Chumphon', 362],
-        ['Trang', 292],
-        ['ตราด', 156],
-        ['Tak', 211],
-        ['Nakhon Nayok', 89],
-        ['Nakhon Pathom', 863],
-        ['Nakhon Phanom', 622],
-        ['Nakhon Ratchasima', 2427],
-        ['Nakhon Si Thammarat', 735],
-        ['Nakhon Sawan', 879],
-        ['Nonthaburi', 167],
-        ['Narathiwat', 143],
-        ['Nan', 154],
-        ['Bueng Kan', 124],
-        ['Buriram', 852],
-        ['Pathum Thani', 144],
-        ['Prachuap Khiri Khan', 172],
-        ['Prachinburi', 431],
-        ['Pattani', 139],
-        ['Phra Nakhon Si Ayutthaya', 426],
-        ['Phayao', 229],
-        ['Phang Nga', 77],
-        ['Phatthalung', 418],
-        ['Phichit', 252],
-        ['Phitsanulok', 759],
-        ['Phuket', 53],
-        ['Maha Sarakham', 389],
-        ['Mukdahan', 156],
-        ['Yasothon', 591],
-        ['Yala', 109],
-        ['Roi Et', 615],
-        ['Ranong', 68],
-        ['Rayong', 405],
-        ['Ratchaburi', 211],
-        ['Lopburi', 382],
-        ['Lampang', 487],
-        ['Lamphun', 154],
-        ['Sisaket', 1535],
-        ['Sakon Nakhon', 1668],
-        ['Songkhla', 317],
-        ['Satun', 109],
-        ['Samut Prakan', 126],
-        ['Samut Songkhram', 54],
-        ['Samut Sakhon', 208],
-        ['Sa Kaeo', 99],
-        ['Saraburi', 347],
-        ['Sing Buri', 149],
-        ['Sukhothai (Sukhothai Thani)', 504],
-        ['Suphan Buri', 311],
-        ['Surat Thani', 347],
-        ['Surin', 1533],
-        ['Nong Khai', 185],
-        ['Nong Bua Lam Phu', 439],
-        ['Ang Thong', 141],
-        ['Amnat Charoen', 569],
-        ['Udon Thani', 1024],
-        ['Uttaradit', 227],
-        ['Uthai Thani', 231],
-        ['Ubon Ratchathani', 1886]
-    ]);
+        $.each(inputData, function (index, value) {
+            data.addRow([value.PROV_NAMT, parseInt(value.TOTAL)]);
+        });
 
-    var options = {
-        width: 800,
-        height: 550,
-        region: 'TH',
-        resolution: "provinces",
-        keepAspectRatio: false,
-        colorAxis: { colors: ['green'] },
-        legend: 'center'
-    };
+        var options = {
+            width: 800,
+            height: 550,
+            region: 'TH',
+            resolution: "provinces",
+            keepAspectRatio: false,
+            colorAxis: { colors: ['green'] },
+            legend: 'center'
+        };
 
-    var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
-    google.visualization.events.addOneTimeListener(chart, 'ready', fixToolTipPosition);
-    chart.draw(data, options);
+        var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
+        google.visualization.events.addOneTimeListener(chart, 'ready', fixToolTipPosition);
+        chart.draw(data, options);
+    }
 }
 
 function fixToolTipPosition() {
@@ -270,57 +250,23 @@ function fixToolTipPosition() {
 }
 
 
-function DoDrawChart() {
-
-    google.charts.load('current', {'packages': ['bar'] });
-    google.charts.setOnLoadCallback(drawChart);
-    
-    function drawChart() {
-        var data = google.visualization.arrayToDataTable([
-            ['กีฬา', 'ระเวลา'],
-            ['กรีฑา', 20],
-            ['กีฬาขี่ม้า', 55],
-            ['กีฬาดาบไทย', 30],
-            ['กีฬาร่มร่อนและปีกร่อน', 535]
-        ]);
-
-        var options = {
-            chart: {
-                title: '',
-                subtitle: '',
-            }
-        };
-
-    var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
-
-    chart.draw(data, google.charts.Bar.convertOptions(options));
-    }
-}
-
-
-
-
 
 $(document).ready(function () {
 
-    var email = "readonly@gmail.com";
-    var password = "Bossup2020";
-
-    GetInternalToken(email, password).done(function (response) {
+    GetInternalToken().done(function (response) {
         var token = response;
         localStorage.setItem("token", token);
 
         GetReportEvent1(token);
+        DrawChartForReportSurvey151A(token);
     });
 
     GetToken().done(function (response) {
         var token = JSON.parse(response).data;
-        GetReportStadium1(token);
+        PrintTableForReportStadium1(token);
     });
 
-    GetStadiumData();
-    DrawGoogleMap();
+    //GetStadiumData();
 
-    DoDrawChart();
 });
 
