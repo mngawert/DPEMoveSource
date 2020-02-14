@@ -210,7 +210,75 @@ function getPrefix(token, selectedValue) {
     });
 }
 
+function GetGmsSport(token, selectedValue) {
+    var form = new FormData();
+    form.append("Token", token);
+
+    var settings = {
+        "url": "https://data.dpe.go.th/api/personal/sport/getGmsSport",
+        "method": "POST",
+        "timeout": 0,
+        "processData": false,
+        "mimeType": "multipart/form-data",
+        "contentType": false,
+        "data": form
+    };
+
+    $.ajax(settings).done(function (response, status, xhr) {
+        if (xhr.status == 200) {
+            var data = JSON.parse(response).data
+
+            var item_1 = `<option value="">กรุณาเลือก</option>`
+            $.each(data, function (index, value) {
+                item_1 += `<option value="` + value.SPORT_ID + `">` + value.SPORT_SUBJECT + `</option>`
+            });
+            $("#ddlSPORT_ID").html(item_1);
+
+            if (selectedValue != null) {
+                $("#ddlSPORT_ID").val(selectedValue);
+            }
+        }
+    });
+}
+
+function GetGmsType(token, selectedValue) {
+    var form = new FormData();
+    form.append("Token", token);
+
+    var settings = {
+        "url": "https://data.dpe.go.th/api/personal/type/getGmsType",
+        "method": "POST",
+        "timeout": 0,
+        "processData": false,
+        "mimeType": "multipart/form-data",
+        "contentType": false,
+        "data": form
+    };
+
+    $.ajax(settings).done(function (response, status, xhr) {
+        if (xhr.status == 200) {
+            var data = JSON.parse(response).data
+
+            var item_1 = `<option value="">กรุณาเลือก</option>`
+            $.each(data, function (index, value) {
+                item_1 += `<option value="` + value.TYPE_ID + `">` + value.TYPE_SUBJECT + `</option>`
+            });
+            $("#ddlTYPE_ID").html(item_1);
+
+            if (selectedValue != null) {
+                $("#ddlTYPE_ID").val(selectedValue);
+            }
+        }
+    });
+}
+
 function CreateGmsMember(token) {
+
+    if (!$("#frmCreateGmsMember")[0].checkValidity()) {
+
+        $("#frmCreateGmsMember")[0].reportValidity()
+        return false;
+    }
 
     var form = new FormData();
     form.append("Token", token);
@@ -244,7 +312,7 @@ function CreateGmsMember(token) {
             var data = results.data;
 
             if (data.length > 0) {
-                window.location.href = window.location.href + "/Edit/" + data[0].MEMBER_ID;
+                window.location.href = window.location.href.replace("#","") + "/Edit/" + data[0].MEMBER_ID;
             }
         }
     });
@@ -270,7 +338,9 @@ function GetPSN(token, DATA_REPLACE_OR_APPEND, PAGE, NAME, PROV_CODE, AMP_CODE) 
     form.append("NAME", NAME);
     form.append("PROV_CODE", PROV_CODE);
     form.append("AMP_CODE", AMP_CODE);
-
+    form.append("SPORT_ID", $("[name='SPORT_ID']").val());
+    form.append("TYPE_ID", $("[name='TYPE_ID']").val());
+    form.append("HRS_ID", $("[name='SEARCH_HRS_ID']").val());
 
     var settings = {
         "url": "https://data.dpe.go.th/api/personal/member/getGmsMember",
@@ -392,8 +462,9 @@ $(document).ready(function () {
         //console.log("localStorage.token", localStorage.getItem("token"));
 
         GetProvince(token);
-
         getPrefix(token, null);
+        GetGmsSport(token, null);
+        GetGmsType(token, null);
 
         //PAGE=1
         SearchPSN(token, "REFRESH_DATA", "1");

@@ -10,15 +10,18 @@ namespace DPEMoveWeb.Controllers
     public class PSNController : Controller
     {
 
+        [Authorize(Roles = "PSN_VIEW")]
         public IActionResult Index()
         {
             return View();
         }
 
+        [Authorize(Roles = "PSN_CREATE")]
         public IActionResult Create()
         {
             return View();
         }
+        [Authorize(Roles = "PSN_EDIT")]
         public IActionResult Edit(int id)
         {
             return View();

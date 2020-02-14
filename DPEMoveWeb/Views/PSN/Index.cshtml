@@ -18,7 +18,7 @@
         <div class="row">
             <div class="col-sm-12 col-md-12 col-lg-8">
                 <div class="tx-head_green">
-                    <h4><a href="#">บุคลากร</a> &#xbb; ข้อมูลบุคลากร</h4>
+                    <h4><a href="/PSN">บุคลากร</a> &#xbb; ข้อมูลบุคลากร</h4>
                 </div>
             </div>
             <div class="col-sm-12 col-md-12 col-lg-4">
@@ -87,8 +87,8 @@
                                             ประเภทบุคลากรการกีฬา
                                         </div>
                                         <div class="c field">
-                                            <select class="input-field" style="width:150px">
-                                                <option value="">ผู้ตัดสินกีฬา</option>
+                                            <select class="input-field" style="width:150px" id="ddlTYPE_ID" name="TYPE_ID">
+                                                <option value="">กรุณาเลือก</option>
                                             </select>
                                         </div>
                                     </div>
@@ -101,14 +101,14 @@
                                             ชนิดกีฬา
                                         </div>
                                         <div class="c field">
-                                            <select class="input-field" style="width:150px">
-                                                <option value="">ฟุตบอล</option>
+                                            <select class="input-field" style="width:150px" id="ddlSPORT_ID" name="SPORT_ID">
+                                                <option value="">กรุณาเลือก</option>
                                             </select>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
+                            @*<div class="row">
                                 <div class="col-sm-12">
                                     <div class="row-field clearfix">
                                         <div class="c lbl">
@@ -121,18 +121,27 @@
                                         </div>
                                     </div>
                                 </div>
+                            </div>*@
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="row-field clearfix">
+                                        <div class="c lbl">
+                                            ค้นจากชื่อ
+                                        </div>
+                                        <div class="c field">
+                                            <input id="txtName" type="text" class="input-field" name="" />
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <div class="row">
                                 <div class="col-sm-12">
                                     <div class="row-field clearfix">
                                         <div class="c lbl">
-                                            ค้นจาก
+                                            เลขบัตรประชาชน
                                         </div>
                                         <div class="c field">
-                                            <select class="input-field" style="margin-bottom: 8px; width:150px">
-                                                <option value="">ชื่อ-สกุล</option>
-                                            </select>
-                                            <input id="txtName" type="text" class="input-field" name="" />
+                                            <input type="text" class="input-field" name="SEARCH_HRS_ID" />
                                         </div>
                                     </div>
                                 </div>
@@ -220,121 +229,117 @@
                 <div>ลงทะเบียน</div>
             </div>
             <div class="modal-body">
-                <div class="row">
-                    <div class="col-12">
+                <form id="frmCreateGmsMember">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="entry-data">
+                                <div class="row">
+                                    <div class="col-12 col-md-10">
+                                        <table class="tbl-fields th-aright" cellspacing="0">
+                                            <tr>
+                                                <th width="140">เลข<span class="req">*</span></th>
+                                                <td class="td-id">
+                                                    <select class="input-field">
+                                                        <option value="">ประจำตัวประชาชน</option>
+                                                    </select>&nbsp;&nbsp;<input type="text" name="HRS_ID" id="txtHRS_ID" value="" required class="input-field" />
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12 col-md-6 col-xl-5">
+                                        <table class="tbl-fields th-aright" cellspacing="0">
+                                            <tr>
+                                                <th width="140">คำนำหน้า (ไทย)<span class="req">*</span></th>
+                                                <td>
+                                                    <select class="input-field" name="PREFIX_ID" id="ddlPREFIX_TH" required style="width: 165px">
+                                                        <option value="">กรุณาเลือก</option>
+                                                    </select>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div class="col-12 col-md-6 col-xl-5">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12 col-md-6 col-xl-5">
+                                        <table class="tbl-fields th-aright" cellspacing="0">
+                                            <tr>
+                                                <th width="140">ชื่อ (ไทย)<span class="req">*</span></th>
+                                                <td><input type="text" name="FIRST_NAME" id="txtFIRST_NAME" required /></td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div class="col-12 col-md-6 col-xl-5">
+                                        <table class="tbl-fields th-aright" cellspacing="0">
+                                            <tr>
+                                                <th width="140">ชื่อ (อังกฤษ)<span class="req">*</span></th>
+                                                <td><input type="text" name="FIRST_NAME_ENG" id="txtFIRST_NAME_ENG" required /></td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12 col-md-6 col-xl-5">
+                                        <table class="tbl-fields th-aright" cellspacing="0">
+                                            <tr>
+                                                <th width="140">สกุล (ไทย)<span class="req">*</span></th>
+                                                <td><input type="text" name="LAST_NAME" id="txtLAST_NAME" required /></td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div class="col-12 col-md-6 col-xl-5">
+                                        <table class="tbl-fields th-aright" cellspacing="0">
+                                            <tr>
+                                                <th width="140">สกุล (อังกฤษ)<span class="req">*</span></th>
+                                                <td><input type="text" name="LAST_NAME_ENG" id="txtLAST_NAME_ENG" required /></td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12 col-md-6 col-xl-5">
+                                        <table class="tbl-fields th-aright" cellspacing="0">
+                                            <tr>
+                                                <th width="140">เพศ<span class="req">*</span></th>
+                                                <td>
+                                                    <select class="input-field" name="SEX" id="ddlSEX" required>
+                                                        <option value="1">ชาย</option>
+                                                        <option value="2">หญิง</option>
+                                                    </select>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div class="col-12 col-md-6 col-xl-5">
 
-
-                        <div class="entry-data">
-                            <div class="row">
-                                <div class="col-12 col-md-10">
-                                    <table class="tbl-fields th-aright" cellspacing="0">
-                                        <tr>
-                                            <th width="140">เลข<span class="req">*</span></th>
-                                            <td class="td-id">
-                                                <select class="input-field">
-                                                    <option value="">ประจำตัวประชาชน</option>
-                                                </select>&nbsp;&nbsp;<input type="text" name="HRS_ID" id="txtHRS_ID" value="" class="input-field" />
-                                            </td>
-                                        </tr>
-                                    </table>
+                                    </div>
                                 </div>
+                                <div class="row">
+                                    <div class="col-12">
+                                        @*<table class="tbl-fields th-aright" cellspacing="0">
+                                    <tr>
+                                        <th width="140">วันเกิด (วัน-เดือน-ปี)<span class="req">*</span></th>
+                                        <td>
+                                            <input id="txtBIRTH_DATE" name="BIRTH_DATE" class="input-field" type="text" data-provide="datepicker" data-date-language="th-th">
+                                        </td>
+                                    </tr>
+                                </table>*@
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="row">
+                                    <div class="col-12 text-center">
+                                        <input id="btnCreate" type="button" value="ลงทะเบียน" class="button darkgreen" />
+                                    </div>
+                                </div>
+                                <br />
                             </div>
-                            <div class="row">
-                                <div class="col-12 col-md-6 col-xl-5">
-                                    <table class="tbl-fields th-aright" cellspacing="0">
-                                        <tr>
-                                            <th width="140">คำนำหน้า (ไทย)<span class="req">*</span></th>
-                                            <td>
-                                                <select class="input-field" name="PREFIX_ID" id="ddlPREFIX_TH" style="width: 165px">
-                                                    <option value="">กรุณาเลือก</option>
-                                                </select>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </div>
-                                <div class="col-12 col-md-6 col-xl-5">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-12 col-md-6 col-xl-5">
-                                    <table class="tbl-fields th-aright" cellspacing="0">
-                                        <tr>
-                                            <th width="140">ชื่อ (ไทย)<span class="req">*</span></th>
-                                            <td><input type="text" name="FIRST_NAME" id="txtFIRST_NAME" /></td>
-                                        </tr>
-                                    </table>
-                                </div>
-                                <div class="col-12 col-md-6 col-xl-5">
-                                    <table class="tbl-fields th-aright" cellspacing="0">
-                                        <tr>
-                                            <th width="140">ชื่อ (อังกฤษ)<span class="req">*</span></th>
-                                            <td><input type="text" name="FIRST_NAME_ENG" id="txtFIRST_NAME_ENG" /></td>
-                                        </tr>
-                                    </table>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-12 col-md-6 col-xl-5">
-                                    <table class="tbl-fields th-aright" cellspacing="0">
-                                        <tr>
-                                            <th width="140">สกุล (ไทย)<span class="req">*</span></th>
-                                            <td><input type="text" name="LAST_NAME" id="txtLAST_NAME" /></td>
-                                        </tr>
-                                    </table>
-                                </div>
-                                <div class="col-12 col-md-6 col-xl-5">
-                                    <table class="tbl-fields th-aright" cellspacing="0">
-                                        <tr>
-                                            <th width="140">สกุล (อังกฤษ)<span class="req">*</span></th>
-                                            <td><input type="text" name="LAST_NAME_ENG" id="txtLAST_NAME_ENG" /></td>
-                                        </tr>
-                                    </table>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-12 col-md-6 col-xl-5">
-                                    <table class="tbl-fields th-aright" cellspacing="0">
-                                        <tr>
-                                            <th width="140">เพศ<span class="req">*</span></th>
-                                            <td>
-                                                <select class="input-field" name="SEX" id="ddlSEX">
-                                                    <option value="1">ชาย</option>
-                                                    <option value="2">หญิง</option>
-                                                </select>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </div>
-                                <div class="col-12 col-md-6 col-xl-5">
-
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-12">
-                                    @*<table class="tbl-fields th-aright" cellspacing="0">
-                                        <tr>
-                                            <th width="140">วันเกิด (วัน-เดือน-ปี)<span class="req">*</span></th>
-                                            <td>
-                                                <input id="txtBIRTH_DATE" name="BIRTH_DATE" class="input-field" type="text" data-provide="datepicker" data-date-language="th-th">
-                                            </td>
-                                        </tr>
-                                    </table>*@
-                                </div>
-                            </div>
-                            <br />
-                            <div class="row">
-                                <div class="col-12 text-center">
-                                    <input id="btnCreate" type="button" value="ลงทะเบียน" class="button darkgreen" />
-                                </div>
-                            </div>
-                            <br />
                         </div>
-
-
-
-                        
                     </div>
-                </div>
+                </form>
             </div>
         </div>
     </div>

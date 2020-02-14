@@ -393,6 +393,39 @@ function GetGmsTermPosition(token, selectedValue) {
     });
 }
 
+function GetGmsCareer(token, selectedValue) {
+    var form = new FormData();
+    form.append("Token", token);
+
+    var settings = {
+        "url": "https://data.dpe.go.th/api/personal/career/getGmsCareer",
+        "method": "POST",
+        "timeout": 0,
+        "processData": false,
+        "mimeType": "multipart/form-data",
+        "contentType": false,
+        "data": form
+    };
+
+    $.ajax(settings).done(function (response, status, xhr) {
+        if (xhr.status == 200) {
+            var data = JSON.parse(response).data
+
+            var item_1 = `<option value="">กรุณาเลือก</option>`
+            $.each(data, function (index, value) {
+                item_1 += `<option value="` + value.CAREER_ID + `">` + value.CAREER_NAME + `</option>`
+            });
+            $("#ddlCAREER_ID").html(item_1);
+
+            if (selectedValue != null) {
+                $("#ddlCAREER_ID").val(selectedValue);
+            }
+        }
+    });
+}
+
+
+
 function ConvertDateToTH(input) {
     //'1986-02-12' to '12/02/2529'
     if (input != null) {
@@ -413,8 +446,13 @@ function ConvertDateToEN(input) {
     }
 }
 
-
 function EditGmsMember(token, MEMBER_ID) {
+
+    if (!$("#frmTab1")[0].checkValidity()) {
+
+        $("#frmTab1")[0].reportValidity()
+        return false;
+    }
 
     var form = new FormData();
     form.append("Token", token);
@@ -430,9 +468,9 @@ function EditGmsMember(token, MEMBER_ID) {
     form.append("HOME_MOO", $("[name='HOME_MOO']").val());
     form.append("HOME_SOI", $("[name='HOME_SOI']").val());
     form.append("HOME_ROAD", $("[name='HOME_ROAD']").val());
-    //form.append("HOME_TUMBOL_ID", $("[name='HOME_TUMBOL']").val());
-    //form.append("HOME_AMPHUR", $("[name='HOME_AMPHUR']").val());
-    //form.append("HOME_PROV", $("[name='HOME_PROV']").val());
+    form.append("HOME_TUMBOL_ID", $("[name='HOME_TUMBOL']").val());
+    form.append("HOME_AMPHUR", $("[name='HOME_AMPHUR']").val());
+    form.append("HOME_PROV", $("[name='HOME_PROV']").val());
     form.append("HOME_POST", $("[name='HOME_POST']").val());
     form.append("HOME_TEL", $("[name='HOME_TEL']").val());
     //form.append("HOME_FAX", "01211231");
@@ -467,11 +505,12 @@ function EditGmsMember(token, MEMBER_ID) {
     form.append("REGHOME_MOO", $("[name='REGHOME_MOO']").val());
     form.append("REGHOME_SOI", $("[name='REGHOME_SOI']").val());
     form.append("REGHOME_ROAD", $("[name='REGHOME_ROAD']").val());
-    //form.append("REGHOME_TUMBOL_ID", $("[name='REGHOME_TUMBOL']").val());
-    //form.append("REGHOME_AMPHUR", $("[name='REGHOME_AMPHUR']").val());
-    //form.append("REGHOME_PROV", $("[name='REGHOME_PROV']").val());
+    form.append("REGHOME_TUMBOL_ID", $("[name='REGHOME_TUMBOL']").val());
+    form.append("REGHOME_AMPHUR", $("[name='REGHOME_AMPHUR']").val());
+    form.append("REGHOME_PROV", $("[name='REGHOME_PROV']").val());
     form.append("REGHOME_POST", $("[name='REGHOME_POST']").val());
     form.append("EXPERTISE", $("[name='EXPERTISE']").val());
+    form.append("CAREER_ID", $("[name='CAREER_ID']").val());
 
     var settings = {
         "url": "https://data.dpe.go.th/api/personal/member/editGmsMember",
@@ -564,6 +603,7 @@ function GetGmsMember(token, MEMBER_ID) {
             GetGmsSport(token, null);
             GetTrainHistoryStatus(token, null);
             GetGmsTermPosition(token, null);
+            GetGmsCareer(token, value.CAREER_ID);
 
             $("#txtCON_ADDR").val(value.CON_ADDR);
             $("#txtCON_ADDR_NAME").val(value.CON_ADDR_NAME);
@@ -962,7 +1002,7 @@ $(document).ready(function () {
         localStorage.setItem("token", token);
         console.log("localStorage.token", localStorage.getItem("token"));
 
-        var url = window.location.href;
+        var url = window.location.href.replace("#","");
         var id = url.substring(url.lastIndexOf('/') + 1);
 
         localStorage.setItem("memberId", id);
@@ -1006,6 +1046,26 @@ $(document).ready(function () {
             var token = JSON.parse(response).data;
             GetGmsTerm(token, $("#txtTERM_YEAR").val(), null);
         });
+    });
+
+    $("#chkCopyCON_ADDR_TO_REGHOME").click(function () {
+
+        if ($("#chkCopyCON_ADDR_TO_REGHOME").prop("checked")) {
+
+            $("#ddlREGHOME_PROV").html($("#ddlCON_PROV").html());
+            $("#ddlREGHOME_AMPHUR").html($("#ddlCON_AMPHUR").html());
+            $("#ddlREGHOME_TUMBOL").html($("#ddlCON_TUMBOL").html());
+            $("#ddlREGHOME_PROV").val($("#ddlCON_PROV").val());
+            $("#ddlREGHOME_AMPHUR").val($("#ddlCON_AMPHUR").val());
+            $("#ddlREGHOME_TUMBOL").val($("#ddlCON_TUMBOL").val());
+
+            $("[name='REGHOME_ADDR']").val($("[name='CON_ADDR']").val());
+            $("[name='REGHOME_ADDR_NAME']").val($("[name='CON_ADDR']").val());
+            $("[name='REGHOME_MOO']").val($("[name='CON_MOO']").val());
+            $("[name='REGHOME_SOI']").val($("[name='CON_SOI']").val());
+            $("[name='REGHOME_ROAD']").val($("[name='CON_ROAD']").val());
+            $("[name='REGHOME_POST']").val($("[name='CON_POST']").val());
+        }
     });
     
     $("#ddlCON_PROV").change(function () {
