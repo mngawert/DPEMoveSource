@@ -510,6 +510,12 @@ function EditGmsMember(token, MEMBER_ID) {
     form.append("EXPERTISE", $("[name='EXPERTISE']").val());
     form.append("CAREER_ID", $("[name='CAREER_ID']").val());
 
+    console.log("posting MEMBER_IMAGE", $("[name='MEMBER_IMAGE']").val());
+    console.log("posting MEMBER_IMAGE length", $("[name='MEMBER_IMAGE']").val().length);
+    if ($("[name='MEMBER_IMAGE']").val().length > 0) {
+        form.append("MEMBER_IMAGE", $("[name='MEMBER_IMAGE']").val());
+    }
+
     var settings = {
         "url": "https://data.dpe.go.th/api/personal/member/editGmsMember",
         "method": "POST",
@@ -556,10 +562,12 @@ function GetGmsMember(token, MEMBER_ID) {
         var data = results.data;
         var items = '';
         $.each(data, function (index, value) {
+            //console.log("geting MEMBER_IMAGE", value.MEMBER_IMAGE);
 
             $("txtMEMBER_ID").val(MEMBER_ID);
-            $("#dvMEMBER_IMAGE").html(`<img src="${value.MEMBER_IMAGE == null ? "/images/psn010101_02.png" : value.MEMBER_IMAGE}" />`);
+            $("#dvMEMBER_IMAGE").html(`<img id='imgPreview' src="${value.MEMBER_IMAGE == null ? "/images/psn010101_02.png" : value.MEMBER_IMAGE}" />`);
             $("#dvMEMBER_IMAGE2").html(`<img src="${value.MEMBER_IMAGE == null ? "/images/psn010101_02.png" : value.MEMBER_IMAGE}" />`);
+            $("[name='MEMBER_IMAGE']").val(value.MEMBER_IMAGE);
             $("#lblName").html(`${value.FIRST_NAME} ${value.LAST_NAME}`);
             $("#lblName2").html(`${value.FIRST_NAME} ${value.LAST_NAME}`);
             $("#txtEXPERTISE").val(value.EXPERTISE);
@@ -1008,7 +1016,8 @@ function previewFile() {
         // convert image file to base64 string
         preview.src = reader.result;
         var base64result = reader.result.split(',')[1];
-        console.log("base64result", base64result);
+        $("[name='MEMBER_IMAGE']").val(base64result);
+        console.log("MEMBER_IMAGE of upload", $("[name='MEMBER_IMAGE']").val());
     }, false);
 
     if (file) {
