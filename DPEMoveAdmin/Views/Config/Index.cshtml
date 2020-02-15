@@ -1,0 +1,93 @@
+﻿@model IEnumerable<CpeConfig>;
+<!-- Page Heading -->
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h4 mb-0 text-gray-800">
+        Configuration
+    </h1>
+    @*<a class="btn btn-success" asp-action="Create">สร้าง</a>*@
+</div>
+
+<div class="card">
+
+    <div class="card-body">
+        <form method="post">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group row">
+                        <label class="col-md-2 text-right">Name</label>
+                        <input class="col-md-3 form-control" name="GroupName" />
+                        <label class="col-md-2 text-right">Value</label>
+                        <input class="col-md-3 form-control" name="Description" />
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-2 text-right">สถานะ</label>
+                        <select class="col-md-3 form-control" name="Status">
+                            <option value="1">ใช้งาน</option>
+                            <option value="2">ไม่ใช้งาน</option>
+                        </select>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-4">
+                        </div>
+                        <div class="col-md-4">
+                            <button type="submit" class="btn btn-success btn-block">แสดงข้อมูล</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+    </div>
+
+    <div class="card-body">
+
+        @*<h5 class="card-title">กลุ่มผู้ใช้งานระบบ :</h5>*@
+
+        <table class="table table-sm table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Value</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @{ int rowNo = 1; }
+                @foreach (var r in Model)
+                {
+                    <tr>
+                        <td scope="row">@(rowNo++)</td>
+                        <td>@r.Name</td>
+                        <td>@(r.Value.Length > 100? r.Value.Substring(1, 100): r.Value)</td>
+                        <td>
+                            <a class="btn-circle btn-sm btn-success" asp-action="Edit" asp-route-id="@r.Name" title="แก้ไข"><i class="fas fa-unlock-alt"></i></a>
+                            @*<form asp-action="Delete" asp-route-id="@r.GroupId">
+
+            <a class="btn-circle btn-sm btn-success" asp-action="Edit" asp-route-id="@r.GroupId" title="กำหนดสิทธิ์"><i class="fas fa-unlock-alt"></i></a>
+            <a class="btn-circle btn-sm btn-success" asp-action="EditUsers" asp-route-id="@r.GroupId" title="กลุ่มผู้ใช้งาน"><i class="fas fa-users"></i></a>
+            <button class="btn-circle btn-sm btn-success" type="submit" title="ลบผู้ใช้งาน"><i class="fas fa-trash"></i></button>
+
+        </form>*@
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        @*<a class="btn btn-primary" asp-action="Create">สร้างกลุ่มใหม่</a>*@
+    </div>
+</div>
+
+
+@section Scripts {
+    @*<script src="~/js/pages/events-index.js"></script>
+
+        <script type="text/javascript">
+            $(function () {
+                $('#datetimepicker1,#datetimepicker2').datetimepicker({
+                    format: 'd/M/Y'
+                });
+            });
+        </script>*@
+}

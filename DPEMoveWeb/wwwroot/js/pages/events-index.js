@@ -280,7 +280,25 @@ function GetToken() {
     return $.ajax(settings);
 }
 
+function getUrlVars() {
+    var vars = [], hash;
+    var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+    for (var i = 0; i < hashes.length; i++) {
+        hash = hashes[i].split('=');
+        vars.push(hash[0]);
+        vars[hash[0]] = hash[1];
+    }
+    return vars;
+}
+
 $(document).ready(function () {
+
+    var mode = getUrlVars()["mode"];
+    console.log("mode", mode);
+    console.log("appUserId", appUserId);
+    if (mode == "CreateEvent" && appUserId != -1) {
+        $("#Modal_CreateEvent").modal("show");
+    }
 
     GetToken().done(function (response) {
         var token = JSON.parse(response).data;
