@@ -16,22 +16,63 @@ namespace DPEMoveWebApi.Controllers
     [Authorize]
     public class ConfigController : Controller
     {
-        private readonly AppDbContext context;
+        private readonly AppDbContext _context;
 
         public ConfigController(AppDbContext context)
         {
-            this.context = context;
+            _context = context;
         }
 
         public IActionResult Index()
-        {            
-            return View(context.CpeConfig);
+        {
+            return View(_context.CpeConfig);
+        }
+        
+        [HttpPost]
+        public IActionResult Index(CpeConfig model)
+        {
+            var q = _context.CpeConfig as IQueryable<CpeConfig>;
+
+            if (!string.IsNullOrEmpty(model.Name))
+            {
+                q = q.Where(a => a.Name.Contains(model.Name));
+            }
+            if (!string.IsNullOrEmpty(model.Value))
+            {
+                q = q.Where(a => a.Value != null && a.Value.Contains(model.Value));
+            }
+            if (model.Status != null)
+            {
+                q = q.Where(a => a.Status == model.Status);
+            }
+
+            return View(q);
         }
 
         public IActionResult Create()
         {
             return View();
-        }       
+        }
+        
+        public IActionResult Edit(int id)
+        {
+            var q = _context.CpeConfig.Where(a => a.ConfigId == id).FirstOrDefault();
+
+            return View(q);
+        }
+
+        [HttpPost]
+        public IActionResult EditConfig(CpeConfig model)
+        {
+            var q = _context.CpeConfig.Where(a => a.ConfigId == model.ConfigId).FirstOrDefault();
+            if (q != null)
+            {
+                _context.Entry(q).State = EntityState.Modified;
+                _context.SaveChanges();            
+            }
+
+            return RedirectToAction("Index");
+        }
 
     }
 }

@@ -511,6 +511,10 @@ namespace DPEMoveDAL.Models
                     .HasColumnType("VARCHAR2(50)")
                     .ValueGeneratedNever();
 
+                entity.Property(e => e.ConfigId).HasColumnName("CONFIG_ID");
+
+                entity.Property(e => e.Status).HasColumnName("STATUS");
+
                 entity.Property(e => e.Value)
                     .HasColumnName("VALUE")
                     .HasColumnType("VARCHAR2(4000)");

@@ -15,9 +15,9 @@
                 <div class="col-md-12">
                     <div class="form-group row">
                         <label class="col-md-2 text-right">Name</label>
-                        <input class="col-md-3 form-control" name="GroupName" />
+                        <input class="col-md-3 form-control" name="Name" />
                         <label class="col-md-2 text-right">Value</label>
-                        <input class="col-md-3 form-control" name="Description" />
+                        <input class="col-md-3 form-control" name="Value" />
                     </div>
                     <div class="form-group row">
                         <label class="col-md-2 text-right">สถานะ</label>
@@ -59,9 +59,9 @@
                     <tr>
                         <td scope="row">@(rowNo++)</td>
                         <td>@r.Name</td>
-                        <td>@(r.Value.Length > 100? r.Value.Substring(1, 100): r.Value)</td>
+                        <td>@(r.Value?.Length > 100? r.Value?.Substring(1, 100): r.Value)</td>
                         <td>
-                            <a class="btn-circle btn-sm btn-success" asp-action="Edit" asp-route-id="@r.Name" title="แก้ไข"><i class="fas fa-unlock-alt"></i></a>
+                            <a class="btn-circle btn-sm btn-success" asp-action="Edit" asp-route-id="@r.ConfigId" title="แก้ไข"><i class="fas fa-unlock-alt"></i></a>
                             @*<form asp-action="Delete" asp-route-id="@r.GroupId">
 
             <a class="btn-circle btn-sm btn-success" asp-action="Edit" asp-route-id="@r.GroupId" title="กำหนดสิทธิ์"><i class="fas fa-unlock-alt"></i></a>
