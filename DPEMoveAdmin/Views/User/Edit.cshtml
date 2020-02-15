@@ -13,16 +13,26 @@
             <div class="row justify-content-center">
                 <div class="col-md-10">
                     <div class="form-group row">
-                        <label class="col-md-3 text-right">EMAIL</label>
+                        <label class="col-md-3 text-right">Email</label>
                         <input class="col-md-6 form-control" asp-for="EMAIL" />
                     </div>
                     <div class="form-group row">
-                        <label class="col-md-3 text-right">NAME</label>
+                        <label class="col-md-3 text-right">Name</label>
                         <input class="col-md-6 form-control" asp-for="NAME" />
                     </div>
                     <div class="form-group row">
-                        <label class="col-md-3 text-right">ID_CARD_NO</label>
+                        <label class="col-md-3 text-right">ID Card</label>
                         <input class="col-md-6 form-control" asp-for="ID_CARD_NO" />
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 text-right">Account Type</label>
+                        <label class="col-md-6 form-control"> @Model.ACCOUNT_TYPE_NAME </label>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 text-right">กลุ่ม</label>
+                        <select class="input-field" id="ddlGROUP" name="GROUP_ID" style="width: 250px;">
+                            <option value="">กรุณาเลือก</option>
+                        </select>
                     </div>
                     <div class="form-group row">
                         <div class="col-md-3">
@@ -37,3 +47,55 @@
     </div>
 </div>
 
+@section Scripts {
+
+<script type="text/javascript">
+    var routeId = @ViewBag.routeId;
+    var model = @Html.Raw(Json.Serialize(Model));
+    console.log('routeid=', routeId);
+    console.log('model=', model);
+
+    function GetMGroup(ForId, selectedValue) {
+        var settings = {
+          "url": "https://localhost:44348/api/Admin/GetMGroup",
+          "method": "POST",
+          "timeout": 0,
+          "headers": {
+            "Content-Type": "application/json"
+          },
+        };
+
+        $.ajax(settings).done(function (response, textStatus, jqXHR) {
+
+            if (jqXHR.status == 200) {
+                var data = response;
+                var items = `<option value="">กรุณาเลือก</option>`;
+                $.each(data, function (index, value) {
+                    items +=
+                        `
+                    <option value="` + value.groupId + `">` + value.groupName + `</option>
+                    `
+                });
+                $("#" + ForId).html(items);
+
+
+                console.log("selectedValue", selectedValue);
+
+                if (selectedValue != null) {
+                    $("#"+ForId).val(selectedValue);
+                }
+            }
+        });
+    }
+
+    $(document).ready(function () {
+
+        GetMGroup("ddlGROUP", model.grouP_ID);
+
+    });
+
+
+</script>
+
+
+}

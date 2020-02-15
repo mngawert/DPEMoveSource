@@ -28,7 +28,7 @@ namespace DPEMoveAdmin.Controllers
         public IActionResult Index()
         {
 
-            string sql = @"SELECT * from VW_USER";
+            string sql = @"SELECT * from VW_USER order by 1";
 
             var q = _context.VW_USER.FromSql(sql);
 
@@ -37,6 +37,8 @@ namespace DPEMoveAdmin.Controllers
 
         public IActionResult Edit(int id)
         {
+            ViewBag.routeId = id;
+
             string sql = @"SELECT * from VW_USER where APP_USER_ID = {0}";
 
             var q = _context.VW_USER.FromSql(sql, id).FirstOrDefault();
@@ -49,11 +51,14 @@ namespace DPEMoveAdmin.Controllers
             if (q != null)
             {
                 q.Name = model.NAME;
+                q.GroupId = model.GROUP_ID;
+                q.IdcardNo = model.ID_CARD_NO;
 
                 _context.Entry(q).State = EntityState.Modified;
                 _context.SaveChanges();
             }
             return RedirectToAction("Index");
         }
+
     }
 }
