@@ -60,8 +60,8 @@
 
             <!-- Heading -->
             @*<div class="sidebar-heading">
-                Interface
-            </div>*@
+                    Interface
+                </div>*@
 
 
             <!-- Nav Item - Pages Collapse Menu -->
@@ -265,23 +265,23 @@
 
                         @if (signInManager.IsSignedIn(User))
                         {
-                            <li class="nav-item">
-                                <form method="post" asp-action="logout" asp-controller="account">
-                                    <button type="submit" class="nav-link btn btn-link py-0"
-                                            style="width:auto">
-                                        Logout @User.Identity.Name
-                                    </button>
-                                </form>
-                            </li>
+                        <li class="nav-item">
+                            <form method="post" asp-action="logout" asp-controller="account">
+                                <button type="submit" class="nav-link btn btn-link py-0"
+                                        style="width:auto">
+                                    Logout @User.Identity.Name
+                                </button>
+                            </form>
+                        </li>
                         }
                         else
                         {
-                            <li class="nav-item">
-                                @*<a asp-action="register" asp-controller="account" class="nav-link">Register</a>*@
-                            </li>
-                            <li class="nav-item">
-                                <a asp-action="login" asp-controller="account" class="nav-link">Login</a>
-                            </li>
+                        <li class="nav-item">
+                            @*<a asp-action="register" asp-controller="account" class="nav-link">Register</a>*@
+                        </li>
+                        <li class="nav-item">
+                            <a asp-action="login" asp-controller="account" class="nav-link">Login</a>
+                        </li>
                         }
 
 
@@ -388,6 +388,22 @@
     <script src="~/js/bootstrap-datepicker.js"></script>
     <script src="~/js/bootstrap-datepicker-thai.js"></script>
     <script src="~/js/locales/bootstrap-datepicker.th.js"></script>
+
+
+    <script src="~/tinymce/js/tinymce/tinymce.min.js"></script>
+    <script>
+        tinymce.init({
+            //selector: "textarea",
+            mode: "specific_textareas",
+            height: 600,
+            editor_selector: "myTextEditor",
+            setup: function (editor) {
+                editor.on('change', function () {
+                    editor.save();
+                });
+            }
+        });
+    </script>
 
     @RenderSection("Scripts", required: false)
 

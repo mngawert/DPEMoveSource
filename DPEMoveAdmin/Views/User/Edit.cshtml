@@ -25,11 +25,11 @@
                         <input class="col-md-6 form-control" asp-for="ID_CARD_NO" />
                     </div>
                     <div class="form-group row">
-                        <label class="col-md-3 text-right">Account Type</label>
+                        <label class="col-md-3 text-right">กลุ่ม</label>
                         <label class="col-md-6 form-control"> @Model.ACCOUNT_TYPE_NAME </label>
                     </div>
                     <div class="form-group row">
-                        <label class="col-md-3 text-right">กลุ่ม</label>
+                        <label class="col-md-3 text-right">กลุ่มสิทธิ์</label>
                         <select class="input-field" id="ddlGROUP" name="GROUP_ID" style="width: 250px;">
                             <option value="">กรุณาเลือก</option>
                         </select>
@@ -57,7 +57,7 @@
 
     function GetMGroup(ForId, selectedValue) {
         var settings = {
-          "url": "https://localhost:44348/api/Admin/GetMGroup",
+          "url": "/api/Admin/GetMGroup",
           "method": "POST",
           "timeout": 0,
           "headers": {
