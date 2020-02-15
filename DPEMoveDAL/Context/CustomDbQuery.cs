@@ -20,5 +20,6 @@ namespace DPEMoveDAL.Models
         public DbQuery<VW_RPT_SURVEY_15_1_A_DbQuery> VW_RPT_SURVEY_15_1_A_DbQuery { get; set; }
         public DbQuery<VwSurveyAnswerDbQuery> VwSurveyAnswerDbQuery { get; set; }
         public DbQuery<VwSurveyAnswerDetailsDbQuery> VwSurveyAnswerDetailsDbQuery { get; set; }
+        public DbQuery<VW_USER> VW_USER { get; set; }
     }
 }

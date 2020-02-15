@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ApplicationUser>;
+﻿@model IEnumerable<VW_USER>;
 <!-- Page Heading -->
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="h4 mb-0 text-gray-800">
@@ -50,6 +50,7 @@
                     <th scope="col">#</th>
                     <th scope="col">Email</th>
                     <th scope="col">ชื่อ</th>
+                    <th scope="col">ชื่อกลุ่ม</th>
                     <th scope="col"></th>
                 </tr>
             </thead>
@@ -59,13 +60,11 @@
                 {
                     <tr>
                         <td scope="row">@(rowNo++)</td>
-                        <td>@r.Email</td>
-                        <td>@r.Name</td>
-                        <td style="width:40%">
-                            <form asp-action="Delete" asp-route-id="@r.Id">
-                                <a class="btn btn-sm btn-primary" asp-action="Edit" asp-route-id="@r.GroupId">แก้ไข</a>
-                                <button class="btn btn-sm btn-danger" type="submit">ลบ</button>
-                            </form>
+                        <td>@r.EMAIL</td>
+                        <td style="width:40%">@r.NAME</td>
+                        <td>@r.GROUP_NAME</td>
+                        <td>
+                            <a class="btn btn-sm btn-primary" asp-action="Edit" asp-route-id="@r.APP_USER_ID">แก้ไข</a>
                         </td>
                     </tr>
                 }

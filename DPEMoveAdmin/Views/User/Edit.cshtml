@@ -1,0 +1,39 @@
+﻿@model VW_USER;
+<!-- Page Heading -->
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h4 mb-0 text-gray-800">
+        จัดการผู้ใช้งาน
+    </h1>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <form asp-action="EditUser" method="post">
+            <input type="hidden" name="APP_USER_ID" value="@Model.APP_USER_ID" />
+            <div class="row justify-content-center">
+                <div class="col-md-10">
+                    <div class="form-group row">
+                        <label class="col-md-3 text-right">EMAIL</label>
+                        <input class="col-md-6 form-control" asp-for="EMAIL" />
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 text-right">NAME</label>
+                        <input class="col-md-6 form-control" asp-for="NAME" />
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 text-right">ID_CARD_NO</label>
+                        <input class="col-md-6 form-control" asp-for="ID_CARD_NO" />
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-3">
+                        </div>
+                        <div class="col-md-3 m-0 p-0 pt-3">
+                            <button type="submit" class="btn btn-success btn-block">บันทึก</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+

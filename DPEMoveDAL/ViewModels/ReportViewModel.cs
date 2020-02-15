@@ -55,4 +55,18 @@ namespace DPEMoveDAL.ViewModels
         public int SumAttr { get; set; }
     }
 
+    public class VW_USER
+    {
+        public int APP_USER_ID { get; set; }
+        public string EMAIL { get; set; }
+        public string ACCOUNT_TYPE { get; set; }
+        public int GROUP_ID { get; set; }
+        public string NAME { get; set; }
+        public string ID_CARD_NO { get; set; }
+        public DateTime? BIRTH_DATE { get; set; }
+        public decimal? HEIGHT { get; set; }
+        public decimal? WEIGH { get; set; }
+        public string ACCOUNT_TYPE_NAME { get; set; }
+        public string GROUP_NAME { get; set; }
+    }
 }
