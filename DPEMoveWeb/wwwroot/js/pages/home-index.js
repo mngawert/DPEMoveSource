@@ -171,8 +171,10 @@ function DrawChartForReportSurvey151A(token) {
                     data.addRow([value.sportName, value.sumAttr]);
                 });
 
+                console.log("GetReportSurvey151A data", data);
+
                 var options = {
-                    width: 620,
+                    width: 750,
                     height: 300,
                     //legend: { position: 'none' },
                     chart: {

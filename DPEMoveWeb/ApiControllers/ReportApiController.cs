@@ -56,6 +56,23 @@ namespace DPEMoveWeb.ApiControllers
             return q.ToList();
         }
 
+
+        [HttpPost]
+        [Authorize]
+        public IEnumerable<ReportEvent4DbQuery> GetReportEvent4(ReportEvent4Request model)
+        {
+            string sql = @"
+                select SECTION_CAT_ID, SECTION_CAT_NAME, count(1) as NO_OF_EVENTS 
+                from VW_RPT_EVENT_3
+                where event_start_date between {0} and {1}
+                group by SECTION_CAT_ID, SECTION_CAT_NAME
+                ";
+
+            var q = _context.ReportEvent4DbQuery.FromSql(sql, model.EventDateFrom, model.EventDateTo);
+
+            return q.ToList();
+        }
+
         [HttpPost]
         [Authorize]
         public IEnumerable<VW_RPT_SURVEY_15_1_A_DbQuery> GetReportSurvey151A(VW_RPT_SURVEY_15_1_A_Request model)
