@@ -335,7 +335,7 @@ function CreateGmsMember(token) {
             var data = results.data;
 
             if (data.length > 0) {
-                window.location.href = window.location.href.replace("#","") + "/Edit/" + data[0].MEMBER_ID;
+                window.location.href = window.location.href.replace("#","") + "/Details/" + data[0].MEMBER_ID;
             }
         }
     });
@@ -415,7 +415,7 @@ function GetPSN(token, DATA_REPLACE_OR_APPEND, PAGE, NAME, PROV_CODE, AMP_CODE) 
                             </ol>
                         </div>
                         <div class="col-th-btn">
-                            <a href="/PSN/Edit/${value.MEMBER_ID}" class="button darkgreen medium">แก้ไข</a>
+                            <a href="/PSN/Details/${value.MEMBER_ID}" class="button darkgreen medium">รายละเอียด</a>
                         </div>
                     </div>
                 </div>

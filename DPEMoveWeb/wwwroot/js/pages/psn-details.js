@@ -562,7 +562,10 @@ function GetGmsMember(token, MEMBER_ID) {
         var data = results.data;
         var items = '';
         $.each(data, function (index, value) {
-            //console.log("geting MEMBER_IMAGE", value.MEMBER_IMAGE);
+
+            if (value.HRS_ID == appIdcardNo) {
+                localStorage.setItem("Mode", "Edit");
+            }
 
             $("txtMEMBER_ID").val(MEMBER_ID);
             $("#dvMEMBER_IMAGE").html(`<img id='imgPreview' src="${value.MEMBER_IMAGE == null ? "/images/psn010101_02.png" : value.MEMBER_IMAGE}" />`);
@@ -647,6 +650,9 @@ function GetGmsMember(token, MEMBER_ID) {
             GetTambon(token, "ddlREGHOME_TUMBOL", value.REGHOME_PROV, value.REGHOME_AMPHUR, value.REGHOME_TUMBOL_ID);
         });
 
+        if (localStorage.getItem("Mode") == "View") {
+            ChangeHtmlToModeView();
+        }
     });
 }
 
@@ -741,11 +747,14 @@ function GetTrainHistory(token, MEMBER_ID) {
                     <td>${value.COURSE_SUBJECT}</td>
                     <td>${value.SPORT_SUBJECT}</td>
                     <td>${value.LEVEL_DETAIL}</td>
-                    <td class="center"><a href="javascript:void(0);" onclick="DeleteTrainHistory('${token}', '${MEMBER_ID}', '${value.HISTORY_ID}');" class="button small red">&nbsp;ลบ&nbsp;</a></td>
+                    <td class="center ForModeEdit"><a href="javascript:void(0);" onclick="DeleteTrainHistory('${token}', '${MEMBER_ID}', '${value.HISTORY_ID}');" class="button small red">&nbsp;ลบ&nbsp;</a></td>
                 </tr>
                 `;
             });
             $("#tblGMS_HISTORY >tbody").html(items);
+            if (localStorage.getItem("Mode") == "View") {
+                ChangeHtmlToModeView();
+            }
         }
     });
 }
@@ -834,11 +843,14 @@ function GetEducationHistory(token, MEMBER_ID) {
                         <td>${value.EDU_LEVEL}</td>
                         <td>${value.EDU_DEPT}</td>
                         <td>${value.EDU_INSTITUTE}</td>
-                        <td class="center"><a href="javascript:void(0);" onclick="DeleteEducationHistory('${token}', '${MEMBER_ID}', '${value.DI_EDU_ID}');" class="button small red">&nbsp;ลบ&nbsp;</a></td>
+                        <td class="center ForModeEdit"><a href="javascript:void(0);" onclick="DeleteEducationHistory('${token}', '${MEMBER_ID}', '${value.DI_EDU_ID}');" class="button small red">&nbsp;ลบ&nbsp;</a></td>
                     </tr>
                 `
             });
             $("#tblEduHistory >tbody").html(items);
+            if (localStorage.getItem("Mode") == "View") {
+                ChangeHtmlToModeView();
+            }
         }
     });
 }
@@ -940,7 +952,7 @@ function GetWorkHistory(token, MEMBER_ID) {
                         <td>${value.LEVEL_DETAIL}</td>
                         <td>${value.WORK_LOCATION}</td>
                         <td>${ConvertDateToTH(value.WORK_TIME_START)} - ${ConvertDateToTH(value.WORK_TIME_END)}</td>
-                        <td class="center"><a href="javascript:void(0);" onclick="DeleteWorkHistory('${token}', '${MEMBER_ID}', '${value.WORK_ID}');" class="button small red">&nbsp;ลบ&nbsp;</a></td>
+                        <td class="center ForModeEdit"><a href="javascript:void(0);" onclick="DeleteWorkHistory('${token}', '${MEMBER_ID}', '${value.WORK_ID}');" class="button small red">&nbsp;ลบ&nbsp;</a></td>
                     </tr>
                 `
             });
@@ -997,6 +1009,9 @@ function GetReportEvent2(token, idCard) {
                 `
             });
             $("#tblReportEvent2 >tbody").html(items);
+            if (localStorage.getItem("Mode") == "View") {
+                ChangeHtmlToModeView();
+            }
         }
     });
 }
@@ -1025,7 +1040,48 @@ function previewFile() {
     }
 }
 
+
+function SendEmail(to, subject, body) {
+
+    var settings = {
+        "url": "https://localhost:44388/WebApi/PSN/SendEmail",
+        "method": "POST",
+        "timeout": 0,
+        "headers": {
+            "Content-Type": "application/json"
+        },
+        "data": JSON.stringify({ "to": to, "subject": subject, "body": body }),
+    };
+
+    $.ajax(settings).done(function (response, status, xhr) {
+        if (xhr.status == 200) {
+
+            $("#ModalContact").modal("hide");
+        }
+    });
+}
+
+function ChangeHtmlToModeView() {
+
+    $("input[type=text]").each(function () {
+        $(this).replaceWith("<label>" + $(this).val() + "</label>");
+    });
+
+    $("select").each(function () {
+        var ddlText = $(this).children(':selected').text();
+        if (ddlText == "กรุณาเลือก") {
+            ddlText = "-";
+        }
+        $(this).replaceWith("<label>" + ddlText + "</label>");
+    });
+
+    $(".ForModeEdit").hide();
+    $("label").css("margin", "0px");
+}
+
 $(document).ready(function () {
+
+    localStorage.setItem("Mode", "View");
 
     GetToken().done(function (response) {
         var token = JSON.parse(response).data;
@@ -1097,6 +1153,21 @@ $(document).ready(function () {
             $("[name='REGHOME_POST']").val($("[name='CON_POST']").val());
         }
     });
+
+    $("#btnSendEmail").click(function () {
+        if (!$("#frmSendEmail")[0].checkValidity()) {
+
+            $("#frmSendEmail")[0].reportValidity()
+            return false;
+        }
+
+        var to = $("#lblE_MAIL2").text();
+        var body = $("#txtSendEmailBody").val();
+        if (body.length > 0) {
+            SendEmail(to, "ข้อความติดต่อจาก DPEMove", body);
+        }
+    });
+
     
     $("#ddlCON_PROV").change(function () {
         var provinceId = $("#ddlCON_PROV").val();
@@ -1175,6 +1246,7 @@ $(document).ready(function () {
             GetTambon(token, "ddlREGHOME_TUMBOL", provinceId, amphurId, null);
         }
     });
+
 
 });
 
