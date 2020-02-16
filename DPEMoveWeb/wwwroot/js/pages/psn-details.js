@@ -1076,7 +1076,7 @@ function ChangeHtmlToModeView() {
     });
 
     $(".ForModeEdit").hide();
-    $("label").css("margin", "0px");
+    //$("label").css("margin", "0px");
 }
 
 $(document).ready(function () {

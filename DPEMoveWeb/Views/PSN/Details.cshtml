@@ -81,7 +81,7 @@
             <div class="col-12">
                 <div class="tabs">
                     <span class="tab">ส่วนบุคคล</span>
-                    <span class="tab">ที่อยู่</span>
+                    <span class="tab ForModeEdit">ที่อยู่</span>
                     <span class="tab">ประวัติการศึกษา</span>
                     <span class="tab">ประวัติการฝึกอบรม</span>
                     <span class="tab">ประวัติการปฏิบัติหน้าที่</span>
@@ -93,7 +93,7 @@
                             <div class="block-group">
                                 <div class="heading">ข้อมูลส่วนบุคคล</div>
                                 <div class="entry-data">
-                                    <div class="row">
+                                    <div class="row ForModeEdit">
                                         <div class="col-12 col-md-10">
                                             <table class="tbl-fields th-aright" cellspacing="0">
                                                 <tr>
@@ -1192,6 +1192,12 @@
 
 
 @section Scripts {
+
+    <style>
+        label {
+            margin: 0px;
+        }
+    </style>
 
     <script type="text/javascript">
         var routeId = @ViewBag.routeId;
