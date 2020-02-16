@@ -175,16 +175,66 @@ function DrawChartForReportSurvey151A(token) {
 
                 var options = {
                     width: 750,
-                    height: 300,
+                    height: 400,
                     //legend: { position: 'none' },
-                    chart: {
-                        title: '',
-                        subtitle: '',
-                    }
+                    bar: { groupWidth: "95%" },
+                    title: 'พฤติกรรมการออกกำลังกาย',
                 };
 
-                var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
-                chart.draw(data, google.charts.Bar.convertOptions(options));
+                //var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
+                //chart.draw(data, google.charts.Bar.convertOptions(options));
+
+                var chart = new google.visualization.BarChart(document.getElementById("barchart_values"));
+                chart.draw(data, options);
+            }
+        });
+    }
+}
+
+
+
+function GetReportEvent4(token) {
+
+    var settings = {
+        "url": "/api/Report/GetReportEvent4",
+        "method": "POST",
+        "timeout": 0,
+        "headers": {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + token
+        },
+        "data": JSON.stringify({ "eventDateFrom": "2020-01-01", "eventDateTo": "2099-12-31" }),
+    };
+
+    return $.ajax(settings);
+}
+
+function DrawChartForReportEvent4(token) {
+
+    google.charts.load('current', { 'packages': ['corechart'] });
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+
+        GetReportEvent4(token).done(function (response, textStatus, jqXHR) {
+            if (jqXHR.status == 200) {
+
+                var data = new google.visualization.DataTable();
+                data.addColumn('string', 'กิจกรรม');
+                data.addColumn('number', 'จำนวน');
+
+                $.each(response, function (index, value) {
+                    data.addRow([value.sectionCatName, value.noOfEvents]);
+                });
+
+                var options = {
+                    width: 750,
+                    height: 400,
+                    title: 'กิจกรรมที่กำลังจัด ณ ขณะนี้'
+                };
+
+                var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+                chart.draw(data, options);
             }
         });
     }
@@ -251,6 +301,45 @@ function fixToolTipPosition() {
     }
 }
 
+function GetNews() {
+    var settings = {
+        "url": "https://dpemove.dpe.go.th/api/RSS/GetNews",
+        "method": "GET",
+        "timeout": 0,
+    };
+
+    $.ajax(settings).done(function (response, textStatus, jqXHR) {
+        if (jqXHR.status == 200) {
+
+            //console.log("response", response);
+            //var xxx = response.replace("![CDATA[", "").replace("]]","");
+            //console.log("xxx", xxx);
+
+            var $xml = $(response);
+            $xml.find("item").each(function () {
+                var $this = $(this),
+                    item = {
+                        title: $this.find("title").html(),
+                        link: $this.find("link").text(),
+                        description: $this.find("description").html(),
+                        pubDate: $this.find("pubDate").text(),
+                        author: $this.find("author").text(),
+                        header: $this.find("header").text,
+                    }
+
+                console.log("item", item);
+
+                //Do something with item here...
+            });
+
+            //$.each(data, function (index, value) {
+
+            //    console.log(value.title);
+            //});
+        }
+    });
+}
+
 
 
 $(document).ready(function () {
@@ -261,6 +350,7 @@ $(document).ready(function () {
 
         GetReportEvent1(token);
         DrawChartForReportSurvey151A(token);
+        DrawChartForReportEvent4(token);
     });
 
     GetToken().done(function (response) {
@@ -268,6 +358,7 @@ $(document).ready(function () {
         PrintTableForReportStadium1(token);
     });
 
+    GetNews();
     //GetStadiumData();
 
 });
