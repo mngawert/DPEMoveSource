@@ -11,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections;
 using Microsoft.AspNetCore.Http;
+using DPEMoveDAL.Helper;
 
 namespace DPEMoveAdmin.Controllers
 {
@@ -23,11 +24,14 @@ namespace DPEMoveAdmin.Controllers
             this.context = context;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(int? pageNumber)
         {
             var q = context.Department.Include(a => a.DepartmentPerson).OrderBy(a => a.DepartmentId).ToList();
 
-            return View(q);
+            int pageSize = 10;
+            var qq = PaginatedList<Department>.Create(q, pageNumber ?? 1, pageSize);
+
+            return View(qq);
         }
 
         public List<Province> GetProvinceList()

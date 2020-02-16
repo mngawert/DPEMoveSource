@@ -1,8 +1,8 @@
-﻿@model IEnumerable<VW_USER>;
+﻿@model PaginatedList<VW_USER>;
 <!-- Page Heading -->
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="h4 mb-0 text-gray-800">
-        ผู้ใช้งานระบบ
+        จัดการผู้ใช้งาน
     </h1>
     @*<a href="#" class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>*@
     <a class="btn btn-success" asp-action="Create">สร้าง</a>
@@ -56,22 +56,41 @@
                 </tr>
             </thead>
             <tbody>
-                @{ int rowNo = 1; }
+                @{ int rowNo = ((Model.PageIndex-1) * 10) + 1; }
                 @foreach (var r in Model)
                 {
-                <tr>
-                    <td scope="row">@(rowNo++)</td>
-                    <td>@r.EMAIL</td>
-                    <td>@r.NAME</td>
-                    <td>@r.ACCOUNT_TYPE_NAME</td>
-                    <td>@r.GROUP_NAME</td>
-                    <td>
-                        <a class="btn btn-sm btn-primary" asp-action="Edit" asp-route-id="@r.APP_USER_ID">แก้ไข</a>
-                    </td>
-                </tr>
+                    <tr>
+                        <td scope="row">@(rowNo++)</td>
+                        <td>@r.EMAIL</td>
+                        <td>@r.NAME</td>
+                        <td>@r.ACCOUNT_TYPE_NAME</td>
+                        <td>@r.GROUP_NAME</td>
+                        <td>
+                            <a class="btn btn-sm btn-primary" asp-action="Edit" asp-route-id="@r.APP_USER_ID">แก้ไข</a>
+                            <a class="btn btn-sm btn-danger" asp-action="Edit" asp-route-id="@r.APP_USER_ID">ลบ</a>
+                        </td>
+                    </tr>
                 }
             </tbody>
         </table>
+        @{
+            var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+            var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+        }
+        <a asp-action="Index"
+           asp-route-sortOrder="@ViewData["CurrentSort"]"
+           asp-route-pageNumber="@(Model.PageIndex - 1)"
+           asp-route-currentFilter="@ViewData["CurrentFilter"]"
+           class="btn btn-default @prevDisabled">
+            Previous
+        </a>
+        <a asp-action="Index"
+           asp-route-sortOrder="@ViewData["CurrentSort"]"
+           asp-route-pageNumber="@(Model.PageIndex + 1)"
+           asp-route-currentFilter="@ViewData["CurrentFilter"]"
+           class="btn btn-default @nextDisabled">
+            Next
+        </a>
     </div>
 </div>
 

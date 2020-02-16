@@ -1,6 +1,6 @@
 ﻿@*@model List<Department>;*@
 
-@model List<DPEMoveDAL.Models.Department>;
+@model PaginatedList<DPEMoveDAL.Models.Department>;
 
 <div class="row">
     <div class="col-md-10">
@@ -13,16 +13,17 @@
 <div class="card">
     <div class="card-body">
         <div class="row table table-sm table-striped">
-            <div class="col-md-2">รหัสหน่วยงาน</div>
+            <div class="col-md-2">#</div>
             <div class="col-md-3">ชื่อหน่วยงาน</div>
             <div class="col-md-3">E-mail</div>
             <div class="col-md-4">จัดการ</div>
         </div>
         <hr />
+        @{ int rowNo = ((Model.PageIndex - 1) * 10) + 1; }
         @foreach (var i in Model)
         {
             <div class="row table table-sm table-striped table-condensed">
-                <div class="col-md-2">@i.DepartmentId</div>
+                <div class="col-md-2">@(rowNo++)</div>
                 <div class="col-md-3">@i.Department1</div>
                 <div class="col-md-3">@i.Email</div>
                 <div class="col-md-4">
@@ -31,7 +32,24 @@
                     <a class="btn btn-sm btn-danger" asp-action="DepDelete" asp-route-id="@i.DepartmentId">ลบ</a>
                 </div>
             </div>
-
         }
+        @{
+            var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+            var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+        }
+        <a asp-action="Index"
+           asp-route-sortOrder="@ViewData["CurrentSort"]"
+           asp-route-pageNumber="@(Model.PageIndex - 1)"
+           asp-route-currentFilter="@ViewData["CurrentFilter"]"
+           class="btn btn-default @prevDisabled">
+            Previous
+        </a>
+        <a asp-action="Index"
+           asp-route-sortOrder="@ViewData["CurrentSort"]"
+           asp-route-pageNumber="@(Model.PageIndex + 1)"
+           asp-route-currentFilter="@ViewData["CurrentFilter"]"
+           class="btn btn-default @nextDisabled">
+            Next
+        </a>
     </div>
 </div>

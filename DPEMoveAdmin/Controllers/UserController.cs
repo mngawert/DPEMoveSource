@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DPEMoveDAL.Helper;
 using DPEMoveDAL.Models;
 using DPEMoveDAL.ViewModels;
 using Microsoft.AspNetCore.Authorization;
@@ -25,14 +26,17 @@ namespace DPEMoveAdmin.Controllers
             _userManager = userManager;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(int? pageNumber)
         {
 
             string sql = @"SELECT * from VW_USER order by 1";
 
             var q = _context.VW_USER.FromSql(sql);
 
-            return View(q);
+            int pageSize = 10;
+            var qq = PaginatedList<VW_USER>.Create(q, pageNumber ?? 1, pageSize);
+
+            return View(qq);
         }
 
         public IActionResult Edit(int id)
