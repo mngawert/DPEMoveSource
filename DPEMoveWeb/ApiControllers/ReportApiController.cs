@@ -56,6 +56,21 @@ namespace DPEMoveWeb.ApiControllers
             return q.ToList();
         }
 
+        [HttpPost]
+        [Authorize]
+        public IEnumerable<ReportEvent3DbQuery> GetReportEvent3(ReportEvent4Request model)
+        {
+            string sql = @"
+                select *
+                from VW_RPT_EVENT_3
+                where event_start_date between {0} and {1}
+                order by EVENT_START_DATE
+                ";
+
+            var q = _context.ReportEvent3DbQuery.FromSql(sql, model.EventDateFrom, model.EventDateTo);
+
+            return q.ToList();
+        }
 
         [HttpPost]
         [Authorize]

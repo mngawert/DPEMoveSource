@@ -204,12 +204,12 @@
                 </div>
             </div>
             <div class="col-sm-12 col-md-12 col-lg-4">
-                <div class="activity">
+                <div class="activity" id="dvReportEvent3">
                     <div class="head_act">
                         <h5 class="tx_center"><img src="/images/ic_calendar.png" width="27" height="30" alt="" /> ปฎิทินกิจกรรม</h5>
                     </div>
-                    <div class="month_sec">DECEMBER</div>
-                    <div class="day_sec">
+                    @*<div class="month_sec">DECEMBER</div>*@
+                    @*<div class="day_sec">
                         <div class="row">
                             <div class="day_left">
                                 <h3>02</h3>
@@ -256,8 +256,8 @@
                                 <div class="rating"><img src="/images/ic_star.png" alt="" /><img src="/images/ic_star.png" alt="" /><img src="/images/ic_star.png" alt="" /><img src="/images/ic_star.png" alt="" /><img src="/images/ic_star.png" alt="" /></div>
                             </div>
                         </div>
-                    </div>
-                    <div class="readmore"><a href="/Events">read more &#xbb;</a></div>
+                    </div>*@
+                    @*<div class="readmore"><a href="/Events">read more &#xbb;</a></div>*@
                 </div>
             </div>
         </div>
@@ -398,9 +398,9 @@
                         <div class="col-md-3 mb-3">
                             <ul class="nav nav-pills flex-column" id="myTab" role="tablist">
                                 @*<li class="nav-item"> <a class="nav-link active" id="num_people-tab" data-toggle="tab" href="#num_people" role="tab" aria-controls="num_people" aria-selected="true">จำนวนคนออกกำลังกาย</a> </li>*@
-                                <li class="nav-item"> <a class="nav-link active" id="num_per-tab" data-toggle="tab" href="#num_per" role="tab" aria-controls="num_per" aria-selected="true">จำนวนบุคลากรแต่ละพื้นที่</a> </li>
+                                @*<li class="nav-item"> <a class="nav-link active" id="num_per-tab" data-toggle="tab" href="#num_per" role="tab" aria-controls="num_per" aria-selected="false">จำนวนบุคลากรแต่ละพื้นที่</a> </li>*@
                                 <li class="nav-item"> <a class="nav-link" id="num_acti-tab" data-toggle="tab" href="#num_acti" role="tab" aria-controls="num_acti" aria-selected="false">กิจกรรมที่กำลังจัด ณ ขณะนี้</a> </li>
-                                <li class="nav-item"> <a class="nav-link" id="behav-tab" data-toggle="tab" href="#behav" role="tab" aria-controls="behav" aria-selected="false">พฤติกรรมการออกกำลังกาย</a> </li>
+                                <li class="nav-item"> <a class="nav-link active" id="behav-tab" data-toggle="tab" href="#behav" role="tab" aria-controls="behav" aria-selected="true">พฤติกรรมการออกกำลังกาย</a> </li>
                                 <li class="nav-item"> <a class="nav-link" id="acti-tab" data-toggle="tab" href="#acti" role="tab" aria-controls="acti" aria-selected="false">กิจกรรม</a> </li>
                                 <li class="nav-item"> <a class="nav-link" id="loca-tab" data-toggle="tab" href="#loca" role="tab" aria-controls="loca" aria-selected="false">สถานที่ออกกำลังกาย</a> </li>
                                 <li class="nav-item"> <a class="nav-link" id="personnel-tab" data-toggle="tab" href="#personnel" role="tab" aria-controls="personnel" aria-selected="false">บุคคลกร</a> </li>
@@ -446,17 +446,17 @@
                                             }
                                         </script>
                                     </div>*@
-                                <div class="tab-pane fade show active" id="num_per" role="tabpanel" aria-labelledby="num_per-tab">
+                                @*<div class="tab-pane fade" id="num_per" role="tabpanel" aria-labelledby="num_per-tab">
                                     <h3>จำนวนบุคลากรแต่ละพื้นที่</h3>
                                     <div class="text-center"><img src="/images/person_area.jpg" /></div>
-                                </div>
+                                </div>*@
                                 <div class="tab-pane fade" id="num_acti" role="tabpanel" aria-labelledby="num_acti-tab">
                                     <h3>กิจกรรมที่กำลังจัด ณ ขณะนี้</h3>
                                     @*<div class="text-center"><img src="/images/events_now.jpg" /></div>*@
                                     <div id="piechart" style="width: 750px; height: 400px;"></div>
 
                                 </div>
-                                <div class="tab-pane fade" id="behav" role="tabpanel" aria-labelledby="behav-tab">
+                                <div class="tab-pane fade show active" id="behav" role="tabpanel" aria-labelledby="behav-tab">
                                     <h3>พฤติกรรมการออกกำลังกาย</h3>
                                     @*<div class="text-center"><img src="/images/ex_behavior.jpg" /></div>*@
                                     @*<div id="columnchart_material"></div>*@

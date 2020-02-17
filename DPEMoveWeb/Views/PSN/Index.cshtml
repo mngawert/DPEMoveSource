@@ -25,7 +25,7 @@
                 <div class="row con_right">
                     <div class="col">
                         @*<button type="button" class="btn btn-lightgreen btn-round">ลงทะเบียน</button>*@
-                        <a href="javascript:void(0);" class="btn btn-lightgreen btn-round" data-toggle="modal" data-target="#Modal3">ลงทะเบียน</a>
+                        <a id="btnOpenPopupForCreatePSN" style="display:none" href="javascript:void(0);" class="btn btn-lightgreen btn-round" data-toggle="modal" data-target="#Modal_CreatePSN">ลงทะเบียน</a>
                     </div>
                 </div>
             </div>
@@ -109,19 +109,19 @@
                                 </div>
                             </div>
                             @*<div class="row">
-                                <div class="col-sm-12">
-                                    <div class="row-field clearfix">
-                                        <div class="c lbl">
-                                            ระดับ
-                                        </div>
-                                        <div class="c field">
-                                            <select class="input-field" style="width:150px">
-                                                <option value="">ชาติ</option>
-                                            </select>
+                                    <div class="col-sm-12">
+                                        <div class="row-field clearfix">
+                                            <div class="c lbl">
+                                                ระดับ
+                                            </div>
+                                            <div class="c field">
+                                                <select class="input-field" style="width:150px">
+                                                    <option value="">ชาติ</option>
+                                                </select>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>*@
+                                </div>*@
                             <div class="row">
                                 <div class="col-sm-12">
                                     <div class="row-field clearfix">
@@ -215,11 +215,16 @@
 </div>
 
 @section Scripts {
+    <script type="text/javascript">
+        var appUserId = @ViewBag.AppUserId;
+
+        console.log('appUserId=', appUserId);
+    </script>
 
     <script src="~/js/pages/psn-index.js"></script>
 }
 
-<div class="modal fade bd-example-modal-lg" id="Modal3" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" style="display:none;" aria-hidden="true">
+<div class="modal fade bd-example-modal-lg" id="Modal_CreatePSN" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" style="display:none;" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">

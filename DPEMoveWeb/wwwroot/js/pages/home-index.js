@@ -191,6 +191,114 @@ function DrawChartForReportSurvey151A(token) {
     }
 }
 
+function GetReportEvent3(token) {
+
+    var d = new Date();
+    d = new Date(d.getTime() - 3000000);
+    var date_format_str = d.getFullYear().toString() + "-" + ((d.getMonth() + 1).toString().length == 2 ? (d.getMonth() + 1).toString() : "0" + (d.getMonth() + 1).toString()) + "-" + (d.getDate().toString().length == 2 ? d.getDate().toString() : "0" + d.getDate().toString());
+    console.log(date_format_str);
+
+    var settings = {
+        "url": "/api/Report/GetReportEvent3",
+        "method": "POST",
+        "timeout": 0,
+        "headers": {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + token
+        },
+        "data": JSON.stringify({ "eventDateFrom": date_format_str, "eventDateTo": "2099-12-31" }),
+    };
+
+    console.log("sysdate", new Date());
+
+    $.ajax(settings).done(function (response, textStatus, jqXHR) {
+        if (jqXHR.status == 200) {
+
+            var data = response.slice(0, 6);
+
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            const options_DAY = { day: 'numeric' };
+            const options_MONTH_SHORT = { month: 'short' };
+            const options_MONTH_LONG = { month: 'long' };
+            var items = `
+                    <div class="month_sec">${d.toLocaleDateString('th-TH', options_MONTH_LONG)}</div>
+            `;
+            $.each(data, function (index, value) {
+
+                var mydate = new Date(value.eventStartDate);
+                console.log(mydate.toLocaleDateString('th-TH', options));
+
+                items +=
+                    `
+                    <div class="day_sec">
+                        <div class="row">
+                            <div class="day_left">
+                                <h3>${ mydate.toLocaleDateString('th-TH', options_DAY) }</h3>
+                                <span>${ mydate.toLocaleDateString('th-TH', options_MONTH_SHORT) }</span >
+                            </div>
+                            <div class="detail_right">
+                                <a href="#">${value.eventName}...</a>
+                                <div id="dvRating_${value.eventCode}" class="rating">
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            $("#dvReportEvent3").append(items);
+            $("#dvReportEvent3").append(`<div class="readmore"><a href="/Events">read more &#xbb;</a></div>`);
+
+            PrintVoteAvg(data);
+        }
+    });
+}
+
+function PrintVoteAvg(data) {
+
+    //console.log("PrintVoteAvg");
+    $.each(data, function (index, value) {
+        GetVoteTotalAvg("1", value.eventCode);
+    });
+}
+
+function GetVoteTotalAvg(voteOf, eventOrStadiumCode) {
+
+    //console.log("GetVoteTotalAvg");
+    var settings = {
+        "url": "/WebApi/Votes/GetVoteTotalAvg",
+        "method": "POST",
+        "headers": {
+            "Content-Type": "application/json"
+        },
+        "data": JSON.stringify({ "voteOf": voteOf, "eventOrStadiumCode": eventOrStadiumCode }),
+    };
+
+    //console.log("settings", settings)
+
+    $.ajax(settings).done(function (data, textStatus, jqXHR) {
+        //console.log("GetVoteTotalAvg reponse", data);
+        //var value = JSON.parse(response);
+
+        if (jqXHR.status == 200) {
+            var value = data;
+
+            var item =
+                `
+                <span class="fa fa-star` + (value.voteAvg > 0 ? (value.voteAvg < 1 ? "-half-o checked" : " checked") : "") + `"></span>
+                <span class="fa fa-star` + (value.voteAvg > 1 ? (value.voteAvg < 2 ? "-half-o checked" : " checked") : "") + `"></span>
+                <span class="fa fa-star` + (value.voteAvg > 2 ? (value.voteAvg < 3 ? "-half-o checked" : " checked") : "") + `"></span>
+                <span class="fa fa-star` + (value.voteAvg > 3 ? (value.voteAvg < 4 ? "-half-o checked" : " checked") : "") + `"></span>
+                <span class="fa fa-star` + (value.voteAvg > 4 ? (value.voteAvg < 5 ? "-half-o checked" : " checked") : "") + `"></span>
+            `
+            $("#dvRating_" + eventOrStadiumCode).html(item);
+        }
+    });
+}
 
 
 function GetReportEvent4(token) {
@@ -351,6 +459,7 @@ $(document).ready(function () {
         GetReportEvent1(token);
         DrawChartForReportSurvey151A(token);
         DrawChartForReportEvent4(token);
+        GetReportEvent3(token);
     });
 
     GetToken().done(function (response) {

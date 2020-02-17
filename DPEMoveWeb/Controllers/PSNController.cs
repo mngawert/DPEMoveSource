@@ -48,8 +48,10 @@ namespace DPEMoveWeb.Controllers
         }
 
         //[Authorize(Roles = "PSN_VIEW")]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            ViewBag.AppUserId = await GetLoginAppUserId();
+
             return View();
         }
 
