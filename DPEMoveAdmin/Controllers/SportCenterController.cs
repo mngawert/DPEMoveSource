@@ -34,6 +34,31 @@ namespace DPEMoveAdmin.Controllers
             return View(qq);
         }
 
+        [HttpPost]
+        public IActionResult Index(Department model)
+        {
+            var q = context.Department.Include(a => a.DepartmentPerson).OrderBy(a => a.DepartmentId).ToList();
+
+            q = q.Where(a => a.Status == model.Status).ToList();
+
+            if (!string.IsNullOrEmpty(model.Department1))
+            {
+                q = q.Where(a => !string.IsNullOrEmpty(a.Department1)).ToList();
+                q = q.Where(a => a.Department1.Contains(model.Department1)).ToList();
+            }
+            if (!string.IsNullOrEmpty(model.Vistion))
+            {
+                q = q.Where(a => !string.IsNullOrEmpty(a.Vistion)).ToList();
+                q = q.Where(a => a.Vistion.Contains(model.Vistion)).ToList();
+            }
+
+            int pageSize = 10;
+            var qq = PaginatedList<Department>.Create(q, 1, pageSize);
+
+            return View(qq);
+        }
+
+
         public List<Province> GetProvinceList()
         {
             List<Province> province = context.Province.ToList();

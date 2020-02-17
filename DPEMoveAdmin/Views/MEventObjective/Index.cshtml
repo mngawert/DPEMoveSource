@@ -1,10 +1,10 @@
-﻿@model IEnumerable<CpeConfig>;
+﻿@model IEnumerable<MEventObjective>;
 <!-- Page Heading -->
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="h4 mb-0 text-gray-800">
-        Configuration
+        กลุ่มเป้าหมายกิจกรรม
     </h1>
-    @*<a class="btn btn-success" asp-action="Create">สร้าง</a>*@
+    <a class="btn btn-success" asp-action="Create">สร้าง</a>
 </div>
 
 <div class="card">
@@ -14,10 +14,10 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="form-group row">
+                        <label class="col-md-2 text-right">Code</label>
+                        <input class="col-md-3 form-control" name="EventObjectiveCode" />
                         <label class="col-md-2 text-right">Name</label>
-                        <input class="col-md-3 form-control" name="Name" />
-                        <label class="col-md-2 text-right">Value</label>
-                        <input class="col-md-3 form-control" name="Value" />
+                        <input class="col-md-3 form-control" name="EventObjectiveName" />
                     </div>
                     <div class="form-group row">
                         <label class="col-md-2 text-right">สถานะ</label>
@@ -47,8 +47,9 @@
             <thead>
                 <tr>
                     <th scope="col">#</th>
+                    <th scope="col">Code</th>
                     <th scope="col">Name</th>
-                    <th scope="col">Value</th>
+                    <th scope="col">สถานะ</th>
                     <th scope="col"></th>
                 </tr>
             </thead>
@@ -56,14 +57,19 @@
                 @{ int rowNo = 1; }
                 @foreach (var r in Model)
                 {
-                    <tr>
-                        <td width="5%" scope="row">@(rowNo++)</td>
-                        <td>@r.Name</td>
-                        <td>@(r.Value?.Length > 100? r.Value?.Substring(1, 100): r.Value)</td>
-                        <td width="15%">
-                            <a class="btn-circle btn-sm btn-success" asp-action="Edit" asp-route-id="@r.ConfigId">แก้ไข</a>
-                        </td>
-                    </tr>
+                <tr>
+                    <td width="5%" scope="row">@(rowNo++)</td>
+                    <td width="15%">@r.EventObjectiveCode</td>
+                    <td>@r.EventObjectiveName</td>
+                    <td width="15%">@(r.Status == 1 ? "ใช้งาน":"ไม่ใช้งาน")</td>
+                    <td width="15%">
+                        <form method="post" asp-action="Delete">
+                            <a class="btn-circle btn-sm btn-success" asp-action="Edit" asp-route-id="@r.MEventObjectiveId">แก้ไข</a>
+                            <input type="hidden" name="MEventObjectiveId" value="@r.MEventObjectiveId" />
+                            <button class="btn-circle btn-sm btn-warning" type="submit">ลบ</button>
+                        </form>
+                    </td>
+                </tr>
                 }
             </tbody>
         </table>

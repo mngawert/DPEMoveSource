@@ -1,0 +1,40 @@
+﻿<!-- Page Heading -->
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h4 mb-0 text-gray-800">
+        กลุ่มเป้าหมายด้านกีฬา > สร้าง
+    </h1>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <form asp-action="Create" method="post">
+            <div class="row justify-content-center">
+                <div class="col-md-10">
+                    <div class="form-group row">
+                        <label class="col-md-3 text-right">Code</label>
+                        <input class="col-md-6 form-control" name="ObjectivePersonCode" required />
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 text-right">Name</label>
+                        <input class="col-md-6 form-control" name="ObjectivePersonName" required />
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 text-right">สถานะ</label>
+                        <select class="col-md-4 form-control" name="Status">
+                            <option value="1">ใช้งาน</option>
+                            <option value="2">ไม่ใช้งาน</option>
+                        </select>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-3">
+                        </div>
+                        <div class="col-md-4 m-0 p-0 pt-3">
+                            <button type="submit" class="btn btn-success btn-block">สร้าง</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>

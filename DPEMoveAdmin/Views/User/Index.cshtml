@@ -5,7 +5,7 @@
         จัดการผู้ใช้งาน
     </h1>
     @*<a href="#" class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>*@
-    <a class="btn btn-success" asp-action="Create">สร้าง</a>
+    @*<a class="btn btn-success" asp-action="Create">สร้าง</a>*@
 </div>
 
 <div class="card">
@@ -59,17 +59,17 @@
                 @foreach (var r in Model)
                 {
                     <tr>
-                        <td scope="row">@(rowNo++)</td>
+                        <td width="5%" scope="row">@(rowNo++)</td>
                         <td>@r.EMAIL</td>
                         <td>@r.NAME</td>
-                        <td>@r.ACCOUNT_TYPE_NAME</td>
-                        <td>@r.GROUP_NAME</td>
-                        <td>
+                        <td width="15%">@r.ACCOUNT_TYPE_NAME</td>
+                        <td width="20%">@r.GROUP_NAME</td>
+                        <td width="15%">
                             <form method="post" asp-action="Delete">
-                                <a class="btn btn-sm btn-primary" asp-action="Edit" asp-route-id="@r.APP_USER_ID">แก้ไข</a>
+                                <a class="btn-circle btn-sm btn-success" asp-action="Edit" asp-route-id="@r.APP_USER_ID">แก้ไข</a>
 
                                 <input type="hidden" name="APP_USER_ID" value="@r.APP_USER_ID" />
-                                <button class="btn btn-sm btn-danger" type="submit">ลบ</button>
+                                <button class="btn-circle btn-sm btn-warning" type="submit">ลบ</button>
                             </form>
                         </td>
                     </tr>

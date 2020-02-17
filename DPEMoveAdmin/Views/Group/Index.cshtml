@@ -61,7 +61,7 @@
                         <td scope="row">@(rowNo++)</td>
                         <td>@r.GroupName</td>
                         <td>@r.Description</td>
-                        <td style="width:40%">
+                        <td width="20%">
                             <form asp-action="Delete" asp-route-id="@r.GroupId">
 
                                 <a class="btn-circle btn-sm btn-success" asp-action="Edit" asp-route-id="@r.GroupId" title="กำหนดสิทธิ์"><i class="fas fa-unlock-alt"></i></a>

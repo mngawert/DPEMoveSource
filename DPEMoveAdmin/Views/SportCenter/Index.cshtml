@@ -11,28 +11,69 @@
 </div>
 <br />
 <div class="card">
-    <div class="card-body">
-        <div class="row table table-sm table-striped">
-            <div class="col-md-2">#</div>
-            <div class="col-md-3">ชื่อหน่วยงาน</div>
-            <div class="col-md-3">E-mail</div>
-            <div class="col-md-4">จัดการ</div>
-        </div>
-        <hr />
-        @{ int rowNo = ((Model.PageIndex - 1) * 10) + 1; }
-        @foreach (var i in Model)
-        {
-            <div class="row table table-sm table-striped table-condensed">
-                <div class="col-md-2">@(rowNo++)</div>
-                <div class="col-md-3">@i.Department1</div>
-                <div class="col-md-3">@i.Email</div>
-                <div class="col-md-4">
-                    <a class="btn btn-sm btn-primary" asp-action="DepEdit" asp-route-id="@i.DepartmentId">แก้ไข</a>
 
-                    <a class="btn btn-sm btn-danger" asp-action="DepDelete" asp-route-id="@i.DepartmentId">ลบ</a>
+    <div class="card-body">
+        <form method="post">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group row">
+                        <label class="col-md-2 text-right">ชื่อหน่วยงาน</label>
+                        <input class="col-md-3 form-control" name="Department1" />
+                        <label class="col-md-2 text-right">วิสัยทัศน์</label>
+                        <input class="col-md-3 form-control" name="Vistion" />
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-2 text-right">สถานะ</label>
+                        <select class="col-md-3 form-control" name="Status">
+                            <option value="1">ใช้งาน</option>
+                            <option value="2">ไม่ใช้งาน</option>
+                        </select>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-4">
+                        </div>
+                        <div class="col-md-4">
+                            <button type="submit" class="btn btn-success btn-block">แสดงข้อมูล</button>
+                        </div>
+                    </div>
                 </div>
             </div>
-        }
+
+        </form>
+    </div>
+
+
+    <div class="card-body">
+
+        @*<h5 class="card-title">กลุ่มผู้ใช้งานระบบ :</h5>*@
+
+        <table class="table table-sm table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">ชื่อหน่วยงาน</th>
+                    <th scope="col">วิสัยทัศน์</th>
+                    <th scope="col">สถานะ</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @{ int rowNo = ((Model.PageIndex - 1) * 10) + 1; }
+                @foreach (var r in Model)
+                {
+                    <tr>
+                        <td width="5%" scope="row">@(rowNo++)</td>
+                        <td>@r.Department1</td>
+                        <td>@r.Vistion</td>
+                        <td width="15%">@(r.Status == 1 ? "ใช้งาน" : "ไม่ใช้งาน")</td>
+                        <td width="15%">
+                            <a class="btn-circle btn-sm btn-success" asp-action="DepEdit" asp-route-id="@r.DepartmentId">แก้ไข</a>
+                            <a class="btn-circle btn-sm btn-warning" asp-action="DepDelete" asp-route-id="@r.DepartmentId">ลบ</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
         @{
             var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
             var nextDisabled = !Model.HasNextPage ? "disabled" : "";
@@ -51,5 +92,33 @@
            class="btn btn-default @nextDisabled">
             Next
         </a>
+
+        @*<a class="btn btn-primary" asp-action="Create">สร้างกลุ่มใหม่</a>*@
     </div>
+
+
+    @*<div class="card-body">
+        <div class="row table table-sm table-striped">
+            <div class="col-md-1">#</div>
+            <div class="col-md-4">ชื่อหน่วยงาน</div>
+            <div class="col-md-3">วิสัยทัศน์</div>
+            <div class="col-md-2">สถานะ</div>
+            <div class="col-md-2">จัดการ</div>
+        </div>
+        <hr />
+        @{ int rowNo = ((Model.PageIndex - 1) * 10) + 1; }
+        @foreach (var i in Model)
+        {
+            <div class="row table table-sm table-striped table-condensed">
+                <div class="col-md-1">@(rowNo++)</div>
+                <div class="col-md-4">@i.Department1</div>
+                <div class="col-md-3">@i.Vistion</div>
+                <div class="col-md-2">@(i.Status == 1 ? "ใช้งาน" : "ไม่ใช้งาน")</div>
+                <div class="col-md-2">
+                    <a class="btn-circle btn-sm btn-success" asp-action="DepEdit" asp-route-id="@i.DepartmentId">แก้ไข</a>
+                    <a class="btn-circle btn-sm btn-warning" asp-action="DepDelete" asp-route-id="@i.DepartmentId">ลบ</a>
+                </div>
+            </div>
+        }
+    </div>*@
 </div>
