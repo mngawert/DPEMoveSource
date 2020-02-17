@@ -441,7 +441,6 @@ function GetNews() {
                                     <img class="d-block img-fluid" src="${ $(item.description).attr("src") }" alt="First slide">
                                     <div class="carousel-caption d-none d-md-block">
                                         <h4>${item.title}</h4>
-                                        <p></p>
                                         <a target="_blank" href="${item.link}">read more</a>
                                     </div>
                                 </div>

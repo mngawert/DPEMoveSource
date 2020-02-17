@@ -67,6 +67,8 @@ namespace DPEMoveWebApi.Controllers
             var q = _context.CpeConfig.Where(a => a.ConfigId == model.ConfigId).FirstOrDefault();
             if (q != null)
             {
+                q.Value = model.Value;
+
                 _context.Entry(q).State = EntityState.Modified;
                 _context.SaveChanges();            
             }

@@ -26,12 +26,21 @@ namespace DPEMoveAdmin.Controllers
             _userManager = userManager;
         }
 
-        public IActionResult Index(int? pageNumber)
+        public IActionResult Index(int? pageNumber, string email, string name)
         {
 
             string sql = @"SELECT * from VW_USER order by 1";
 
-            var q = _context.VW_USER.FromSql(sql);
+            var q = _context.VW_USER.FromSql(sql).ToList();
+
+            if (email != null)
+            {
+                q = q.Where(a => a.EMAIL != null && a.EMAIL.Contains(email)).ToList();
+            }
+            if (name != null)
+            {
+                q = q.Where(a => a.NAME != null && a.NAME.Contains(name)).ToList();
+            }
 
             int pageSize = 10;
             var qq = PaginatedList<VW_USER>.Create(q, pageNumber ?? 1, pageSize);
@@ -59,6 +68,18 @@ namespace DPEMoveAdmin.Controllers
                 q.IdcardNo = model.ID_CARD_NO;
 
                 _context.Entry(q).State = EntityState.Modified;
+                _context.SaveChanges();
+            }
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public IActionResult Delete(VW_USER model)
+        {
+            var q = _context.AspNetUsers.Where(a => a.AppUserId == model.APP_USER_ID).FirstOrDefault();
+            if (q != null)
+            {
+                _context.Entry(q).State = EntityState.Deleted;
                 _context.SaveChanges();
             }
             return RedirectToAction("Index");

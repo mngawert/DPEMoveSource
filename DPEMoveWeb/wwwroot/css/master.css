@@ -57,15 +57,17 @@ hr { border-color: #e0e0e0; }
 .detail_right a:hover {color: #226b50;}
 .readmore { padding: 10px 15px; text-align: right; bottom: 18px; position: absolute; right: 20px; }
 .news_sec .carousel-inner .carousel-item img {border-radius: 0;}
-.news_sec .carousel-caption {right: 0; left: inherit; text-align: left; padding: 20px; background: rgba(44,143,106,0.9); width: 50%; height: 100%; top: 0px;}
+/* .news_sec .carousel-caption {right: 0; left: inherit; text-align: left; padding: 20px; background: rgba(44,143,106,0.9); width: 50%; height: 100%; top: 0px;} */
+.news_sec .carousel-caption { text-align: left; top: auto; right: auto; left: 0; padding: 15px 15px 20px; bottom: 41px; width: 100%; background: rgba(44,143,106,0.9); }
 .news_sec .carousel-indicators {margin: 0 0 -20px 0;}
 .news_sec .carousel-indicators li {background-color: #ccc;}
 .news_sec .carousel-indicators .active {background-color: #226b50;}
-.news_sec .carousel-item h4 {padding:0 0 15px 0;}
+.news_sec .carousel-item h4 { margin: 0 0 25px; padding: 0;}
 .news_sec .carousel-item p { color: #88ffd3;}
-.news_sec .carousel-item a { color: #fff; background: #226b50; padding: 10px 20px ; border-radius: 20px; }
+.news_sec .carousel-item a { color: #fff; background: #226b50; padding: 10px 20px; border-radius: 20px; }
 .news_sec .carousel-item a:hover {color: #88ffd3;}
-.news_sec .carousel-control.left, .news_sec .carousel-control.right {top :43%;}
+.news_sec .carousel-control.left,
+.news_sec .carousel-control.right {top :43%;}
 .news_sec .carousel-control.left { left: -15px}
 .news_sec .carousel-control.right { right: -15px}
 .readmore_all {position: absolute; background: #000; z-index: 99; width: 100%; height: auto; bottom: 0; padding: 10px 20px; text-align: right;}
@@ -84,7 +86,7 @@ hr { border-color: #e0e0e0; }
 .MultiCarousel .rightLst { right:0; }
 .MultiCarousel .leftLst.over,
 .MultiCarousel .rightLst.over { pointer-events: none; background:#eee ; color: #226b50; }
-.MultiCarousel-inner img {width: 100%; height: auto; border-radius: 5px;}
+.MultiCarousel-inner img {width: 100%; height: 160px; border-radius: 5px; }
 .readmore_bt { margin: 40px 0 0 0;}
 .readmore_bt a {color:#fff; background:#226b50; padding: 10px 20px; border-radius: 20px;}
 .readmore_bt a:hover {color: #88ffd3;}
@@ -386,6 +388,7 @@ button:focus { outline: none; }
 .datepicker [class*=" icon-"] { display: inline-block; width: 14px; height: 14px; margin-top: 1px; *margin-right: .3em; line-height: 14px; vertical-align: text-top; background-image: url("../assets/img/glyphicons-halflings.png"); background-position: 14px 14px; background-repeat: no-repeat; }
 .datepicker .icon-arrow-left { background-position: -240px -96px; }
 .datepicker .icon-arrow-right { background-position: -264px -96px; }
+
 /**/
 
 @media screen and (max-width: 480px) {
