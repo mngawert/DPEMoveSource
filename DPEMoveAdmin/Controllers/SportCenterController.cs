@@ -117,12 +117,6 @@ namespace DPEMoveAdmin.Controllers
                 context.AddRangeAsync(adr);
                 context.SaveChangesAsync();
 
-                var adrId = context.Address.Where(a => a.AmphurCode == amphurCode.AmphurCode 
-                && a.ProvinceCode == provCode.ProvinceCode 
-                && a.TambonCode == tambonCode.TambonCode
-                && a.BuildingName == ddl.BuildingName
-                && a.No == ddl.No).FirstOrDefault();
-
                 var q = new Department
                 {
                     DepartmentCode = "D001",
@@ -132,11 +126,24 @@ namespace DPEMoveAdmin.Controllers
                     DepartmentType = "1",
                     Email = ddl.Email,
                     Mobile = ddl.Mobile,
-                    AddressId = adrId.AddressId,
                     Status = 1,
                     CreatedDate = DateTime.Now,
                     CreatedBy = 0
                 };
+
+                Address adrId = null;
+
+                if (amphurCode != null)
+                {
+                    adrId = context.Address.Where(a => a.AmphurCode == amphurCode.AmphurCode
+                    && a.ProvinceCode == provCode.ProvinceCode
+                    && a.TambonCode == tambonCode.TambonCode
+                    && a.BuildingName == ddl.BuildingName
+                    && a.No == ddl.No).FirstOrDefault();
+
+                    q.AddressId = adrId.AddressId;
+                }
+
                 context.AddRangeAsync(q);
                 context.SaveChangesAsync();
 
@@ -252,9 +259,13 @@ namespace DPEMoveAdmin.Controllers
 
             var adr = await context.Address.Where(a => a.AddressId == q.AddressId).FirstOrDefaultAsync();
 
-            ViewBag.ProvinceList = new SelectList(GetProvinceList2(adr.ProvinceCode), "ProvinceId", "ProvinceName");
-            ViewBag.Ammphur = new SelectList(GetAmphur2(adr.AmphurCode), "AmphurId", "AmphurName");
-            ViewBag.Tambon = new SelectList(GetTambon2(adr.TambonCode), "TambonId", "TambonName");
+            ViewBag.ProvinceList = new SelectList((adr != null ? GetProvinceList2(adr.ProvinceCode) : GetProvinceList()) , "ProvinceId", "ProvinceName");
+
+            //ViewBag.Ammphur = new SelectList((adr != null ? GetAmphur2(adr.AmphurCode) : null), "AmphurId", "AmphurName");
+            //ViewBag.Tambon = new SelectList((adr != null ? GetTambon2(adr.TambonCode) : null), "TambonId", "TambonName");
+
+            ViewBag.Ammphur = new SelectList("");
+            ViewBag.Tambon = new SelectList("");
 
             /*
             List<Province> provinceList = context.Province.ToList();
@@ -295,6 +306,10 @@ namespace DPEMoveAdmin.Controllers
             ViewBag.Tambon = titems;
             */
 
+            if(q.Address == null)
+            {
+                q.Address = new Address();
+            }
 
             if (q != null)
             {
@@ -358,8 +373,16 @@ namespace DPEMoveAdmin.Controllers
 
                 if (dep != null)
                 {
-                    context.Remove(depperson);
-                    context.Remove(addr);
+                    if(depperson != null)
+                    {
+                        context.Remove(depperson);
+                    }
+                    
+                    if(addr != null)
+                    {
+                        context.Remove(addr);
+                    }
+                    
                     context.Remove(dep);
                     context.SaveChanges();
 
