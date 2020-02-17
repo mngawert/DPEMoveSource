@@ -1044,7 +1044,7 @@ function previewFile() {
 function SendEmail(to, subject, body) {
 
     var settings = {
-        "url": "https://localhost:44388/WebApi/PSN/SendEmail",
+        "url": "/WebApi/PSN/SendEmail",
         "method": "POST",
         "timeout": 0,
         "headers": {
@@ -1081,7 +1081,8 @@ function ChangeHtmlToModeView() {
 
 $(document).ready(function () {
 
-    localStorage.setItem("Mode", "View");
+    console.log("Mode", Mode);
+    localStorage.setItem("Mode", Mode);
 
     GetToken().done(function (response) {
         var token = JSON.parse(response).data;

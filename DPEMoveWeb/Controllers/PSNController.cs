@@ -33,6 +33,21 @@ namespace DPEMoveWeb.Controllers
             return -1;
         }
 
+        private async Task<IList<string>> GetLoginRoles()
+        {
+            var userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (userId != null)
+            {
+                var user = await _userManager.FindByIdAsync(userId);
+                if (user != null)
+                {
+                    var userRoles = await _userManager.GetRolesAsync(user);
+                    return userRoles;
+                }
+            }
+            return new List<string>();
+        }
+
         private async Task<string> GetLoginIdcardNo()
         {
             var userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
@@ -74,6 +89,13 @@ namespace DPEMoveWeb.Controllers
         {
             ViewBag.routeId = id;
             ViewBag.appIdcardNo = await GetLoginIdcardNo();
+
+            ViewBag.Mode = "View";
+            var roles = await GetLoginRoles();
+            if (roles.Any(a => a == "PSN_EDIT"))
+            {
+                ViewBag.Mode = "Edit";
+            }
 
             return View();
         }
