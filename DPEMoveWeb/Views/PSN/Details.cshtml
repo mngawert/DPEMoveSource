@@ -25,7 +25,7 @@
             <div class="col-sm-12 col-md-12 col-lg-4">
                 <div class="row con_right">
                     <div class="col">
-                        <button id="btnSave" type="button" class="btn btn-lightgreen btn-round">บันทึก</button>
+                        <button id="btnSave" type="button" class="btn btn-lightgreen btn-round ForModeEdit">บันทึก</button>
                     </div>
                 </div>
             </div>
@@ -59,7 +59,7 @@
                                     @*<label id="lblE_MAIL"></label>*@
                                 </a>
                             </p>
-                            <p>
+                            <p class="ForModeEdit">
                                 อัพโหลดรูป :
                                 <input id="filePreview" type="file" onchange="previewFile()">
                             </p>
@@ -68,7 +68,7 @@
                             <div class="x">
                                 <div class="y">
                                     <div class="z">
-                                        @*<a href="javascript:void(0);" class="button darkgreen" data-toggle="modal" data-target="#ModalContact">ติดต่อ</a>*@
+                                        <a href="javascript:void(0);" class="button darkgreen" data-toggle="modal" data-target="#ModalContact">ติดต่อ</a>
                                     </div>
                                 </div>
                             </div>
@@ -81,7 +81,7 @@
             <div class="col-12">
                 <div class="tabs">
                     <span class="tab">ส่วนบุคคล</span>
-                    <span class="tab">ที่อยู่</span>
+                    <span class="tab ForModeEdit">ที่อยู่</span>
                     <span class="tab">ประวัติการศึกษา</span>
                     <span class="tab">ประวัติการฝึกอบรม</span>
                     <span class="tab">ประวัติการปฏิบัติหน้าที่</span>
@@ -93,7 +93,7 @@
                             <div class="block-group">
                                 <div class="heading">ข้อมูลส่วนบุคคล</div>
                                 <div class="entry-data">
-                                    <div class="row">
+                                    <div class="row ForModeEdit">
                                         <div class="col-12 col-md-10">
                                             <table class="tbl-fields th-aright" cellspacing="0">
                                                 <tr>
@@ -551,7 +551,7 @@
                             </div>
                         </div>
                         <div class="block-group">
-                            <div class="heading">ที่อยู่ตามทะเบียนบ้าน <span> <label><input type="checkbox" name="" id="chkCopyCON_ADDR_TO_REGHOME" /> ใช้ที่อยู่ปัจจุบัน</label></span></div>
+                            <div class="heading">ที่อยู่ตามทะเบียนบ้าน <span class="ForModeEdit"> <label><input type="checkbox" name="" id="chkCopyCON_ADDR_TO_REGHOME" /> ใช้ที่อยู่ปัจจุบัน</label></span></div>
                             <div class="entry-data">
                                 <div class="row">
                                     <div class="col-12 col-lg-6">
@@ -670,7 +670,7 @@
                     </div>
                     <div class="tab_item">
                         <div class="block-group">
-                            <div class="heading">ประวัติการศึกษา <div class="button-container"><a href="javascript:void(0);" class="button small-long darkgreen" data-toggle="modal" data-target="#Modal_AddEduHistory">เพิ่ม</a></div></div>
+                            <div class="heading">ประวัติการศึกษา <div class="button-container ForModeEdit"><a href="javascript:void(0);" class="button small-long darkgreen" data-toggle="modal" data-target="#Modal_AddEduHistory">เพิ่ม</a></div></div>
                             <div class="entry-data">
                                 <div class="row">
                                     <div class="col-sm-12">
@@ -682,7 +682,7 @@
                                                     <th>วุฒิการศึกษา</th>
                                                     <th>สาขา</th>
                                                     <th>สถาบัน</th>
-                                                    <th class="manage center">จัดการ</th>
+                                                    <th class="manage center ForModeEdit">จัดการ</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -703,7 +703,7 @@
                     </div>
                     <div class="tab_item">
                         <div class="block-group">
-                            <div class="heading">ประวัติการฝึกอบรม <div class="button-container"><a href="javascript:void(0);" class="button small-long darkgreen" data-toggle="modal" data-target="#Modal_AddTrainHistory">เพิ่ม</a></div></div>
+                            <div class="heading">ประวัติการฝึกอบรม <div class="button-container ForModeEdit"><a href="javascript:void(0);" class="button small-long darkgreen" data-toggle="modal" data-target="#Modal_AddTrainHistory">เพิ่ม</a></div></div>
                             <div class="entry-data">
                                 <div class="row">
                                     <div class="col-sm-12">
@@ -715,7 +715,7 @@
                                                     <th>ชื่อหลักสูตร</th>
                                                     <th>ชนิดกีฬา</th>
                                                     <th>ประเภท/ระดับ</th>
-                                                    <th class="manage center">จัดการ</th>
+                                                    <th class="manage center ForModeEdit">จัดการ</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -762,7 +762,7 @@
                     </div>
                     <div class="tab_item">
                         <div class="block-group">
-                            <div class="heading">ประวัติการปฏิบัติหน้าที่ <div class="button-container"><a href="javascript:void(0);" class="button small-long darkgreen" data-toggle="modal" data-target="#Modal_AddWorkHistory">เพิ่ม</a></div></div>
+                            <div class="heading">ประวัติการปฏิบัติหน้าที่ <div class="button-container ForModeEdit"><a href="javascript:void(0);" class="button small-long darkgreen" data-toggle="modal" data-target="#Modal_AddWorkHistory">เพิ่ม</a></div></div>
                             <div class="entry-data">
                                 <div class="row">
                                     <div class="col-sm-12">
@@ -775,7 +775,7 @@
                                                     <th>ระดับ</th>
                                                     <th>สถานที่ปฎิบัติงาน</th>
                                                     <th>วันที่ปฏิบัติหน้าที่</th>
-                                                    <th class="manage center">จัดการ</th>
+                                                    <th class="manage center ForModeEdit">จัดการ</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -1098,38 +1098,43 @@
                 <div>ติดต่อ</div>
             </div>
             <div class="modal-body">
-                <div class="row person-details">
-                    <div class="col-12 col-sm-4 col-lg-3 col-xl-3">
-                        <div id="dvMEMBER_IMAGE2" class="img-center-mobile"><img src="/images/psn010101_02.png" /></div>
+
+                <form id="frmSendEmail">
+
+                    <div class="row person-details">
+                        <div class="col-12 col-sm-4 col-lg-3 col-xl-3">
+                            <div id="dvMEMBER_IMAGE2" class="img-center-mobile"><img src="/images/psn010101_02.png" /></div>
+                        </div>
+                        <div class="col-12 col-sm-8 col-lg-9 col-xl-9">
+                            <h4 id="lblName2">-</h4>
+                            <p>ระดับ ความชำนาญ : <label id="lblEXPERTISE2"></label> </p>
+                            <p>อีเมล์ : <a href="#"> <label id="lblE_MAIL2"></label> </a></p>
+                        </div>
                     </div>
-                    <div class="col-12 col-sm-8 col-lg-9 col-xl-9">
-                        <h4 id="lblName2">-</h4>
-                        <p>ระดับ ความชำนาญ : <label id="lblEXPERTISE2"></label> </p>
-                        <p>อีเมล์ : <a href="#"> <label id="lblE_MAIL2"></label> </a></p>
+                    <div class="row">
+                        <div class="col-12">
+                            <table class="tbl-fields" cellspacing="0">
+                                <tr>
+                                    <th class="v-top" width="90">ข้อความ</th>
+                                    <td><textarea id="txtSendEmailBody" class="width-100" name="SendEmailBody" required ></textarea></td>
+                                </tr>
+                                @*<tr>
+                                    <th>เบอร์โทรศัพท์</th>
+                                    <td><input type="tel" name="" /></td>
+                                </tr>
+                                <tr>
+                                    <th>อีเมล์</th>
+                                    <td><input type="email" name="" /></td>
+                                </tr>*@
+                                <tr><td>&nbsp;</td></tr>
+                                <tr>
+                                    <td colspan="2" align="center"><input id="btnSendEmail" value="ส่ง" class="button btn btn-lightgreen" /></td>
+                                </tr>
+                            </table>
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-12">
-                        <table class="tbl-fields" cellspacing="0">
-                            <tr>
-                                <th class="v-top" width="90">ข้อความ</th>
-                                <td><textarea name="" class="width-100"></textarea></td>
-                            </tr>
-                            <tr>
-                                <th>เบอร์โทรศัพท์</th>
-                                <td><input type="tel" name="" /></td>
-                            </tr>
-                            <tr>
-                                <th>อีเมล์</th>
-                                <td><input type="email" name="" /></td>
-                            </tr>
-                            <tr><td>&nbsp;</td></tr>
-                            <tr>
-                                <td colspan="2" align="center"><input type="submit" name="submit" value="ส่ง" class="button btn btn-lightgreen" /></td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
+
+                </form>
             </div>
         </div>
     </div>
@@ -1188,12 +1193,21 @@
 
 @section Scripts {
 
+    <style>
+        label {
+            margin: 0px;
+        }
+    </style>
+
     <script type="text/javascript">
         var routeId = @ViewBag.routeId;
+        var appIdcardNo = "@ViewBag.appIdcardNo";
         console.log('routeid=', routeId);
+        //console.log('appIdcardNo=', appIdcardNo);
+        
     </script>
 
-    <script src="~/js/pages/psn-edit.js"></script>
+    <script src="~/js/pages/psn-details.js"></script>
 }
 
 

@@ -335,7 +335,7 @@ function CreateGmsMember(token) {
             var data = results.data;
 
             if (data.length > 0) {
-                window.location.href = window.location.href.replace("#","") + "/Edit/" + data[0].MEMBER_ID;
+                window.location.href = window.location.href.replace("#","") + "/Details/" + data[0].MEMBER_ID;
             }
         }
     });
@@ -415,7 +415,7 @@ function GetPSN(token, DATA_REPLACE_OR_APPEND, PAGE, NAME, PROV_CODE, AMP_CODE) 
                             </ol>
                         </div>
                         <div class="col-th-btn">
-                            <a href="/PSN/Edit/${value.MEMBER_ID}" class="button darkgreen medium">แก้ไข</a>
+                            <a href="/PSN/Details/${value.MEMBER_ID}" class="button darkgreen medium">รายละเอียด</a>
                         </div>
                     </div>
                 </div>
@@ -476,7 +476,30 @@ function GetHistory(token, MEMBER_ID) {
     });
 }
 
+function getUrlVars() {
+    var vars = [], hash;
+    var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+    for (var i = 0; i < hashes.length; i++) {
+        hash = hashes[i].split('=');
+        vars.push(hash[0]);
+        vars[hash[0]] = hash[1];
+    }
+    return vars;
+}
+
 $(document).ready(function () {
+
+    var mode = getUrlVars()["mode"];
+    console.log("mode", mode);
+    console.log("appUserId", appUserId);
+
+    if (mode == "CreatePSN" && appUserId != -1) {
+        $("#Modal_CreatePSN").modal("show");
+    }
+
+    if (appUserId != -1) {
+        $("#btnOpenPopupForCreatePSN").show();
+    }
 
     GetToken().done(function (response) {
         var token = JSON.parse(response).data;
