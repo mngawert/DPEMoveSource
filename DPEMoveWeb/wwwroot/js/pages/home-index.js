@@ -226,7 +226,7 @@ function GetReportEvent3(token) {
             $.each(data, function (index, value) {
 
                 var mydate = new Date(value.eventStartDate);
-                console.log(mydate.toLocaleDateString('th-TH', options));
+                //console.log(mydate.toLocaleDateString('th-TH', options));
 
                 items +=
                     `
@@ -419,25 +419,38 @@ function GetNews() {
     $.ajax(settings).done(function (response, textStatus, jqXHR) {
         if (jqXHR.status == 200) {
 
-            //console.log("response", response);
-            //var xxx = response.replace("![CDATA[", "").replace("]]","");
-            //console.log("xxx", xxx);
+            var xxml = $.parseXML(response),
+                $xxml = $(xxml),
+                $test = $xxml.find('item');
 
-            var $xml = $(response);
-            $xml.find("item").each(function () {
+            var index = 0;
+            //var $xml = $(response);
+            $xxml.find("item").each(function () {
                 var $this = $(this),
                     item = {
-                        title: $this.find("title").html(),
+                        title: $this.find("title").text(),
                         link: $this.find("link").text(),
-                        description: $this.find("description").html(),
+                        description: $this.find("description").text(),
                         pubDate: $this.find("pubDate").text(),
                         author: $this.find("author").text(),
                         header: $this.find("header").text,
                     }
 
-                console.log("item", item);
+                $("#dvNews").append(`
+                                <div class="carousel-item ${ index == 0 ? "active" : "" }">
+                                    <img class="d-block img-fluid" src="${ $(item.description).attr("src") }" alt="First slide">
+                                    <div class="carousel-caption d-none d-md-block">
+                                        <h4>${item.title}</h4>
+                                        <p></p>
+                                        <a target="_blank" href="${item.link}">read more</a>
+                                    </div>
+                                </div>
+                `);
 
-                //Do something with item here...
+                index = index + 1;
+                if (index >= 3) {
+                    return false;
+                }
             });
 
             //$.each(data, function (index, value) {
@@ -448,7 +461,43 @@ function GetNews() {
     });
 }
 
+function GetStadium(token) {
 
+    var form = new FormData();
+    form.append("PAGE", "1");
+    form.append("PROV_CODE", "10");
+    form.append("Token", token);
+
+    var settings = {
+        "url": "https://data.dpe.go.th/api/stadium/address/getStadium",
+        "method": "POST",
+        "timeout": 0,
+        "processData": false,
+        "mimeType": "multipart/form-data",
+        "contentType": false,
+        "data": form
+    };
+
+    $.ajax(settings).done(function (response, textStatus, jqXHR) {
+        if (jqXHR.status == 200) {
+            var data = JSON.parse(response).data;
+            var items = "";
+            $.each(data, function (index, value) {
+                items +=
+                    `
+                    <div class="item">
+                        <div class="pad15">
+                            <a href="/Stadium/Details/${value.STADIUM_ID}"><img src="${value.COVER_IMG}" width="500" height="375" alt="" /></a>
+                            <p class="lead">${value.NAME_LABEL}</p>
+                        </div>
+                    </div>
+                `;
+            });
+            console.log("items", items);
+            $("#dvStaidum").html(items);
+        }
+    });
+}
 
 $(document).ready(function () {
 
@@ -460,6 +509,7 @@ $(document).ready(function () {
         DrawChartForReportSurvey151A(token);
         DrawChartForReportEvent4(token);
         GetReportEvent3(token);
+        GetStadium(token);
     });
 
     GetToken().done(function (response) {
