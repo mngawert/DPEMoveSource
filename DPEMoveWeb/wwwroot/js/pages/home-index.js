@@ -493,8 +493,11 @@ function GetStadium(token) {
                     </div>
                 `;
             });
-            console.log("items", items);
+            //console.log("items", items);
             $("#dvStaidum").html(items);
+
+            console.log("2)ResCarouselSize");
+            ResCarouselSize();
         }
     });
 }
