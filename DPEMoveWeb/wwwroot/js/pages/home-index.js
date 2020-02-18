@@ -237,7 +237,7 @@ function GetReportEvent3(token) {
                                 <span>${ mydate.toLocaleDateString('th-TH', options_MONTH_SHORT) }</span >
                             </div>
                             <div class="detail_right">
-                                <a href="#">${value.eventName}...</a>
+                                <a href="/Events/Details/${value.eventId}">${value.eventName}...</a>
                                 <div id="dvRating_${value.eventCode}" class="rating">
                                     <span class="fa fa-star"></span>
                                     <span class="fa fa-star"></span>
