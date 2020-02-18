@@ -860,6 +860,7 @@ function GetSection(token, selectedSection) {
             });
             $("#ddlSection").html(items);
 
+            $("[name='SectionCatEtc']").hide();
             if (selectedSection != null) {
                 $("#ddlSection").val(selectedSection);
                 GetActivityType(token, selectedSection, model.actTypeId);
