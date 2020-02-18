@@ -490,8 +490,8 @@ function EditGmsMember(token, MEMBER_ID) {
     form.append("LAST_NAME_ENG", $("[name='LAST_NAME_ENG']").val());
     form.append("EDU_ID", $("[name='EDU_ID']").val());
     form.append("RELIGION", $("[name='RELIGION']").val());
-    //form.append("JOB_SUBJECT", "นักกีฬานะ");
-    //form.append("JOB_POSITION", "นักฟุตบอลทีมชาตินะ");
+    form.append("JOB_SUBJECT", $("[name='JOB_SUBJECT']").val());
+    form.append("JOB_POSITION", $("[name='JOB_POSITION']").val());
     //form.append("WORK_PLACE", "โรงเรียนอนุบาลศรีธาตุนะ");
     form.append("PREFIX_ID", $("[name='PREFIX_ID']").val());
     form.append("MEMBER_USERNAME", $("[name='HRS_ID']").val());
@@ -588,6 +588,8 @@ function GetGmsMember(token, MEMBER_ID) {
             $("#txtFIRST_NAME_ENG").val(value.FIRST_NAME_ENG);
             $("#txtLAST_NAME_ENG").val(value.LAST_NAME_ENG);
             $("#txtRELIGION").val(value.RELIGION);
+            $("#txtJOB_SUBJECT").val(value.JOB_SUBJECT);
+            $("#txtJOB_POSITION").val(value.JOB_POSITION);
 
             var bdTH = ConvertDateToTH(value.BIRTH_DATE);
             console.log("value.BIRTH_DATE", value.BIRTH_DATE);
@@ -958,10 +960,10 @@ function GetWorkHistory(token, MEMBER_ID) {
             });
             $("#tblWorkHistory >tbody").html(items);
 
-            if (data.length > 0) {
-                $("#lblCurrentSPORT_SUBJECT").html(data[0].SPORT_SUBJECT);
-                $("#lblCurrentLEVEL_DETAIL").html(data[0].LEVEL_DETAIL);
-            }
+            //if (data.length > 0) {
+            //    $("#lblCurrentSPORT_SUBJECT").html(data[0].SPORT_SUBJECT);
+            //    $("#lblCurrentLEVEL_DETAIL").html(data[0].LEVEL_DETAIL);
+            //}
         }
     });
 }
@@ -1064,7 +1066,11 @@ function SendEmail(to, subject, body) {
 function ChangeHtmlToModeView() {
 
     $("input[type=text]").each(function () {
-        $(this).replaceWith("<label>" + $(this).val() + "</label>");
+        var text = $(this).val();
+        if (text.length == 0) {
+            text = "-";
+        }
+        $(this).replaceWith("<label>" + text + "</label>");
     });
 
     $("select").each(function () {
