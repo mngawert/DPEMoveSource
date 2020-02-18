@@ -103,7 +103,6 @@ namespace DPEMoveAdmin.Controllers
 
         public IActionResult CreateDep()
         {
-            ViewBag.ProvinceList = new SelectList(GetProvinceList(), "ProvinceId", "ProvinceName");
             return View();
         }
 
@@ -114,19 +113,11 @@ namespace DPEMoveAdmin.Controllers
         {
             if (p != null && ddl != null)
             {
-                var provCode = context.Province.Where(a => a.ProvinceId == ddl.ProvinceId).FirstOrDefault();
-                var amphurCode = context.Amphur.Where(a => a.AmphurId == ddl.AmphurId).FirstOrDefault();
-                var tambonCode = context.Tambon.Where(a => a.TambonId == ddl.TambonId).FirstOrDefault();
-
-                string strProvinceCode = (provCode!=null ? provCode.ProvinceCode : "");
-                string strAmphurCode = (amphurCode != null ? amphurCode.AmphurCode : "");
-                string strTambonCode = (tambonCode != null ? tambonCode.TambonCode : "");
-
                 var adr = new Address
                 {
-                    AmphurCode = strAmphurCode,
-                    ProvinceCode = strProvinceCode,
-                    TambonCode = strTambonCode,
+                    AmphurCode = ddl.AmphurCode,
+                    ProvinceCode = ddl.ProvinceCode,
+                    TambonCode = ddl.TambonCode,
                     BuildingName = ddl.BuildingName,
                     HousePropertyName = ddl.HousePropertyName,
                     Moo = ddl.Moo,
@@ -158,16 +149,13 @@ namespace DPEMoveAdmin.Controllers
 
                 Address adrId = null;
 
-                if (amphurCode != null)
-                {
-                    adrId = context.Address.Where(a => a.AmphurCode == amphurCode.AmphurCode
-                    && a.ProvinceCode == provCode.ProvinceCode
-                    && a.TambonCode == tambonCode.TambonCode
+                adrId = context.Address.Where(a => a.AmphurCode == ddl.AmphurCode
+                    && a.ProvinceCode == ddl.ProvinceCode
+                    && a.TambonCode == ddl.TambonCode
                     && a.BuildingName == ddl.BuildingName
                     && a.No == ddl.No).FirstOrDefault();
 
-                    q.AddressId = adrId.AddressId;
-                }
+                q.AddressId = adrId.AddressId;
 
                 context.AddRangeAsync(q);
                 context.SaveChangesAsync();
@@ -182,7 +170,7 @@ namespace DPEMoveAdmin.Controllers
 
         public async Task<IActionResult> DepPersonCreate(int id)
         {
-            List<DepartmentPerson> parentList = await context.DepartmentPerson.ToListAsync();
+            List<DepartmentPerson> parentList = await context.DepartmentPerson.Where(a => a.DepartmentId == id).ToListAsync();
             
             var items = new List<SelectListItem>();
 
@@ -237,7 +225,7 @@ namespace DPEMoveAdmin.Controllers
         {
             var q = await context.DepartmentPerson.Where(a => a.DepartmentPersonId == id).FirstOrDefaultAsync();
 
-            List<DepartmentPerson> parentList = context.DepartmentPerson.Where(a => a.DepartmentPersonId != id) .ToList();
+            List<DepartmentPerson> parentList = context.DepartmentPerson.Where(a => a.DepartmentPersonId != id).Where(a => a.DepartmentId == q.DepartmentId).ToList();
 
             var items = new List<SelectListItem>();
 
@@ -284,53 +272,6 @@ namespace DPEMoveAdmin.Controllers
 
             var adr = await context.Address.Where(a => a.AddressId == q.AddressId).FirstOrDefaultAsync();
 
-            ViewBag.ProvinceList = new SelectList((adr != null ? GetProvinceList2(adr.ProvinceCode) : GetProvinceList()) , "ProvinceId", "ProvinceName");
-
-            //ViewBag.Ammphur = new SelectList((adr != null ? GetAmphur2(adr.AmphurCode) : null), "AmphurId", "AmphurName");
-            //ViewBag.Tambon = new SelectList((adr != null ? GetTambon2(adr.TambonCode) : null), "TambonId", "TambonName");
-
-            ViewBag.Ammphur = new SelectList("");
-            ViewBag.Tambon = new SelectList("");
-
-            /*
-            List<Province> provinceList = context.Province.ToList();
-            var pitems = new List<SelectListItem>();
-            foreach (var p in provinceList)
-            {
-                pitems.Add(new SelectListItem()
-                {
-                    Text = p.ProvinceName,
-                    Value = p.ProvinceId.ToString()
-                }); ;
-            }
-
-            List<Amphur> amphurList = context.Amphur.ToList();
-            var aitems = new List<SelectListItem>();
-            foreach (var p in amphurList)
-            {
-                aitems.Add(new SelectListItem()
-                {
-                    Text = p.AmphurName,
-                    Value = p.AmphurId.ToString()
-                }); ;
-            }
-
-            List<Tambon> tambonList = context.Tambon.ToList();
-            var titems = new List<SelectListItem>();
-            foreach (var p in tambonList)
-            {
-                titems.Add(new SelectListItem()
-                {
-                    Text = p.TambonName,
-                    Value = p.TambonId.ToString()
-                }); ;
-            }
-
-            ViewBag.ProvinceList = pitems;
-            ViewBag.Ammphur = aitems;
-            ViewBag.Tambon = titems;
-            */
-
             if(q.Address == null)
             {
                 q.Address = new Address();
@@ -368,6 +309,9 @@ namespace DPEMoveAdmin.Controllers
                 adr.Road = ddl.Road;
                 adr.Soi = ddl.Soi;
                 adr.Postcode = ddl.Postcode;
+                adr.AmphurCode = ddl.AmphurCode;
+                adr.ProvinceCode = ddl.ProvinceCode;
+                adr.TambonCode = ddl.TambonCode;
 
 
                 context.SaveChanges();
@@ -418,7 +362,38 @@ namespace DPEMoveAdmin.Controllers
             return View();
         }
 
-    
+        public async Task<IActionResult> DepPersonDelete(int Id)
+        {
+            var q = await context.DepartmentPerson.Where(a => a.DepartmentPersonId == Id).FirstOrDefaultAsync();
+
+            if (q != null)
+            {
+                return View(q);
+            }
+            return View();
+        }
+
+
+        [HttpPost]
+        public IActionResult DepPersonDelete(DepartmentPerson p)
+        {
+            if (ModelState.IsValid)
+            {
+                var dep = context.DepartmentPerson.Where(a => a.DepartmentPersonId == p.DepartmentPersonId).FirstOrDefault();
+
+                if (dep != null)
+                {
+                    context.Remove(dep);
+                    context.SaveChanges();
+
+                    return RedirectToAction("DepEdit", new { id = dep.DepartmentId });
+                }
+            }
+
+            return View();
+        }
+
+
 
         //  public ActionResult GetChart()
         //  {

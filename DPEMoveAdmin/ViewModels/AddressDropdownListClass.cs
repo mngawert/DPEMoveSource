@@ -7,10 +7,9 @@ namespace DPEMoveAdmin.ViewModels
 {
     public class AddressDropdownListClass
     {
-        public int ProvinceId { get; set; }
-        public int AmphurId { get; set; }
-
-        public int TambonId { get; set; }
+        public string ProvinceCode { get; set; }
+        public string AmphurCode { get; set; }
+        public string TambonCode { get; set; }
 
         public string Email { get; set; }
         public string Mobile { get; set; }

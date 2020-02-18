@@ -1,0 +1,22 @@
+﻿
+@model DPEMoveDAL.Models.DepartmentPerson;
+
+<h4>ยืนยันการลบข้อมูล ?</h4>
+<br />
+<div class="card">
+    <div class="card-body">
+        <div class="col-md-12">
+            <div class="form-group row">
+                <label>บุคลากร</label>
+                <input class="bg-light border-0" value="@Model.Firstname @Model.Lastname" />
+            </div> 
+         </div>
+     </div>
+</div>
+<br />
+<form asp-action="DepPersonDelete" method="post">
+    <input type="hidden" asp-for="DepartmentPersonId" />
+    <div class="col-md-4">
+        <button class="btn btn-success btn-block" asp-action="DepPersonDelete">ลบข้อมูล</button>
+    </div>
+</form>

@@ -1,155 +1,368 @@
 ﻿
 @model DPEMoveDAL.Models.Department;
 
-<form asp-action="DepEdit" method="post">
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-12 col-sm-6 col-md-7 col-lg-9"><label>หน่วยงาน/ศูนย์กีฬา> สร้าง </label></div>
-            <div class="col-xs-12 col-sm-6 col-md-5 col-lg-3 text-center text-sm-right">
-                <button class="btn btn-success" asp-action="DepEdit" name="mainSave">บันทึก</button>
-                <button class="btn btn-secondary">ยกเลิก</button>
+    <form asp-action="DepEdit" method="post">
+        <input type="hidden" name="ProvinceCode_Temp" id="ProvinceCode_Temp" value="@Model.Address.ProvinceCode" />
+        <input type="hidden" name="AmphurCode_Temp" id="AmphurCode_Temp" value="@Model.Address.AmphurCode" />
+        <input type="hidden" name="TambonCode_Temp" id="TambonCode_Temp" value="@Model.Address.TambonCode" />
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-sm-6 col-md-7 col-lg-9"><label>หน่วยงาน/ศูนย์กีฬา> สร้าง </label></div>
+                <div class="col-xs-12 col-sm-6 col-md-5 col-lg-3 text-center text-sm-right">
+                    <button class="btn btn-success" asp-action="DepEdit" name="mainSave">บันทึก</button>
+                    <button class="btn btn-secondary">ยกเลิก</button>
+                </div>
             </div>
+
         </div>
-
-    </div>
-    <br />
-    <div class="card">
-        <div class="card-body">
-            <nav>
-                <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                    <a class="nav-item nav-link active" id="nav-general-tab" data-toggle="tab" href="#nav-general" role="tab" aria-controls="nav-general" aria-selected="true">ทั่วไป</a>
-                    <a class="nav-item nav-link" id="nav-addr-tab" data-toggle="tab" href="#nav-addr" role="tab" aria-controls="nav-addr" aria-selected="false">ที่อยู่</a>
-                    <a class="nav-item nav-link" id="nav-person-tab" data-toggle="tab" href="#nav-person" role="tab" aria-controls="nav-person" aria-selected="false">บุคลากร</a>
-                    <a class="nav-item nav-link" id="nav-org-tab" data-toggle="tab" href="#nav-org" role="tab" aria-controls="nav-org" aria-selected="false">Organize Chart</a>
-                </div>
-            </nav>
-
-            <div class="tab-content" id="nav-tabContent">
-                <div class="tab-pane show active" id="nav-general" role="tabpanel" aria-labelledby="nav-general-tab">
-                    <div class="row form-group">
-                        <div class="col-md-2 text-right">
-                            <label>ชื่อ</label><label>*</label>
-                        </div>
-                        <div class="col-md-10">
-                            <input name="departmentID" type="text" value="@Model.DepartmentId" hidden="hidden" />
-                            <input name="department1" type="text" value="@Model.Department1" class=" w-50 form-control" />
-                        </div>
+        <br />
+        <div class="card">
+            <div class="card-body">
+                <nav>
+                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                        <a class="nav-item nav-link active" id="nav-general-tab" data-toggle="tab" href="#nav-general" role="tab" aria-controls="nav-general" aria-selected="true">ทั่วไป</a>
+                        <a class="nav-item nav-link" id="nav-addr-tab" data-toggle="tab" href="#nav-addr" role="tab" aria-controls="nav-addr" aria-selected="false">ที่อยู่</a>
+                        <a class="nav-item nav-link" id="nav-person-tab" data-toggle="tab" href="#nav-person" role="tab" aria-controls="nav-person" aria-selected="false">บุคลากร</a>
+                        <a class="nav-item nav-link" id="nav-org-tab" data-toggle="tab" href="#nav-org" role="tab" aria-controls="nav-org" aria-selected="false">Organize Chart</a>
                     </div>
-                    <div class="row form-group">
-                        <div class="col-md-2 text-right">
-                            <label>วิสัยทัศน์</label>
-                        </div>
-                        <div class="col-md-10">
-                            <textarea name="vistion" class="w-50  form-control">@Model.Vistion</textarea>
-                        </div>
-                    </div>
-                    <div class="row form-group">
-                        <div class="col-md-2 text-right">
-                            <label>พันธกิจ</label>
-                        </div>
-                        <div class="col-md-10">
-                            <textarea name="mission" class="w-50 form-control">@Model.Vistion</textarea>
-                        </div>
-                    </div>
-                </div> <!--end tab 1-->
-                <div class="tab-pane" id="nav-addr" role="tabpanel" aria-labelledby="nav-addr-tab">
-                    <P class="bg-gradient-light">ที่อยู่</P>
-                    <br />
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group row">
-                                <!--row1-->
-                                <label class="col-md-2 text-right">หมู่บ้าน</label>
-                                <input class="col-md-3 text-left form-control" name="housePropertyName" type="text" value="@Model.Address?.HousePropertyName" />
-                                <label class="col-md-2 text-right">จังหวัด</label>
-                                <div class="col-md-4">
+                </nav>
 
-                                    @Html.DropDownList("ProvinceId", ViewBag.ProvinceList as SelectList, new { @class = "form-control" })
+                <div class="tab-content" id="nav-tabContent">
+                    <div class="tab-pane show active" id="nav-general" role="tabpanel" aria-labelledby="nav-general-tab">
+                        <div class="row form-group">
+                            <div class="col-md-2 text-right">
+                                <label>ชื่อ</label><label>*</label>
+                            </div>
+                            <div class="col-md-10">
+                                <input name="departmentID" type="text" value="@Model.DepartmentId" hidden="hidden" />
+                                <input name="department1" type="text" value="@Model.Department1" class=" w-50 form-control" />
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-md-2 text-right">
+                                <label>วิสัยทัศน์</label>
+                            </div>
+                            <div class="col-md-10">
+                                <textarea name="vistion" class="w-50  form-control">@Model.Vistion</textarea>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-md-2 text-right">
+                                <label>พันธกิจ</label>
+                            </div>
+                            <div class="col-md-10">
+                                <textarea name="mission" class="w-50 form-control">@Model.Vistion</textarea>
+                            </div>
+                        </div>
+                    </div> <!--end tab 1-->
+                    <div class="tab-pane" id="nav-addr" role="tabpanel" aria-labelledby="nav-addr-tab">
+                        <P class="bg-gradient-light">ที่อยู่</P>
+                        <br />
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group row">
+                                    <!--row1-->
+                                    <label class="col-md-2 text-right">หมู่บ้าน</label>
+                                    <input class="col-md-3 text-left form-control" name="housePropertyName" type="text" value="@Model.Address?.HousePropertyName" />
+                                    <label class="col-md-2 text-right">จังหวัด</label>
+                                    <div class="col-md-4">
+                                        @Html.DropDownList("ProvinceCode", new SelectList(""), "กรุณาเลือก", new { @class = "form-control" })
+                                    </div>
+                                </div> <!--row-->
+                                <div class="form-group row">
+                                    <label class="col-md-2 text-right">อาคาร</label>
+                                    <input class="col-md-3 text-left form-control" name="buildingName" type="text" value="@Model.Address?.BuildingName" />
+                                    <label class="col-md-2 text-right">อำเภอ</label>
+                                    <div class="col-md-4">
+                                        @Html.DropDownList("AmphurCode", new SelectList(""), "กรุณาเลือก", new { @class = "form-control" })
+                                    </div>
                                 </div>
-                            </div> <!--row-->
-                            <div class="form-group row">
-                                <label class="col-md-2 text-right">อาคาร</label>
-                                <input class="col-md-3 text-left form-control" name="buildingName" type="text" value="@Model.Address?.BuildingName" />
-                                <label class="col-md-2 text-right">อำเภอ</label>
-                                <div class="col-md-4">
-                                    @Html.DropDownList("AmphurId", ViewBag.Ammphur as SelectList, new { @class = "form-control" })
+                                <div class="form-group row">
+                                    <label class="col-md-2 text-right">เลขที่</label>
+                                    <input class="col-md-3 text-left form-control" name="no" type="text" value="@Model.Address?.No" />
+                                    <label class="col-md-2 text-right">ตำบล</label>
+                                    <div class="col-md-4">
+                                        @Html.DropDownList("TambonCode", new SelectList(""), "กรุณาเลือก", new { @class = "form-control" })
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-md-2 text-right">เลขที่</label>
-                                <input class="col-md-3 text-left form-control" name="no" type="text" value="@Model.Address?.No" />
-                                <label class="col-md-2 text-right">ตำบล</label>
-                                <div class="col-md-4">
-                                    @Html.DropDownList("TumbonId", ViewBag.Tambon as SelectList, new { @class = "form-control" })
+                                <div class="form-group row">
+                                    <label class="col-md-2 text-right">หมู่</label>
+                                    <input class="col-md-3 text-left form-control" name="moo" type="text" value="@Model.Address?.Moo" />
+                                    <label class="col-md-2 text-right">รหัสไปรษณีย์</label>
+                                    <input class="col-md-4 text-left form-control" name="postcode" type="text" value="@Model?.Address.Postcode" />
+
+
                                 </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-md-2 text-right">หมู่</label>
-                                <input class="col-md-3 text-left form-control" name="moo" type="text" value="@Model.Address?.Moo" />
-                                <label class="col-md-2 text-right">รหัสไปรษณีย์</label>
-                                <input class="col-md-4 text-left form-control" name="postcode" type="text" value="@Model?.Address.Postcode" />
+                                <div class="form-group row">
+                                    <label class="col-md-2 text-right">ซอย</label>
+                                    <input class="col-md-3 text-left form-control" name="soi" type="text" value="@Model.Address?.Soi" />
+                                    <label class="col-md-2 text-right">โทรศัพท์</label>
+                                    <input class="col-md-4 text-left form-control" name="mobile" type="text" value="@Model.Mobile" />
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-md-2 text-right">ถนน</label>
+                                    <input class="col-md-3 text-left form-control" name="road" type="text" value="@Model.Address?.Road" />
+                                    <labe class="col-md-2 text-right">E-mail</labe>
+                                    <input class="col-md-4 text-left form-control" name="email" type="text" value="@Model.Email" />
+                                </div>
+                            </div> <!--end main col-->
+                        </div><!--main row-->
+                    </div><!--end tab-->
+                    <div class="tab-pane" id="nav-person" role="tabpanel" aria-labelledby="nav-person-tab">
+                        <P class="bg-gradient-light">บุคลากร</P>
 
-
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-md-2 text-right">ซอย</label>
-                                <input class="col-md-3 text-left form-control" name="soi" type="text" value="@Model.Address?.Soi" />
-                                <label class="col-md-2 text-right">โทรศัพท์</label>
-                                <input class="col-md-4 text-left form-control" name="mobile" type="text" value="@Model.Mobile" />
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-md-2 text-right">ถนน</label>
-                                <input class="col-md-3 text-left form-control" name="road" type="text" value="@Model.Address?.Road" />
-                                <labe class="col-md-2 text-right">E-mail</labe>
-                                <input class="col-md-4 text-left form-control" name="email" type="text" value="@Model.Email" />
-                            </div>
-                        </div> <!--end main col-->
-                    </div><!--main row-->
-                </div><!--end tab-->
-                <div class="tab-pane" id="nav-person" role="tabpanel" aria-labelledby="nav-person-tab">
-                    <P class="bg-gradient-light">บุคลากร</P>
-
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="row">
-                                <p class="col-md-9 text-left">
-                                    แสดงรายชื่อบุคลากรของหน่วยงาน :
-                                    <input value="@Model.Department1" type="text" class="bg-transparent border-0 " />
-                                </p>
-                                <a class="col-md-2 btn btn-success btn-block" asp-action="DepPersonCreate" asp-route-id="@Model.DepartmentId">เพิ่มบุคลากร</a>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <p class="col-md-9 text-left">
+                                        แสดงรายชื่อบุคลากรของหน่วยงาน :
+                                        <input value="@Model.Department1" type="text" class="bg-transparent border-0 " />
+                                    </p>
+                                    <a class="col-md-2 btn btn-success btn-block" asp-action="DepPersonCreate" asp-route-id="@Model.DepartmentId">เพิ่มบุคลากร</a>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <hr />
-                    <div class="row table table-sm table-striped">
-                        <div class="col-md-3">#</div>
-                        <div class="col-md-3">ชื่อ-สกุล</div>
-                        <div class="col-md-3">ตำแหน่ง</div>
-                        <div class="col-md-3">จัดการ</div>
-                    </div>
-                    <hr />
-                    @foreach (var i in Model.DepartmentPerson)
-                    {
+                        <hr />
                         <div class="row table table-sm table-striped">
-                            <div class="col-md-3">@i.DepartmentPersonId</div>
-                            <div class="col-md-3">@i.Firstname  @i.Lastname</div>
-                            <div class="col-md-3">@i.PositionName</div>
-                            <div class="col-md-3">
-                                <a class="btn btn-sm btn-primary" asp-action="DepPersonEdit" asp-route-id="@i.DepartmentPersonId">แก้ไข</a>
-                            </div>
+                            <div class="col-md-3">#</div>
+                            <div class="col-md-3">ชื่อ-สกุล</div>
+                            <div class="col-md-3">ตำแหน่ง</div>
+                            <div class="col-md-3">จัดการ</div>
                         </div>
+                        <hr />
+                        @foreach (var i in Model.DepartmentPerson)
+                        {
+                            <div class="row table table-sm table-striped">
+                                <div class="col-md-3">@i.DepartmentPersonId</div>
+                                <div class="col-md-3">@i.Firstname  @i.Lastname</div>
+                                <div class="col-md-3">@i.PositionName</div>
+                                <div class="col-md-3">
+                                    <a class="btn btn-sm btn-primary" asp-action="DepPersonEdit" asp-route-id="@i.DepartmentPersonId">แก้ไข</a>
+                                    <a class="btn-circle btn-sm btn-warning" asp-action="DepPersonDelete" asp-route-id="@i.DepartmentPersonId">ลบ</a>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                    <div class="tab-pane" id="nav-org" role="tabpanel" aria-labelledby="nav-org-tab">
+                        <P class="bg-gradient-light"> Oranize Chart</P>
+                        <br />
+                        <div id="chart_div"></div>
+
+                    </div> <!--end tab 4-->
+
+                </div> <!--end nav content-->
+            </div> <!--end card body-->
+        </div> <!--end card-->
+
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        
+    </form>
+
+    <script>
+
+        function GetAddressFromDatabase(token) {
+            var provinceCode = $("#ProvinceCode_Temp").val();
+            var amphurCode = $("#AmphurCode_Temp").val();
+            var tambonCode = $("#TambonCode_Temp").val();
+            // load all province and selected value
+            GetProvince(token, null);
+
+            // load Amphur
+            if (provinceCode == null) {
+                $("#AmphurCode").html(`<option value="">กรุณาเลือก</option>`);
+                $("#TambonCode").html(`<option value="">กรุณาเลือก</option>`);
+            }
+            else {
+                GetAmphur(token, provinceCode, amphurCode);
+            }
+
+            // load Tambon
+            if (amphurCode == null) {
+                $("#TambonCode").html(`<option value="">กรุณาเลือก</option>`);
+            }
+            else {
+                GetTambon(token, provinceCode, amphurCode, tambonCode);
+            }
+        }
+
+        function GetToken() {
+            var form = new FormData();
+            form.append("username", "dpeusers");
+            form.append("password", "users_api@dpe.go.th");
+
+            var settings = {
+                "url": "https://data.dpe.go.th/api/tokens/keys/tokens",
+                "method": "POST",
+                "timeout": 0,
+                "processData": false,
+                "mimeType": "multipart/form-data",
+                "contentType": false,
+                "data": form
+            };
+
+            return $.ajax(settings);
+        }
+
+        function GetProvince(token, selectedProvince) {
+
+            console.log("call GetProvince");
+            var form = new FormData();
+            form.append("Token", token);
+
+            var settings = {
+                "url": "https://data.dpe.go.th/api/stadium/location/getProvince",
+                "method": "POST",
+                "timeout": 0,
+                "processData": false,
+                "mimeType": "multipart/form-data",
+                "contentType": false,
+                "data": form
+            };
+
+            $.ajax(settings).done(function (response, textStatus, jqXHR) {
+
+                if (jqXHR.status == 200) {
+                    var results = JSON.parse(response);
+                    var data = results.data;
+                    PROVINCE_DATA = data;
+                    var items =
+                        `
+                <option value="">กรุณาเลือก</option>
+                `
+                    $.each(data, function (index, value) {
+                        items +=
+                            `
+                    <option value="` + value.PROV_CODE + `">` + value.PROV_NAMT + `</option>
+                    `
+                    });
+                    $("#ProvinceCode").html(items);
+
+                    if (selectedProvince != null) {
+                        $("#ProvinceCode").val(selectedProvince);
                     }
-                </div>
-                <div class="tab-pane" id="nav-org" role="tabpanel" aria-labelledby="nav-org-tab">
-                    <P class="bg-gradient-light"> Oranize Chart</P>
-                    <br />
-                    <div id="chart_div"></div>
+                }
+            });
+        }
 
-                </div> <!--end tab 4-->
+        function GetAmphur(token, PROV_CODE, selectedAmphur) {
 
-            </div> <!--end nav content-->
-        </div> <!--end card body-->
-    </div> <!--end card-->
-</form>
+
+            var form = new FormData();
+            form.append("PROV_CODE", PROV_CODE);
+            form.append("Token", token);
+
+            var settings = {
+                "url": "https://data.dpe.go.th/api/stadium/location/getAmpher",
+                "method": "POST",
+                "timeout": 0,
+                "processData": false,
+                "mimeType": "multipart/form-data",
+                "contentType": false,
+                "data": form
+            };
+
+            $.ajax(settings).done(function (response, textStatus, jqXHR) {
+
+                if (jqXHR.status == 200) {
+                    var results = JSON.parse(response);
+                    var data = results.data;
+                    var items =
+                        `
+                <option value="">กรุณาเลือก</option>
+                `
+                    $.each(data, function (index, value) {
+                        items +=
+                            `
+                    <option value="` + value.AMP_CODE + `">` + value.AMP_NAMT + `</option>
+                    `
+                    });
+                    $("#AmphurCode").html(items);
+
+                    if (selectedAmphur != null) {
+                        $("#AmphurCode").val(selectedAmphur);
+                    }
+                }
+            });
+        }
+
+        function GetTambon(token, PROV_CODE, AMP_CODE, selectedTambon) {
+
+            var form = new FormData();
+            form.append("PROV_CODE", PROV_CODE);
+            form.append("AMP_CODE", AMP_CODE);
+            form.append("Token", token);
+
+            var settings = {
+                "url": "https://data.dpe.go.th/api/stadium/location/getTambol",
+                "method": "POST",
+                "timeout": 0,
+                "processData": false,
+                "mimeType": "multipart/form-data",
+                "contentType": false,
+                "data": form
+            };
+
+            $.ajax(settings).done(function (response, textStatus, jqXHR) {
+
+                if (jqXHR.status == 200) {
+                    var results = JSON.parse(response);
+                    var data = results.data;
+                    var items =
+                        `
+                <option value="">กรุณาเลือก</option>
+                `
+                    $.each(data, function (index, value) {
+                        items +=
+                            `
+                    <option value="` + value.TAM_CODE + `">` + value.TAM_NAMT + `</option>
+                    `
+                    });
+                    $("#TambonCode").html(items);
+
+                    if (selectedTambon != null) {
+                        $("#TambonCode").val(selectedTambon);
+                    }
+                }
+            });
+        }
+
+        $(document).ready(function () {
+
+            GetToken().done(function (response) {
+                var token = JSON.parse(response).data;
+                localStorage.setItem("token", token);
+
+                GetAddressFromDatabase(token);
+            });
+
+            $("#ProvinceCode").change(function () {
+                var provinceId = $("#ProvinceCode").val();
+                if (provinceId == "") {
+                    $("#AmphurCode").html(`<option value="">กรุณาเลือก</option>`);
+                    $("#TambonCode").html(`<option value="">กรุณาเลือก</option>`);
+                }
+                else {
+                    var token = localStorage.getItem("token");
+                    GetAmphur(token, provinceId, null);
+                    $("#TambonCode").html(`<option value="">กรุณาเลือก</option>`);
+                }
+            });
+
+            $("#AmphurCode").change(function () {
+                var provinceId = $("#ProvinceCode").val();
+                var AmphurCode = $("#AmphurCode").val();
+
+                if (AmphurCode == "") {
+                    $("#TambonCode").html(`<option value="">กรุณาเลือก</option>`);
+                }
+                else {
+                    var token = localStorage.getItem("token");
+                    GetTambon(token, provinceId, AmphurCode, null);
+                }
+            });
+
+        });
+
+    </script>
 
 <partial name="DepEdit_js.cshtml" />

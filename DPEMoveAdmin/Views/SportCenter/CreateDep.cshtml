@@ -62,7 +62,7 @@
                                     <input class="col-md-3 text-left form-control" name="housePropertyName" type="text" />
                                     <label class="col-md-2 text-right">จังหวัด</label>
                                     <div class="col-md-4">
-                                        @Html.DropDownListFor(m => m.ProvinceId, ViewBag.ProvinceList as SelectList, "กรุณาเลือก", new { @class = "form-control" })
+                                        @Html.DropDownList("ProvinceCode", new SelectList(""), "กรุณาเลือก", new { @class = "form-control" })
                                     </div>
                                 </div> <!--row-->
                                 <div class="form-group row">
@@ -70,7 +70,7 @@
                                     <input class="col-md-3 text-left form-control" name="buildingName" type="text" />
                                     <label class="col-md-2 text-right">อำเภอ</label>
                                     <div class="col-md-4">
-                                        @Html.DropDownListFor(m => m.AmphurId, new SelectList(""), "กรุณาเลือก", new { @class = "form-control" })
+                                        @Html.DropDownList("AmphurCode", new SelectList(""), "กรุณาเลือก", new { @class = "form-control" })
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -78,7 +78,7 @@
                                     <input class="col-md-3 text-left form-control" name="no" type="text" />
                                     <label class="col-md-2 text-right">ตำบล</label>
                                     <div class="col-md-4">
-                                        @Html.DropDownListFor(m => m.TambonId, new SelectList(""), "กรุณาเลือก", new { @class = "form-control" })
+                                        @Html.DropDownList("TambonCode", new SelectList(""), "กรุณาเลือก", new { @class = "form-control" })
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -119,41 +119,210 @@
 
 
         <script src="~/lib/jquery/dist/jquery.js"></script>
-        <script>
-            $(document).ready(function () {
-                $("#ProvinceId").change(function () {
-                    var provinceId = $(this).val();
-                    debugger
-                    $.ajax({
-                        type: "post",
-                        url: "/SportCenter/GetAmphur?pid=" + provinceId,
-                        contentType: "html",
-                        success: function (response) {
-                            debugger
-                            $("#AmphurId").empty();
-                            $("#AmphurId").append(response);
-                        }
-                    })
-
-                })
-
-                $("#AmphurId").change(function () {
-                    var amphurId = $(this).val();
-                    debugger
-                    $.ajax({
-                        type: "post",
-                        url: "/SportCenter/GetTambon?aid=" + amphurId,
-                        contentType: "html",
-                        success: function (response) {
-                            debugger
-                            $("#TambonId").empty();
-                            $("#TambonId").append(response);
-                        }
-                    })
-
-                })
-
-
-            })
-        </script>
+        
     </form>
+
+<script>
+
+function GetAddressFromDatabase(token) {
+
+    // load all province and selected value
+    GetProvince(token, null);
+
+    // load Amphur
+    if (address.provinceCode == null) {
+        $("#AmphurCode").html(`<option value="">กรุณาเลือก</option>`);
+        $("#TambonCode").html(`<option value="">กรุณาเลือก</option>`);
+    }
+    else {
+        GetAmphur(token, null, null);
+    }
+
+    // load Tambon
+    if (address.amphurCode == null) {
+        $("#TambonCode").html(`<option value="">กรุณาเลือก</option>`);
+    }
+    else {
+        GetTambon(token, null, null, null);
+    }
+}
+
+function GetToken() {
+    var form = new FormData();
+    form.append("username", "dpeusers");
+    form.append("password", "users_api@dpe.go.th");
+
+    var settings = {
+        "url": "https://data.dpe.go.th/api/tokens/keys/tokens",
+        "method": "POST",
+        "timeout": 0,
+        "processData": false,
+        "mimeType": "multipart/form-data",
+        "contentType": false,
+        "data": form
+    };
+
+    return $.ajax(settings);
+}
+
+function GetProvince(token, selectedProvince) {
+
+    console.log("call GetProvince");
+    var form = new FormData();
+    form.append("Token", token);
+
+    var settings = {
+        "url": "https://data.dpe.go.th/api/stadium/location/getProvince",
+        "method": "POST",
+        "timeout": 0,
+        "processData": false,
+        "mimeType": "multipart/form-data",
+        "contentType": false,
+        "data": form
+    };
+
+    $.ajax(settings).done(function (response, textStatus, jqXHR) {
+
+        if (jqXHR.status == 200) {
+            var results = JSON.parse(response);
+            var data = results.data;
+            PROVINCE_DATA = data;
+            var items =
+                `
+            <option value="">กรุณาเลือก</option>
+            `
+            $.each(data, function (index, value) {
+                items +=
+                    `
+                <option value="` + value.PROV_CODE + `">` + value.PROV_NAMT + `</option>
+                `
+            });
+            $("#ProvinceCode").html(items);
+
+            if (selectedProvince != null) {
+                $("#ProvinceCode").val(selectedProvince);
+            }
+        }
+    });
+}
+
+function GetAmphur(token, PROV_CODE, selectedAmphur) {
+
+
+    var form = new FormData();
+    form.append("PROV_CODE", PROV_CODE);
+    form.append("Token", token);
+
+    var settings = {
+        "url": "https://data.dpe.go.th/api/stadium/location/getAmpher",
+        "method": "POST",
+        "timeout": 0,
+        "processData": false,
+        "mimeType": "multipart/form-data",
+        "contentType": false,
+        "data": form
+    };
+
+    $.ajax(settings).done(function (response, textStatus, jqXHR) {
+
+        if (jqXHR.status == 200) {
+            var results = JSON.parse(response);
+            var data = results.data;
+            var items =
+                `
+            <option value="">กรุณาเลือก</option>
+            `
+            $.each(data, function (index, value) {
+                items +=
+                    `
+                <option value="` + value.AMP_CODE + `">` + value.AMP_NAMT + `</option>
+                `
+            });
+            $("#AmphurCode").html(items);
+
+            if (selectedAmphur != null) {
+                $("#AmphurCode").val(selectedAmphur);
+            }
+        }
+    });
+}
+
+function GetTambon(token, PROV_CODE, AMP_CODE, selectedTambon) {
+
+    var form = new FormData();
+    form.append("PROV_CODE", PROV_CODE);
+    form.append("AMP_CODE", AMP_CODE);
+    form.append("Token", token);
+
+    var settings = {
+        "url": "https://data.dpe.go.th/api/stadium/location/getTambol",
+        "method": "POST",
+        "timeout": 0,
+        "processData": false,
+        "mimeType": "multipart/form-data",
+        "contentType": false,
+        "data": form
+    };
+
+    $.ajax(settings).done(function (response, textStatus, jqXHR) {
+
+        if (jqXHR.status == 200) {
+            var results = JSON.parse(response);
+            var data = results.data;
+            var items =
+                `
+            <option value="">กรุณาเลือก</option>
+            `
+            $.each(data, function (index, value) {
+                items +=
+                    `
+                <option value="` + value.TAM_CODE + `">` + value.TAM_NAMT + `</option>
+                `
+            });
+            $("#TambonCode").html(items);
+
+            if (selectedTambon != null) {
+                $("#TambonCode").val(selectedTambon);
+            }
+        }
+    });
+}
+
+$(document).ready(function () {
+
+    GetToken().done(function (response) {
+        var token = JSON.parse(response).data;
+        localStorage.setItem("token", token);
+
+        GetAddressFromDatabase(token);
+    });
+
+    $("#ProvinceCode").change(function () {
+        var provinceId = $("#ProvinceCode").val();
+        if (provinceId == "") {
+            $("#AmphurCode").html(`<option value="">กรุณาเลือก</option>`);
+            $("#TambonCode").html(`<option value="">กรุณาเลือก</option>`);
+        }
+        else {
+            var token = localStorage.getItem("token");
+            GetAmphur(token, provinceId, null);
+            $("#TambonCode").html(`<option value="">กรุณาเลือก</option>`);
+        }
+    });
+
+    $("#AmphurCode").change(function () {
+        var provinceId = $("#ProvinceCode").val();
+        var AmphurCode = $("#AmphurCode").val();
+
+        if (AmphurCode == "") {
+            $("#TambonCode").html(`<option value="">กรุณาเลือก</option>`);
+        }
+        else {
+            var token = localStorage.getItem("token");
+            GetTambon(token, provinceId, AmphurCode, null);
+        }
+    });
+
+});
+
+</script>
