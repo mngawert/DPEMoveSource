@@ -1,7 +1,7 @@
 ﻿
 function GetMEventFacilitiesTopic() {
 
-    console.log('start GetMEventFacilitiesTopic');
+    //console.log('start GetMEventFacilitiesTopic');
     var options = {};
 
     options.url = "/webapi/Events/GetMEventFacilitiesTopic";
@@ -28,7 +28,7 @@ function GetMEventFacilitiesTopic() {
 
 function GetEventFacilitiesFromSession(obj) {
 
-    console.log('start GetEventFacilitiesFromSession');
+    //console.log('start GetEventFacilitiesFromSession');
     var options = {};
     var input = {};
     input.eventId = obj.eventId;
@@ -63,7 +63,7 @@ function GetEventFacilitiesFromSession(obj) {
 }
 
 function AddEventFacilitiesToSession(eventId, mEventFacilitiesTopicId) {
-    console.log('start AddEventFacilitiesToSession ');
+    //console.log('start AddEventFacilitiesToSession ');
 
     if (!$("#frmAddEventFacilities_" + mEventFacilitiesTopicId)[0].checkValidity()) {
 
@@ -110,7 +110,7 @@ function AddEventFacilitiesToSession(eventId, mEventFacilitiesTopicId) {
 
 
 function DeleteEventFacilitiesFromSession(eventId, mEventFacilitiesTopicId, eventFacilitiesId) {
-    console.log('start DeleteEventFacilitiesFromSession ');
+    //console.log('start DeleteEventFacilitiesFromSession ');
 
     var options = {};
 
@@ -138,13 +138,9 @@ function DeleteEventFacilitiesFromSession(eventId, mEventFacilitiesTopicId, even
     $.ajax(options);
 }
 
-
-
-
-
 function GetMFee() {
 
-    console.log('start GetMFee');
+    //console.log('start GetMFee');
     var options = {};
 
     options.url = "/webapi/Events/GetMFee";
@@ -171,13 +167,13 @@ function GetMFee() {
 
 function GetEventFeeFromSession(obj) {
 
-    console.log('start GetEventFeeFromSession');
+    //console.log('start GetEventFeeFromSession');
     var options = {};
     var input = {};
     input.eventId = obj.eventId;
     input.feeId = obj.feeId;
     options.data = JSON.stringify(input);
-    console.log("input", options.data);
+    //console.log("input", options.data);
 
     options.url = "/webapi/Events/GetEventFeeFromSession";
     options.contentType = "application/json";
@@ -215,7 +211,7 @@ function GetEventFeeFromSession(obj) {
 }
 
 function AddEventFeeToSession(eventId, feeId) {
-    console.log('start AddEventFeeToSession ');
+    //console.log('start AddEventFeeToSession ');
 
     if (!$("#frmAddEventFee_" + feeId)[0].checkValidity()) {
 
@@ -233,7 +229,7 @@ function AddEventFeeToSession(eventId, feeId) {
     input.eventFeeUnit = $("#txtEventFeeUnit_" + feeId).val();
     input.createdBy = "0";
     options.data = JSON.stringify(input);
-    console.log("input", options.data);
+    //console.log("input", options.data);
 
     // clear texbox.
     $("#txtEventFeeName_" + feeId).val("");
@@ -864,6 +860,7 @@ function GetSection(token, selectedSection) {
             });
             $("#ddlSection").html(items);
 
+            $("[name='SectionCatEtc']").hide();
             if (selectedSection != null) {
                 $("#ddlSection").val(selectedSection);
                 GetActivityType(token, selectedSection, model.actTypeId);
@@ -914,19 +911,30 @@ function GetActivityType(token, SECTION_CAT_ID, selectedActivityType) {
                 items +=
                 `
                     <div class="col-3">
-                        <label><input type="radio" name="ActTypeId" value="${value.ACT_TYPE_ID}" class="input-field" /> ${value.ACT_TYPE_NAME}</label>
+                        <label><input type="checkbox" name="ActTypeIds" value="${value.ACT_TYPE_ID}" class="input-field" /> ${value.ACT_TYPE_NAME}</label>
                     </div>                
                 `
             });
             $("#dvActivityType > .row").html(items);
 
-            if (selectedActivityType != null) {
-                $("[name='ActTypeId']").each(function () {
-                    if ($(this).val() == selectedActivityType) {
-                        $(this).prop("checked", true);
-                    }
+            if (EventActivityType != null) {
+                $.each(EventActivityType, function (indexDB, valueDB) {
+                    $("[name='ActTypeIds']").each(function () {
+                        if ($(this).val() == valueDB.actTypeId) {
+                            $(this).prop("checked", true);
+                            return false;
+                        }
+                    });
                 });
             }
+
+            //if (selectedActivityType != null) {
+            //    $("[name='ActTypeIds']").each(function () {
+            //        if ($(this).val() == selectedActivityType) {
+            //            $(this).prop("checked", true);
+            //        }
+            //    });
+            //}
         }
     });
 }
@@ -949,7 +957,7 @@ $(document).ready(function () {
     GetToken().done(function (response) {
         var token = JSON.parse(response).data;
         localStorage.setItem("token", token);
-        console.log("localStorage.token", localStorage.getItem("token"));
+        //console.log("localStorage.token", localStorage.getItem("token"));
 
         GetAddressFromDatabase(token);
         GetSection(token, model.sectionCatId);

@@ -155,6 +155,7 @@ namespace DPEMoveWeb.Controllers
             ViewBag.MSport = _context.MSport.ToList();
             ViewBag.MObjectivePerson = _context.MObjectivePerson.ToList();
             ViewBag.MEventObjective = _context.MEventObjective.ToList();
+            ViewBag.EventActivityType = _context.EventActivityType.Where(a => a.EventId == id).ToList();
 
             return View(eventVM);
         }
@@ -440,6 +441,25 @@ namespace DPEMoveWeb.Controllers
                 }
                 _context.SaveChanges();
 
+                /* EVENT_ACTIVITYTYPE */
+                foreach (var x in _context.EventActivityType.Where(a => a.EventId == model.EventId))
+                {
+                    _context.Remove(x).State = EntityState.Deleted;
+                }
+                _context.SaveChanges();
+
+                foreach (var id in model.ActTypeIds ?? new int[] { })
+                {
+                    var obj = new EventActivityType
+                    {
+                        EventId = model.EventId,
+                        ActTypeId = id,
+                        ActTypeEtc = null
+                    };
+
+                    _context.Entry(obj).State = EntityState.Added;
+                }
+                _context.SaveChanges();
             }
 
             return RedirectToAction("Details", new { id = model.EventId});
