@@ -7,7 +7,7 @@
         <input type="hidden" name="TambonCode_Temp" id="TambonCode_Temp" value="@Model.Address.TambonCode" />
         <div class="container">
             <div class="row">
-                <div class="col-xs-12 col-sm-6 col-md-7 col-lg-9"><label>หน่วยงาน/ศูนย์กีฬา> สร้าง </label></div>
+                <div class="col-xs-12 col-sm-6 col-md-7 col-lg-9"><label>หน่วยงาน/ศูนย์กีฬา> แก้ไข </label></div>
                 <div class="col-xs-12 col-sm-6 col-md-5 col-lg-3 text-center text-sm-right">
                     <button class="btn btn-success" asp-action="DepEdit" name="mainSave">บันทึก</button>
                     <button class="btn btn-secondary">ยกเลิก</button>
@@ -56,8 +56,6 @@
                         </div>
                     </div> <!--end tab 1-->
                     <div class="tab-pane" id="nav-addr" role="tabpanel" aria-labelledby="nav-addr-tab">
-                        <P class="bg-gradient-light">ที่อยู่</P>
-                        <br />
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group row">
@@ -109,43 +107,43 @@
                         </div><!--main row-->
                     </div><!--end tab-->
                     <div class="tab-pane" id="nav-person" role="tabpanel" aria-labelledby="nav-person-tab">
-                        <P class="bg-gradient-light">บุคลากร</P>
-
+                        @*<P class="bg-gradient-light">บุคลากร</P>*@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="row">
-                                    <p class="col-md-9 text-left">
-                                        แสดงรายชื่อบุคลากรของหน่วยงาน :
-                                        <input value="@Model.Department1" type="text" class="bg-transparent border-0 " />
+                                    <p class="col-md-10 text-left">
+                                        @*แสดงรายชื่อบุคลากรของหน่วยงาน :
+                        <input value="@Model.Department1" type="text" class="bg-transparent border-0 " />*@
                                     </p>
-                                    <a class="col-md-2 btn btn-success btn-block" asp-action="DepPersonCreate" asp-route-id="@Model.DepartmentId">เพิ่มบุคลากร</a>
+                                    <a class="col-md-1 btn-sm btn-success btn-block" asp-action="DepPersonCreate" asp-route-id="@Model.DepartmentId">เพิ่มบุคลากร</a>
                                 </div>
                             </div>
                         </div>
                         <hr />
                         <div class="row table table-sm table-striped">
                             <div class="col-md-3">#</div>
-                            <div class="col-md-3">ชื่อ-สกุล</div>
+                            <div class="col-md-4">ชื่อ-สกุล</div>
                             <div class="col-md-3">ตำแหน่ง</div>
-                            <div class="col-md-3">จัดการ</div>
+                            <div class="col-md-2">จัดการ</div>
                         </div>
                         <hr />
+                        @{ int rowNo = 1; }
                         @foreach (var i in Model.DepartmentPerson)
                         {
                             <div class="row table table-sm table-striped">
-                                <div class="col-md-3">@i.DepartmentPersonId</div>
-                                <div class="col-md-3">@i.Firstname  @i.Lastname</div>
+                                <div class="col-md-3">@(rowNo++)</div>
+                                <div class="col-md-4">@i.Firstname  @i.Lastname</div>
                                 <div class="col-md-3">@i.PositionName</div>
-                                <div class="col-md-3">
-                                    <a class="btn btn-sm btn-primary" asp-action="DepPersonEdit" asp-route-id="@i.DepartmentPersonId">แก้ไข</a>
+                                <div class="col-md-2">
+                                    <a class="btn-circle btn-sm btn-success" asp-action="DepPersonEdit" asp-route-id="@i.DepartmentPersonId">แก้ไข</a>
                                     <a class="btn-circle btn-sm btn-warning" asp-action="DepPersonDelete" asp-route-id="@i.DepartmentPersonId">ลบ</a>
                                 </div>
                             </div>
                         }
                     </div>
                     <div class="tab-pane" id="nav-org" role="tabpanel" aria-labelledby="nav-org-tab">
-                        <P class="bg-gradient-light"> Oranize Chart</P>
-                        <br />
+                        @*<P class="bg-gradient-light"> Oranize Chart</P>
+                        <br />*@
                         <div id="chart_div"></div>
 
                     </div> <!--end tab 4-->
