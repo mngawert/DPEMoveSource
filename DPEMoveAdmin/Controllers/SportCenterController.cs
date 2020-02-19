@@ -337,14 +337,14 @@ namespace DPEMoveAdmin.Controllers
             if (ModelState.IsValid)
             {
                 var dep = context.Department.Where(a => a.DepartmentId == p.DepartmentId).FirstOrDefault();
-                var depperson = context.DepartmentPerson.Where(a => a.DepartmentId == p.DepartmentId).FirstOrDefault();
+                var depperson = context.DepartmentPerson.Where(a => a.DepartmentId == p.DepartmentId); //.FirstOrDefault();
                 var addr = context.Address.Where(a => a.AddressId == p.AddressId).FirstOrDefault();
 
                 if (dep != null)
                 {
                     if(depperson != null)
                     {
-                        context.Remove(depperson);
+                        context.RemoveRange(depperson);
                     }
                     
                     if(addr != null)
