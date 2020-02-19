@@ -113,7 +113,7 @@
                                         ประเภทกิจกรรม
                                     </div>
                                     <div class="c field">
-                                        <select class="input-field w-100">
+                                        <select class="input-field w-100" id="ddlSection" name="SectionCatId">
                                             <option value="">แสดงทั้งหมด</option>
                                         </select>
                                     </div>
@@ -352,6 +352,13 @@
 </div>
 
 @section Scripts {
+    
+    <style>
+        img[src=""] {
+            display: none;
+        }
+    </style>
+
 
     <script type="text/javascript">
         var appUserId = @ViewBag.AppUserId;

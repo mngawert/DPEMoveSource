@@ -467,6 +467,9 @@ function EditGmsMember(token, MEMBER_ID) {
     form.append("HOME_SOI", $("[name='HOME_SOI']").val());
     form.append("HOME_ROAD", $("[name='HOME_ROAD']").val());
     form.append("HOME_TUMBOL_ID", $("[name='HOME_TUMBOL']").val());
+    //if ($("[name='HOME_TUMBOL']").val() != "") {
+    //    form.append("HOME_TUMBOL", $("[name='HOME_TUMBOL']").text());
+    //}
     form.append("HOME_AMPHUR", $("[name='HOME_AMPHUR']").val());
     form.append("HOME_PROV", $("[name='HOME_PROV']").val());
     form.append("HOME_POST", $("[name='HOME_POST']").val());
@@ -479,6 +482,9 @@ function EditGmsMember(token, MEMBER_ID) {
     form.append("CON_SOI", $("[name='CON_SOI']").val());
     form.append("CON_ROAD", $("[name='CON_ROAD']").val());
     form.append("CON_TUMBOL_ID", $("[name='CON_TUMBOL']").val());
+    //if ($("[name='CON_TUMBOL']").val() != "") {
+    //    form.append("CON_TUMBOL", $("[name='CON_TUMBOL']").text());
+    //}
     form.append("CON_AMPHUR", $("[name='CON_AMPHUR']").val());
     form.append("CON_PROV", $("[name='CON_PROV']").val());
     form.append("CON_POST", $("[name='CON_POST']").val());
@@ -504,6 +510,9 @@ function EditGmsMember(token, MEMBER_ID) {
     form.append("REGHOME_SOI", $("[name='REGHOME_SOI']").val());
     form.append("REGHOME_ROAD", $("[name='REGHOME_ROAD']").val());
     form.append("REGHOME_TUMBOL_ID", $("[name='REGHOME_TUMBOL']").val());
+    //if ($("[name='REGHOME_TUMBOL']").val() != "") {
+    //    form.append("REGHOME_TUMBOL", $("[name='REGHOME_TUMBOL']").text());
+    //}
     form.append("REGHOME_AMPHUR", $("[name='REGHOME_AMPHUR']").val());
     form.append("REGHOME_PROV", $("[name='REGHOME_PROV']").val());
     form.append("REGHOME_POST", $("[name='REGHOME_POST']").val());

@@ -280,7 +280,8 @@ namespace DPEMoveDAL.Services
                     AmphurCode = a.Address.AmphurCode,
                     TambonCode = a.Address.TambonCode,
                     ProvinceCode = a.Address.ProvinceCode,
-                    VoteAvg = _context.Vote.Where(b => b.EventCode == a.EventCode).Count() == 0 ? 0: _context.Vote.Where(b => b.EventCode == a.EventCode).Average(c => c.VoteValue)
+                    VoteAvg = _context.Vote.Where(b => b.EventCode == a.EventCode).Count() == 0 ? 0: _context.Vote.Where(b => b.EventCode == a.EventCode).Average(c => c.VoteValue),
+                    SectionCatId = a.SectionCatId
                 });
 
             q = q.Where(a => a.Status == 1);
@@ -326,7 +327,10 @@ namespace DPEMoveDAL.Services
             {
                 q = q.Where(a => a.TambonCode == model.TambonCode);
             }
-
+            if (model.SectionCatId != null)
+            {
+                q = q.Where(a => a.SectionCatId == model.SectionCatId);
+            }
 
             q = q.OrderByDescending(a => a.EventStartTimestamp);
 

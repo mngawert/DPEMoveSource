@@ -1,4 +1,37 @@
 ﻿
+function GetSection(token, selectedSection) {
+
+    var form = new FormData();
+    form.append("Token", token);
+
+    var settings = {
+        "url": "https://data.dpe.go.th/api/activity/section/getSection",
+        "method": "POST",
+        "timeout": 0,
+        "processData": false,
+        "mimeType": "multipart/form-data",
+        "contentType": false,
+        "data": form
+    };
+
+    $.ajax(settings).done(function (response, textStatus, jqXHR) {
+
+        if (jqXHR.status == 200) {
+            var results = JSON.parse(response);
+            var data = results.data;
+            PROVINCE_DATA = data;
+            var items = `<option value="">กรุณาเลือก</option>`;
+            $.each(data, function (index, value) {
+                items +=
+                    `
+                <option value="` + value.SECTION_CAT_ID + `">` + value.SECTION_CAT_NAME + `</option>
+                `
+            });
+            $("#ddlSection").html(items);
+        }
+    });
+}
+
 function GetEvent() {
 
     var options = {};
@@ -13,6 +46,7 @@ function GetEvent() {
     input.amphurCode = $("#ddlAmphur").val();
     input.tambonCode = $("#ddlTambon").val();
     input.onlyMyEvent = $("#chkOnlyMyEvent").prop("checked") == true ? $("#chkOnlyMyEvent").val() : "";
+    input.sectionCatId = $("#ddlSection").val();
 
     console.log("input", input);
 
@@ -28,13 +62,19 @@ function GetEvent() {
         var items = '';
         $.each(data, function (index, value) {
 
+            var thumb = $("<img />");
+            thumb.attr("src", value.fileUrl);
+
+            console.log("test thumb", thumb.html());
+            console.log("value.fileUrl", value.fileUrl);
+
             items +=
                 `
             <li>
                 <a href="/Events/Details/` + value.eventId + `">
                     <div class="row event">
                         <div class="col-12 col-sm-5 col-md-4">
-                            <div class="event-thumb"><img src="` + value.fileUrl + `" /></div>
+                            <div id="dvThumb_${value.eventId}" class="event-thumb"></div>
                         </div>
                         <div class="col-12 col-sm-7 col-md-8">
                             <div class="rating">
@@ -82,6 +122,7 @@ function GetEvent() {
         });
         $("#ul-search-events-result").html(items);
         PrintEventFee(data);
+        PrintThumb(data);
     };
     options.error = function (a, b, c) {
         console.log("Error while calling the Web API!(" + b + " - " + c + ")");
@@ -96,6 +137,14 @@ function PrintEventFee(data) {
         }
         else {
             GetEventFee(value.eventId);
+        }
+    });
+}
+
+function PrintThumb(data) {
+    $.each(data, function (index, value) {
+        if (value.fileUrl != null) {
+            $("#dvThumb_" + value.eventId).append(`<img src=${encodeURI(value.fileUrl)} />`);
         }
     });
 }
@@ -182,8 +231,6 @@ function GetProvince(Token) {
                 `
             });
             $("#ddlProvince").html(items);
-
-            GetEvent();
         }
     });
 }
@@ -306,6 +353,9 @@ $(document).ready(function () {
         console.log("localStorage.token", localStorage.getItem("token"));
 
         GetProvince(token);
+        GetSection(token);
+
+        GetEvent();
     });
 
     $("#ddlProvince").change(function () {

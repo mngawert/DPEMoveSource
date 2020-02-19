@@ -71,6 +71,7 @@ namespace DPEMoveDAL.ViewModels
         public string EventStart { get; set; }
         public string EventFinish { get; set; }
         public int? OnlyMyEvent { get; set; }
+        public int? SectionCatId { get; set; }
     }
 
     public class EventDbQuery
@@ -101,6 +102,7 @@ namespace DPEMoveDAL.ViewModels
         public string ProvinceCode { get; set; }
         public string TambonCode { get; set; }
         public double? VoteAvg { get; set; }
+        public int? SectionCatId { get; set; }
     }
 
     public class EventViewModel2

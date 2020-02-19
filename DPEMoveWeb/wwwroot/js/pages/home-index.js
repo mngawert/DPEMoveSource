@@ -35,7 +35,7 @@ function GetToken() {
 function GetReportEvent1(token) {
 
     var settings = {
-        "url": "https://dpemove.dpe.go.th/api/Report/GetReportEvent1",
+        "url": "/api/Report/GetReportEvent1",
         "method": "POST",
         "timeout": 0,
         "headers": {
@@ -140,7 +140,7 @@ function GetStadiumData() {
 
 function GetReportSurvey151A(token) {
     var settings = {
-        "url": "https://dpemove.dpe.go.th/api/Report/GetReportSurvey151A",
+        "url": "/api/Report/GetReportSurvey151A",
         "method": "POST",
         "timeout": 0,
         "headers": {
@@ -411,7 +411,7 @@ function fixToolTipPosition() {
 
 function GetNews() {
     var settings = {
-        "url": "https://dpemove.dpe.go.th/api/RSS/GetNews",
+        "url": "/api/RSS/GetNews",
         "method": "GET",
         "timeout": 0,
     };
