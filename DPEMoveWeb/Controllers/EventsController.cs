@@ -187,7 +187,7 @@ namespace DPEMoveWeb.Controllers
                     ReadCount = 0,
                     EventLevelId = 1,
                     IsFree = "1",
-                    Status = 2,
+                    Status = -1,
                     CreatedBy = appUserId, //model.CreatedBy,
                     CreatedDate = DateTime.Now,
                     AddressId = addr.AddressId

@@ -12,9 +12,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections;
 using Microsoft.AspNetCore.Http;
 using DPEMoveDAL.Helper;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DPEMoveAdmin.Controllers
 {
+    [Authorize]
     public class SportCenterController : Controller
     {
         private AppDbContext context;

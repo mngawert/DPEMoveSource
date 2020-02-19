@@ -1,103 +1,173 @@
-﻿@model IEnumerable<DPEMoveDAL.Models.Event>
+﻿<!-- Page Heading -->
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h4 mb-0 text-gray-800">
+        จัดการสถานะกิจกรรม
+    </h1>
+</div>
 
-@{
-    ViewData["Title"] = "ข้อมูลกิจกรรม";
-}
+<div class="card">
 
-<h4>กิจกรรม > ข้อมูลกิจกรรม</h4>
-
-<div class="border p-4 mt-4">
-    <form method="post">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="form-group row">
-                    <label class="col-md-2 text-right">ช่วงวันที่</label>
-                    <input class="col-md-3 form-control" id="datetimepicker1" name="Date1" />
-                    <label class="col-md-2 text-right">ถึงวันที่</label>
-                    <input class="col-md-3 form-control" id="datetimepicker2" name="Date2" />
-                </div>
-                <div class="form-group row">
-                    <label class="col-md-2 text-right">ประเภทกิจกรรม</label>
-                    <select class="col-md-3 form-control" name="Status">
-                        <option value="-1">แสดงทั้งหมด</option>
-                        <option value="1">--</option>
-                        <option value="2">--</option>
-                    </select>
-                    <label class="col-md-2 text-right">ชื่อกิจกรรม</label>
-                    <input class="col-md-3 form-control" name="Name" />
-                </div>
-                <div class="form-group row">
-                    <div class="col-md-3 mx-auto">
-                        <button type="submit" class="btn btn-green btn-block">แสดงข้อมูล</button>
+    <div class="card-body">
+        <form id="formSearch" method="post">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group row">
+                        <label class="col-md-2 text-right">รหัสกิจกรรม</label>
+                        <input class="col-md-3 form-control" name="EventCode" />
+                        <label class="col-md-2 text-right">ชื่อกิจกรรม</label>
+                        <input class="col-md-3 form-control" name="EventName" />
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-2 text-right">สถานะ</label>
+                        <select class="col-md-3 form-control" name="Status">
+                            <option value="">ทั้งหมด</option>
+                            <option value="1">ใช้งาน</option>
+                            <option value="2">ไม่ใช้งาน</option>
+                        </select>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-5">
+                        </div>
+                        <div class="col-md-2">
+                            <button type="button" id="btnSearch" class="btn btn-success btn-block">แสดงข้อมูล</button>
+                        </div>
                     </div>
                 </div>
             </div>
+        </form>
+    </div>
+
+    <div class="card-body">
+        <table class="table table-sm table-striped" id="tblResults">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">รหัสกิจกรรม</th>
+                    <th scope="col">ชื่อกิจกรรม</th>
+                    <th scope="col">สถานะ</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @*<tr>
+                    <td width="5%" scope="row">@(10 * (Model.PageIndex - 1) + i + 1)</td>
+                    <td width="15%">@Model[i].EventCode</td>
+                    <td>@Model[i].EventName</td>
+                    <td width="15%">@(Model[i].Status == 1 ? "ใช้งาน" : "ไม่ใช้งาน")</td>
+                    <td width="15%">
+                        <form method="post" asp-action="Delete">
+                            <a class="btn-circle btn-sm btn-success" asp-action="Edit" asp-route-id="@Model[i].EventId">แก้ไข</a>
+                            <input type="hidden" name="MEventId" value="@Model[i].EventId" />
+                            <button class="btn-circle btn-sm btn-warning" type="button">ลบ</button>
+                        </form>
+                    </td>
+                </tr>*@
+            </tbody>
+        </table>
+
+
+        <div id="dvPagination" style="display:none">
+            <input type="hidden" name="PageNumber" value="" />
+            <a id="btnPrevPage" class="btn btn-default" href="javascript:void(0);" onclick="PrevPage();">
+                Previous
+            </a>
+            <a id="lblPageIndex" class="btn btn-default" href="javascript:void(0);"></a>
+            <a id="btnNextPage" class="btn btn-default" href="javascript:void(0);" onclick="NextPage();">
+                Next
+            </a>
         </div>
-    </form>
+
+    </div>
 </div>
 
 
-<p class="text-right">
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.EventCode)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EventName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EventStartTimestamp)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EventFinishTimestamp)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ReadCount)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EventCode)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EventName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EventStartTimestamp)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EventFinishTimestamp)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ReadCount)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.EventId">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.EventId">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.EventId">Delete</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
-
-
 @section Scripts {
-    <script type="text/javascript">
-        $(function () {
-            $('#datetimepicker1,#datetimepicker2').datetimepicker({
-                format: 'd/M/Y'
-            });
-        });
-    </script>
-}
 
+<script>
+
+    $("#btnSearch").click(function () {
+        $("[name='PageNumber']").val(1);
+        GetEvents($("[name='EventCode']").val(), $("[name='EventName']").val(), $("[name='Status']").val(), $("[name='PageNumber']").val(), 10);
+    });
+
+    function NextPage() {
+        $("[name='PageNumber']").val(parseInt($("[name='PageNumber']").val()) + 1);
+        GetEvents($("[name='EventCode']").val(), $("[name='EventName']").val(), $("[name='Status']").val(), $("[name='PageNumber']").val(), 10);
+    }
+
+    function PrevPage() {
+        $("[name='PageNumber']").val(parseInt($("[name='PageNumber']").val()) - 1);
+        GetEvents($("[name='EventCode']").val(), $("[name='EventName']").val(), $("[name='Status']").val(), $("[name='PageNumber']").val(), 10);
+    }
+
+    function GetEvents(eventCode, eventName, status, pageNumber, pageSize) {
+
+        var settings = {
+            "url": "/api/Admin/GetEvents",
+            "method": "POST",
+            "timeout": 0,
+            "headers": {
+            "Content-Type": "application/json"
+            },
+            "data": JSON.stringify(
+                {
+                    "eventCode": eventCode,
+                    "eventName": eventName,
+                    "status": status,
+                    "pageNumber": pageNumber,
+                    "pageSize" : pageSize
+                }
+            ),
+        };
+
+        $.ajax(settings).done(function (response, textStatus, jqXHR) {
+            console.log("response", response);
+
+            if (jqXHR.status == 200) {
+                var data = response.data;
+                var items = ``;
+                $.each(data, function (index, value) {
+                    items +=
+                        `
+                    <tr>
+                        <td width="5%" scope="row">${ ((response.pageIndex-1) * 10 ) + index + 1 }</td>
+                        <td width="15%">${ value.eventCode }</td>
+                        <td>${value.eventName}</td>
+                        <td width="15%">${ value.status == 1 ? "ใช้งาน" : "ไม่ใช้งาน" }</td>
+                        <td width="15%">
+                            <a class="btn-circle btn-sm btn-success" href=/Events/Edit/${value.eventId}>แก้ไข</a>
+                        </td>
+                    </tr>
+                    `
+                });
+                $("#tblResults >tbody").html(items);
+                $("#lblPageIndex").html(response.pageIndex + " / " + response.totalPages);
+                $("[name='PageNumber']").val(response.pageIndex);
+
+                if (response.totalPages > 1) {
+                    $("#dvPagination").show();
+                }
+                else {
+                    $("#dvPagination").hide();
+                }
+
+                var prevDisabled = !response.hasPreviousPage ? "disabled" : "";
+                var nextDisabled = !response.hasNextPage ? "disabled" : "";
+                $("#btnPrevPage").removeClass("disabled");
+                $("#btnNextPage").removeClass("disabled");
+                $("#btnPrevPage").addClass(prevDisabled);
+                $("#btnNextPage").addClass(nextDisabled);
+
+            }
+        });
+    }
+
+
+    $(document).ready(function () {
+        GetEvents($("[name='EventCode']").val(), $("[name='EventName']").val(), $("[name='Status']").val(), $("[name='PageNumber']").val(), 10);
+    });
+
+
+</script>
+
+}

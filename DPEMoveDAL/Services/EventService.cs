@@ -378,10 +378,10 @@ namespace DPEMoveDAL.Services
             var ev = _context.Event.Where(a => a.EventId == model.EventId).FirstOrDefault();
 
             var defaultEventStatus = _context.CpeConfig.Where(a => a.Name == "DefaultEventStatus").FirstOrDefault();
-
-            ev.Status = 2;
             if (defaultEventStatus != null)
+            {
                 ev.Status = int.Parse(defaultEventStatus.Value);
+            }
 
             ev.EventName = model.EventName;
             //ev.EventCode = model.EventCode;

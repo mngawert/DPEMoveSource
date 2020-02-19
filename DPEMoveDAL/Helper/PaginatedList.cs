@@ -6,6 +6,16 @@ using System.Threading.Tasks;
 
 namespace DPEMoveDAL.Helper
 {
+
+    public class PaginatedData<T>
+    {
+        public int PageIndex { get; set; }
+        public int TotalPages { get; set; }
+        public bool HasPreviousPage { get; set; }
+        public bool HasNextPage { get; set; }
+        public List<T> Data { get; set; }
+    }
+
     public class PaginatedList<T> : List<T>
     {
         public int PageIndex { get; private set; }
@@ -53,5 +63,18 @@ namespace DPEMoveDAL.Helper
             var items = source.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
             return new PaginatedList<T>(items, count, pageIndex, pageSize);
         }
+
+        public PaginatedData<T> GetPaginatedData()
+        {
+            return new PaginatedData<T>
+            {
+                PageIndex = PageIndex,
+                TotalPages = TotalPages,
+                HasPreviousPage = HasPreviousPage,
+                HasNextPage = HasNextPage,
+                Data = this
+            };
+        }
+
     }
 }

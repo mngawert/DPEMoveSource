@@ -189,4 +189,15 @@ namespace DPEMoveDAL.ViewModels
         public decimal? Longitude { get; set; }
     }
 
+
+    public class EventViewModel3
+    {
+        public int EventId { get; set; }
+        public string EventCode { get; set; }
+        public string EventName { get; set; }
+        public int? Status { get; set; }
+        public int? PageNumber { get; set; }
+        public int? PageSize { get; set; }
+    }
+
 }
