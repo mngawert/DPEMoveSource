@@ -2,13 +2,12 @@
 function GetInternalToken() {
 
     var settings = {
-        "url": "/api/Account/GetToken",
+        "url": "/api/Account/GetReadOnlyToken",
         "method": "POST",
         "timeout": 0,
         "headers": {
             "Content-Type": "application/json"
         },
-        "data": JSON.stringify({ "email": "readonly@gmail.com", "password": "Bossup2020" }),
     };
 
     return $.ajax(settings);
