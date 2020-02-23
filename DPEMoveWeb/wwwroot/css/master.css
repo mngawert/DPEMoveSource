@@ -251,7 +251,6 @@ body { overflow-x: hidden !important; }
 .search-person .col-advsearch { display: inline-block; margin-left: 25px; }
 .search-person-result .col-traininghistory { float: left; }
 .search-person-result .col-th-btn { float: right; padding-top: 13px; }
-
 .person-details { margin-bottom: 30px; }
 .person-details h4 { margin: 0 0 8px; padding: 0; color: #007051; font-weight: bold; }
 .person-details .thumb-img { padding-left: 30px; }
@@ -399,8 +398,11 @@ button:focus { outline: none; }
 .modal form input[type=email]  { padding: 5px 8px; width: 100%; }
 .modal form .r-field { margin-bottom: 10px; }
 .modal form .r-field .c { float: left; padding: 0 15px; }
-.modal form .r-field .c-label { width: 10%; }
-.modal form .r-field .c-field { width: 90%; }
+.modal form .r-field .c-label { width: 20%; }
+.modal form .r-field .c-field { width: 80%; }
+.block-group .heading .mdc-radio .mdc-radio__native-control:enabled:not(:checked)+.mdc-radio__background .mdc-radio__outer-circle { border-color: #ffffff; }
+.block-group .heading .mdc-radio { margin-top: 0; }
+.block-group .heading .mdc-form-field label { font-weight: bold; padding-top: 6px; color: #ffffff; }
 /**/
 @media screen and (max-width: 1200px) {
 	.sec_head .wellcome h2 { font-size: 28px; }

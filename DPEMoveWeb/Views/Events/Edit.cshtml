@@ -292,7 +292,7 @@
                                                     <select class="input-field" id="ddlSection" name="SectionCatId">
                                                         <option value="">กรุณาเลือก</option>
                                                     </select>
-                                                    <input type="text" name="SectionCatEtc" value="@Model.SectionCatEtc" class="input-field" />                                                    
+                                                    <input type="text" name="SectionCatEtc" value="@Model.SectionCatEtc" class="input-field" />
                                                 </div>
                                             </div>
                                             <br />
@@ -626,8 +626,6 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="modal-footer">
-                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -725,34 +723,38 @@
         @foreach (var topic in ViewBag.MEventFacilitiesTopic as List<MEventFacilitiesTopic>)
         {
             <div class="modal fade bd-example-modal-lg" id="ModalTopic_@topic.EventFacilitiesTopicId" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-lg">
+                <div class="modal-dialog">
                     <div class="modal-content">
-
                         <form id="frmAddEventFacilities_@topic.EventFacilitiesTopicId">
-
                             <div class="modal-header">
-
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">ปิด</span>
                                 </button>
                                 <div>เพิ่ม @topic.EventFacilitiesTopicName</div>
                             </div>
-
                             <div class="modal-body">
-                                <div class="row">
-                                    <div class="col-12">
-                                        <table cellspacing="0" class="tbl-data">
-                                            <tr>
-                                                <th class="name">ชื่อ</th>
-                                                <th class="amount">จำนวน</th>
-                                                <th class="unit">หน่วย</th>
-                                            </tr>
-                                            <tr>
-                                                <td><input type="text" id="txtFacilityName_@topic.EventFacilitiesTopicId" name="nn" value="" class="input-field" required /></td>
-                                                <td><input type="text" id="txtFacilityAmount_@topic.EventFacilitiesTopicId" name="aa" value="" class="input-field" /></td>
-                                                <td><input type="text" id="txtFacilityUnit_@topic.EventFacilitiesTopicId" name="uu" value="" class="input-field" /></td>
-                                            </tr>
-                                        </table>
+                                <div class="row r-field">
+                                    <div class="c c-label">
+                                        ชื่อ
+                                    </div>
+                                    <div class="c c-field">
+                                        <input type="text" id="txtFacilityName_@topic.EventFacilitiesTopicId" name="nn" value="" class="input-field" required />
+                                    </div>
+                                </div>
+                                <div class="row r-field">
+                                    <div class="c c-label">
+                                        จำนวน
+                                    </div>
+                                    <div class="c c-field">
+                                        <input type="text" id="txtFacilityAmount_@topic.EventFacilitiesTopicId" name="aa" value="" class="input-field" />
+                                    </div>
+                                </div>
+                                <div class="row r-field">
+                                    <div class="c c-label">
+                                        หน่วย
+                                    </div>
+                                    <div class="c c-field">
+                                        <input type="text" id="txtFacilityUnit_@topic.EventFacilitiesTopicId" name="uu" value="" class="input-field" />
                                     </div>
                                 </div>
                                 <div class="row">
@@ -760,9 +762,6 @@
                                         <button type="button" class="button darkgreen" onclick="AddEventFacilitiesToSession(@Model.EventId, @topic.EventFacilitiesTopicId)">เพิ่ม</button>
                                     </div>
                                 </div>
-
-                            </div>
-                            <div class="modal-footer">
                             </div>
                         </form>
                     </div>
@@ -777,35 +776,38 @@
         @foreach (var topic in ViewBag.MFee as List<MFee>)
         {
             <div class="modal fade bd-example-modal-lg" id="ModalFee_@topic.FeeId" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-lg">
+                <div class="modal-dialog">
                     <div class="modal-content">
-
                         <form id="frmAddEventFee_@topic.FeeId">
-
-
                             <div class="modal-header">
-
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">ปิด</span>
                                 </button>
                                 <div>เพิ่ม @topic.FeeName</div>
                             </div>
-
                             <div class="modal-body">
-                                <div class="row">
-                                    <div class="col-12">
-                                        <table cellspacing="0" class="tbl-data">
-                                            <tr>
-                                                <th class="name">ชื่อ</th>
-                                                <th class="amount">จำนวน</th>
-                                                <th class="unit">หน่วย</th>
-                                            </tr>
-                                            <tr>
-                                                <td><input type="text" id="txtEventFeeName_@topic.FeeId" name="" value="" class="input-field" required /></td>
-                                                <td><input type="text" id="txtEventFeeAmount_@topic.FeeId" name="" value="" class="input-field" /></td>
-                                                <td><input type="text" id="txtEventFeeUnit_@topic.FeeId" name="" value="" class="input-field" /></td>
-                                            </tr>
-                                        </table>
+                                <div class="row r-field">
+                                    <div class="c c-label">
+                                        ชื่อ
+                                    </div>
+                                    <div class="c c-field">
+                                        <input type="text" id="txtEventFeeName_@topic.FeeId" name="" value="" class="input-field" required />
+                                    </div>
+                                </div>
+                                <div class="row r-field">
+                                    <div class="c c-label">
+                                        จำนวน
+                                    </div>
+                                    <div class="c c-field">
+                                        <input type="text" id="txtEventFeeAmount_@topic.FeeId" name="" value="" class="input-field" />
+                                    </div>
+                                </div>
+                                <div class="row r-field">
+                                    <div class="c c-label">
+                                        หน่วย
+                                    </div>
+                                    <div class="c c-field">
+                                        <input type="text" id="txtEventFeeUnit_@topic.FeeId" name="" value="" class="input-field" />
                                     </div>
                                 </div>
                                 <div class="row">
@@ -813,54 +815,49 @@
                                         <button type="button" class="button darkgreen" onclick="AddEventFeeToSession(@Model.EventId, @topic.FeeId)">เพิ่ม</button>
                                     </div>
                                 </div>
-
                             </div>
-                            <div class="modal-footer">
-                            </div>
-
                         </form>
                     </div>
                 </div>
             </div>
 
         }
-
-
-
         @*  POPUP Participant *@
-
         @foreach (var topic in ViewBag.MParticipant as List<MParticipant>)
         {
             <div class="modal fade bd-example-modal-lg" id="ModalParticipant_@topic.ParticipantId" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-lg">
+                <div class="modal-dialog">
                     <div class="modal-content">
-
                         <form id="frmAddEventParticipant_@topic.ParticipantId">
-
-
-                            <div class="modal-header">
-
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">ปิด</span>
-                                </button>
-                                <div>เพิ่ม @topic.ParticipantName</div>
-                            </div>
-
-                            <div class="modal-body">
-                                <div class="row">
-                                    <div class="col-12">
-                                        <table cellspacing="0" class="tbl-data">
-                                            <tr>
-                                                <th class="name">ชื่อ</th>
-                                                <th class="amount">จำนวน</th>
-                                                <th class="unit">หน่วย</th>
-                                            </tr>
-                                            <tr>
-                                                <td><input type="text" id="txtEventParticipantName_@topic.ParticipantId" name="" value="" class="input-field" required /></td>
-                                                <td><input type="text" id="txtEventParticipantAmount_@topic.ParticipantId" name="" value="" class="input-field" /></td>
-                                                <td><input type="text" id="txtEventParticipantUnit_@topic.ParticipantId" name="" value="" class="input-field" /></td>
-                                            </tr>
-                                        </table>
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">ปิด</span>
+                                    </button>
+                                    <div>เพิ่ม @topic.ParticipantName</div>
+                                </div>
+                                <div class="modal-body">
+                                <div class="row r-field">
+                                    <div class="c c-label">
+                                        ชื่อ
+                                    </div>
+                                    <div class="c c-field">
+                                        <input type="text" id="txtEventParticipantName_@topic.ParticipantId" name="" value="" class="input-field" required />
+                                    </div>
+                                </div>
+                                <div class="row r-field">
+                                    <div class="c c-label">
+                                        จำนวน
+                                    </div>
+                                    <div class="c c-field">
+                                        <input type="text" id="txtEventParticipantAmount_@topic.ParticipantId" name="" value="" class="input-field" />
+                                    </div>
+                                </div>
+                                <div class="row r-field">
+                                    <div class="c c-label">
+                                        หน่วย
+                                    </div>
+                                    <div class="c c-field">
+                                        <input type="text" id="txtEventParticipantUnit_@topic.ParticipantId" name="" value="" class="input-field" />
                                     </div>
                                 </div>
                                 <div class="row">
@@ -868,49 +865,46 @@
                                         <button type="button" class="button darkgreen" onclick="AddEventParticipantToSession(@Model.EventId, @topic.ParticipantId)">เพิ่ม</button>
                                     </div>
                                 </div>
-
                             </div>
-                            <div class="modal-footer">
-                            </div>
-
                         </form>
                     </div>
                 </div>
             </div>
         }
-
-
         @*  POPUP EventNearby *@
-
         <div class="modal fade bd-example-modal-lg" id="Modal_AddEventNearby" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg">
+            <div class="modal-dialog">
                 <div class="modal-content">
-
                     <form id="frmAddEventNearby">
-
                         <div class="modal-header">
-
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">ปิด</span>
                             </button>
                             <div>เพิ่ม สถานที่ใกล้เคียง</div>
                         </div>
-
                         <div class="modal-body">
-                            <div class="row">
-                                <div class="col-12">
-                                    <table cellspacing="0" class="tbl-data">
-                                        <tr>
-                                            <th class="name">ชื่อสถานที่</th>
-                                            <th class="amount">ระยะห่าง</th>
-                                            <th class="unit">หน่วย</th>
-                                        </tr>
-                                        <tr>
-                                            <td><input type="text" id="txtEventNearbyName" name="" value="" class="input-field" required /></td>
-                                            <td><input type="text" id="txtEventNearbyAmount" name="" value="" class="input-field" @*required oninvalid="setCustomValidity('Should not be left empty.')" oninput="setCustomValidity('')"*@ /></td>
-                                            <td><input type="text" id="txtEventNearbyUnit" name="" value="" class="input-field" /></td>
-                                        </tr>
-                                    </table>
+                            <div class="row r-field">
+                                <div class="c c-label">
+                                    ชื่อสถานที่
+                                </div>
+                                <div class="c c-field">
+                                    <input type="text" id="txtEventNearbyName" name="" value="" class="input-field" required />
+                                </div>
+                            </div>
+                            <div class="row r-field">
+                                <div class="c c-label">
+                                    ระยะห่าง
+                                </div>
+                                <div class="c c-field">
+                                    <input type="text" id="txtEventNearbyAmount" name="" value="" class="input-field" @*required oninvalid="setCustomValidity('Should not be left empty.')" oninput="setCustomValidity('')"*@ />
+                                </div>
+                            </div>
+                            <div class="row r-field">
+                                <div class="c c-label">
+                                    หน่วย
+                                </div>
+                                <div class="c c-field">
+                                    <input type="text" id="txtEventNearbyUnit" name="" value="" class="input-field" />
                                 </div>
                             </div>
                             <div class="row">
@@ -919,40 +913,23 @@
                                     <button type="button" class="button darkgreen" onclick="AddEventNearbyToSession(@Model.EventId)">เพิ่ม</button>
                                 </div>
                             </div>
-
                         </div>
-                        <div class="modal-footer">
-                        </div>
-
                     </form>
                 </div>
             </div>
         </div>
-
-
-
-
-
-
-
     </div>
 </div>
-
-
-
 @section Scripts {
-
     <script type="text/javascript">
         var routeId = @ViewBag.routeId;
         var model = @Html.Raw(Json.Serialize(Model));
         var address = @Html.Raw(Json.Serialize(ViewBag.Address as Address));
         var EventActivityType = @Html.Raw(Json.Serialize(ViewBag.EventActivityType as List<EventActivityType>));
-
         console.log('routeid=', routeId);
         console.log('model=', model);
         console.log('address=', address);
         console.log('EventActivityType=', EventActivityType);
     </script>
-
     <script src="~/js/pages/events-edit.js"></script>
 }
