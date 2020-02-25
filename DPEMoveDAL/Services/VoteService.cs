@@ -127,7 +127,7 @@ namespace DPEMoveDAL.Services
 
         public IEnumerable<MVoteType> GetVoteType(VoteRequest3 model)
         {
-            IQueryable<MVoteType> q = _context.MVoteType;
+            IQueryable<MVoteType> q = _context.MVoteType.Where(a => a.Status == 1);
 
             if (!string.IsNullOrEmpty(model.VoteOf))
             {

@@ -19,7 +19,6 @@ function GetSection(token, selectedSection) {
         if (jqXHR.status == 200) {
             var results = JSON.parse(response);
             var data = results.data;
-            PROVINCE_DATA = data;
             var items = `<option value="">กรุณาเลือก</option>`;
             $.each(data, function (index, value) {
                 items +=

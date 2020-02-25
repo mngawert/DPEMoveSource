@@ -99,7 +99,7 @@ namespace DPEMoveWeb.Controllers
                 ViewBag.VoteAvg = Math.Truncate(votes.Average(b => b.VoteValue)*10)/10;
             }
 
-            ViewBag.MVoteType = _context.MVoteType.Where(a => a.VoteOf == "1").ToList();
+            ViewBag.MVoteType = _context.MVoteType.Where(a => a.VoteOf == "1" && a.Status == 1).ToList();
 
             //ViewBag.MEventFacilitiesTopic = _context.MEventFacilitiesTopic.ToList();
             //ViewBag.MEventLevel = _context.MEventLevel.ToList();
@@ -147,14 +147,14 @@ namespace DPEMoveWeb.Controllers
                 }
             }
 
-            ViewBag.MEventFacilitiesTopic = _context.MEventFacilitiesTopic.ToList();
-            ViewBag.MFee = _context.MFee.ToList();
-            ViewBag.MParticipant = _context.MParticipant .ToList();
-            ViewBag.MEventLevel = _context.MEventLevel.ToList();
+            ViewBag.MEventFacilitiesTopic = _context.MEventFacilitiesTopic.Where(a => a.Status == 1).ToList();
+            ViewBag.MFee = _context.MFee.Where(a => a.Status == 1).ToList();
+            ViewBag.MParticipant = _context.MParticipant.Where(a => a.Status == 1).ToList();
+            ViewBag.MEventLevel = _context.MEventLevel.Where(a => a.Status == 1).ToList();
             ViewBag.Address = _context.Event.Where(a => a.EventId == id).FirstOrDefault()?.Address;
-            ViewBag.MSport = _context.MSport.ToList();
-            ViewBag.MObjectivePerson = _context.MObjectivePerson.ToList();
-            ViewBag.MEventObjective = _context.MEventObjective.ToList();
+            ViewBag.MSport = _context.MSport.Where(a => a.Status == 1).ToList();
+            ViewBag.MObjectivePerson = _context.MObjectivePerson.Where(a => a.Status == 1).ToList();
+            ViewBag.MEventObjective = _context.MEventObjective.Where(a => a.Status == 1).ToList();
             ViewBag.EventActivityType = _context.EventActivityType.Where(a => a.EventId == id).ToList();
 
             return View(eventVM);

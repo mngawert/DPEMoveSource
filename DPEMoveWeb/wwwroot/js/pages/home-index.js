@@ -500,23 +500,70 @@ function GetStadium(token) {
     });
 }
 
+function GetSection(token) {
+
+    var form = new FormData();
+    form.append("Token", token);
+
+    var settings = {
+        "url": "https://data.dpe.go.th/api/activity/section/getSection",
+        "method": "POST",
+        "timeout": 0,
+        "processData": false,
+        "mimeType": "multipart/form-data",
+        "contentType": false,
+        "data": form
+    };
+
+    $.ajax(settings).done(function (response, textStatus, jqXHR) {
+
+        if (jqXHR.status == 200) {
+            var results = JSON.parse(response);
+            SECTION_DATA = results.data;
+
+            console.log("SECTION_DATA", SECTION_DATA);
+        }
+    });
+}
+
+function GetSectionNameById(id) {
+
+    if (id == null)
+        return "";
+
+    //console.log("call GetProvinceNameById", provinceId);
+    var sectionName = "n/a";
+    $.each(SECTION_DATA, function (index, value) {
+        if (value.SECTION_CAT_ID == id) {
+            sectionName = value.SECTION_CAT_NAME;
+            return false;
+        }
+    });
+    return sectionName;
+}
+
+
 $(document).ready(function () {
 
-    GetInternalToken().done(function (response) {
-        var token = response;
-        localStorage.setItem("token", token);
+    var SECTION_DATA = {}
 
-        GetReportEvent1(token);
-        DrawChartForReportSurvey151A(token);
-        DrawChartForReportEvent4(token);
-        GetReportEvent3(token);
-        GetStadium(token);
+    GetInternalToken().done(function (resp1) {
+        var token1 = resp1;
+        localStorage.setItem("token", token1);
+
+        GetReportEvent1(token1);
+        DrawChartForReportSurvey151A(token1);
+        DrawChartForReportEvent4(token1);
+        GetReportEvent3(token1);
+        GetStadium(token1);
+
+        GetToken().done(function (resp2) {
+            var token2 = JSON.parse(resp2).data;
+            PrintTableForReportStadium1(token2);
+            GetSection(token2);
+        });
     });
 
-    GetToken().done(function (response) {
-        var token = JSON.parse(response).data;
-        PrintTableForReportStadium1(token);
-    });
 
     GetNews();
     //GetStadiumData();
