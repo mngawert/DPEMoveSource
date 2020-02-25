@@ -331,7 +331,9 @@ function DrawChartForReportEvent4(token) {
                 data.addColumn('number', 'จำนวน');
 
                 $.each(response, function (index, value) {
-                    data.addRow([value.sectionCatName, value.noOfEvents]);
+
+                    var sectionName = GetSectionNameById(value.sectionCatId);
+                    data.addRow([sectionName, value.noOfEvents]);
                 });
 
                 var options = {
@@ -522,6 +524,8 @@ function GetSection(token) {
             SECTION_DATA = results.data;
 
             console.log("SECTION_DATA", SECTION_DATA);
+
+            DrawChartForReportEvent4(localStorage.getItem("token"));
         }
     });
 }
@@ -531,7 +535,6 @@ function GetSectionNameById(id) {
     if (id == null)
         return "";
 
-    //console.log("call GetProvinceNameById", provinceId);
     var sectionName = "n/a";
     $.each(SECTION_DATA, function (index, value) {
         if (value.SECTION_CAT_ID == id) {
@@ -553,7 +556,7 @@ $(document).ready(function () {
 
         GetReportEvent1(token1);
         DrawChartForReportSurvey151A(token1);
-        DrawChartForReportEvent4(token1);
+        //DrawChartForReportEvent4(token1);
         GetReportEvent3(token1);
         GetStadium(token1);
 

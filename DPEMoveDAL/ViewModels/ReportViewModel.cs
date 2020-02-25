@@ -66,8 +66,8 @@ namespace DPEMoveDAL.ViewModels
         public string IdCard { get; set; }
         [Column("SECTION_CAT_ID")]
         public int? SectionCatId { get; set; }
-        [Column("SECTION_CAT_NAME")]
-        public string SectionCatName { get; set; }
+        //[Column("SECTION_CAT_NAME")]
+        //public string SectionCatName { get; set; }
     }
 
 
@@ -80,8 +80,8 @@ namespace DPEMoveDAL.ViewModels
     {
         [Column("SECTION_CAT_ID")]
         public int? SectionCatId { get; set; }
-        [Column("SECTION_CAT_NAME")]
-        public string SectionCatName { get; set; }
+        //[Column("SECTION_CAT_NAME")]
+        //public string SectionCatName { get; set; }
         [Column("NO_OF_EVENTS")]
         public int NoOfEvents { get; set; }
     }
