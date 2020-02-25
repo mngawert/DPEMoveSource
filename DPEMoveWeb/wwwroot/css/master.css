@@ -403,6 +403,8 @@ button:focus { outline: none; }
 .block-group .heading .mdc-radio .mdc-radio__native-control:enabled:not(:checked)+.mdc-radio__background .mdc-radio__outer-circle { border-color: #ffffff; }
 .block-group .heading .mdc-radio { margin-top: 0; }
 .block-group .heading .mdc-form-field label { font-weight: bold; padding-top: 6px; color: #ffffff; }
+#dv_MyRating { font-size: 24px; }
+.rating-row h5 { font-size: 24px; }
 /**/
 @media screen and (max-width: 1200px) {
 	.sec_head .wellcome h2 { font-size: 28px; }
@@ -518,5 +520,6 @@ button:focus { outline: none; }
 	.bt-store a:last-child { margin-right: 0; }
 	.loadapp { text-align: center; }
 	.login-link { top: 66px; left: 15px; }
+	h2, .h2 { font-size: 2.4em; }
 	/**/
 }
