@@ -49,11 +49,7 @@
                                         ช่วงวันที่
                                     </div>
                                     <div class="c field">
-                                        <input id="txtEventStart" class="input-field" type="text" value="@(DateTime.Now.ToShortDateString())" data-provide="datepicker" data-date-language="th-th">
-                                        @*<input id="txtEventStartTest1" class="datepicker1" type="text" value="">
-                                        <input id="txtEventStartTest2" class="datepicker2" type="text" value="">
-                                        <input id="txtEventStartTest3" class="datepicker3" type="text" value="">
-                                        <input id="txtEventStartTest" class="datepicker" type="text" value="">*@
+                                        <input id="txtEventStart" class="input-field" type="text" @*value="@(DateTime.Now.ToShortDateString())"*@ data-provide="datepicker" data-date-language="th-th">
                                     </div>
                                 </div>
                             </div>
@@ -63,7 +59,7 @@
                                         ถึงวันที่
                                     </div>
                                     <div class="c field">
-                                        <input id="txtEventFinish" class="input-field" type="text" value="@(DateTime.Now.AddMonths(1).ToShortDateString())" data-provide="datepicker" data-date-language="th-th">
+                                        <input id="txtEventFinish" class="input-field" type="text" @*value="@(DateTime.Now.AddMonths(1).ToShortDateString())"*@ data-provide="datepicker" data-date-language="th-th">
                                     </div>
                                 </div>
                             </div>
@@ -248,102 +244,55 @@
                         </div>
 
                         <div class="modal-body">
-                            <div class="row">
-                                <div class="col-12">
 
-                                    <div class="row">
-                                        <div class="col-sm-12 col-lg-4">
-                                            <div class="row-field clearfix">
-                                                <div class="c lbl">
-                                                    ชื่อกิจกรรม
-                                                </div>
-                                                <div class="c field">
-                                                    <input type="text" class="input-field" name="EventName" required value="" />
-                                                </div>
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-8">
+                                        <div class="row-field clearfix">
+                                            <div class="c lbl">
+                                                ชื่อกิจกรรม*
+                                            </div>
+                                            <div class="c field">
+                                                <input type="text" class="input-field" style="width: 350px" name="EventName" required value="" />
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-sm-12 col-lg-4">
-                                            <div class="row-field clearfix">
-                                                <div class="c lbl">
-                                                    ช่วงวันที่
-                                                </div>
-                                                <div class="c field">
-                                                    <input name="EventStartTimestamp" class="input-field" type="text" required data-provide="datepicker" data-date-language="th-th">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-12 col-lg-4">
-                                            <div class="row-field clearfix">
-                                                <div class="c lbl">
-                                                    ถึงวันที่
-                                                </div>
-                                                <div class="c field">
-                                                    <input name="EventFinishTimestamp" class="input-field" type="text" data-provide="datepicker" data-date-language="th-th">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    @*<div class="row">
-                                            <div class="col-sm-12 col-lg-4">
-                                                <div class="row-field clearfix">
-                                                    <div class="c lbl">
-                                                        จังหวัด
-                                                    </div>
-                                                    <div class="c field">
-                                                        <select class="input-field" id="ddlProvince">
-                                                            <option value="">แสดงทั้งหมด</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-12 col-lg-4">
-                                                <div class="row-field clearfix">
-                                                    <div class="c lbl">
-                                                        อำเภอ
-                                                    </div>
-                                                    <div class="c field">
-                                                        <select class="input-field" id="ddlAmphur">
-                                                            <option value="">แสดงทั้งหมด</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-12 col-lg-4">
-                                                <div class="row-field clearfix">
-                                                    <div class="c lbl">
-                                                        ตำบล
-                                                    </div>
-                                                    <div class="c field">
-                                                        <select class="input-field" id="ddlTambon">
-                                                            <option value="">แสดงทั้งหมด</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-sm-12 col-lg-4">
-                                                <div class="row-field clearfix">
-                                                    <div class="c lbl">
-                                                        ประเภทกิจกรรม
-                                                    </div>
-                                                    <div class="c field">
-                                                        <select class="input-field">
-                                                            <option value="">แสดงทั้งหมด</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>*@
-
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-12 text-right">
-                                    @*<button type="button" class="button darkgreen" data-dismiss="modal" onclick="CreateEvent()">สร้าง</button>*@
-                                    <button type="submit" class="button darkgreen">สร้าง</button>
+                                <div class="row">
+                                    <div class="col-8">
+                                        <div class="row-field clearfix">
+                                            <div class="c lbl">
+                                                ช่วงวันที่*
+                                            </div>
+                                            <div class="c field">
+                                                <input name="EventStartTimestamp" class="input-field" style="width: 150px" type="text" required data-provide="datepicker" data-date-language="th-th">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-8">
+                                        <div class="row-field clearfix">
+                                            <div class="c lbl">
+                                                ถึงวันที่
+                                            </div>
+                                            <div class="c field">
+                                                <input name="EventFinishTimestamp" class="input-field" style="width: 150px" type="text" data-provide="datepicker" data-date-language="th-th">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-8">
+                                        <div class="row-field clearfix">
+                                            <div class="c lbl">
+                                            </div>
+                                            <div class="c field">
+                                                <br />
+                                                <button type="submit" class="button darkgreen">สร้าง</button>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

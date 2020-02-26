@@ -206,6 +206,9 @@ function GetPrefix(token, selectedValue) {
 }
 
 function GetGmsType(token, selectedValue) {
+
+    console.log("GetGmsType ", selectedValue);
+
     var form = new FormData();
     form.append("Token", token);
 
@@ -231,6 +234,14 @@ function GetGmsType(token, selectedValue) {
 
             if (selectedValue != null) {
                 $("#ddlTYPE_ID").val(selectedValue);
+            }
+
+            console.log("holder1 ", holder);
+            holder = $('#tab6').detach();
+            console.log("holder2 ", holder);
+            if ($("#ddlTYPE_ID").val() == 367) {
+                $("#dvTabs").append(holder);
+                holder = null;
             }
         }
     });
@@ -1092,6 +1103,11 @@ function ChangeHtmlToModeView() {
     $(".ForModeEdit").hide();
     //$("label").css("margin", "0px");
 }
+
+
+//console.log("holder1 ", $("#dvTabs").html());
+var holder = null; // = $('#tab6').detach();
+
 
 $(document).ready(function () {
 

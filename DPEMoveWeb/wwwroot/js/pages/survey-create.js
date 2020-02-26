@@ -587,7 +587,7 @@ $(document).ready(function () {
     });
 
 
-    $("#lblAnswerValue_50").click(function () {
+    $("#chkAnswerValue_50").click(function () {
 
         EnableDisableQuestion_15();
     });
