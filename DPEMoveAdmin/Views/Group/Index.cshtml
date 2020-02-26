@@ -65,7 +65,7 @@
                             <form asp-action="Delete" asp-route-id="@r.GroupId">
 
                                 <a class="btn-circle btn-sm btn-success" asp-action="Edit" asp-route-id="@r.GroupId" title="กำหนดสิทธิ์"><i class="fas fa-unlock-alt"></i></a>
-                                <a class="btn-circle btn-sm btn-success" asp-action="EditUsers" asp-route-id="@r.GroupId" title="กลุ่มผู้ใช้งาน"><i class="fas fa-users"></i></a>
+                                @*<a class="btn-circle btn-sm btn-success" asp-action="EditUsers" asp-route-id="@r.GroupId" title="กลุ่มผู้ใช้งาน"><i class="fas fa-users"></i></a>*@
                                 <button class="btn-circle btn-sm btn-success" type="submit" title="ลบผู้ใช้งาน"><i class="fas fa-trash"></i></button>
 
                             </form>

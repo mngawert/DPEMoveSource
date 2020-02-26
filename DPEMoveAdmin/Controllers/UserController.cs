@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DPEMoveAdmin.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "ADMIN_VIEW")]
     public class UserController : Controller
     {
         private readonly AppDbContext _context;

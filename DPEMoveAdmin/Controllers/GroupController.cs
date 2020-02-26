@@ -13,7 +13,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DPEMoveWebApi.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "ADMIN_VIEW")]
     public class GroupController : Controller
     {
         private readonly AppDbContext context;

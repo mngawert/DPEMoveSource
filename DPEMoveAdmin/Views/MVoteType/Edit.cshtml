@@ -1,9 +1,9 @@
-﻿@model MEventObjective
+﻿@model MVoteType
 
 <!-- Page Heading -->
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="h4 mb-0 text-gray-800">
-        กลุ่มเป้าหมายกิจกรรม > แก้ไข
+        หัวข้อการให้คะแนน > แก้ไข
     </h1>
 </div>
 
@@ -14,11 +14,18 @@
                 <div class="col-md-10">
                     <div class="form-group row">
                         <label class="col-md-3 text-right">Code</label>
-                        <input class="col-md-6 form-control" name="EventObjectiveCode" value="@Model.EventObjectiveCode" required />
+                        <input class="col-md-6 form-control" name="VoteTypeCode" value="@Model.VoteTypeCode" required />
                     </div>
                     <div class="form-group row">
                         <label class="col-md-3 text-right">Name</label>
-                        <input class="col-md-6 form-control" name="EventObjectiveName" value="@Model.EventObjectiveName" required />
+                        <input class="col-md-6 form-control" name="VoteType" value="@Model.VoteType" required />
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 text-right">ประเภท</label>
+                        <select class="col-md-4 form-control" name="VoteOf" asp-for="@Model.VoteOf">
+                            <option value="1">กิจกรรม</option>
+                            <option value="2">สนามกีฬา</option>
+                        </select>
                     </div>
                     <div class="form-group row">
                         <label class="col-md-3 text-right">สถานะ</label>
@@ -31,7 +38,7 @@
                         <div class="col-md-3">
                         </div>
                         <div class="col-md-2 m-0 p-0 pt-3">
-                            <input type="hidden" name="MEventObjectiveId" value="@Model.MEventObjectiveId " />
+                            <input type="hidden" name="ObjectivePersonId" value="@Model.VoteTypeId " />
                             <button type="submit" class="btn btn-success btn-block">ยืนยัน</button>
                         </div>
                     </div>

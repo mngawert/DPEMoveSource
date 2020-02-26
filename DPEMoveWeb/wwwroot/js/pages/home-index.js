@@ -53,7 +53,7 @@ function GetReportEvent1(token) {
                 items +=
                 `
                     <tr>
-                        <th scope="row">${value.provNamt}</th>
+                        <th scope="row">${value.provNamt == null ? "-" : value.provNamt}</th>
                         <td>${parseInt(value.noOfEvents).toLocaleString()}</td>
                     </tr>
                 `

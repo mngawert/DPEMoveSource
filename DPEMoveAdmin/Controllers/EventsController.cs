@@ -14,7 +14,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DPEMoveWebApi.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "ADMIN_VIEW")]
     public class EventsController : Controller
     {
         private readonly AppDbContext _context;

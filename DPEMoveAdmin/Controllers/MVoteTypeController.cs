@@ -14,32 +14,35 @@ using Microsoft.EntityFrameworkCore;
 namespace DPEMoveWebApi.Controllers
 {
     [Authorize(Roles = "ADMIN_VIEW")]
-    public class MEventObjectiveController : Controller
+    public class MVoteTypeController : Controller
     {
         private readonly AppDbContext _context;
 
-        public MEventObjectiveController(AppDbContext context)
+        public MVoteTypeController(AppDbContext context)
         {
             _context = context;
         }
 
-        public IActionResult Index()
-        {
-            return View(_context.MEventObjective);
-        }
-        
-        [HttpPost]
-        public IActionResult Index(MEventObjective model)
-        {
-            var q = _context.MEventObjective as IQueryable<MEventObjective>;
+        //public IActionResult Index()
+        //{
+        //    return View(_context.MVoteType);
+        //}
 
-            if (!string.IsNullOrEmpty(model.EventObjectiveCode))
+        public IActionResult Index(MVoteTypeViewModel model)
+        {
+            var q = _context.MVoteType as IQueryable<MVoteType>;
+
+            if (!string.IsNullOrEmpty(model.VoteTypeCode))
             {
-                q = q.Where(a => a.EventObjectiveCode.Contains(model.EventObjectiveCode));
+                q = q.Where(a => a.VoteTypeCode.Contains(model.VoteTypeCode));
             }
-            if (!string.IsNullOrEmpty(model.EventObjectiveName))
+            if (!string.IsNullOrEmpty(model.VoteType))
             {
-                q = q.Where(a => a.EventObjectiveName.Contains(model.EventObjectiveName));
+                q = q.Where(a => a.VoteType.Contains(model.VoteType));
+            }
+            if (!string.IsNullOrEmpty(model.VoteOf))
+            {
+                q = q.Where(a => a.VoteOf.Contains(model.VoteOf));
             }
             if (model.Status != null)
             {
@@ -55,12 +58,13 @@ namespace DPEMoveWebApi.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(MEventObjective model)
+        public IActionResult Create(MVoteType model)
         {
-            var q = new MEventObjective
+            var q = new MVoteType
             {
-                EventObjectiveCode = model.EventObjectiveCode,
-                EventObjectiveName = model.EventObjectiveName,
+                VoteTypeCode = model.VoteTypeCode,
+                VoteType = model.VoteType,
+                VoteOf = model.VoteOf,
                 Status = model.Status,
                 CreatedDate = DateTime.Now,
                 CreatedBy = 0
@@ -75,19 +79,20 @@ namespace DPEMoveWebApi.Controllers
 
         public IActionResult Edit(int id)
         {
-            var q = _context.MEventObjective.Where(a => a.MEventObjectiveId == id).FirstOrDefault();
+            var q = _context.MVoteType.Where(a => a.VoteTypeId == id).FirstOrDefault();
 
             return View(q);
         }
 
         [HttpPost]
-        public IActionResult Edit(MEventObjective model)
+        public IActionResult Edit(MVoteType model)
         {
-            var q = _context.MEventObjective.Where(a => a.MEventObjectiveId == model.MEventObjectiveId).FirstOrDefault();
+            var q = _context.MVoteType.Where(a => a.VoteTypeId == model.VoteTypeId).FirstOrDefault();
             if (q != null)
             {
-                q.EventObjectiveCode = model.EventObjectiveCode;
-                q.EventObjectiveName = model.EventObjectiveName;
+                q.VoteTypeCode = model.VoteTypeCode;
+                q.VoteType = model.VoteType;
+                q.VoteOf = model.VoteOf;
                 q.Status = model.Status;
 
                 _context.Entry(q).State = EntityState.Modified;
@@ -98,9 +103,9 @@ namespace DPEMoveWebApi.Controllers
         }
 
         [HttpPost]
-        public IActionResult Delete(MEventObjective model)
+        public IActionResult Delete(MVoteType model)
         {
-            var q = _context.MEventObjective.Where(a => a.MEventObjectiveId == model.MEventObjectiveId).FirstOrDefault();
+            var q = _context.MVoteType.Where(a => a.VoteTypeId == model.VoteTypeId).FirstOrDefault();
             if (q != null)
             {
                 _context.Entry(q).State = EntityState.Deleted;

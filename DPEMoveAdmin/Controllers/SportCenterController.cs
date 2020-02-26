@@ -16,7 +16,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace DPEMoveAdmin.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "ADMIN_VIEW")]
     public class SportCenterController : Controller
     {
         private AppDbContext context;

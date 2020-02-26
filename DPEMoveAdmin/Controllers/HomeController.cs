@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DPEMoveAdmin.Controllers
 {
-    [Authorize]
+    [Authorize(Roles ="ADMIN_VIEW") ]
     public class HomeController : Controller
     {
         public IActionResult Index()
