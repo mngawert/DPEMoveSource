@@ -24,35 +24,37 @@ namespace DPEMoveWebApi.Controllers
             _context = context;
         }
 
-        public IActionResult Index()
-        {
-            var qq = PaginatedList<Event>.Create(_context.Event, 1, 10);
-
-            return View(qq);
-        }
-        
-        [HttpPost]
         public IActionResult Index(EventViewModel3 model)
         {
-            var q = _context.Event as IQueryable<Event>;
+            //var qq = PaginatedList<Event>.Create(_context.Event, 1, 10);
 
-            if (!string.IsNullOrEmpty(model.EventCode))
-            {
-                q = q.Where(a => a.EventCode.Contains(model.EventCode));
-            }
-            if (!string.IsNullOrEmpty(model.EventName))
-            {
-                q = q.Where(a => a.EventName.Contains(model.EventName));
-            }
-            if (model.Status != null)
-            {
-                q = q.Where(a => a.Status == model.Status);
-            }
+            //return View(qq);
 
-            var qq = PaginatedList<Event>.Create(q, model.PageNumber ?? 1, model.PageSize ?? 10);
-
-            return View(qq);
+            return View();
         }
+        
+        //[HttpPost]
+        //public IActionResult Index(EventViewModel3 model)
+        //{
+        //    var q = _context.Event as IQueryable<Event>;
+
+        //    if (!string.IsNullOrEmpty(model.EventCode))
+        //    {
+        //        q = q.Where(a => a.EventCode.Contains(model.EventCode));
+        //    }
+        //    if (!string.IsNullOrEmpty(model.EventName))
+        //    {
+        //        q = q.Where(a => a.EventName.Contains(model.EventName));
+        //    }
+        //    if (model.Status != null)
+        //    {
+        //        q = q.Where(a => a.Status == model.Status);
+        //    }
+
+        //    var qq = PaginatedList<Event>.Create(q, model.PageNumber ?? 1, model.PageSize ?? 10);
+
+        //    return View(qq);
+        //}
 
         public IActionResult Create()
         {

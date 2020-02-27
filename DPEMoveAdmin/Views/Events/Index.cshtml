@@ -8,7 +8,7 @@
 <div class="card">
 
     <div class="card-body">
-        <form id="formSearch" method="post">
+        <form id="formSearch" method="get">
             <div class="row">
                 <div class="col-md-12">
                     <div class="form-group row">
@@ -29,7 +29,7 @@
                         <div class="col-md-5">
                         </div>
                         <div class="col-md-2">
-                            <button type="button" id="btnSearch" class="btn btn-success btn-block">แสดงข้อมูล</button>
+                            <button type="submit" id="btnSearch" class="btn btn-success btn-block">แสดงข้อมูล</button>
                         </div>
                     </div>
                 </div>
@@ -65,8 +65,17 @@
             </tbody>
         </table>
 
+        <nav aria-label="Page navigation">
+            <ul class="pagination" id="ulPagination">
+                @*<li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item"><a class="page-link" href="#">Next</a></li>*@
+            </ul>
+        </nav>
 
-        <div id="dvPagination" style="display:none">
+        @*<div id="dvPagination" style="display:none">
             <input type="hidden" name="PageNumber" value="" />
             <a id="btnPrevPage" class="btn btn-default" href="javascript:void(0);" onclick="PrevPage();">
                 Previous
@@ -75,7 +84,7 @@
             <a id="btnNextPage" class="btn btn-default" href="javascript:void(0);" onclick="NextPage();">
                 Next
             </a>
-        </div>
+        </div>*@
 
     </div>
 </div>
@@ -85,10 +94,10 @@
 
 <script>
 
-    $("#btnSearch").click(function () {
-        $("[name='PageNumber']").val(1);
-        GetEvents($("[name='EventCode']").val(), $("[name='EventName']").val(), $("[name='Status']").val(), $("[name='PageNumber']").val(), 10);
-    });
+    //$("#btnSearch").click(function () {
+    //    $("[name='PageNumber']").val(1);
+    //    GetEvents($("[name='EventCode']").val(), $("[name='EventName']").val(), $("[name='Status']").val(), $("[name='PageNumber']").val(), 10);
+    //});
 
     function NextPage() {
         $("[name='PageNumber']").val(parseInt($("[name='PageNumber']").val()) + 1);
@@ -158,13 +167,52 @@
                 $("#btnPrevPage").addClass(prevDisabled);
                 $("#btnNextPage").addClass(nextDisabled);
 
+                GeneratePaginationHtml(pageNumber, response.totalPages, "ulPagination");
             }
         });
     }
 
+    function GeneratePaginationHtml(pageNumber, totalPages, forId) {
+
+        var url = window.location.pathname;
+        var urlParam = new URLSearchParams(window.location.search);
+        urlParam.delete("PageNumber");
+
+        for (var pair of urlParam.entries()) {
+             url += `&${pair[0]}=${pair[1]}`;
+        }
+        url = url.replace("&", "?");
+
+        var items_1 = "";
+        for (var i = 1; i <= totalPages; i++) {
+            if (i > 10) {
+                break;
+            }
+            var urlWithPageNumber = (url + "&PageNumber=" + i).replace("&", "?");
+            items_1 += `<li class="page-item ${i == pageNumber ? "active": ""}"><a class="page-link" href="${urlWithPageNumber}">${i}</a></li>`;
+        }
+
+        $("#" + forId).append(items_1);
+    }
+
 
     $(document).ready(function () {
-        GetEvents($("[name='EventCode']").val(), $("[name='EventName']").val(), $("[name='Status']").val(), $("[name='PageNumber']").val(), 10);
+
+        var urlParam = new URLSearchParams(window.location.search);
+
+        console.log("param: ", $.param("Status"));
+
+        console.log("urlParam", urlParam.get("EventCode"));
+        console.log("urlParam", urlParam.get("EventName"));
+        console.log("urlParam", urlParam.get("Status"));
+        console.log("urlParam", urlParam.get("PageNumber"));
+
+        var p1 = urlParam.get("EventCode");
+        var p2 = urlParam.get("EventName");
+        var p3 = urlParam.get("Status");
+        var p4 = urlParam.get("PageNumber");
+
+        GetEvents(p1, p2, p3, p4, 10);
     });
 
 
