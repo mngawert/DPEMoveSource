@@ -179,10 +179,21 @@
                                 <hr>
                                 <h4>ข้อมูลติดต่อ</h4>
                                 <p>
-                                    @Model.ContactPersonMobile<br>
+                                    @if (!string.IsNullOrEmpty(Model.ContactPersonName))
+                                    {
+                                        @Model.ContactPersonName <br />
+                                    }
+                                    @if (!string.IsNullOrEmpty(Model.ContactPersonMobile))
+                                    {
+                                        <span>โทร </span> @Model.ContactPersonMobile <br />
+                                    }
+                                    @if (!string.IsNullOrEmpty(Model.ContactPersonFax))
+                                    {
+                                        <span>Fax </span> @Model.ContactPersonFax <br />
+                                    }
                                     @if (!string.IsNullOrEmpty(Model.ContactPersonEmail))
                                     {
-                                        <span>อิเมล์</span><a href="mailto:@(Model.ContactPersonEmail)?subject=DPE-Move : ข้อความจากระบบ&body=@(Model.EventName) - https://dpemove.dpe.go.th/Events/Details/@(Model.EventId)">@Model.ContactPersonEmail</a>
+                                        <span>อิเมล์ </span><a href="mailto:@(Model.ContactPersonEmail)?subject=DPE-Move : ข้อความจากระบบ&body=@(Model.EventName) - https://dpemove.dpe.go.th/Events/Details/@(Model.EventId)">@Model.ContactPersonEmail</a> <br />
                                     }
                                 </p>
                             }
@@ -362,7 +373,7 @@
                                             <p>
                                                 @foreach (var x in Model.EventFacilities.Where(a => a.MEventFacilitiesTopicId == 3))
                                                 {
-                                                    @x.EventFacilitiesName @x.FacilitiesAmount @x.FacilitiesUnit <br />
+                                                    @x.EventFacilitiesName <text>&nbsp;</text> @x.FacilitiesAmount <text>&nbsp;</text> @x.FacilitiesUnit <br />
                                                 }
                                             </p>
                                         </div>
@@ -375,7 +386,7 @@
                                             <p>
                                                 @foreach (var x in Model.EventFacilities.Where(a => a.MEventFacilitiesTopicId == 1))
                                                 {
-                                                    @x.EventFacilitiesName @x.FacilitiesAmount @x.FacilitiesUnit <br />
+                                                    @x.EventFacilitiesName <text>&nbsp;</text> @x.FacilitiesAmount <text>&nbsp;</text> @x.FacilitiesUnit <br />
                                                 }
                                             </p>
                                         </div>
@@ -388,7 +399,8 @@
                                             <p>
                                                 @foreach (var x in Model.EventFacilities.Where(a => a.MEventFacilitiesTopicId == 2))
                                                 {
-                                                    @x.EventFacilitiesName @x.FacilitiesAmount @x.FacilitiesUnit <br />}
+                                                    @x.EventFacilitiesName <text>&nbsp;</text> @x.FacilitiesAmount <text>&nbsp;</text> @x.FacilitiesUnit <br />
+                                                }
                                             </p>
                                         </div>
                                     }
@@ -400,7 +412,7 @@
                                             <p>
                                                 @foreach (var x in Model.EventFacilities.Where(a => a.MEventFacilitiesTopicId == 4))
                                                 {
-                                                    @x.EventFacilitiesName @x.FacilitiesAmount @x.FacilitiesUnit <br />
+                                                    @x.EventFacilitiesName <text>&nbsp;</text> @x.FacilitiesAmount <text>&nbsp;</text> @x.FacilitiesUnit <br />
                                                 }
                                             </p>
                                         </div>
@@ -413,7 +425,7 @@
                                             <p>
                                                 @foreach (var x in Model.EventFacilities.Where(a => a.MEventFacilitiesTopicId == 5))
                                                 {
-                                                    @x.EventFacilitiesName @x.FacilitiesAmount @x.FacilitiesUnit <br />
+                                                    @x.EventFacilitiesName <text>&nbsp;</text> @x.FacilitiesAmount <text>&nbsp;</text> @x.FacilitiesUnit <br />
                                                 }
                                             </p>
                                         </div>
@@ -426,7 +438,7 @@
                                             <p>
                                                 @foreach (var x in Model.EventFacilities.Where(a => a.MEventFacilitiesTopicId == 6))
                                                 {
-                                                    @x.EventFacilitiesName @x.FacilitiesAmount @x.FacilitiesUnit <br />
+                                                    @x.EventFacilitiesName <text>&nbsp;</text> @x.FacilitiesAmount <text>&nbsp;</text> @x.FacilitiesUnit <br />
                                                 }
                                             </p>
                                         </div>

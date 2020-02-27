@@ -227,6 +227,7 @@ function GetActivityType(token, SECTION_CAT_ID, FOR_ID) {
     $.ajax(settings).done(function (response, textStatus, jqXHR) {
 
         if (jqXHR.status == 200) {
+            response = response.replace(/\ufeff/g, ''); //Remove BOM character
             var results = JSON.parse(response);
             var data = results.data;
             PROVINCE_DATA = data;

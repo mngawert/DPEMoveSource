@@ -520,6 +520,7 @@ function GetSection(token) {
     $.ajax(settings).done(function (response, textStatus, jqXHR) {
 
         if (jqXHR.status == 200) {
+            response = response.replace(/\ufeff/g, ''); //Remove BOM character
             var results = JSON.parse(response);
             SECTION_DATA = results.data;
 

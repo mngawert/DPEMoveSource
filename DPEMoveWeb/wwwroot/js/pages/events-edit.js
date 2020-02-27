@@ -605,7 +605,6 @@ function GetProvince(token, selectedProvince) {
         if (jqXHR.status == 200) {
             var results = JSON.parse(response);
             var data = results.data;
-            PROVINCE_DATA = data;
             var items =
                 `
             <option value="">แสดงทั้งหมด</option>
@@ -848,9 +847,10 @@ function GetSection(token, selectedSection) {
     $.ajax(settings).done(function (response, textStatus, jqXHR) {
 
         if (jqXHR.status == 200) {
+
+            response = response.replace(/\ufeff/g, ''); //Remove BOM character
             var results = JSON.parse(response);
             var data = results.data;
-            PROVINCE_DATA = data;
             var items = `<option value="">กรุณาเลือก</option>`;
             $.each(data, function (index, value) {
                 items +=
@@ -902,9 +902,9 @@ function GetActivityType(token, SECTION_CAT_ID, selectedActivityType) {
     $.ajax(settings).done(function (response, textStatus, jqXHR) {
 
         if (jqXHR.status == 200) {
+            response = response.replace(/\ufeff/g, ''); //Remove BOM character
             var results = JSON.parse(response);
             var data = results.data;
-            PROVINCE_DATA = data;
             var items = ``;
 
             $.each(data, function (index, value) {

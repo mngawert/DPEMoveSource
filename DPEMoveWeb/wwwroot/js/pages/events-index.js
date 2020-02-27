@@ -17,6 +17,7 @@ function GetSection(token, selectedSection) {
     $.ajax(settings).done(function (response, textStatus, jqXHR) {
 
         if (jqXHR.status == 200) {
+            response = response.replace(/\ufeff/g, ''); //Remove BOM character
             var results = JSON.parse(response);
             var data = results.data;
             var items = `<option value="">กรุณาเลือก</option>`;

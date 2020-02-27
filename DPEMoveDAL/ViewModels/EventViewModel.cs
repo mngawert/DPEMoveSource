@@ -31,8 +31,8 @@ namespace DPEMoveDAL.ViewModels
         public decimal? Budget { get; set; }
         public decimal? Budgetused { get; set; }
         public int? EventTypeId { get; set; }
-
-
+        public int? OnlyMyEvent { get; set; }
+        public int? SectionCatId { get; set; }
 
         /* Custom */
         public int? LimitStart { get; set; }
