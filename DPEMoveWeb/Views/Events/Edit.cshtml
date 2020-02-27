@@ -21,7 +21,7 @@
 <div class="section">
     <div class="container">
 
-        <form asp-action="EditEvent" enctype="multipart/form-data">
+        <form id="frmEditEvent" asp-action="EditEvent" enctype="multipart/form-data" onsubmit="return ValidateForm();">
 
             <div class="row breadcrumbs-container">
                 <div class="col-12">
@@ -59,7 +59,7 @@
                                                 </div>
                                                 <div class="c field">
                                                     <input type="hidden" asp-for="EventId" value="@Model.EventId" />
-                                                    <input type="text" asp-for="EventName" value="@Model.EventName" class="input-field w-100" required />
+                                                    <input type="text" id="txtEventName" asp-for="EventName" value="@Model.EventName" class="input-field w-100" required />
                                                 </div>
                                             </div>
                                         </div>
@@ -253,14 +253,6 @@
                                             <div class="row-field clearfix">
                                                 <div class="c lbl" style="text-align: left;">
 
-                                                    @*<div><input type="checkbox" name="" value="" /> เพื่อแข่งขันกีฬา</div>
-                                                    <div><input type="checkbox" name="" value="" /> เพื่อการสร้างสัมพันธ์</div>
-                                                    <div><input type="checkbox" name="" value="" /> เพื่อสุขภาพ</div>
-                                                    <div><input type="checkbox" name="" value="" /> เพื่อความเป็นอาชีพ</div>
-                                                    <div><input type="checkbox" name="" value="" /> กีฬาเพื่อการท่องเที่ยว</div>
-                                                    <div><input type="checkbox" name="" value="" /> อื่นๆ โปรดระบุ <input type="text" name="" value="" class="input-field" /></div>*@
-
-
                                                     @foreach (var x in ViewBag.MEventObjective as List<MEventObjective>)
                                                     {
                                                         @if (x.MEventObjectiveId != 4)
@@ -307,26 +299,6 @@
                                                     </div>
                                                 </div>
                                             </div>
-
-
-
-                                            @*<br />
-                                            <div class="row-field clearfix">
-                                                <div class="c field">
-                                                    ชนิดกีฬา
-                                                    @foreach (var x in ViewBag.MSport as List<MSport>)
-                                                    {
-                                                        @if (x.SportId != 4)
-                                                        {
-                                                            <div><input type="checkbox" name="SportIds" value="@x.SportId" class="input-field" checked="@(Model.EventSport.Any(b => b.SportId == x.SportId))" /> @x.SportName</div>
-                                                        }
-                                                        else
-                                                        {
-                                                            <div><input type="checkbox" name="SportIds" value="@x.SportId" class="input-field" checked="@(Model.EventSport.Any(b => b.SportId == x.SportId))" /> อื่นๆ โปรดระบุ <input type="text" name="SportEtc" value="@(Model.EventSport.Where(b => b.SportId == x.SportId).FirstOrDefault()?.SportEtc )" class="input-field" /></div>
-                                                        }
-                                                    }
-                                                </div>
-                                            </div>*@
                                         </div>
                                     </div>
                                 </div>
@@ -349,11 +321,6 @@
                                                             }
                                                         </div>
                                                     }
-
-                                                    @*<div><input type="radio" name="" value="" class="input-field" /> ระดับท้องถิ่น / ระดับจังหวัด</div>
-                                                    <div><input type="radio" name="" value="" class="input-field" /> ระดับชาติ / ระดับประเทศ</div>
-                                                    <div><input type="radio" name="" value="" class="input-field" /> ระดับนานาชาติ</div>
-                                                    <div><input type="radio" name="" value="" class="input-field" /> อื่นๆ โปรดระบุ <input type="text" name="" value="" class="input-field" /></div>*@
                                                 </div>
                                             </div>
                                         </div>
@@ -379,10 +346,6 @@
                                                             <div><input type="checkbox" name="ObjectivePersonIds" value="@x.ObjectivePersonId" class="input-field" checked="@(Model.EventObjectivePerson.Any(b => b.ObjectivePersonId == x.ObjectivePersonId))" /> อื่นๆ โปรดระบุ <input type="text" name="ObjectivePersonEtc" value="@(Model.EventObjectivePerson.Where(b => b.ObjectivePersonId == x.ObjectivePersonId).FirstOrDefault()?.ObjectivePersonEtc)" class="input-field" /></div>
                                                         }
                                                     }
-                                                    @*<div><input type="checkbox" name="" value="" class="input-field" /> กีฬาพื้นฐานสำหรับนักเรียนนักศึกษา</div>
-                                                    <div><input type="checkbox" name="" value="" class="input-field" /> กีฬาพื้นฐานสำหรับประชาชน</div>
-                                                    <div><input type="checkbox" name="" value="" class="input-field" /> กีฬาเพื่อมวลชน</div>
-                                                    <div><input type="checkbox" name="" value="" class="input-field" /> อื่นๆ โปรดระบุ <input type="text" name="" value="" class="input-field" /></div>*@
                                                 </div>
                                             </div>
                                         </div>
@@ -443,7 +406,7 @@
                                                     จังหวัด <span class="req">*</span>
                                                 </div>
                                                 <div class="c field">
-                                                    <select class="input-field w-75" id="ddlProvince" name="ProvinceCode">
+                                                    <select class="input-field w-75" id="ddlProvince" name="ProvinceCode" required>
                                                         <option value="">กรุณาเลือก</option>
                                                     </select>
                                                 </div>

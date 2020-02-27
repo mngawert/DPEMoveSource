@@ -172,6 +172,14 @@ namespace DPEMoveDAL.Services
             {
                 q = q.Where(a => a.EventStartTimestamp.CompareTo(model.EventFinishTimestamp) <= 0);
             }
+            if (model.OnlyMyEvent != null)
+            {
+                q = q.Where(a => a.CreatedBy == model.OnlyMyEvent);
+            }
+            if (model.SectionCatId != null)
+            {
+                q = q.Where(a => a.SectionCatId == model.SectionCatId);
+            }
 
             //return q;
 
@@ -288,8 +296,7 @@ namespace DPEMoveDAL.Services
 
             if (model.OnlyMyEvent != null)
             {
-                q = q.Where(a => a.CreatedBy == model.OnlyMyEvent);
-            
+                q = q.Where(a => a.CreatedBy == model.OnlyMyEvent);            
             }
             if (!string.IsNullOrEmpty(model.EventCode))
             {

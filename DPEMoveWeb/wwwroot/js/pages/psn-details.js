@@ -236,13 +236,16 @@ function GetGmsType(token, selectedValue) {
                 $("#ddlTYPE_ID").val(selectedValue);
             }
 
-            console.log("holder1 ", holder);
-            holder = $('#tab6').detach();
-            console.log("holder2 ", holder);
+            //console.log("holder1 ", holder);
             if ($("#ddlTYPE_ID").val() == 367) {
-                $("#dvTabs").append(holder);
-                holder = null;
+                //$("#dvTabs").append(holder);
+                $("#tab6").show();
             }
+            else {
+                $("#tab6").hide();
+            }
+
+            //console.log("holder2 ", $("#dvTabs").html());
         }
     });
 }
@@ -1105,9 +1108,10 @@ function ChangeHtmlToModeView() {
 }
 
 
-//console.log("holder1 ", $("#dvTabs").html());
-var holder = null; // = $('#tab6').detach();
-
+//console.log("holder0 ", $("#dvTabs").html());
+//var holder =  $('#tab6').detach();
+//console.log("holder0 ", $("#dvTabs").html());
+//$("#tab6").hide();
 
 $(document).ready(function () {
 

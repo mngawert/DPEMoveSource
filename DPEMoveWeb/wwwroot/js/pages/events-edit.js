@@ -939,6 +939,27 @@ function GetActivityType(token, SECTION_CAT_ID, selectedActivityType) {
     });
 }
 
+function ValidateForm() {
+
+    console.log("validateForm1: ", $("#frmEditEvent"));
+    console.log("validateForm2: ", $("#frmEditEvent")[0].checkValidity());
+    console.log("validateForm3: ", document.getElementById('txtEventName').validity.valid);    
+
+    if ($("[name='EventName']").val() == "1" ) {
+        console.log("EventName error");
+        return false;
+    }
+
+    if (!$("#frmEditEvent")[0].checkValidity()) {
+
+        console.log("validateForm3: ", $("#frmEditEvent")[0]);
+        $("#frmEditEvent")[0].reportValidity();
+        return false;
+    }
+
+    return true;
+}
+
 $(document).ready(function () {
 
     var eventId = routeId;
