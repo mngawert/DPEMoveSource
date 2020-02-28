@@ -15,7 +15,7 @@ function GetProvinceNameById(provinceId) {
     return provinceName;
 }
 
-function GetProvince(Token) {
+function GetProvince(Token, selectedValue, SearchPSNCallback) {
 
     //console.log("call GetProvince");
     var form = new FormData();
@@ -48,12 +48,18 @@ function GetProvince(Token) {
                 `
             });
             $("#ddlProvince").html(items);
+
+            if (selectedValue != null) {
+                $("#ddlProvince").val(selectedValue);
+            }
+
+            var urlParam = new URLSearchParams(window.location.search);
+            GetAmphur(Token, $("#ddlProvince").val(), urlParam.get("Amphur"), SearchPSNCallback);
         }
     });
 }
 
-function GetAmphur(token, PROV_CODE) {
-
+function GetAmphur(token, PROV_CODE, selectedValue, SearchPSNCallback) {
 
     var form = new FormData();
     form.append("PROV_CODE", PROV_CODE);
@@ -85,11 +91,18 @@ function GetAmphur(token, PROV_CODE) {
                 `
             });
             $("#ddlAmphur").html(items);
+
+            if (selectedValue != null) {
+                $("#ddlAmphur").val(selectedValue);
+            }
+
+            var urlParam = new URLSearchParams(window.location.search);
+            GetTambon(token, $("#ddlProvince").val(), $("#ddlAmphur").val(), urlParam.get("Tambon"), SearchPSNCallback);
         }
     });
 }
 
-function GetTambon(token, PROV_CODE, AMP_CODE) {
+function GetTambon(token, PROV_CODE, AMP_CODE, selectedValue, SearchPSNCallback) {
 
     var form = new FormData();
     form.append("PROV_CODE", PROV_CODE);
@@ -122,6 +135,14 @@ function GetTambon(token, PROV_CODE, AMP_CODE) {
                 `
             });
             $("#ddlTambon").html(items);
+
+            if (selectedValue != null) {
+                $("#ddlTambon").val(selectedValue);
+            }
+
+            if (SearchPSNCallback != null) {
+                SearchPSNCallback(token);
+            }
         }
     });
 }
@@ -230,7 +251,7 @@ function getPrefix(token, selectedValue) {
     });
 }
 
-function GetGmsSport(token, selectedValue) {
+function GetGmsSport(token, selectedValue, SearchPSNCallback) {
     var form = new FormData();
     form.append("Token", token);
 
@@ -257,11 +278,14 @@ function GetGmsSport(token, selectedValue) {
             if (selectedValue != null) {
                 $("#ddlSPORT_ID").val(selectedValue);
             }
+
+            var urlParam = new URLSearchParams(window.location.search);
+            GetGmsType(token, urlParam.get("TYPE_ID_SEARCH"), SearchPSNCallback);
         }
     });
 }
 
-function GetGmsType(token, selectedValue) {
+function GetGmsType(token, selectedValue, SearchPSNCallback) {
     var form = new FormData();
     form.append("Token", token);
 
@@ -290,6 +314,9 @@ function GetGmsType(token, selectedValue) {
                 $("#ddlTYPE_ID").val(selectedValue);
                 $("#ddlTYPE_ID_SEARCH").val(selectedValue);
             }
+
+            var urlParam = new URLSearchParams(window.location.search);
+            GetProvince(token, urlParam.get("Province"), SearchPSNCallback);
         }
     });
 }
@@ -342,20 +369,23 @@ function CreateGmsMember(token) {
 
 }
 
-function SearchPSN(token, DATA_REPLACE_OR_APPEND, PAGE) {
+var SearchPSNCallback = function (token) {
+
+    var urlParam = new URLSearchParams(window.location.search);
+    var pageNumber = urlParam.get("PageNumber") == null ? "1" : urlParam.get("PageNumber");
 
     var txtName = $("#txtName").val();
     var provinceId = $("#ddlProvince").val();
     var amphurId = $("#ddlAmphur").val();
     var tambonId = $("#ddlTambon").val();
 
-    GetPSN(token, DATA_REPLACE_OR_APPEND, PAGE, txtName, provinceId, amphurId);
+    GetPSN(token, pageNumber, txtName, provinceId, amphurId);
 }
 
-function GetPSN(token, DATA_REPLACE_OR_APPEND, PAGE, NAME, PROV_CODE, AMP_CODE) {
+function GetPSN(token, pageNumber, NAME, PROV_CODE, AMP_CODE) {
 
     var form = new FormData();
-    form.append("PAGE", PAGE);
+    form.append("PAGE", pageNumber);
     form.append("Token", token);
     form.append("NAME", NAME);
     form.append("PROV_CODE", PROV_CODE);
@@ -424,13 +454,53 @@ function GetPSN(token, DATA_REPLACE_OR_APPEND, PAGE, NAME, PROV_CODE, AMP_CODE) 
         `
         });
 
-        if (DATA_REPLACE_OR_APPEND == "APPEND")
-            $("#ul-search-person-result").append(items);
-        else
-            $("#ul-search-person-result").html(items);
+        $("#ul-search-person-result").html(items);
 
         PrintHistory(token, data);
+
+        GenerateTotalItems(Number(results.all_rows).toLocaleString(), "lblTotalItems");
+        GeneratePaginationHtml(pageNumber, results.all_pages, "ulPagination");
     });
+}
+
+function GenerateTotalItems(totalItems, forId) {
+    $("#" + forId).html("ผลการค้นหา " + totalItems + " รายการ");
+}
+
+function GeneratePaginationHtml(pageNumber, totalPages, forId) {
+
+    var url = window.location.pathname;
+    var urlParam = new URLSearchParams(window.location.search);
+    urlParam.delete("PageNumber");
+
+    for (var pair of urlParam.entries()) {
+        url += `&${pair[0]}=${pair[1]}`;
+    }
+
+
+    var pageNumber = parseInt(pageNumber == null ? 1 : pageNumber);
+
+    var start = 1;
+    var end = totalPages;
+    if ((pageNumber + 5) < end) {
+        end = pageNumber + 5;
+    }
+    start = end - 9;
+    if (start < 1) {
+        start = 1;
+        end = Math.min(10, totalPages);
+    }
+
+    console.log("pageNumber:" + pageNumber + " totalPages:" + totalPages);
+    console.log("start:" + start + " end:" + end);
+
+    var items_1 = "";
+    for (var i = start; i <= end; i++) {
+        var urlWithPageNumber = (url + "&PageNumber=" + i).replace("&", "?");
+        items_1 += `<li class="page-item ${i == pageNumber ? "active" : ""}"><a class="page-link" href="${urlWithPageNumber}">${i}</a></li>`;
+    }
+
+    $("#" + forId).append(items_1);
 }
 
 function PrintHistory(token, data) {
@@ -504,15 +574,18 @@ $(document).ready(function () {
     GetToken().done(function (response) {
         var token = JSON.parse(response).data;
         localStorage.setItem("token", token);
-        //console.log("localStorage.token", localStorage.getItem("token"));
 
-        GetProvince(token);
         getPrefix(token, null);
-        GetGmsSport(token, null);
-        GetGmsType(token, null);
 
-        //PAGE=1
-        SearchPSN(token, "REFRESH_DATA", "1");
+        var urlParam = new URLSearchParams(window.location.search);
+        if (urlParam.get("SEARCH_NAME") != null) {
+            $("[name='SEARCH_NAME']").val(urlParam.get("SEARCH_NAME"));
+        }
+        if (urlParam.get("SEARCH_HRS_ID") != null) {
+            $("[name='SEARCH_HRS_ID']").val(urlParam.get("SEARCH_HRS_ID"));
+        }
+        
+        GetGmsSport(token, urlParam.get("SPORT_ID"), SearchPSNCallback);
     });
 
     $("#btnCreate").click(function () {
@@ -548,33 +621,6 @@ $(document).ready(function () {
             var token = localStorage.getItem("token");
             GetTambon(token, provinceId, amphurId);
         }
-    });
-
-
-    $("#btnSearchPSN").click(function () {
-
-        var token = localStorage.getItem("token");
-        SearchPSN(token, "REFRESH_DATA", "1");
-    });
-
-    $("#btnNext").click(function () {
-        var nextPage = parseInt($("#now_page").val()) + 1;
-        console.log("nextPage", nextPage);
-        var token = localStorage.getItem("token");
-        SearchPSN(token, "REFRESH_DATA", nextPage);
-    });
-
-    $("#btnPrev").click(function () {
-        var prevPage = parseInt($("#now_page").val()) - 1;
-        console.log("prevPage", prevPage);
-        var token = localStorage.getItem("token");
-        SearchPSN(token, "REFRESH_DATA", prevPage);
-    });
-
-    $("#btnLoadMore").click(function () {
-        var nextPage = parseInt($("#now_page").val()) + 1;
-        var token = localStorage.getItem("token");
-        SearchPSN(token, "APPEND", nextPage);
     });
 
 });

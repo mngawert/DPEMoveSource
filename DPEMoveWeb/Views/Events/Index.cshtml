@@ -28,7 +28,7 @@
             <div class="col-12">
 
                 <div class="tx-head_green">
-                    <h4><a href="#">กิจกรรม</a> &#xbb; ข้อมูลกิจกรรม</h4>
+                    <h4><a href="/Events">กิจกรรม</a> &#xbb; ข้อมูลกิจกรรม</h4>
                 </div>
                 <div class="button-container">
                     @if (SignInManager.IsSignedIn(User))
@@ -146,7 +146,7 @@
         </div>
         <div class="row search-events-result">
             <div class="col-12">
-                <div id="dvTotalItems">ผลการค้นหา <label id="lblTotalItems">-</label> รายการ</div>
+                <div id="dvTotalItems"><label id="lblTotalItems"></label></div>
                 <ul id="ul-search-events-result">
                     @*<li>
                 <a href="#">

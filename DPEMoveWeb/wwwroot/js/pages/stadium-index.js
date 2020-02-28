@@ -15,7 +15,7 @@ function GetProvinceNameById(provinceId) {
     return provinceName;
 }
 
-function GetProvince(Token) {
+function GetProvince(Token, selectedValue, SearchStadiumCallback) {
 
     console.log("call GetProvince");
     var form = new FormData();
@@ -48,11 +48,18 @@ function GetProvince(Token) {
                 `
             });
             $("#ddlProvince").html(items);
+
+            if (selectedValue != null) {
+                $("#ddlProvince").val(selectedValue);
+            }
+
+            var urlParam = new URLSearchParams(window.location.search);
+            GetAmphur(Token, $("#ddlProvince").val(), urlParam.get("Amphur"), SearchStadiumCallback);
         }
     });
 }
 
-function GetAmphur(token, PROV_CODE) {
+function GetAmphur(token, PROV_CODE, selectedValue, SearchStadiumCallback) {
 
 
     var form = new FormData();
@@ -85,11 +92,19 @@ function GetAmphur(token, PROV_CODE) {
                 `
             });
             $("#ddlAmphur").html(items);
+
+            if (selectedValue != null) {
+                $("#ddlAmphur").val(selectedValue);
+            }
+
+            var urlParam = new URLSearchParams(window.location.search);
+            GetTambon(token, $("#ddlProvince").val(), $("#ddlAmphur").val(), urlParam.get("Tambon"), SearchStadiumCallback);
+
         }
     });
 }
 
-function GetTambon(token, PROV_CODE, AMP_CODE) {
+function GetTambon(token, PROV_CODE, AMP_CODE, selectedValue, SearchStadiumCallback) {
 
     var form = new FormData();
     form.append("PROV_CODE", PROV_CODE);
@@ -122,6 +137,14 @@ function GetTambon(token, PROV_CODE, AMP_CODE) {
                 `
             });
             $("#ddlTambon").html(items);
+
+            if (selectedValue != null) {
+                $("#ddlTambon").val(selectedValue);
+            }
+
+            if (SearchStadiumCallback != null) {
+                SearchStadiumCallback(token);
+            }
         }
     });
 }
@@ -144,10 +167,10 @@ function GetToken() {
     return $.ajax(settings);
 }
 
-function GetStadiumType(Token) {
+function GetStadiumType(token, selectedValue, SearchStadiumCallback) {
 
     var form = new FormData();
-    form.append("Token", Token);
+    form.append("Token", token);
 
     var settings = {
         "url": "https://data.dpe.go.th/api/stadium/stadiumType/getStadiumType",
@@ -171,10 +194,20 @@ function GetStadiumType(Token) {
             `
         });
         $("#ddlStadiumType").append(items);
+
+        if (selectedValue != null) {
+            $("#ddlStadiumType").val(selectedValue);
+        }
+
+        var urlParam = new URLSearchParams(window.location.search);
+        GetProvince(token, urlParam.get("Province"), SearchStadiumCallback);
     });
 }
 
-function SearchStadium(token, DATA_REPLACE_OR_APPEND, PAGE) {
+var SearchStadiumCallback = function (token) {
+
+    var urlParam = new URLSearchParams(window.location.search);
+    var pageNumber = urlParam.get("PageNumber") == null ? "1" : urlParam.get("PageNumber");
 
     var provinceId = $("#ddlProvince").val();
     var amphurId = $("#ddlAmphur").val();
@@ -182,13 +215,13 @@ function SearchStadium(token, DATA_REPLACE_OR_APPEND, PAGE) {
     var txt_STADIUM_NAME = $("#txt_STADIUM_NAME").val();
     var stadiumType = $("#ddlStadiumType").val();
 
-    GetStadium(token, DATA_REPLACE_OR_APPEND, PAGE, txt_STADIUM_NAME, provinceId, amphurId, tambonId, stadiumType);
+    GetStadium(token, pageNumber, txt_STADIUM_NAME, provinceId, amphurId, tambonId, stadiumType);
 }
 
-function GetStadium(token, DATA_REPLACE_OR_APPEND, PAGE, STADIUM_NAME, PROV_CODE, AMP_CODE, TAM_CODE, GROUP_ID) {
+function GetStadium(token, pageNumber, STADIUM_NAME, PROV_CODE, AMP_CODE, TAM_CODE, GROUP_ID) {
 
     var form = new FormData();
-    form.append("PAGE", PAGE);
+    form.append("PAGE", pageNumber);
     form.append("limit", "10");
     form.append("PROV_CODE", PROV_CODE);
     form.append("AMP_CODE", AMP_CODE);
@@ -213,20 +246,20 @@ function GetStadium(token, DATA_REPLACE_OR_APPEND, PAGE, STADIUM_NAME, PROV_CODE
         var results = JSON.parse(response);
         //console.log("results", results);
 
-        $("#now_page").val(results.now_page);
+        //$("#now_page").val(results.now_page);
 
-        var all_pages = Number(results.all_pages);
-        var now_page = Number(results.now_page);
-        if (all_pages > 0) {
-            $("#lbl_now_page").html(results.now_page);
-            $("#lbl_all_pages").html(results.all_pages);
-        }
-        if (now_page < all_pages) {
-            $("#btnLoadMore").show();
-        }
-        else {
-            $("#btnLoadMore").hide();
-        }
+        //var all_pages = Number(results.all_pages);
+        //var now_page = Number(results.now_page);
+        //if (all_pages > 0) {
+        //    $("#lbl_now_page").html(results.now_page);
+        //    $("#lbl_all_pages").html(results.all_pages);
+        //}
+        //if (now_page < all_pages) {
+        //    $("#btnLoadMore").show();
+        //}
+        //else {
+        //    $("#btnLoadMore").hide();
+        //}
 
         var data = results.data;
         var items = '';
@@ -268,14 +301,13 @@ function GetStadium(token, DATA_REPLACE_OR_APPEND, PAGE, STADIUM_NAME, PROV_CODE
         </li>
         `
         });
-
-        if (DATA_REPLACE_OR_APPEND == "APPEND")
-            $("#ul-search-events-result").append(items);
-        else
-            $("#ul-search-events-result").html(items);
+        $("#ul-search-events-result").html(items);
 
         PrintCommentCount(data);
         PrintVoteAvg(data);
+
+        GenerateTotalItems(Number(results.all_rows).toLocaleString(), "lblTotalItems");
+        GeneratePaginationHtml(pageNumber, results.all_pages, "ulPagination");
     });
 }
 
@@ -351,6 +383,46 @@ function GetVoteTotalAvg(voteOf, eventOrStadiumCode) {
     });
 }
 
+function GenerateTotalItems(totalItems, forId) {
+    $("#" + forId).html("ผลการค้นหา " + totalItems + " รายการ");
+}
+
+function GeneratePaginationHtml(pageNumber, totalPages, forId) {
+
+    var url = window.location.pathname;
+    var urlParam = new URLSearchParams(window.location.search);
+    urlParam.delete("PageNumber");
+
+    for (var pair of urlParam.entries()) {
+        url += `&${pair[0]}=${pair[1]}`;
+    }
+
+
+    var pageNumber = parseInt(pageNumber == null ? 1 : pageNumber);
+
+    var start = 1;
+    var end = totalPages;
+    if ((pageNumber + 5) < end) {
+        end = pageNumber + 5;
+    }
+    start = end - 9;
+    if (start < 1) {
+        start = 1;
+        end = Math.min(10, totalPages);
+    }
+
+    console.log("pageNumber:" + pageNumber + " totalPages:" + totalPages);
+    console.log("start:" + start + " end:" + end);
+
+    var items_1 = "";
+    for (var i = start; i <= end; i++) {
+        var urlWithPageNumber = (url + "&PageNumber=" + i).replace("&", "?");
+        items_1 += `<li class="page-item ${i == pageNumber ? "active" : ""}"><a class="page-link" href="${urlWithPageNumber}">${i}</a></li>`;
+    }
+
+    $("#" + forId).append(items_1);
+}
+
 
 $(document).ready(function () {
 
@@ -359,11 +431,12 @@ $(document).ready(function () {
         localStorage.setItem("token", token);
         console.log("localStorage.token", localStorage.getItem("token"));
 
-        GetStadiumType(token);
-        GetProvince(token);
+        var urlParam = new URLSearchParams(window.location.search);
+        if (urlParam.get("STADIUM_NAME") != null) {
+            $("#txt_STADIUM_NAME").val(urlParam.get("STADIUM_NAME"));
+        }
 
-        //PAGE=1
-        SearchStadium(token, "REFRESH_DATA", "1");
+        GetStadiumType(token, urlParam.get("StadiumType"), SearchStadiumCallback);
     });
 
 
@@ -391,33 +464,6 @@ $(document).ready(function () {
             var token = localStorage.getItem("token");
             GetTambon(token, provinceId, amphurId);
         }
-    });
-
-
-    $("#btnSearchStadium").click(function () {
-
-        var token = localStorage.getItem("token");
-        SearchStadium(token, "REFRESH_DATA", "1");
-    });
-
-    $("#btnNext").click(function () {
-        var nextPage = parseInt($("#now_page").val()) + 1;
-        console.log("nextPage", nextPage);
-        var token = localStorage.getItem("token");
-        SearchStadium(token, "REFRESH_DATA", nextPage);
-    });
-
-    $("#btnPrev").click(function () {
-        var prevPage = parseInt($("#now_page").val()) - 1;
-        console.log("prevPage", prevPage);
-        var token = localStorage.getItem("token");
-        SearchStadium(token, "REFRESH_DATA", prevPage);
-    });
-
-    $("#btnLoadMore").click(function () {
-        var nextPage = parseInt($("#now_page").val()) + 1;
-        var token = localStorage.getItem("token");
-        SearchStadium(token, "APPEND", nextPage);
     });
 
 });

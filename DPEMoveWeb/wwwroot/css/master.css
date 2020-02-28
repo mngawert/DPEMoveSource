@@ -405,6 +405,15 @@ button:focus { outline: none; }
 .block-group .heading .mdc-form-field label { font-weight: bold; padding-top: 6px; color: #ffffff; }
 #dv_MyRating { font-size: 24px; }
 .rating-row h5 { font-size: 24px; }
+.search-events-result nav { margin: 30px auto 0; }
+.pagination { margin-left: auto; margin-right: auto; text-align: center; border-radius: none; }
+.pagination li { border: none; padding-left: 5px; padding-right: 5px; }
+.pagination > .page-item > .page-link, .pagination > .page-item > span, .pagination > .page-item:first-child > .page-link, .pagination > .page-item:first-child > span, .pagination > .page-item:last-child > .page-link, .pagination > .page-item:last-child > span { border: 1px solid #eaeaea; color: #66615b; font-weight: normal; back }
+
+
+.page-item .page-link:hover,
+.page-item.active .page-link:hover,
+.page-item.active .page-link { background-color: #007051 !important; border-color: #007051 !important; color: #ffffff !important; }
 /**/
 @media screen and (max-width: 1200px) {
 	.sec_head .wellcome h2 { font-size: 28px; }

@@ -32,33 +32,7 @@
         <div class="row search-events">
             <div class="col-12">
                 <div class="block-border">
-                    <form id="frmSearchStadium" method="post">
-
-                        <input type="hidden" name="PAGE" value="1" />
-                        <input type="hidden" name="limit" value="10" />
-
-                        @*<div class="row">
-                            <div class="col-sm-12 col-lg-4">
-                                <div class="row-field clearfix">
-                                    <div class="c lbl">
-                                        ช่วงวันที่
-                                    </div>
-                                    <div class="c field">
-                                        <input id="txtEventStart" class="input-field" type="text" data-provide="datepicker" data-date-language="th-th">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-12 col-lg-4">
-                                <div class="row-field clearfix">
-                                    <div class="c lbl">
-                                        ถึงวันที่
-                                    </div>
-                                    <div class="c field">
-                                        <input id="txtEventFinish" class="input-field" type="text" data-provide="datepicker" data-date-language="th-th">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>*@
+                    <form id="frmSearchStadium" method="get">
                         <div class="row">
                             <div class="col-sm-12 col-lg-4">
                                 <div class="row-field clearfix">
@@ -66,7 +40,7 @@
                                         จังหวัด
                                     </div>
                                     <div class="c field">
-                                        <select class="input-field w-100" id="ddlProvince">
+                                        <select class="input-field w-100" id="ddlProvince" name="Province">
                                             <option value="">แสดงทั้งหมด</option>
                                         </select>
                                     </div>
@@ -78,7 +52,7 @@
                                         อำเภอ
                                     </div>
                                     <div class="c field">
-                                        <select class="input-field w-100" id="ddlAmphur">
+                                        <select class="input-field w-100" id="ddlAmphur" name="Amphur">
                                             <option value="">แสดงทั้งหมด</option>
                                         </select>
                                     </div>
@@ -90,7 +64,7 @@
                                         ตำบล
                                     </div>
                                     <div class="c field">
-                                        <select class="input-field w-100" id="ddlTambon">
+                                        <select class="input-field w-100" id="ddlTambon" name="Tambon">
                                             <option value="">แสดงทั้งหมด</option>
                                         </select>
                                     </div>
@@ -104,7 +78,7 @@
                                         ประเภทสนามกีฬา
                                     </div>
                                     <div class="c field">
-                                        <select id="ddlStadiumType" class="input-field w-100">
+                                        <select id="ddlStadiumType" class="input-field w-100" name="StadiumType">
                                             <option value="">แสดงทั้งหมด</option>
                                         </select>
                                     </div>
@@ -116,101 +90,29 @@
                                         ชื่อสนามกีฬา
                                     </div>
                                     <div class="c field">
-                                        <input type="text" class="input-field" name="" id="txt_STADIUM_NAME" value="" />
+                                        <input type="text" class="input-field" name="STADIUM_NAME" id="txt_STADIUM_NAME" value="" />
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="row-button"><button id="btnSearchStadium" type="button" class="button darkgreen" >แสดงข้อมูล</button></div>
+                        <div class="row-button"><button id="btnSearchStadium" type="submit" class="button darkgreen" >แสดงข้อมูล</button></div>
                     </form>
                 </div>
             </div>
         </div>
         <div class="row search-events-result">
             <div class="col-12">
+                <div id="dvTotalItems"><label id="lblTotalItems"></label></div>
                 <ul id="ul-search-events-result">
-                    @*<li>
-                            <a href="#">
-                                <div class="row event">
-                                    <div class="col-12 col-sm-5 col-md-4">
-                                        <div class="event-thumb"><img src="images/thumb_event1.jpg" /></div>
-                                    </div>
-                                    <div class="col-12 col-sm-7 col-md-8">
-                                        <div class="rating">
-                                            <span class="fa fa-star checked"></span>
-                                            <span class="fa fa-star checked"></span>
-                                            <span class="fa fa-star-half-o checked"></span>
-                                            <span class="fa fa-star"></span>
-                                            <span class="fa fa-star"></span>
-                                        </div>
-                                        <div class="event-date">17 พ.ย. 62</div>
-                                        <h4>EGAT 50th For A Better Life</h4>
-                                        <div class="event-place">
-                                            สถานที่ : การไฟฟ้าฝ่ายผลิตแห่งประเทศไทย (บางกรวย)<br />
-                                            จ.นนทบุรี
-                                        </div>
-                                        <div class="row read-comment">
-                                            <div class="col-sm-12 col-md-6">
-                                                <div class="read-total">อ่านแล้ว 20 คน</div>
-                                            </div>
-                                            <div class="col-sm-12 col-md-6">
-                                                <div class="comment-total">แสดงความคิดเห็น 120 คน</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>*@
-
-                    @*@foreach (var e in Model)
-                        {
-                            <li>
-                                <a asp-action="Details" asp-route-id="@e.EventId">
-                                    <div class="row event">
-                                        <div class="col-12 col-sm-5 col-md-4">
-                                            <div class="event-thumb"><img src="@e.EventUploadedFile.FirstOrDefault()?.UploadedFile?.FileUrl" /></div>
-                                        </div>
-                                        <div class="col-12 col-sm-7 col-md-8">
-                                            <div class="rating">
-                                                <span class="fa fa-star checked"></span>
-                                                <span class="fa fa-star checked"></span>
-                                                <span class="fa fa-star"></span>
-                                                <span class="fa fa-star"></span>
-                                                <span class="fa fa-star"></span>
-                                            </div>
-                                            <div class="event-date">17 พ.ย. 62</div>
-                                            <h4> @e.EventName</h4>
-                                            <div class="event-place">
-                                                สถานที่ : @e.Address?.Description [e.Address?.Description] <br />
-                                                @e.Address?.ProvinceCode [e.Address?.ProvinceCode]
-                                            </div>
-                                            <div class="row read-comment">
-                                                <div class="col-sm-12 col-md-6">
-                                                    <div class="read-total">อ่านแล้ว @e.ReadCount [e.ReadCount] คน</div>
-                                                </div>
-                                                <div class="col-sm-12 col-md-6">
-                                                    <div class="comment-total">แสดงความคิดเห็น [xxxx] คน</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                        }*@
                 </ul>
             </div>
-        </div>
 
-        <div style="display:none">
-            <span id="lbl_now_page"></span>/<span id="lbl_all_pages"></span>
-            <input type="hidden" id="now_page" name="now_page" value="1" />
-            <a href="javascript:void(0);" id="btnPrev">Prev</a>
-            <a href="javascript:void(0);" id="btnNext">Next</a>
-        </div>
-        <div class="text-center">
-            <a href="javascript:void(0);" id="btnLoadMore" style="display:none" >เพิ่มเติม >></a>
-        </div>
+            <nav aria-label="Page navigation">
+                <ul class="pagination" id="ulPagination">
+                </ul>
+            </nav>
 
+        </div>
     </div>
 </div>
 
