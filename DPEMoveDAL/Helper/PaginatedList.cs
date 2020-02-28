@@ -11,6 +11,7 @@ namespace DPEMoveDAL.Helper
     {
         public int PageIndex { get; set; }
         public int TotalPages { get; set; }
+        public int TotalItems { get; set; }
         public bool HasPreviousPage { get; set; }
         public bool HasNextPage { get; set; }
         public List<T> Data { get; set; }
@@ -20,11 +21,13 @@ namespace DPEMoveDAL.Helper
     {
         public int PageIndex { get; private set; }
         public int TotalPages { get; private set; }
+        public int TotalItems { get; private set; }
 
         public PaginatedList(List<T> items, int count, int pageIndex, int pageSize)
         {
             PageIndex = pageIndex;
             TotalPages = (int)Math.Ceiling(count / (double)pageSize);
+            TotalItems = count;
 
             AddRange(items);
         }
@@ -70,6 +73,7 @@ namespace DPEMoveDAL.Helper
             {
                 PageIndex = PageIndex,
                 TotalPages = TotalPages,
+                TotalItems = TotalItems,
                 HasPreviousPage = HasPreviousPage,
                 HasNextPage = HasNextPage,
                 Data = this

@@ -36,8 +36,9 @@
             </div>
         </form>
     </div>
-
+    
     <div class="card-body">
+        <div id="dvTotalItems">ผลการค้นหา <label id="lblTotalItems"></label> รายการ</div>
         <table class="table table-sm table-striped" id="tblResults">
             <thead>
                 <tr>
@@ -167,9 +168,14 @@
                 $("#btnPrevPage").addClass(prevDisabled);
                 $("#btnNextPage").addClass(nextDisabled);
 
+                GenerateTotalItems(response.totalItems, "lblTotalItems");
                 GeneratePaginationHtml(pageNumber, response.totalPages, "ulPagination");
             }
         });
+    }
+
+    function GenerateTotalItems(totalItems, forId) {
+        $("#" + forId).html(totalItems);
     }
 
     function GeneratePaginationHtml(pageNumber, totalPages, forId) {
@@ -181,13 +187,26 @@
         for (var pair of urlParam.entries()) {
              url += `&${pair[0]}=${pair[1]}`;
         }
-        url = url.replace("&", "?");
+
+
+        var pageNumber = parseInt(pageNumber == null ? 1 : pageNumber);
+
+        var start = 1;
+        var end = totalPages;
+        if ((pageNumber + 5) < end) {
+            end = pageNumber + 5;
+        }
+        start = end - 9;
+        if (start < 1) {
+            start = 1;
+            end = Math.min(10, totalPages);
+        }
+
+        console.log("pageNumber:" + pageNumber + " totalPages:" + totalPages);
+        console.log("start:" + start + " end:" + end);
 
         var items_1 = "";
-        for (var i = 1; i <= totalPages; i++) {
-            if (i > 10) {
-                break;
-            }
+        for (var i = start; i <= end; i++) {
             var urlWithPageNumber = (url + "&PageNumber=" + i).replace("&", "?");
             items_1 += `<li class="page-item ${i == pageNumber ? "active": ""}"><a class="page-link" href="${urlWithPageNumber}">${i}</a></li>`;
         }
@@ -211,6 +230,16 @@
         var p2 = urlParam.get("EventName");
         var p3 = urlParam.get("Status");
         var p4 = urlParam.get("PageNumber");
+
+        if (p1 != null) {
+            $("[name='EventCode']").val(p1);
+        }
+        if (p2 != null) {
+            $("[name='EventName']").val(p2);
+        }
+        if (p3 != null) {
+            $("[name='Status']").val(p3);
+        }
 
         GetEvents(p1, p2, p3, p4, 10);
     });
