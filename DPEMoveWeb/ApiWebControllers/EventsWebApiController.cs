@@ -90,11 +90,11 @@ namespace DPEMoveWeb.ApiWebControllers
 
         [HttpPost]
         //[Authorize]
-        public IEnumerable<EventDbQuery> GetEvent([FromBody] EventRequestViewModel model)
+        public IActionResult GetEvent([FromBody] EventRequestViewModel model)
         {
             var q = _eventService.GetEvent2(model);
 
-            return q;
+            return Ok(q);
         }
 
         [HttpGet("{id}")]

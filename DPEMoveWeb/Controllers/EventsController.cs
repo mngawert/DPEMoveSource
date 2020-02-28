@@ -56,16 +56,6 @@ namespace DPEMoveWeb.Controllers
         public async Task<IActionResult> Index()
         {
             ViewBag.AppUserId = await GetLoginAppUserId();
-
-            //var appDbContext = _context.Event.Where(a => a.Status == 1)
-            //    .Include(@a => @a.Address)
-            //    .Include(@a => @a.EventLevel)
-            //    .Include(@a => @a.EventType)
-            //    .Include(a => a.EventUploadedFile)
-            //        .ThenInclude(b => b.UploadedFile)
-            //    ;
-
-            //return View(await appDbContext.ToListAsync());
             return View();
         }
 

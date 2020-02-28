@@ -259,7 +259,7 @@ namespace DPEMoveDAL.Services
             return PaginatedList<EventViewModel>.Create(qq, model.LimitStart ?? 1, model.LimitSize ?? 10000);
         }
 
-        public IEnumerable<EventDbQuery> GetEvent2(EventRequestViewModel model)
+        public PaginatedData<EventDbQuery> GetEvent2(EventRequestViewModel model)
         {
             var q = _context.Event
                 .Select(a => new EventDbQuery 
@@ -373,11 +373,11 @@ namespace DPEMoveDAL.Services
                     }
                 }
                 _logger.LogDebug("eventsNearby = {0}", eventsNearby);
-                return PaginatedList<EventDbQuery>.Create(eventsNearby, model.LimitStart ?? 1, model.LimitSize ?? 10000); ;
+                return PaginatedList<EventDbQuery>.Create(eventsNearby, model.LimitStart ?? 1, model.LimitSize ?? 10000).GetPaginatedData();
             }
 
             _logger.LogDebug("q = {0}", q);
-            return PaginatedList<EventDbQuery>.Create(q.ToList(), model.LimitStart ?? 1, model.LimitSize ?? 10000);
+            return PaginatedList<EventDbQuery>.Create(q.ToList(), model.LimitStart ?? 1, model.LimitSize ?? 10000).GetPaginatedData();
         }
         public void UpdateEvent(EventViewModel2 model)
         {

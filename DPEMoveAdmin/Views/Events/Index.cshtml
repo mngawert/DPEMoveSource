@@ -218,14 +218,6 @@
     $(document).ready(function () {
 
         var urlParam = new URLSearchParams(window.location.search);
-
-        console.log("param: ", $.param("Status"));
-
-        console.log("urlParam", urlParam.get("EventCode"));
-        console.log("urlParam", urlParam.get("EventName"));
-        console.log("urlParam", urlParam.get("Status"));
-        console.log("urlParam", urlParam.get("PageNumber"));
-
         var p1 = urlParam.get("EventCode");
         var p2 = urlParam.get("EventName");
         var p3 = urlParam.get("Status");

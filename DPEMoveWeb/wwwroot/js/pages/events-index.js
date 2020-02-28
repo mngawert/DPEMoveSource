@@ -1,5 +1,7 @@
 ﻿
-function GetSection(token, selectedSection) {
+function GetSection(token, selectedValue, GetEvenCallback) {
+
+    console.log("GetSection");
 
     var form = new FormData();
     form.append("Token", token);
@@ -28,17 +30,69 @@ function GetSection(token, selectedSection) {
                 `
             });
             $("#ddlSection").html(items);
+
+            if (selectedValue != null) {
+                $("#ddlSection").val(selectedValue);
+            }
+
+            var urlParam = new URLSearchParams(window.location.search);
+            GetProvince(token, urlParam.get("Province"), GetEvenCallback);
         }
     });
 }
 
-function GetEvent() {
+function GenerateTotalItems(totalItems, forId) {
+    $("#" + forId).html(totalItems);
+}
+
+function GeneratePaginationHtml(pageNumber, totalPages, forId) {
+
+    var url = window.location.pathname;
+    var urlParam = new URLSearchParams(window.location.search);
+    urlParam.delete("PageNumber");
+
+    for (var pair of urlParam.entries()) {
+        url += `&${pair[0]}=${pair[1]}`;
+    }
+
+
+    var pageNumber = parseInt(pageNumber == null ? 1 : pageNumber);
+
+    var start = 1;
+    var end = totalPages;
+    if ((pageNumber + 5) < end) {
+        end = pageNumber + 5;
+    }
+    start = end - 9;
+    if (start < 1) {
+        start = 1;
+        end = Math.min(10, totalPages);
+    }
+
+    console.log("pageNumber:" + pageNumber + " totalPages:" + totalPages);
+    console.log("start:" + start + " end:" + end);
+
+    var items_1 = "";
+    for (var i = start; i <= end; i++) {
+        var urlWithPageNumber = (url + "&PageNumber=" + i).replace("&", "?");
+        items_1 += `<li class="page-item ${i == pageNumber ? "active" : ""}"><a class="page-link" href="${urlWithPageNumber}">${i}</a></li>`;
+    }
+
+    $("#" + forId).append(items_1);
+}
+
+
+var GetEvenCallback = function GetEvent() {
+
+    console.log("GetEvent");
+    var urlParam = new URLSearchParams(window.location.search);
+    var pageNumber = urlParam.get("PageNumber");
 
     var options = {};
 
     var input = {};
-    input.limitStart = "1";
-    input.limitSize = "100";
+    input.limitStart = pageNumber;
+    input.limitSize = "10";
     input.eventName = $("#txtEventName").val();
     input.eventStart = $("#txtEventStart").val();
     input.eventFinish = $("#txtEventFinish").val();
@@ -58,15 +112,17 @@ function GetEvent() {
     options.contentType = "application/json";
     options.method = "POST";
 
-    options.success = function (data) {
+    options.success = function (response) {
+        var data = response.data;
+
         var items = '';
         $.each(data, function (index, value) {
 
             var thumb = $("<img />");
             thumb.attr("src", value.fileUrl);
 
-            console.log("test thumb", thumb.html());
-            console.log("value.fileUrl", value.fileUrl);
+            //console.log("test thumb", thumb.html());
+            //console.log("value.fileUrl", value.fileUrl);
 
             items +=
                 `
@@ -123,6 +179,9 @@ function GetEvent() {
         $("#ul-search-events-result").html(items);
         PrintEventFee(data);
         PrintThumb(data);
+
+        GenerateTotalItems(response.totalItems, "lblTotalItems");
+        GeneratePaginationHtml(pageNumber, response.totalPages, "ulPagination");
     };
     options.error = function (a, b, c) {
         console.log("Error while calling the Web API!(" + b + " - " + c + ")");
@@ -198,7 +257,7 @@ function GetProvinceNameById(provinceId) {
     return provinceName;
 }
 
-function GetProvince(Token) {
+function GetProvince(Token, selectedValue, GetEvenCallback) {
 
     console.log("call GetProvince");
     var form = new FormData();
@@ -231,12 +290,20 @@ function GetProvince(Token) {
                 `
             });
             $("#ddlProvince").html(items);
+
+            if (selectedValue != null) {
+                $("#ddlProvince").val(selectedValue);
+            }
+
+            var urlParam = new URLSearchParams(window.location.search);
+            GetAmphur(Token, $("#ddlProvince").val(), urlParam.get("Amphur"), GetEvenCallback);
         }
     });
 }
 
-function GetAmphur(token, PROV_CODE) {
+function GetAmphur(token, PROV_CODE, selectedValue, GetEvenCallback) {
 
+    console.log("GetAmphur");
 
     var form = new FormData();
     form.append("PROV_CODE", PROV_CODE);
@@ -268,11 +335,20 @@ function GetAmphur(token, PROV_CODE) {
                 `
             });
             $("#ddlAmphur").html(items);
+
+            if (selectedValue != null) {
+                $("#ddlAmphur").val(selectedValue);
+            }
+
+            var urlParam = new URLSearchParams(window.location.search);
+            GetTambon(token, $("#ddlProvince").val(), $("#ddlAmphur").val(), urlParam.get("Tambon"), GetEvenCallback);
         }
     });
 }
 
-function GetTambon(token, PROV_CODE, AMP_CODE) {
+function GetTambon(token, PROV_CODE, AMP_CODE, selectedValue, GetEvenCallback) {
+
+    console.log("GetTambon");
 
     var form = new FormData();
     form.append("PROV_CODE", PROV_CODE);
@@ -305,6 +381,14 @@ function GetTambon(token, PROV_CODE, AMP_CODE) {
                 `
             });
             $("#ddlTambon").html(items);
+
+            if (selectedValue != null) {
+                $("#ddlTambon").val(selectedValue);
+            }
+
+            if (GetEvenCallback != null) {
+                GetEvenCallback();
+            }
         }
     });
 }
@@ -352,10 +436,23 @@ $(document).ready(function () {
         localStorage.setItem("token", token);
         console.log("localStorage.token", localStorage.getItem("token"));
 
-        GetProvince(token);
-        GetSection(token);
+        var urlParam = new URLSearchParams(window.location.search);
 
-        GetEvent();
+        if (urlParam.get("EventName") != null) {
+            $("#txtEventName").val(urlParam.get("EventName"));
+        }
+        if (urlParam.get("EventStart") != null) {
+            $("#txtEventStart").val(urlParam.get("EventStart"));
+        }
+        if (urlParam.get("EventFinish") != null) {
+            $("#txtEventFinish").val(urlParam.get("EventFinish"));
+        }
+        if (urlParam.get("OnlyMyEvent") != null) {
+            $("#chkOnlyMyEvent").val(urlParam.get("OnlyMyEvent"));
+            $("#chkOnlyMyEvent").prop("checked", true);
+        }
+
+        GetSection(token, urlParam.get("SectionCatId"), GetEvenCallback);
     });
 
     $("#ddlProvince").change(function () {
@@ -366,7 +463,7 @@ $(document).ready(function () {
         }
         else {
             var token = localStorage.getItem("token");
-            GetAmphur(token, provinceId);
+            GetAmphur(token, provinceId, null);
             $("#ddlTambon").html(`<option value="">แสดงทั้งหมด</option>`);
         }
     });
@@ -380,7 +477,7 @@ $(document).ready(function () {
         }
         else {
             var token = localStorage.getItem("token");
-            GetTambon(token, provinceId, amphurId);
+            GetTambon(token, provinceId, amphurId, null);
         }
     });
 });

@@ -1,4 +1,5 @@
-﻿using DPEMoveDAL.Models;
+﻿using DPEMoveDAL.Helper;
+using DPEMoveDAL.Models;
 using DPEMoveDAL.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ namespace DPEMoveDAL.Services
     public interface IEventService
     {
         IEnumerable<EventViewModel> GetEvent(EventViewModel model);
-        IEnumerable<EventDbQuery> GetEvent2(EventRequestViewModel model);
+        PaginatedData<EventDbQuery> GetEvent2(EventRequestViewModel model);
         Task<Event> GetEventDetails(int id);
         List<EventFacilities> GetEventFacilities(int id);
 
