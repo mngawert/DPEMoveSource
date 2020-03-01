@@ -306,8 +306,8 @@ function GetStadium(token, pageNumber, STADIUM_NAME, PROV_CODE, AMP_CODE, TAM_CO
         PrintCommentCount(data);
         PrintVoteAvg(data);
 
-        GenerateTotalItems(Number(results.all_rows).toLocaleString(), "lblTotalItems");
-        GeneratePaginationHtml(pageNumber, results.all_pages, "ulPagination");
+        GenerateTotalItems(Number(results.all_rows), "lblTotalItems");
+        GeneratePaginationHtml(pageNumber, results.all_rows == 0 ? 0 : results.all_pages, "ulPagination");
     });
 }
 
@@ -384,7 +384,12 @@ function GetVoteTotalAvg(voteOf, eventOrStadiumCode) {
 }
 
 function GenerateTotalItems(totalItems, forId) {
-    $("#" + forId).html("ผลการค้นหา " + totalItems + " รายการ");
+    if (totalItems > 0) {
+        $("#" + forId).html("ผลการค้นหา " + totalItems.toLocaleString() + " รายการ");
+    }
+    else {
+        $("#" + forId).html("ค้นหาข้อมูลไม่พบ");
+    }
 }
 
 function GeneratePaginationHtml(pageNumber, totalPages, forId) {

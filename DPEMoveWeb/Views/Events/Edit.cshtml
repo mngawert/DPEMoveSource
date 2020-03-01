@@ -112,7 +112,7 @@
                                                 </div>
                                                 <div class="c field">
                                                     @*<input type="text" asp-for="ResponsiblePerson" value="@Model.ResponsiblePerson" class="input-field" />*@
-                                                    <input type="radio" name="ResponsiblePersonType" value="1" checked="@Model.ResponsiblePersonType?.Equals("1")" /> ภาครัฐ
+                                                    <input type="radio" name="ResponsiblePersonType" value="1" checked="@Model.ResponsiblePersonType?.Equals("1")" required /> ภาครัฐ
                                                     <input type="radio" name="ResponsiblePersonType" value="2" checked="@Model.ResponsiblePersonType?.Equals("2")" /> เอกชน
                                                 </div>
                                             </div>
@@ -126,7 +126,7 @@
                                                     โปรดระบุ
                                                 </div>
                                                 <div class="c field">
-                                                    <input type="text" asp-for="ResponsiblePerson" value="@Model.ResponsiblePerson" class="input-field" />
+                                                    <input type="text" asp-for="ResponsiblePerson" value="@Model.ResponsiblePerson" class="input-field" required />
                                                 </div>
                                             </div>
                                         </div>
@@ -206,7 +206,7 @@
                                                     ชื่อผู้ติดต่อ
                                                 </div>
                                                 <div class="c field">
-                                                    <input type="text" asp-for="ContactPersonName" class="input-field" />
+                                                    <input type="text" asp-for="ContactPersonName" class="input-field" required />
                                                 </div>
                                             </div>
                                         </div>
@@ -216,7 +216,7 @@
                                                     อีเมล์
                                                 </div>
                                                 <div class="c field">
-                                                    <input type="email" asp-for="ContactPersonEmail" class="input-field" />
+                                                    <input type="email" asp-for="ContactPersonEmail" class="input-field" required />
                                                 </div>
                                             </div>
                                         </div>
@@ -228,7 +228,7 @@
                                                     โทรศัพท์
                                                 </div>
                                                 <div class="c field">
-                                                    <input type="text" asp-for="ContactPersonMobile" class="input-field" />
+                                                    <input type="text" asp-for="ContactPersonMobile" class="input-field" required />
                                                 </div>
                                             </div>
                                         </div>
@@ -274,59 +274,23 @@
                         </div>
                         <div class="tab_item">
                             <div class="block-group">
-                                <div class="heading">ประเภทกิจกรรม</div>
+                                <div class="heading">ด้านกิจกรรม</div>
                                 <div class="entry-data">
                                     <div class="row">
                                         <div class="col-sm-12">
                                             <div class="row-field clearfix">
                                                 <div class="c field">
-                                                    ด้าน
-                                                    <select class="input-field" id="ddlSection" name="SectionCatId">
+                                                    <select class="input-field" id="ddlSection" name="SectionCatId" required>
                                                         <option value="">กรุณาเลือก</option>
                                                     </select>
                                                     <input type="text" name="SectionCatEtc" value="@Model.SectionCatEtc" class="input-field" />
                                                 </div>
                                             </div>
-                                            <br />
-                                            <div class="row">
-                                                <div class="col-12">
-                                                    <div id="dvActivityType">
-                                                        <div class="row">
-                                                            <div class="col-3">
-                                                                @*<label><input type="radio" /> กีฬาเพื่อมวลชน</label>*@
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="block-group" name="dvForSection1_Only" style="display:none">
-                                <div class="heading">ระดับกิจกรรม</div>
-                                <div class="entry-data">
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                            <div class="row-field clearfix">
-                                                <div class="c field">
 
-                                                    @foreach (var x in ViewBag.MEventLevel as List<MEventLevel>)
-                                                    {
-                                                        <div>
-                                                            <input type="radio" name="EventLevelId" value="@x.EventLevelId" class="input-field" checked="@(Model.EventLevelId == x.EventLevelId)" /> @x.EventLevelName
-                                                            @if (x.EventLevelId == 4)
-                                                            {
-                                                                <input type="text" name="EventLevelEtc" value="@Model.EventLevelEtc" class="input-field" />
-                                                            }
-                                                        </div>
-                                                    }
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                             <div class="block-group" name="dvForSection1_Only" style="display:none">
                                 <div class="heading">กลุ่มเป้าหมายกิจกรรม</div>
                                 <div class="entry-data">
@@ -345,6 +309,49 @@
                                                         {
                                                             <div><input type="checkbox" name="ObjectivePersonIds" value="@x.ObjectivePersonId" class="input-field" checked="@(Model.EventObjectivePerson.Any(b => b.ObjectivePersonId == x.ObjectivePersonId))" /> อื่นๆ โปรดระบุ <input type="text" name="ObjectivePersonEtc" value="@(Model.EventObjectivePerson.Where(b => b.ObjectivePersonId == x.ObjectivePersonId).FirstOrDefault()?.ObjectivePersonEtc)" class="input-field" /></div>
                                                         }
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="block-group">
+                                <div class="heading">ประเภทกิจกรรม</div>
+                                <div class="entry-data">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div id="dvActivityType">
+                                                <div class="row">
+                                                    <div class="col-3">
+                                                        @*<label><input type="radio" /> กีฬาเพื่อมวลชน</label>*@
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="block-group" name="dvForSection1_Only" style="display:none">
+                                <div class="heading">ระดับกิจกรรม</div>
+                                <div class="entry-data">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="row-field clearfix">
+                                                <div class="c field">
+
+                                                    @foreach (var x in ViewBag.MEventLevel as List<MEventLevel>)
+                                                    {
+                                                        <div>
+                                                            <input type="radio" name="EventLevelId" value="@x.EventLevelId" class="input-field" checked="@(Model.EventLevelId == x.EventLevelId)" /> @x.EventLevelName
+                                                            @if (x.EventLevelId == 4)
+                                                            {
+                                                                <input type="text" name="EventLevelEtc" value="@Model.EventLevelEtc" class="input-field" />
+                                                            }
+                                                        </div>
                                                     }
                                                 </div>
                                             </div>

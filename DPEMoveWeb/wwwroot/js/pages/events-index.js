@@ -42,7 +42,12 @@ function GetSection(token, selectedValue, GetEvenCallback) {
 }
 
 function GenerateTotalItems(totalItems, forId) {
-    $("#" + forId).html("ผลการค้นหา " + totalItems + " รายการ");
+    if (Number(totalItems) > 0) {
+        $("#" + forId).html("ผลการค้นหา " + totalItems + " รายการ");
+    }
+    else {
+        $("#" + forId).html("ค้นหาข้อมูลไม่พบ");
+    }
 }
 
 function GeneratePaginationHtml(pageNumber, totalPages, forId) {
