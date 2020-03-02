@@ -303,11 +303,11 @@
                                                     {
                                                         @if (x.ObjectivePersonId != 4)
                                                         {
-                                                            <div><input type="checkbox" name="ObjectivePersonIds" value="@x.ObjectivePersonId" class="input-field" checked="@(Model.EventObjectivePerson.Any(b => b.ObjectivePersonId == x.ObjectivePersonId))" /> @x.ObjectivePersonName</div>
+                                                            <div><label><input type="radio" name="ObjectivePersonIds" value="@x.ObjectivePersonId" class="input-field" checked="@(Model.EventObjectivePerson.Any(b => b.ObjectivePersonId == x.ObjectivePersonId))" /> @x.ObjectivePersonName </label></div>
                                                         }
                                                         else
                                                         {
-                                                            <div><input type="checkbox" name="ObjectivePersonIds" value="@x.ObjectivePersonId" class="input-field" checked="@(Model.EventObjectivePerson.Any(b => b.ObjectivePersonId == x.ObjectivePersonId))" /> อื่นๆ โปรดระบุ <input type="text" name="ObjectivePersonEtc" value="@(Model.EventObjectivePerson.Where(b => b.ObjectivePersonId == x.ObjectivePersonId).FirstOrDefault()?.ObjectivePersonEtc)" class="input-field" /></div>
+                                                            <div><label><input type="radio" name="ObjectivePersonIds" value="@x.ObjectivePersonId" class="input-field" checked="@(Model.EventObjectivePerson.Any(b => b.ObjectivePersonId == x.ObjectivePersonId))" /> อื่นๆ โปรดระบุ <input type="text" name="ObjectivePersonEtc" value="@(Model.EventObjectivePerson.Where(b => b.ObjectivePersonId == x.ObjectivePersonId).FirstOrDefault()?.ObjectivePersonEtc)" class="input-field" /> </label></div>
                                                         }
                                                     }
                                                 </div>

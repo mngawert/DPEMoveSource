@@ -15,7 +15,7 @@ function GetMEventFacilitiesTopic() {
             obj.eventId = routeId;
             obj.mEventFacilitiesTopicId = value.eventFacilitiesTopicId;
             options.data = JSON.stringify(obj);
-            console.log("input", options.data);
+            //console.log("input", options.data);
 
             GetEventFacilitiesFromSession(obj)
         });
@@ -34,7 +34,7 @@ function GetEventFacilitiesFromSession(obj) {
     input.eventId = obj.eventId;
     input.mEventFacilitiesTopicId = obj.mEventFacilitiesTopicId;
     options.data = JSON.stringify(input);
-    console.log("input", options.data);
+    //console.log("input", options.data);
 
     options.url = "/webapi/Events/GetEventFacilitiesFromSession";
     options.contentType = "application/json";
@@ -82,7 +82,7 @@ function AddEventFacilitiesToSession(eventId, mEventFacilitiesTopicId) {
     input.facilitiesUnit = $("#txtFacilityUnit_" + mEventFacilitiesTopicId).val();
     input.createdBy = "0";
     options.data = JSON.stringify(input);
-    console.log("input", options.data);
+    //console.log("input", options.data);
 
     // clear texbox.
     $("#txtFacilityName_" + mEventFacilitiesTopicId).val("");
@@ -93,7 +93,7 @@ function AddEventFacilitiesToSession(eventId, mEventFacilitiesTopicId) {
     options.contentType = "application/json";
     options.method = "POST";
     options.success = function (data) {
-        console.log("success add");
+        //console.log("success add");
         $("#ModalTopic_" + mEventFacilitiesTopicId).modal("toggle");
 
         // re-load data from session.
@@ -120,13 +120,13 @@ function DeleteEventFacilitiesFromSession(eventId, mEventFacilitiesTopicId, even
     input.eventFacilitiesId = eventFacilitiesId;
 
     options.data = JSON.stringify(input);
-    console.log("input", options.data);
+    //console.log("input", options.data);
 
     options.url = "/webapi/Events/DeleteEventFacilitiesFromSession";
     options.contentType = "application/json";
     options.method = "POST";
     options.success = function (data) {
-        console.log("success add");
+        //console.log("success add");
         var obj = {};
         obj.eventId = eventId;
         obj.mEventFacilitiesTopicId = mEventFacilitiesTopicId;
@@ -154,7 +154,7 @@ function GetMFee() {
             obj.eventId = routeId;
             obj.feeId = value.feeId;
             options.data = JSON.stringify(obj);
-            console.log("input", options.data);
+            //console.log("input", options.data);
 
             GetEventFeeFromSession(obj)
         });
@@ -240,7 +240,7 @@ function AddEventFeeToSession(eventId, feeId) {
     options.contentType = "application/json";
     options.method = "POST";
     options.success = function (data) {
-        console.log("success add");
+        //console.log("success add");
         $("#ModalFee_" + feeId).modal("toggle");
         // re-load data from session.
         var obj = {};
@@ -256,7 +256,7 @@ function AddEventFeeToSession(eventId, feeId) {
 
 
 function DeleteEventFeeFromSession(eventId, feeId, eventFeeId) {
-    console.log('start DeleteEventFeeFromSession');
+    //console.log('start DeleteEventFeeFromSession');
 
     var options = {};
 
@@ -266,13 +266,13 @@ function DeleteEventFeeFromSession(eventId, feeId, eventFeeId) {
     input.eventFeeId = eventFeeId;
 
     options.data = JSON.stringify(input);
-    console.log("input", options.data);
+    //console.log("input", options.data);
 
     options.url = "/webapi/Events/DeleteEventFeeFromSession";
     options.contentType = "application/json";
     options.method = "POST";
     options.success = function (data) {
-        console.log("success add");
+        //console.log("success add");
         var obj = {};
         obj.eventId = eventId;
         obj.feeId = feeId;
@@ -288,7 +288,7 @@ function DeleteEventFeeFromSession(eventId, feeId, eventFeeId) {
 
 function GetMParticipant() {
 
-    console.log('start GetMParticipant');
+    //console.log('start GetMParticipant');
     var options = {};
 
     options.url = "/webapi/Events/GetMParticipant";
@@ -315,7 +315,7 @@ function GetMParticipant() {
 
 function GetEventParticipantFromSession(obj) {
 
-    console.log('start GetEventParticipantFromSession');
+    //console.log('start GetEventParticipantFromSession');
     var options = {};
     var input = {};
     input.eventId = obj.eventId;
@@ -350,7 +350,7 @@ function GetEventParticipantFromSession(obj) {
 }
 
 function AddEventParticipantToSession(eventId, participantId) {
-    console.log('start AddEventParticipantToSession ');
+    //console.log('start AddEventParticipantToSession ');
 
     if (!$("#frmAddEventParticipant_" + participantId)[0].checkValidity()) {
 
@@ -368,7 +368,7 @@ function AddEventParticipantToSession(eventId, participantId) {
     input.eventParticipantUnit = $("#txtEventParticipantUnit_" + participantId).val();
     input.createdBy = "0";
     options.data = JSON.stringify(input);
-    console.log("input", options.data);
+    //console.log("input", options.data);
 
     // clear texbox.
     $("#txtEventParticipantName_" + participantId).val("");
@@ -379,7 +379,7 @@ function AddEventParticipantToSession(eventId, participantId) {
     options.contentType = "application/json";
     options.method = "POST";
     options.success = function (data) {
-        console.log("success add");
+        //console.log("success add");
         $("#ModalParticipant_" + participantId).modal("toggle");
         // re-load data from session.
         var obj = {};
@@ -395,7 +395,7 @@ function AddEventParticipantToSession(eventId, participantId) {
 
 
 function DeleteEventParticipantFromSession(eventId, participantId, eventParticipantId) {
-    console.log('start DeleteEventParticipantFromSession');
+    //console.log('start DeleteEventParticipantFromSession');
 
     var options = {};
 
@@ -405,13 +405,13 @@ function DeleteEventParticipantFromSession(eventId, participantId, eventParticip
     input.eventParticipantId = eventParticipantId;
 
     options.data = JSON.stringify(input);
-    console.log("input", options.data);
+    //console.log("input", options.data);
 
     options.url = "/webapi/Events/DeleteEventParticipantFromSession";
     options.contentType = "application/json";
     options.method = "POST";
     options.success = function (data) {
-        console.log("success add");
+        //console.log("success add");
         var obj = {};
         obj.eventId = eventId;
         obj.participantId = participantId;
@@ -427,12 +427,12 @@ function DeleteEventParticipantFromSession(eventId, participantId, eventParticip
 
 function GetEventNearbyFromSession(eventId) {
 
-    console.log('start GetEventNearbyFromSession');
+    //console.log('start GetEventNearbyFromSession');
     var options = {};
     var input = {};
     input.eventId = eventId;
     options.data = JSON.stringify(input);
-    console.log("input", options.data);
+    //console.log("input", options.data);
 
     options.url = "/webapi/Events/GetEventNearbyFromSession";
     options.contentType = "application/json";
@@ -461,7 +461,7 @@ function GetEventNearbyFromSession(eventId) {
 }
 
 function AddEventNearbyToSession(eventId) {
-    console.log('start AddEventNearbyToSession ');
+    //console.log('start AddEventNearbyToSession ');
 
 
     if (!$("#frmAddEventNearby")[0].checkValidity()) {
@@ -490,7 +490,7 @@ function AddEventNearbyToSession(eventId) {
     input.distanceUnit = $("#txtEventNearbyUnit").val();
     input.createdBy = "0";
     options.data = JSON.stringify(input);
-    console.log("input", options.data);
+    //console.log("input", options.data);
 
     // clear texbox.
     $("#txtEventNearbyName").val("");
@@ -501,7 +501,7 @@ function AddEventNearbyToSession(eventId) {
     options.contentType = "application/json";
     options.method = "POST";
     options.success = function (data) {
-        console.log("success add");
+        //console.log("success add");
 
         $("#Modal_AddEventNearby").modal("toggle");
 
@@ -516,7 +516,7 @@ function AddEventNearbyToSession(eventId) {
 
 
 function DeleteEventNearbyFromSession(eventId, eventNearbyId) {
-    console.log('start DeleteEventNearbyFromSession ');
+    //console.log('start DeleteEventNearbyFromSession ');
 
     var options = {};
 
@@ -525,13 +525,13 @@ function DeleteEventNearbyFromSession(eventId, eventNearbyId) {
     input.eventNearbyId = eventNearbyId;
 
     options.data = JSON.stringify(input);
-    console.log("input", options.data);
+    //console.log("input", options.data);
 
     options.url = "/webapi/Events/DeleteEventNearbyFromSession";
     options.contentType = "application/json";
     options.method = "POST";
     options.success = function (data) {
-        console.log("success delete");
+        //console.log("success delete");
         GetEventNearbyFromSession(eventId);
     };
     options.error = function (a, b, c) {
@@ -542,7 +542,7 @@ function DeleteEventNearbyFromSession(eventId, eventNearbyId) {
 
 function GetAddressFromDatabase(token) {
 
-    console.log("GetAddressFromDatabase");
+    //console.log("GetAddressFromDatabase");
 
     // load all province and selected value
     GetProvince(token, address.provinceCode);
@@ -586,7 +586,7 @@ function GetToken() {
 
 function GetProvince(token, selectedProvince) {
 
-    console.log("call GetProvince");
+    //console.log("call GetProvince");
     var form = new FormData();
     form.append("Token", token);
 
@@ -713,13 +713,13 @@ function GetUploadedFile(eventId) {
     var input = {};
     input.eventId = eventId;
     options.data = JSON.stringify(input);
-    console.log("input", options.data);
+    //console.log("input", options.data);
 
     options.url = "/webapi/Events/GetUploadedFile";
     options.contentType = "application/json";
     options.method = "POST";
     options.success = function (data) {
-        console.log("GetUploadedFile success");
+        //console.log("GetUploadedFile success");
 
         var items = "";
         $.each(data, function (index, value) {
@@ -780,7 +780,7 @@ function AddUploadedFileToDatabase(fileName, eventId) {
     input.fileName = fileName;
     input.eventId = eventId;
     options.data = JSON.stringify(input);
-    console.log("input", options.data);
+    //console.log("input", options.data);
 
     options.url = "/webapi/Events/AddUploadedFileToDatabase";
     options.contentType = "application/json";
@@ -863,7 +863,7 @@ function GetSection(token, selectedSection) {
             $("[name='SectionCatEtc']").hide();
             if (selectedSection != null) {
                 $("#ddlSection").val(selectedSection);
-                GetActivityType(token, selectedSection, model.actTypeId);
+                GetActivityType(token, selectedSection, model.actTypeId, model.actTypeEtc);
 
                 if (selectedSection != "0") {
                     $("[name='SectionCatEtc']").val("");
@@ -884,7 +884,7 @@ function GetSection(token, selectedSection) {
     });
 }
 
-function GetActivityType(token, SECTION_CAT_ID, selectedActivityType) {
+function GetActivityType(token, SECTION_CAT_ID, selectedActivityType, selectedActivityTypeEtc ) {
     var form = new FormData();
     form.append("Token", token);
     form.append("SECTION_CAT_ID", SECTION_CAT_ID);
@@ -908,13 +908,14 @@ function GetActivityType(token, SECTION_CAT_ID, selectedActivityType) {
             var items = ``;
 
             $.each(data, function (index, value) {
-                items +=
-                `
-                    <div class="col-3">
-                        <label><input type="checkbox" name="ActTypeIds" value="${value.ACT_TYPE_ID}" class="input-field" /> ${value.ACT_TYPE_NAME}</label>
-                    </div>                
-                `
+                items += `   <div class="col-4">`;
+                items += `        <label><input type="checkbox" name="ActTypeIds" value="${value.ACT_TYPE_ID}" class="input-field" /> ${value.ACT_TYPE_NAME}</label>`;
+                if (value.ACT_TYPE_NAME.indexOf("อื่น") != -1) {
+                    items += ` <input type="text" name="ActTypeEtc" value="${selectedActivityTypeEtc == null? "" : selectedActivityTypeEtc}" class="input-field" />`;
+                }
+                items += `    </div>`;
             });
+
             $("#dvActivityType > .row").html(items);
 
             if (EventActivityType != null) {
@@ -928,13 +929,20 @@ function GetActivityType(token, SECTION_CAT_ID, selectedActivityType) {
                 });
             }
 
-            //if (selectedActivityType != null) {
-            //    $("[name='ActTypeIds']").each(function () {
-            //        if ($(this).val() == selectedActivityType) {
-            //            $(this).prop("checked", true);
+            //var chkFoundActypeEtc = false;
+            //$("[name='ActTypeIds']").each(function () {
+            //    if ($(this).prop("checked")) {
+            //        //console.log("text ", $(this).parent().text());
+            //        if ($(this).parent().text().indexOf("อื่น") != -1) {
+            //            chkFoundActypeEtc = true;
+
+            //            if (selectedActivityTypeEtc != null) {
+            //                $("[name='ActTypeEtc']").val(selectedActivityTypeEtc);
+            //            }
             //        }
-            //    });
-            //}
+            //    }
+            //});
+            //console.log("chkFoundActypeEtc", chkFoundActypeEtc);
         }
     });
 }
@@ -1028,7 +1036,7 @@ $(document).ready(function () {
         }
 
         var token = localStorage.getItem("token");
-        GetActivityType(token, selectedSection, null);
+        GetActivityType(token, selectedSection, null, null);
     });
 
 });

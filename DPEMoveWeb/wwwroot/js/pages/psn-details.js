@@ -1173,19 +1173,19 @@ $(document).ready(function () {
 
         if ($("#chkCopyCON_ADDR_TO_REGHOME").prop("checked")) {
 
-            $("#ddlREGHOME_PROV").html($("#ddlCON_PROV").html());
-            $("#ddlREGHOME_AMPHUR").html($("#ddlCON_AMPHUR").html());
-            $("#ddlREGHOME_TUMBOL").html($("#ddlCON_TUMBOL").html());
-            $("#ddlREGHOME_PROV").val($("#ddlCON_PROV").val());
-            $("#ddlREGHOME_AMPHUR").val($("#ddlCON_AMPHUR").val());
-            $("#ddlREGHOME_TUMBOL").val($("#ddlCON_TUMBOL").val());
+            $("#ddlREGHOME_PROV").html($("#ddlHOME_PROV").html());
+            $("#ddlREGHOME_AMPHUR").html($("#ddlHOME_AMPHUR").html());
+            $("#ddlREGHOME_TUMBOL").html($("#ddlHOME_TUMBOL").html());
+            $("#ddlREGHOME_PROV").val($("#ddlHOME_PROV").val());
+            $("#ddlREGHOME_AMPHUR").val($("#ddlHOME_AMPHUR").val());
+            $("#ddlREGHOME_TUMBOL").val($("#ddlHOME_TUMBOL").val());
 
-            $("[name='REGHOME_ADDR']").val($("[name='CON_ADDR']").val());
-            $("[name='REGHOME_ADDR_NAME']").val($("[name='CON_ADDR']").val());
-            $("[name='REGHOME_MOO']").val($("[name='CON_MOO']").val());
-            $("[name='REGHOME_SOI']").val($("[name='CON_SOI']").val());
-            $("[name='REGHOME_ROAD']").val($("[name='CON_ROAD']").val());
-            $("[name='REGHOME_POST']").val($("[name='CON_POST']").val());
+            $("[name='REGHOME_ADDR']").val($("[name='HOME_ADDR']").val());
+            $("[name='REGHOME_ADDR_NAME']").val($("[name='HOME_ADDR']").val());
+            $("[name='REGHOME_MOO']").val($("[name='HOME_MOO']").val());
+            $("[name='REGHOME_SOI']").val($("[name='HOME_SOI']").val());
+            $("[name='REGHOME_ROAD']").val($("[name='HOME_ROAD']").val());
+            $("[name='REGHOME_POST']").val($("[name='HOME_POST']").val());
         }
     });
 
