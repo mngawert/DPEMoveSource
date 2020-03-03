@@ -48,6 +48,7 @@ namespace DPEMoveWebApi.Controllers
             {
                 q = q.Where(a => a.Status == model.Status);
             }
+            q = q.OrderBy(a => a.VoteOf).ThenBy(b => b.VoteTypeId);
 
             return View(q);
         }

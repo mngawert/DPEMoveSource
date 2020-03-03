@@ -101,17 +101,15 @@
                                 </div>
                             </div>
                             <div class="block-group">
-                                <div class="heading">ผู้รับผิดชอบ</div>
+                                <div class="heading">ผู้รับผิดชอบ* </div>
                                 <div class="entry-data">
                                     <div class="row">
                                         <div class="col-sm-12 col-lg-6">
                                             <div class="row-field clearfix">
                                                 <div class="c lbl">
-                                                    ชื่อผู้รับผิดชอบ
-                                                    @*โปรดระบุ*@
+                                                    ชื่อผู้รับผิดชอบ* 
                                                 </div>
                                                 <div class="c field">
-                                                    @*<input type="text" asp-for="ResponsiblePerson" value="@Model.ResponsiblePerson" class="input-field" />*@
                                                     <input type="radio" name="ResponsiblePersonType" value="1" checked="@Model.ResponsiblePersonType?.Equals("1")" required /> ภาครัฐ
                                                     <input type="radio" name="ResponsiblePersonType" value="2" checked="@Model.ResponsiblePersonType?.Equals("2")" /> เอกชน
                                                 </div>
@@ -122,7 +120,6 @@
                                         <div class="col-sm-12 col-lg-6">
                                             <div class="row-field clearfix">
                                                 <div class="c lbl">
-                                                    @*<input type="radio" asp-for="ResponsiblePersonType" value="2" /> เอกชน โปรดระบุ*@
                                                     โปรดระบุ
                                                 </div>
                                                 <div class="c field">
@@ -203,7 +200,7 @@
                                         <div class="col-sm-12 col-lg-4">
                                             <div class="row-field clearfix">
                                                 <div class="c lbl">
-                                                    ชื่อผู้ติดต่อ
+                                                    ชื่อผู้ติดต่อ* 
                                                 </div>
                                                 <div class="c field">
                                                     <input type="text" asp-for="ContactPersonName" class="input-field" required />
@@ -213,7 +210,7 @@
                                         <div class="col-sm-12 col-lg-4">
                                             <div class="row-field clearfix">
                                                 <div class="c lbl">
-                                                    อีเมล์
+                                                    อีเมล์* 
                                                 </div>
                                                 <div class="c field">
                                                     <input type="email" asp-for="ContactPersonEmail" class="input-field" required />
@@ -225,7 +222,7 @@
                                         <div class="col-sm-12 col-lg-4">
                                             <div class="row-field clearfix">
                                                 <div class="c lbl">
-                                                    โทรศัพท์
+                                                    โทรศัพท์* 
                                                 </div>
                                                 <div class="c field">
                                                     <input type="text" asp-for="ContactPersonMobile" class="input-field" required />
