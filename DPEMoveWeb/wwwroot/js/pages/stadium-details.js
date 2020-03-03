@@ -62,6 +62,13 @@ function GetStadiumDetails(token, id) {
             $("#lbl_TRANSPORT").html(value.TRANSPORT == null ? " - " : value.TRANSPORT);
             $("#dv_POLICY").html(value.POLICY == null ? " - " : value.POLICY);
             //$("#dv_AGREEMENT").html(value.AGREEMENT == null ? " - " : value.AGREEMENT);
+
+            $("#lbl_BUILDING_BY").html(value.BUILDING_BY == null ? " - " : value.BUILDING_BY);
+            $("#lbl_SUPPORT").html(value.SUPPORT == null ? " - " : value.SUPPORT);
+            $("#lbl_ADDRESS_SUPPORT").html(value.ADDRESS_SUPPORT == null ? " - " : value.ADDRESS_SUPPORT);
+            $("#lbl_SPORT_DESCRIPTION").html(value.SPORT_DESCRIPTION);
+            $("#dv_ACCEPT_USER").html(value.ACCEPT_USER);
+            $("#dv_REGULATION").html(value.REGULATION);
                         
             var gallery = value.GALLERY;
             PrintGallery(gallery);
@@ -192,8 +199,10 @@ function PrintSurvey(data) {
             `
             <div class="card_list">
                 <img src="` + value.ICON + `" width="80" height="78" alt="" />
-                <h4>` + value.SURV_NAME + `</h4>
-                <p>` + value.SURV_DETL_NAME + `</p> <br />
+                <h4>` + value.SURV_DETL_NAME + `</h4>
+                <br />
+                <br />
+                <br />
             </div>
             `;
 
@@ -225,7 +234,7 @@ function PrintUnderStadium(data) {
         console.log(value);
         item_1 +=
         `
-            <a id="lnk_UNDER_STADIUM_` + value + `" href="/Stadium/Details/` + value + `">[` + value + `]</a><br />
+            <a id="lnk_UNDER_STADIUM_` + value + `" href="/Stadium/Details/` + value + `">[` + value + `]</a>
         `
     });
 
@@ -291,11 +300,9 @@ function PrintUnderStadiumName(token, data) {
             $.each(data, function (index, value) {
                 var item_1 = 
                     `
-                    <div class="row">
+                    <div class='row'>
                         <img src="` + value.GALLERY[0] + `" width="74" height="74">
-                    </div>
-                    <div class="row">
-                        <p>` + value.NAME_LABEL + `</p>
+                        <label>` + value.NAME_LABEL + `</label>
                     </div>
                     `
                 $("#lnk_UNDER_STADIUM_" + id).html(item_1)

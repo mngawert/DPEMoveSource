@@ -388,7 +388,7 @@ function GenerateTotalItems(totalItems, forId) {
         $("#" + forId).html("ผลการค้นหา " + totalItems.toLocaleString() + " รายการ");
     }
     else {
-        $("#" + forId).html("ค้นหาข้อมูลไม่พบ");
+        $("#" + forId).html("ไม่พบข้อมูล");
     }
 }
 
