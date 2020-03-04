@@ -215,19 +215,29 @@ var SearchStadiumCallback = function (token) {
     var txt_STADIUM_NAME = $("#txt_STADIUM_NAME").val();
     var stadiumType = $("#ddlStadiumType").val();
 
-    GetStadium(token, pageNumber, txt_STADIUM_NAME, provinceId, amphurId, tambonId, stadiumType);
+    console.log("aa", $("[name='SEARCH_SUPPORT_FLAG']"));
+    console.log("aa", $("[name='SEARCH_SUPPORT_FLAG']").val());
+    var SEARCH_BUILDING_BY = $("[name='SEARCH_BUILDING_BY']").val();
+    var SEARCH_SUPPORT_FLAG = $("[name='SEARCH_SUPPORT_FLAG']").val();
+    var SEARCH_SUPPORT = $("[name='SEARCH_SUPPORT']").val();
+
+    GetStadium(token, pageNumber, txt_STADIUM_NAME, provinceId, amphurId, tambonId, stadiumType, SEARCH_BUILDING_BY, SEARCH_SUPPORT_FLAG, SEARCH_SUPPORT);
 }
 
-function GetStadium(token, pageNumber, STADIUM_NAME, PROV_CODE, AMP_CODE, TAM_CODE, GROUP_ID) {
+function GetStadium(token, pageNumber, STADIUM_NAME, PROV_CODE, AMP_CODE, TAM_CODE, GROUP_ID, SEARCH_BUILDING_BY, SEARCH_SUPPORT_FLAG, SEARCH_SUPPORT) {
 
     var form = new FormData();
     form.append("PAGE", pageNumber);
     form.append("limit", "10");
+    form.append("IS_SUB", "0");
     form.append("PROV_CODE", PROV_CODE);
     form.append("AMP_CODE", AMP_CODE);
     form.append("TAM_CODE", TAM_CODE);
     form.append("GROUP_ID", GROUP_ID);
     form.append("STADIUM_NAME", STADIUM_NAME);
+    form.append("BUILDING_BY", SEARCH_BUILDING_BY);
+    form.append("SUPPORT_FLAG", SEARCH_SUPPORT_FLAG);
+    form.append("SUPPORT", SEARCH_SUPPORT);
     form.append("Token", token);
 
     var settings = {
@@ -439,6 +449,15 @@ $(document).ready(function () {
         var urlParam = new URLSearchParams(window.location.search);
         if (urlParam.get("STADIUM_NAME") != null) {
             $("#txt_STADIUM_NAME").val(urlParam.get("STADIUM_NAME"));
+        }
+        if (urlParam.get("SEARCH_BUILDING_BY") != null) {
+            $("[name='SEARCH_BUILDING_BY']").val(urlParam.get("SEARCH_BUILDING_BY"));
+        }
+        if (urlParam.get("SEARCH_SUPPORT_FLAG") != null) {
+            $("[name='SEARCH_SUPPORT_FLAG']").val(urlParam.get("SEARCH_SUPPORT_FLAG"));
+        }
+        if (urlParam.get("SEARCH_SUPPORT") != null) {
+            $("[name='SEARCH_SUPPORT']").val(urlParam.get("SEARCH_SUPPORT"));
         }
 
         GetStadiumType(token, urlParam.get("StadiumType"), SearchStadiumCallback);

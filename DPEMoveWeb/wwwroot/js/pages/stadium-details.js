@@ -42,7 +42,7 @@ function GetStadiumDetails(token, id) {
         $.each(data, function (index, value) {
             console.log('value', value);
             $("[name='lbl_NAME_LABEL']").html(value.NAME_LABEL)
-            $("#lbl_ADDRESS").append(value.ADDRESS == null ? "" : value.ADDRESS + " " + value.TAM_NAMT == null ? "" : value.TAM_NAMT + " " + value.AMP_NAMT == null ? "" : value.AMP_NAMT + " " + value.PROV_NAMT == null ? "" : value.PROV_NAMT);
+            $("#lbl_ADDRESS").append(`${value.ADDRESS} ${value.TAM_NAMT} ${value.AMP_NAMT} ${value.AMP_NAMT} ${value.PROV_NAMT}`);
 
             var goolemapUrl = `https://www.google.com/maps/embed/v1/place?key=AIzaSyDBro62OhioE6oXZ97CV8Y4AnrzfVIt4HA&language=th&q=` + value.LATITUDE + `,` + value.LONGITUDE + ``;
             $("#googlemap").attr("src", goolemapUrl);
@@ -68,6 +68,7 @@ function GetStadiumDetails(token, id) {
             $("#lbl_ADDRESS_SUPPORT").html(value.ADDRESS_SUPPORT == null ? " - " : value.ADDRESS_SUPPORT);
             $("#lbl_SPORT_DESCRIPTION").html(value.SPORT_DESCRIPTION);
             $("#dv_ACCEPT_USER").html(value.ACCEPT_USER);
+            $("#dv_CHARGES").html(value.CHARGES);
             $("#dv_REGULATION").html(value.REGULATION);
                         
             var gallery = value.GALLERY;
@@ -96,6 +97,17 @@ function GetStadiumDetails(token, id) {
                 PrintUnderStadiumName(token, value.UNDER_STADIUM);
             }
 
+
+            var voteOf = "2";
+            if (value.UNDER_STADIUM_ID != null) {
+                voteOf = "3";
+            }
+            $("[name='voteOf']").val(voteOf);
+
+            GetVoteType(voteOf, value.STADIUM_ID);
+            GetVoteAvg(voteOf, value.STADIUM_ID, appUserId);
+            GetVoteTotalAvg(voteOf, value.STADIUM_ID);
+            GetVoteTotalAvgDetails(voteOf, value.STADIUM_ID);
         });
     });
 }
@@ -401,7 +413,49 @@ function GetVoteType(voteOf, stadiumId) {
 
         if (jqXHR.status == 200) {
 
+            var items = ``;
             $.each(data, function (index, value) {
+                items += `
+                    <div class="row">
+                        <div class="col-12">
+                            <p> ${value.voteType}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-3">
+                            <p class="rating">
+                                <input type="radio" name="VoteValue_${value.voteTypeId}" value="5">
+                                <img src="/images/ic_star.png" alt=""><img src="/images/ic_star.png" alt=""><img src="/images/ic_star.png" alt=""><img src="/images/ic_star.png" alt=""><img src="/images/ic_star.png" alt="">
+                            </p>
+                        </div>
+                        <div class="col-2">
+                            <p class="rating">
+                                <input type="radio" name="VoteValue_${value.voteTypeId}" value="4">
+                                <img src="/images/ic_star.png" alt=""><img src="/images/ic_star.png" alt=""><img src="/images/ic_star.png" alt=""><img src="/images/ic_star.png" alt="">
+                            </p>
+                        </div>
+                        <div class="col-2">
+                            <p class="rating">
+                                <input type="radio" name="VoteValue_${value.voteTypeId}" value="3">
+                                <img src="/images/ic_star.png" alt=""><img src="/images/ic_star.png" alt=""><img src="/images/ic_star.png" alt="">
+                            </p>
+                        </div>
+                        <div class="col-2">
+                            <p class="rating">
+                                <input type="radio" name="VoteValue_${value.voteTypeId}" value="2">
+                                <img src="/images/ic_star.png" alt=""><img src="/images/ic_star.png" alt="">
+                            </p>
+                        </div>
+                        <div class="col-2">
+                            <p class="rating">
+                                <input type="radio" name="VoteValue_${value.voteTypeId}" value="1">
+                                <img src="/images/ic_star.png" alt="">
+                            </p>
+                        </div>
+                    </div>
+                `;
+
+                $("#dvPopupVoteType").html(items);
                 GetVote(voteOf, stadiumId, value.voteTypeId, appUserId)
             });
         }
@@ -425,15 +479,14 @@ function GetVote(voteOf, eventOrStadiumCode, voteTypeId, createdBy) {
     console.log("settings", settings);
 
     $.ajax(settings).done(function (data, textStatus, jqXHR) {
-        console.log(data);
-
-        console.log("GetVote response", data);
-        console.log("jqXHR.status", jqXHR.status); //handle your 204 or other status codes here
 
         if (jqXHR.status == 200) {
             var value = data;
-
-            //if (value.voteValue >= 1)
+            $(`[name='VoteValue_${voteTypeId}']`).each(function () {
+                if (this.value == value.voteValue) {
+                    this.checked = true;
+                }
+            });
         }
     });
 }
@@ -621,13 +674,6 @@ $(document).ready(function () {
         GetStadiumDetails(token, stadiumId);
     });
 
-
-    GetVoteType("2", stadiumId);
-    GetVoteAvg("2", stadiumId, appUserId);
-    GetVoteTotalAvg("2", stadiumId);
-    GetVoteTotalAvgDetails("2", stadiumId);
-
-
     GetCommentsByStadiumId(stadiumId);
 
     $("#lnkGotoFacility").click(function () {
@@ -639,9 +685,13 @@ $(document).ready(function () {
 
             var voteTypeId = $(this).attr("name").split("_")[1];
             var voteValue = $(this).val();
+            var voteOf = $("[name='voteOf']").val();
+
             console.log("voteTypeId=", voteTypeId);
             console.log("voteValue=", voteValue);
-            AddOrEditVote("2", stadiumId, voteTypeId, voteValue, appUserId);
+            console.log("voteOf=", voteOf);
+
+            AddOrEditVote(voteOf, stadiumId, voteTypeId, voteValue, appUserId);
         });
 
         $("#Modal_AddOrEditVote").modal("hide");

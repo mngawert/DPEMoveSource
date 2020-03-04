@@ -48,7 +48,7 @@ namespace DPEMoveWeb.Controllers
         {
             ViewBag.routeId = id;
             ViewBag.AppUserId = await GetLoginAppUserId();
-            ViewBag.MVoteType = _context.MVoteType.Where(a => a.VoteOf == "2" && a.Status == 1).ToList();
+            //ViewBag.MVoteType = _context.MVoteType.Where(a => a.VoteOf == "2" && a.Status == 1).ToList();
 
             return View();
         }

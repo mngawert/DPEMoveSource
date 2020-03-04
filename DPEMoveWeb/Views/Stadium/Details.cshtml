@@ -54,11 +54,11 @@
                         </tr>
                         <tr>
                             <td><img src="/images/icon_detail_03.png" width="27" height="38"></td>
-                            <td>@*หน่วยงาน/ผู้สร้างสนามกีฬา*@<label id="lbl_BUILDING_BY"></label></td>
+                            <td>หน่วยงาน/ผู้สร้างสนามกีฬา :<br /> <label id="lbl_BUILDING_BY"></label></td>
                         </tr>
                         <tr>
                             <td><img src="/images/icon_detail_03.png" width="27" height="38"></td>
-                            <td>@*ชื่อหน่วยงานที่รับผิดชอบ*@<label id="lbl_SUPPORT"></label></td>
+                            <td>หน่วยงานที่รับผิดชอบ :<br /> <label id="lbl_SUPPORT"></label></td>
                         </tr>
                         <tr>
                             <td><img src="/images/icon_detail_03.png" width="27" height="38"></td>
@@ -500,57 +500,13 @@
                             <div id="collapseOne1" class="collapse" role="tabpanel" aria-labelledby="headingOne1"
                                  data-parent="#accordionEx">
                                 <div id="dv_SURVEY_2" class="card-body">
-
-                                    @*<div class="card_list">
-                        <img src="/images/icon_ser7.png" width="80" height="78" alt="" />
-                        <h4>อินเทอร์เน็ต</h4>
-                        <p>อินเทอร์เน็ตไร้สายให้บริการทั่วสนามกีฬา</p>
-                    </div>
-                    <div class="card_list">
-                        <img src="/images/icon_ser8.png" width="80" height="78" alt="" />
-                        <h4>ห้องน้ำ</h4>
-                        <p>ห้องน้ำจำนวน 80 ห้อง  และห้องน้ำสำหรับคนพิการจำนวน 10 ห้อง</p>
-                    </div>
-                    <div class="card_list">
-                        <img src="/images/icon_ser9.png" width="80" height="78" alt="" />
-                        <h4>ที่จอดรถ</h4>
-                        <p>
-                            มีที่จอดรถสาหรับผู้มาใช้บริการในสนามกีฬาและที่จอดรถสาหรับคนพิการโดยไม่มีค่าบริการ <br>
-                            และไม่ต้องสำรองที่จอดรถ
-                        </p>
-                    </div>
-                    <div class="card_list">
-                        <img src="/images/icon_ser10.png" width="80" height="78" alt="" />
-                        <h4>ร้านค้า</h4>
-                        <p>
-                            มีที่จอดรถสาหรับผู้มาใช้บริการในสนามกีฬาและที่จอดรถสาหรับคนพิการโดยไม่มีค่าบริการ <br>
-                            และไม่ต้องสำรองที่จอดรถ
-                        </p>
-                    </div>
-                    <div class="card_list">
-                        <img src="/images/icon_ser11.png" width="80" height="78" alt="" />
-                        <h4>สิ่งอำนวยความสะดวกสำหรับคนพิการ</h4>
-                        <p>อินเทอร์เน็ตไร้สายให้บริการทั่วสนามกีฬา</p>
-                    </div>
-                    <div class="card_list">
-                        <img src="/images/icon_ser12.png" width="80" height="78" alt="" />
-                        <h4>เบ็ดเตล็ด</h4>
-                        <p>
-                            ห้องน้ำไฟส่องสว่างถังดับเพลิงกล้องวงจรปิดทางลาดสำหรับคนพิการเครื่องกระตุกหัวใจ
-                            (AED) ตู้จาหน่ายเครื่องดื่มอัตโนมัติเครื่องรับจ่ายเงินอัตโนมัติ(ATM)ระบบรักษาความปลอดภัย
-                        </p>
-                    </div>
-                    <div class="card_list">
-                        <img src="/images/icon_ser13.png" width="80" height="78" alt="" />
-                        <h4>สัตว์เลี้ยง</h4>
-                        <p>ไม่อนุญาตให้น าสัตว์เลี้ยงเข้ามาในสนามกีฬา</p>
-                    </div>*@
                                 </div>
                             </div>
                         </div>
                         <!-- Accordion card -->
                         <!-- Accordion card -->
-                        <div class="card">
+
+                        <div class="card" style="display: none">
 
                             <!-- Card header -->
                             <div class="card-header" role="tab" id="headingTwo2">
@@ -568,7 +524,6 @@
                             </div>
                         </div>
 
-
                         <div class="card">
                             <!-- Card header -->
                             <div class="card-header" role="tab" id="headingACCEPT_USER">
@@ -584,6 +539,24 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div class="card">
+                            <!-- Card header -->
+                            <div class="card-header" role="tab" id="headingCHARGES">
+                                <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapseCHARGES"
+                                   aria-expanded="false" aria-controls="collapseCHARGES">
+                                    <h4 class="mb-0"> อัตราค่าใช้บริการ <i class="fa fa-angle-down rotate-icon"></i> </h4>
+                                </a>
+                            </div>
+                            <!-- Card body -->
+                            <div id="collapseCHARGES" class="collapse" role="tabpanel" aria-labelledby="headingCHARGES"
+                                 data-parent="#accordionEx">
+                                <div id="dv_CHARGES" class="card-body">
+                                </div>
+                            </div>
+                        </div>
+
+
                         <div class="card">
                             <!-- Card header -->
                             <div class="card-header" role="tab" id="headingREGULATION">
@@ -749,12 +722,12 @@
                                     กดเลือกพื่อให้คะแนน
                                     <br />
                                     <span name="lbl_NAME_LABEL">@*สนามกีฬาแห่งชาติ*@</span>
+                                    <input name="voteOf" type="hidden" />
                                     <br />
                                 </h4>
 
-                                @foreach (var x in ViewBag.MVoteType as List<MVoteType>)
-                                {
-                                    <div class="row">
+                                <div id="dvPopupVoteType">
+                                    @*<div class="row">
                                         <div class="col-12">
                                             <p> @x.VoteType</p>
                                         </div>
@@ -790,10 +763,8 @@
                                                 <img src="/images/ic_star.png" alt="">
                                             </p>
                                         </div>
-                                    </div>
-                                }
-
-
+                                    </div>*@
+                                </div>
                             </div>
 
                         </div>
