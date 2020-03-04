@@ -42,7 +42,7 @@ function GetStadiumDetails(token, id) {
         $.each(data, function (index, value) {
             console.log('value', value);
             $("[name='lbl_NAME_LABEL']").html(value.NAME_LABEL)
-            $("#lbl_ADDRESS").append(value.ADDRESS + " " + value.TAM_NAMT + " " + value.AMP_NAMT + " " + value.PROV_NAMT);
+            $("#lbl_ADDRESS").append(value.ADDRESS == null ? "" : value.ADDRESS + " " + value.TAM_NAMT == null ? "" : value.TAM_NAMT + " " + value.AMP_NAMT == null ? "" : value.AMP_NAMT + " " + value.PROV_NAMT == null ? "" : value.PROV_NAMT);
 
             var goolemapUrl = `https://www.google.com/maps/embed/v1/place?key=AIzaSyDBro62OhioE6oXZ97CV8Y4AnrzfVIt4HA&language=th&q=` + value.LATITUDE + `,` + value.LONGITUDE + ``;
             $("#googlemap").attr("src", goolemapUrl);

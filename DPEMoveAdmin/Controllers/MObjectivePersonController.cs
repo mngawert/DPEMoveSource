@@ -25,7 +25,10 @@ namespace DPEMoveWebApi.Controllers
 
         public IActionResult Index()
         {
-            return View(_context.MObjectivePerson);
+            var q = _context.MObjectivePerson as IQueryable<MObjectivePerson>;
+            q = q.OrderBy(a => a.ObjectivePersonId);
+
+            return View(q);
         }
         
         [HttpPost]
@@ -45,6 +48,7 @@ namespace DPEMoveWebApi.Controllers
             {
                 q = q.Where(a => a.Status == model.Status);
             }
+            q = q.OrderBy(a => a.ObjectivePersonId);
 
             return View(q);
         }

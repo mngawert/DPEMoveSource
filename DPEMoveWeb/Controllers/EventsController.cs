@@ -143,8 +143,8 @@ namespace DPEMoveWeb.Controllers
             ViewBag.MEventLevel = _context.MEventLevel.Where(a => a.Status == 1).ToList();
             ViewBag.Address = _context.Event.Where(a => a.EventId == id).FirstOrDefault()?.Address;
             ViewBag.MSport = _context.MSport.Where(a => a.Status == 1).ToList();
-            ViewBag.MObjectivePerson = _context.MObjectivePerson.Where(a => a.Status == 1).ToList();
-            ViewBag.MEventObjective = _context.MEventObjective.Where(a => a.Status == 1).ToList();
+            ViewBag.MObjectivePerson = _context.MObjectivePerson.Where(a => a.Status == 1).OrderBy(a => a.ObjectivePersonId).ToList();
+            ViewBag.MEventObjective = _context.MEventObjective.Where(a => a.Status == 1).OrderBy(a => a.MEventObjectiveId).ToList();
             ViewBag.EventActivityType = _context.EventActivityType.Where(a => a.EventId == id).ToList();
 
             return View(eventVM);
