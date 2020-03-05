@@ -82,7 +82,7 @@
                             <td><img src="/images/icon_field.png" width="27" height="38"></td>
                             <td style="padding-top:10px;">
                                 ประเภทสนาม <br />
-                                <div id="dv_UNDER_STADIUM" style="margin-left: 10px;">
+                                <div id="dv_UNDER_STADIUM" style="margin-top:10px;margin-left: 10px;">
                                     -
                                 </div>
 
@@ -462,25 +462,33 @@
                         <!-- Accordion card -->
                         <!-- Accordion card -->
 
-                        <div class="card" style="display: none">
+                        <div class="card ForMainStadium" style="display: none">
 
-                            <!-- Card header -->
                             <div class="card-header" role="tab" id="headingTwo2">
                                 <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapseTwo2"
                                    aria-expanded="false" aria-controls="collapseTwo2">
-                                    <h4 class="mb-0"> ผู้มีสิทธิใช้สนามกีฬา <i class="fa fa-angle-down rotate-icon"></i> </h4>
+                                    <h4 class="mb-0"> นโยบายสนามกีฬา <i class="fa fa-angle-down rotate-icon"></i> </h4>
                                 </a>
                             </div>
 
-                            <!-- Card body -->
                             <div id="collapseTwo2" class="collapse" role="tabpanel" aria-labelledby="headingTwo2"
                                  data-parent="#accordionEx">
-                                <div id="dv_POLICY" class="card-body">
+
+                                <div name="dv_ACCEPT_USER" class="card-body">
+                                    <h5>ผู้มีสิทธิขอใช้สนามกีฬา</h5>
+
+                                </div>
+
+                                <br />
+
+                                <div id="dv_REGULATION" class="card-body">
+                                    <h5>ข้อปฏิบัติการใช้สนามกีฬา</h5>
+
                                 </div>
                             </div>
                         </div>
 
-                        <div class="card">
+                        <div class="card ForSubStadium" style="display:none">
                             <!-- Card header -->
                             <div class="card-header" role="tab" id="headingACCEPT_USER">
                                 <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapseACCEPT_USER"
@@ -491,12 +499,14 @@
                             <!-- Card body -->
                             <div id="collapseACCEPT_USER" class="collapse" role="tabpanel" aria-labelledby="headingACCEPT_USER"
                                  data-parent="#accordionEx">
-                                <div id="dv_ACCEPT_USER" class="card-body">
+
+                                <div name="dv_ACCEPT_USER" class="card-body">
                                 </div>
+
                             </div>
                         </div>
 
-                        <div class="card">
+                        <div class="card ForSubStadium" style="display:none">
                             <!-- Card header -->
                             <div class="card-header" role="tab" id="headingCHARGES">
                                 <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapseCHARGES"
@@ -512,24 +522,21 @@
                             </div>
                         </div>
 
+                        @*<div class="card">
 
-                        <div class="card">
-                            <!-- Card header -->
                             <div class="card-header" role="tab" id="headingREGULATION">
                                 <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapseREGULATION"
                                    aria-expanded="false" aria-controls="collapseREGULATION">
                                     <h4 class="mb-0"> ข้อปฏิบัติการใช้สนามกีฬา <i class="fa fa-angle-down rotate-icon"></i> </h4>
                                 </a>
                             </div>
-                            <!-- Card body -->
+
                             <div id="collapseREGULATION" class="collapse" role="tabpanel" aria-labelledby="headingREGULATION"
                                  data-parent="#accordionEx">
                                 <div id="dv_REGULATION" class="card-body">
                                 </div>
                             </div>
-                        </div>
-
-
+                        </div>*@
 
 
                         <!-- Accordion card -->
@@ -547,17 +554,18 @@
                             <!-- Card body -->
                             <div id="collapseThree3" class="collapse" role="tabpanel" aria-labelledby="headingThree3"
                                  data-parent="#accordionEx">
-                                <div id="dv_AGREEMENT" class="card-body">
-                                    <p>
-                                        • การแสดงความคิดเห็นของท่าน: เราแสดงรีวิวโดยไม่ปิดบังใดๆ ทั้งสิ้น หากเนื้อหานั้นเป็นไปตามแนวทาง  ที่กำหนด
-                                    </p>
-                                    <p>
-                                        บทนำของข้อกำหนดและเงื่อนไข:
-                                        ข้อกำหนดและเงื่อนไขเหล่านี้อาจมีการเปลี่ยนแปลงแก้ไขได้ตลอดเวลาและมีผลใช้กับบริการทั้งหมดทั้งทางตรงและทางอ้อมในระบบออนไลน์ ผ่านทางอุปกรณ์พกพา อีเมล์ หรือโทรศัพท์ เมื่อท่านเข้าใช้ เลือกดู หรือใช้งานเว็บไซต์ หรือแอปพลิเคชั่นผ่านแพลตฟอร์มใดๆ จะเท่ากับว่าท่านได้รับทราบและยอมรับว่าได้อ่านทำความเข้าใจและยอมรับข้อกำหนดและเงื่อนไขนี้แล้ว
-                                    </p>
-                                    <p>
-                                        เนื้อหาที่เราเป็นผู้เสนอบนหน้าเหล่านี้ผ่านเว็บไซต์ซึ่งกรมพลศึกษา (DPE-MOVE) ให้บริการท่านเพื่อจุดประสงค์ส่วนตัวเท่านั้นและไม่เกี่ยวข้องกับการค้าแต่อย่างใด และต้องเป็นไปตามข้อกำหนดและเงื่อนไขที่ระบุไว้
-                                    </p>
+                                <div id="dv_AGREEMENT_XXX" class="card-body">
+                                    การแสดงความคิดเห็นของท่าน:
+                                    <br />
+                                    เราแสดงรีวิวโดยไม่ปิดบังใดๆ ทั้งสิ้น หากเนื้อหานั้นเป็นไปตามแนวทาง  ที่กำหนด
+                                    <br />
+                                    <br />
+                                    บทนำของข้อกำหนดและเงื่อนไข:
+                                    <br />
+                                    ข้อกำหนดและเงื่อนไขเหล่านี้อาจมีการเปลี่ยนแปลงแก้ไขได้ตลอดเวลาและมีผลใช้กับบริการทั้งหมดทั้งทางตรงและทางอ้อมในระบบออนไลน์ ผ่านทางอุปกรณ์พกพา อีเมล์ หรือโทรศัพท์ เมื่อท่านเข้าใช้ เลือกดู หรือใช้งานเว็บไซต์ หรือแอปพลิเคชั่นผ่านแพลตฟอร์มใดๆ จะเท่ากับว่าท่านได้รับทราบและยอมรับว่าได้อ่านทำความเข้าใจและยอมรับข้อกำหนดและเงื่อนไขนี้แล้ว
+                                    <br />
+                                    <br />
+                                    เนื้อหาที่เราเป็นผู้เสนอบนหน้าเหล่านี้ผ่านเว็บไซต์ซึ่งกรมพลศึกษา (DPE-MOVE) ให้บริการท่านเพื่อจุดประสงค์ส่วนตัวเท่านั้นและไม่เกี่ยวข้องกับการค้าแต่อย่างใด และต้องเป็นไปตามข้อกำหนดและเงื่อนไขที่ระบุไว้
                                 </div>
                             </div>
                         </div>

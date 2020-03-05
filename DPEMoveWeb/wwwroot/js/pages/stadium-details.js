@@ -42,7 +42,7 @@ function GetStadiumDetails(token, id) {
         $.each(data, function (index, value) {
             console.log('value', value);
             $("[name='lbl_NAME_LABEL']").html(value.NAME_LABEL)
-            $("#lbl_ADDRESS").append(`${value.ADDRESS} ${value.TAM_NAMT} ${value.AMP_NAMT} ${value.AMP_NAMT} ${value.PROV_NAMT} ${value.POST_NO}`);
+            $("#lbl_ADDRESS").append(`${value.ADDRESS == null ? "" : value.ADDRESS} ${value.TAM_NAMT == null ? "" : value.TAM_NAMT} ${value.AMP_NAMT == null ? "" : value.AMP_NAMT} ${value.PROV_NAMT == null ? "" : value.PROV_NAMT} ${value.POST_NO == null ? "" : value.POST_NO}`);
 
             var goolemapUrl = `https://www.google.com/maps/embed/v1/place?key=AIzaSyDBro62OhioE6oXZ97CV8Y4AnrzfVIt4HA&language=th&q=` + value.LATITUDE + `,` + value.LONGITUDE + ``;
             $("#googlemap").attr("src", goolemapUrl);
@@ -67,9 +67,9 @@ function GetStadiumDetails(token, id) {
             $("#lbl_SUPPORT").html(value.SUPPORT == null ? " - " : value.SUPPORT);
             $("#lbl_ADDRESS_SUPPORT").html(value.ADDRESS_SUPPORT == null ? " - " : value.ADDRESS_SUPPORT);
             $("#lbl_SPORT_DESCRIPTION").html(value.SPORT_DESCRIPTION);
-            $("#dv_ACCEPT_USER").html(value.ACCEPT_USER);
             $("#dv_CHARGES").html(value.CHARGES);
-            $("#dv_REGULATION").html(value.REGULATION);
+            $("[name='dv_ACCEPT_USER']").append(value.ACCEPT_USER);
+            $("#dv_REGULATION").append(value.REGULATION);
                         
             var gallery = value.GALLERY;
             PrintGallery(gallery);
@@ -101,7 +101,15 @@ function GetStadiumDetails(token, id) {
             var voteOf = "2";
             if (value.UNDER_STADIUM_ID != null) {
                 voteOf = "3";
+
+                $(".ForMainStadium").hide();
+                $(".ForSubStadium").show();
             }
+            else {
+                $(".ForMainStadium").show();
+                $(".ForSubStadium").hide();
+            }
+
             $("[name='voteOf']").val(voteOf);
 
             GetVoteType(voteOf, value.STADIUM_ID);
@@ -312,9 +320,13 @@ function PrintUnderStadiumName(token, data) {
             $.each(data, function (index, value) {
                 var item_1 = 
                     `
-                    <div class='row'>
-                        <img src="` + value.GALLERY[0] + `" width="74" height="74">
-                        <label>` + value.NAME_LABEL + `</label>
+                    <div class="row">
+                        <div class="col-4">
+                            <img src="` + value.GALLERY[0] + `" width="74" height="74">
+                        </div>
+                        <div class="col-8">
+                            <label>` + value.NAME_LABEL + `</label>
+                        </div>
                     </div>
                     `
                 $("#lnk_UNDER_STADIUM_" + id).html(item_1)

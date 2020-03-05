@@ -155,7 +155,7 @@ hr { border-color: #e0e0e0; }
 .carousel-inner .carousel-item img {border-radius: 5px;}
 .left_sec { margin:65px 0 0 0;}
 .rating_box { width: 55px; height:55px; background: #81c21e; border-radius: 10px 10px 10px 0; color: #fff; text-align: center;}
-.stad_detail img { float: left; margin: 0 5px 10px 0;}
+/* .stad_detail img { float: left; margin: 0 5px 10px 0;} */
 .stad_detail ul { padding:0;}
 .stad_detail ul li {list-style: none; margin: 0 0 10px 0;}
 .con_right { text-align: right; float: right; margin: 0;}
@@ -201,7 +201,7 @@ hr { border-color: #e0e0e0; }
 .btn-gray:hover {background-color: #dddddd; border-color: #f1f1f1; color:#3c3c3c;}
 .card-header {border-bottom: none;}
 #accordionEx h4, #accordionEx2 h4 {margin: 0;}
-.card-body {}
+.card-body { font-size: 18px; }
 .card-body img { float: left; margin: 0 20px;}
 .card-body h4 {/*line-height: 2em;*/ padding: 10px 0 5px 0;}
 .flag img { margin: -3px 5px 0 0;}
