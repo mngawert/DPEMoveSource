@@ -215,8 +215,6 @@ var SearchStadiumCallback = function (token) {
     var txt_STADIUM_NAME = $("#txt_STADIUM_NAME").val();
     var stadiumType = $("#ddlStadiumType").val();
 
-    console.log("aa", $("[name='SEARCH_SUPPORT_FLAG']"));
-    console.log("aa", $("[name='SEARCH_SUPPORT_FLAG']").val());
     var SEARCH_BUILDING_BY = $("[name='SEARCH_BUILDING_BY']").val();
     var SEARCH_SUPPORT_FLAG = $("[name='SEARCH_SUPPORT_FLAG']").val();
     var SEARCH_SUPPORT = $("[name='SEARCH_SUPPORT']").val();
@@ -277,39 +275,49 @@ function GetStadium(token, pageNumber, STADIUM_NAME, PROV_CODE, AMP_CODE, TAM_CO
 
             items +=
                 `
-        <li>
-            <a href="/Stadium/Details/` + value.STADIUM_ID + `">
-                <div class="row event">
-                    <div class="col-12 col-sm-5 col-md-4">
-                        <div class="event-thumb"><img src="` + value.COVER_IMG + `" /></div>
-                    </div>
-                    <div class="col-12 col-sm-7 col-md-8">
-                        <div id="dvRating_` + value.STADIUM_ID + `" class="rating">
-                            <span class="fa fa-star"></span>
-                            <span class="fa fa-star"></span>
-                            <span class="fa fa-star"></span>
-                            <span class="fa fa-star"></span>
-                            <span class="fa fa-star"></span>
+                <li>
+                    <div class="row event">
+                        <div class="col-12 col-md-4">
+                            <div class="event-thumb"><a href="/Stadium/Details/${value.STADIUM_ID}"><img src="${value.COVER_IMG}" /></a></div>
                         </div>
-                        <div class="event-date"></div>
-                        <h4>` + value.NAME_LABEL + `</h4>
-                        <div class="event-place">
-                            สถานที่ : ` + value.ADDRESS + `<br />
-                            ` + value.PROV_NAMT + `
-                        </div>
-                        <div class="row read-comment">
-                            <div class="col-sm-12 col-md-6">
-                                <div class="read-total"></div>
+                        <div class="col-12 col-md-8">
+                            <div class="row">
+                                <div class="col-12">                            
+                                    <div id="dvRating_${value.STADIUM_ID}" class="rating">
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
+                                    </div>
+                                    <h4><a href="/Stadium/Details/${value.STADIUM_ID}"> ${value.NAME_LABEL} </a></h4>
+                                </div>
                             </div>
-                            <div class="col-sm-12 col-md-6">
-                                <div class="comment-total">แสดงความคิดเห็น ` + `<span id="lblComment_` + value.STADIUM_ID + `">-</span>` + ` คน</div>
+                            <div class="row">
+                                <div class="col-8"> 
+                                    <div class="std-info">
+                                        <img src="/images/icon_detail_01.png" width="27" height="38"> ${value.ADDRESS == null ? "" : value.ADDRESS} ${value.TAM_NAMT == null ? "" : value.TAM_NAMT} ${value.AMP_NAMT == null ? "" : value.AMP_NAMT} ${value.PROV_NAMT == null ? "" : value.PROV_NAMT} ${value.POST_NO == null ? "" : value.POST_NO}
+                                        <br />
+                                        <img src="/images/icon_phone.png" width="27" height="38"> ${value.TELEPHONE == null ? " - " : value.TELEPHONE}
+                                        <br />
+                                        <img src="/images/icon_area.png" width="27" height="38"> ${value.DIMENSION == null ? " - " : value.DIMENSION}
+                                        <br />
+                                        <img src="/images/icon_time.png" width="27" height="38"> ${value.TIME_ == null ? " - " : value.TIME_}
+                                        <br />
+                                        <img src="/images/icon_address.png" width="27" height="38"> <a href='https://www.google.com/maps/search/?api=1&query=${value.LATITUDE},${value.LONGITUDE}' target="_blank">ดูแผนที่</a>
+                                    </div>
+                                </div>
+                                <div class="col-4"> 
+                                    <div>
+                                        ${ PrintSubStadium(value.UNDER_STADIUM_NEW)}
+                                        <div> ${ value.UPDATE_DATE == null ? "" : "วันที่สำรวจล่าสุด " + ConvertDateToTH(value.UPDATE_DATE) } </div >
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </a>
-        </li>
-        `
+                </li>
+            `
         });
         $("#ul-search-events-result").html(items);
 
@@ -319,6 +327,42 @@ function GetStadium(token, pageNumber, STADIUM_NAME, PROV_CODE, AMP_CODE, TAM_CO
         GenerateTotalItems(Number(results.all_rows), "lblTotalItems");
         GeneratePaginationHtml(pageNumber, results.all_rows == 0 ? 0 : results.all_pages, "ulPagination");
     });
+}
+
+function PrintSubStadium(data) {
+    if (data.length > 0) {
+        var items = "";
+        items += "<div style='padding-bottom: 10px'>"
+        items += "<div>ประเภทสนามกีฬา</div>";
+        $.each(data, function (index, value) {
+            items += `
+                    <div>-<a href="/Stadium/Details/${value.STADIUM_ID}"> ${value.NAME_LABEL} </a></div>
+            `;
+        });
+        items += "</div>"
+        return items;
+    }
+    return "";
+}
+
+function ConvertDateToTH(input) {
+    //'1986-02-12' to '12/02/2529'
+    if (input != null) {
+        return input.substr(8, 2) + "/" + input.substr(5, 2) + "/" + (parseInt(input.substr(0, 4)) + 543);
+    }
+    else {
+        return null;
+    }
+}
+
+function ConvertDateToEN(input) {
+    //'12/02/2529' to '1986-02-12'
+    if (input != null) {
+        return (parseInt(input.substr(6, 4)) - 543) + "-" + input.substr(3, 2) + "-" + input.substr(0, 2);
+    }
+    else {
+        return null;
+    }
 }
 
 function PrintCommentCount(data) {
