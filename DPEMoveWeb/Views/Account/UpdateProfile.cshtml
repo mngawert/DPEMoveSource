@@ -1,5 +1,5 @@
 ﻿
-@model RegisterViewModel
+@model ApplicationUser
 
 <div class="page-breadcrumbs" style="background-image: url('/images/bg-bc.jpg')">
     <div class="wellcome_sec">
@@ -12,7 +12,7 @@
     <div class="filter"></div>
     <div class="content-center">
         <div class="container">
-            <h2 class="presentation-subtitle text-center">ลงทะเบียน</h2>
+            <h2 class="presentation-subtitle text-center">ข้อมูลส่วนตัว</h2>
         </div>
     </div>
 </div>
@@ -23,73 +23,68 @@
             <div class="col-md-8 mx-auto">
                 <div class="row">
                     <div class="col-md-12">
-                        <form id="frmRegister" method="post" autocomplete="off">
+                        <form method="post" autocomplete="off">
                             <div class="form-group row">
                                 <div class="col-md-4"></div>
                                 <div>
-                                    <h4>กรุณากรอกข้อมูลลงทะเบียน</h4>
+                                    <h4>แก้ไขข้อมูลส่วนตัว</h4>
                                     <div asp-validation-summary="All" class="text-danger"></div>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <div class="col-md-4">
-                                    <select name="IdcardType" class="form-control">
+                                    <select name="IdcardType"  class="form-control">
                                         <option value="1">เลขประจำตัวประชาชน</option>
                                         <option value="2">หมายเลขหนังสือเดินทาง</option>
                                     </select>
                                 </div>
-                                <input class="col-md-5 form-control" required pattern="\d*" maxlength="13" asp-for="IdcardNo" />
+                                <input type="text" class="col-md-5 form-control" required pattern="\d*" maxlength="13" asp-for="IdcardNo" />
                             </div>
                             <div class="form-group row">
-                                <label class="col-md-4 text-right" >คำนำหน้า</label>
+                                <label class="col-md-4 text-right">คำนำหน้า</label>
                                 <select name="PrefixId" id="ddlPREFIX_TH" class="col-md-5 form-control">
                                 </select>
                             </div>
 
                             <div class="form-group row">
-                                <label class="col-md-4 text-right" asp-for="Name">ชื่อ</label>
-                                <input class="col-md-5 form-control" required asp-for="Name" />
+                                <label class="col-md-4 text-right">ชื่อ</label>
+                                <input type="text" class="col-md-5 form-control" required name="Name" value="@Model.Name" />
                             </div>
                             <div class="form-group row">
-                                <label class="col-md-4 text-right" asp-for="Surname">สกุล</label>
-                                <input class="col-md-5 form-control" required asp-for="Surname" />
+                                <label class="col-md-4 text-right">สกุล</label>
+                                <input type="text" class="col-md-5 form-control" required name="Surname" value="@Model.Surname" />
                             </div>
                             <div class="form-group row">
-                                <label class="col-md-4 text-right" asp-for="TelNo">เบอร์โทรศัพท์</label>
-                                <input class="col-md-5 form-control" required asp-for="TelNo" />
+                                <label class="col-md-4 text-right">เบอร์โทรศัพท์</label>
+                                <input type="text" class="col-md-5 form-control" required name="TelNo" value="@Model.TelNo" />
                             </div>
-                            <div class="form-group row">
-                                <label class="col-md-4 text-right" asp-for="Email"></label>
-                                <input class="col-md-5 form-control" required asp-for="Email" />
-                                @*<span asp-validation-for="Email" class="text-danger"></span>*@
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-md-4 text-right" asp-for="Password"></label>
-                                <input class="col-md-5 form-control" required asp-for="Password" />
-                                @*<span asp-validation-for="Password" class="text-danger"></span>*@
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-md-4 text-right" asp-for="ConfirmPassword"></label>
-                                <input class="col-md-5 form-control" required asp-for="ConfirmPassword" />
-                                @*<span asp-validation-for="ConfirmPassword" class="text-danger"></span>*@
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-md-4 text-right" asp-for="AccountType">ประเภท</label>
-                                <select asp-for="AccountType" class="col-md-5 form-control" asp-items="ViewBag.accountTypeList">
-                                </select>
-                            </div>
-                            <div class="form-group row">
-                                <div class="col-md-4">
+                            @*<div class="form-group row">
+                                    <label class="col-md-4 text-right" asp-for="Email"></label>
+                                    <input class="col-md-5 form-control" required asp-for="Email" />
                                 </div>
-                                <div>
-                                    <a href="javascript:void(0)" id="btnPrivacy">นโยบายความเป็นส่วนตัว</a> • <a href="javascript:void(0)" id="btnTerm">ข้อกำหนดในการให้บริการ</a>
-                                </div>
-                            </div>
+                                <div class="form-group row">
+                                    <label class="col-md-4 text-right" asp-for="Password"></label>
+                                    <input class="col-md-5 form-control" required asp-for="Password" />
+                                </div>*@
+                            @*<div class="form-group row">
+                                    <label class="col-md-4 text-right" asp-for="AccountType">ประเภท</label>
+                                    <select asp-for="AccountType" class="col-md-5 form-control" asp-items="ViewBag.accountTypeList">
+                                    </select>
+                                </div>*@
+                            @*<div class="form-group row">
+                                    <div class="col-md-4">
+                                    </div>
+                                    <div>
+                                        <a href="javascript:void(0)" id="btnPrivacy">นโยบายความเป็นส่วนตัว</a> • <a href="javascript:void(0)" id="btnTerm">ข้อกำหนดในการให้บริการ</a>
+                                    </div>
+                                </div>*@
                             <div class="form-group row">
                                 <div class="col-md-4">
                                 </div>
                                 <div class="col-md-5">
-                                    <button type="submit" class="button darkgreen">ลงทะเบียน</button>
+                                    <input type="hidden" name="AppUserId" value="@Model.AppUserId" />
+                                    <input type="hidden" name="Email" value="@Model.Email" />
+                                    <button type="submit" class="button darkgreen">ยีนยัน</button>
                                 </div>
                             </div>
                         </form>
@@ -199,104 +194,112 @@
 
 @section Scripts {
 
+    <script type="text/javascript">
+        var model = @Html.Raw(Json.Serialize(Model));
+        console.log('model=', model);
+    </script>
 
-<script type="text/javascript">
+    <script type="text/javascript">
 
-    function GetConfig(name) {
+        function GetConfig(name) {
 
-        var settings = {
-            "url": "/WebApi/Master/GetConfig",
-            "method": "POST",
-            "timeout": 0,
-            "headers": {
-                "Content-Type": "application/json"
-            },
-            "data": JSON.stringify({ "name": name }),
-        };
+            var settings = {
+                "url": "/WebApi/Master/GetConfig",
+                "method": "POST",
+                "timeout": 0,
+                "headers": {
+                    "Content-Type": "application/json"
+                },
+                "data": JSON.stringify({ "name": name }),
+            };
 
-        return $.ajax(settings);
-    }
+            return $.ajax(settings);
+        }
 
-    function GetToken() {
-        var form = new FormData();
-        form.append("username", "dpeusers");
-        form.append("password", "users_api@dpe.go.th");
+        function GetToken() {
+            var form = new FormData();
+            form.append("username", "dpeusers");
+            form.append("password", "users_api@dpe.go.th");
 
-        var settings = {
-            "url": "https://data.dpe.go.th/api/tokens/keys/tokens",
-            "method": "POST",
-            "timeout": 0,
-            "processData": false,
-            "mimeType": "multipart/form-data",
-            "contentType": false,
-            "data": form
-        };
+            var settings = {
+                "url": "https://data.dpe.go.th/api/tokens/keys/tokens",
+                "method": "POST",
+                "timeout": 0,
+                "processData": false,
+                "mimeType": "multipart/form-data",
+                "contentType": false,
+                "data": form
+            };
 
-        return $.ajax(settings);
-    }
+            return $.ajax(settings);
+        }
 
-    function GetPrefix(token, selectedValue) {
-        var form = new FormData();
-        form.append("Token", token);
+        function GetPrefix(token, selectedValue) {
+            var form = new FormData();
+            form.append("Token", token);
 
-        var settings = {
-            "url": "https://data.dpe.go.th/api/personal/prefix/getPrefix",
-            "method": "POST",
-            "timeout": 0,
-            "processData": false,
-            "mimeType": "multipart/form-data",
-            "contentType": false,
-            "data": form
-        };
+            var settings = {
+                "url": "https://data.dpe.go.th/api/personal/prefix/getPrefix",
+                "method": "POST",
+                "timeout": 0,
+                "processData": false,
+                "mimeType": "multipart/form-data",
+                "contentType": false,
+                "data": form
+            };
 
-        $.ajax(settings).done(function (response, status, xhr) {
-            if (xhr.status == 200) {
-                var data = JSON.parse(response).data
+            $.ajax(settings).done(function (response, status, xhr) {
+                if (xhr.status == 200) {
+                    var data = JSON.parse(response).data
 
-                var item_1 = ``
-                $.each(data, function (index, value) {
-                    item_1 += `<option value="` + value.PREFIX_ID + `">` + value.PREFIX_TH + `</option>`
-                });
-                $("#ddlPREFIX_TH").html(item_1);
+                    var item_1 = ``
+                    $.each(data, function (index, value) {
+                        item_1 += `<option value="` + value.PREFIX_ID + `">` + value.PREFIX_TH + `</option>`
+                    });
+                    $("#ddlPREFIX_TH").html(item_1);
 
-                if (selectedValue != null) {
-                    $("#ddlPREFIX_TH").val(selectedValue);
+                    if (selectedValue != null) {
+                        $("#ddlPREFIX_TH").val(selectedValue);
+                    }
+
                 }
+            });
+        }
 
+        $(document).ready(function () {
+
+            if (model.idcardType != null) {
+                $("[name = 'IdcardType']").val(model.idcardType);
             }
+
+            GetToken().done(function (response) {
+                var token = JSON.parse(response).data;
+                GetPrefix(token, model.prefixId);
+            });
         });
-    }
 
-    $(document).ready(function () {
-
-        GetToken().done(function (response) {
-            var token = JSON.parse(response).data;
-            GetPrefix(token, null);
-        });                
-    });
-
-    $("#btnPrivacy").click(function () {
-        GetConfig("Policy").done(function (data, textStatus, jqXHR) {
-            if (jqXHR.status == 200) {
-                $.each(data, function (index, value) {
-                    $("#dvPrivacy").html(value.value);
-                });
-                $("#Modal_Privacy").modal("show");
-            }
+        $("#btnPrivacy").click(function () {
+            GetConfig("Policy").done(function (data, textStatus, jqXHR) {
+                if (jqXHR.status == 200) {
+                    $.each(data, function (index, value) {
+                        $("#dvPrivacy").html(value.value);
+                    });
+                    $("#Modal_Privacy").modal("show");
+                }
+            });
         });
-    });
 
-    $("#btnTerm").click(function () {
-        GetConfig("Terms and Condition").done(function (data, textStatus, jqXHR) {
-            if (jqXHR.status == 200) {
-                $.each(data, function (index, value) {
-                    $("#dvTerm").html(value.value);
-                });
-                $("#Modal_Term").modal("show");
-            }
+        $("#btnTerm").click(function () {
+            GetConfig("Terms and Condition").done(function (data, textStatus, jqXHR) {
+                if (jqXHR.status == 200) {
+                    $.each(data, function (index, value) {
+                        $("#dvTerm").html(value.value);
+                    });
+                    $("#Modal_Term").modal("show");
+                }
+            });
         });
-    });
 
-</script>
+    </script>
 
 }

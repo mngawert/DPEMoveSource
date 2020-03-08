@@ -41,6 +41,15 @@ namespace DPEMoveWeb.Controllers
             _context = context;
         }
 
+        private async Task<ApplicationUser> GetLoginAppUser()
+        {
+            var userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (userId != null)
+            {
+                return await userManager.FindByIdAsync(userId);
+            }
+            return null;
+        }
 
         [HttpGet]
         [AllowAnonymous]
@@ -56,6 +65,58 @@ namespace DPEMoveWeb.Controllers
 
             return View();
         }
+
+        [HttpGet]
+        [Authorize]
+        public async Task<IActionResult> UpdateProfile()
+        {
+            var accountTypeList = _context.MAccountType.Select(a => new SelectListItem
+            {
+                Text = a.AccountTypeName,
+                Value = a.AccountTypeId
+            });
+
+            ViewBag.accountTypeList = accountTypeList;
+
+            var loginUser = await GetLoginAppUser();
+
+            return View(loginUser);
+        }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> UpdateProfile(ApplicationUser model)
+        {
+            ApplicationUser user = await userManager.FindByEmailAsync(model.Email);
+
+            if (user == null)
+                return BadRequest();
+
+            user.Name = model.Name;
+            user.IdcardType = model.IdcardType;
+            user.IdcardNo = model.IdcardNo;
+            //user.AccountType = model.AccountType;
+            //user.GroupId = model.GroupId;
+            //user.Status = model.Status;
+            //user.FacebookId = model.FacebookId;
+            //user.BirthDate = model.BirthDate;
+            //user.Height = model.Height;
+            //user.Weight = model.Weight;
+            user.PrefixId = model.PrefixId;
+            user.Surname = model.Surname;
+            user.TelNo = model.TelNo;
+
+            var result = await userManager.UpdateAsync(user);
+
+            if (result.Succeeded)
+            {
+                ViewBag.ErrorTitle = "Update profile successful";
+                return View("UpdateProfileOK");
+            }
+
+            return View("Error");
+        }
+
 
         [AcceptVerbs("Get", "Post")]
         [AllowAnonymous]
@@ -89,7 +150,10 @@ namespace DPEMoveWeb.Controllers
                     IdcardNo = model.IdcardNo,
                     AccountType = model.AccountType,
                     //GroupId = model.GroupId,
-                    Status = "1"
+                    Status = "1",
+                    PrefixId = model.PrefixId,
+                    Surname = model.Surname,
+                    TelNo = model.TelNo
                 };
 
                 user.GroupId = _context.MAccountType.Where(a => a.AccountTypeId == model.AccountType).FirstOrDefault()?.DefaultGroupId;

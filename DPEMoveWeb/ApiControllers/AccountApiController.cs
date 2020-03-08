@@ -55,7 +55,10 @@ namespace DPEMoveWeb.ApiControllers
                     IdcardNo = model.IdcardNo,
                     AccountType = model.AccountType,
                     GroupId = model.GroupId,
-                    Status = "1"
+                    Status = "1",
+                    PrefixId = model.PrefixId,
+                    Surname = model.Surname,
+                    TelNo = model.TelNo
                 };
 
                 var result = await userManager.CreateAsync(user, model.Password);
@@ -246,7 +249,10 @@ namespace DPEMoveWeb.ApiControllers
                 FacebookId = user.FacebookId,
                 BirthDate = user.BirthDate,
                 Height = user.Height,
-                Weight = user.Weight
+                Weight = user.Weight,
+                PrefixId = user.PrefixId,
+                Surname = user.Surname,
+                TelNo = user.TelNo
             };
 
             return Ok(q);
@@ -272,6 +278,9 @@ namespace DPEMoveWeb.ApiControllers
             user.BirthDate = model.BirthDate;
             user.Height = model.Height;
             user.Weight = model.Weight;
+            user.PrefixId = model.PrefixId;
+            user.Surname = model.Surname;
+            user.TelNo = model.TelNo;
 
             var result = await userManager.UpdateAsync(user);
 

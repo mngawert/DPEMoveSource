@@ -29,7 +29,9 @@ namespace DPEMoveDAL.ViewModels
         public string AccountType { get; set; }
         public string Status { get; set; }
         public int? GroupId { get; set; }
-
+        public string PrefixId { get; set; }
+        public string Surname { get; set; }
+        public string TelNo { get; set; }
     }
 
 
@@ -50,7 +52,6 @@ namespace DPEMoveDAL.ViewModels
         public string AccountType { get; set; }
         public string Status { get; set; }
         public int? GroupId { get; set; }
-
     }
 
 }
