@@ -39,6 +39,9 @@ namespace DPEMoveDAL.Models
         public DateTime? BirthDate { get; set; }
         public decimal? Height { get; set; }
         public decimal? Weight { get; set; }
+        public string PrefixId { get; set; }
+        public string Surname { get; set; }
+        public string TelNo { get; set; }
 
         public ICollection<AspNetUserClaims> AspNetUserClaims { get; set; }
         public ICollection<AspNetUserLogins> AspNetUserLogins { get; set; }

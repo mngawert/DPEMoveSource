@@ -425,7 +425,13 @@ namespace DPEMoveDAL.Models
 
                 entity.Property(e => e.NormalizedUserName).HasMaxLength(256);
 
+                entity.Property(e => e.PrefixId).HasColumnType("VARCHAR2(20)");
+
                 entity.Property(e => e.Status).HasColumnType("VARCHAR2(1)");
+
+                entity.Property(e => e.Surname).HasColumnType("VARCHAR2(50)");
+
+                entity.Property(e => e.TelNo).HasColumnType("VARCHAR2(50)");
 
                 entity.Property(e => e.UserName)
                     .HasMaxLength(256)

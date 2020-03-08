@@ -26,7 +26,6 @@ namespace DPEMoveDAL.Models
         public int? UpdatedBy { get; set; }
 
         public Address Address { get; set; }
-
         public ICollection<DepartmentPerson> DepartmentPerson { get; set; }
     }
 }
