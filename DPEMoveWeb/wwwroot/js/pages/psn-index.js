@@ -354,6 +354,11 @@ function CreateGmsMember(token) {
         if (jqXHR.status == 200) {
             var results = JSON.parse(response);
             console.log("results", results);
+
+            if (!results.status) {
+                alert(results.message);
+            }
+
             var data = results.data;
 
             if (data.length > 0) {
