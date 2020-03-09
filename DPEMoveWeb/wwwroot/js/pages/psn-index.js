@@ -562,6 +562,18 @@ function getUrlVars() {
     return vars;
 }
 
+function DisplayPopupForCreatePSN() {
+
+    if (appIdcardNo.length > 0) {
+        $("#Modal_CreatePSN").modal("show");
+    }
+    else {
+        $("#Modal_NoProfileIDCard").modal("show");
+        console.log("error there is no idcard");
+    }
+}
+
+
 $(document).ready(function () {
 
     var mode = getUrlVars()["mode"];
@@ -569,7 +581,7 @@ $(document).ready(function () {
     console.log("appUserId", appUserId);
 
     if (mode == "CreatePSN" && appUserId != -1) {
-        $("#Modal_CreatePSN").modal("show");
+        DisplayPopupForCreatePSN();
     }
 
     if (appUserId != -1) {
@@ -601,6 +613,9 @@ $(document).ready(function () {
         });
     });
 
+    $("#btnOpenPopupForCreatePSN").click(function () {
+        DisplayPopupForCreatePSN();
+    });
 
     $("#ddlProvince").change(function () {
         var provinceId = $("#ddlProvince").val();

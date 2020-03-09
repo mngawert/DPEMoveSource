@@ -66,6 +66,7 @@ namespace DPEMoveWeb.Controllers
         public async Task<IActionResult> Index()
         {
             ViewBag.AppUserId = await GetLoginAppUserId();
+            ViewBag.appIdcardNo = await GetLoginIdcardNo();
 
             return View();
         }

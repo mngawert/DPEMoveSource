@@ -24,8 +24,7 @@
             <div class="col-sm-12 col-md-12 col-lg-4">
                 <div class="row con_right">
                     <div class="col">
-                        @*<button type="button" class="btn btn-lightgreen btn-round">ลงทะเบียน</button>*@
-                        <a id="btnOpenPopupForCreatePSN" style="display:none" href="javascript:void(0);" class="btn btn-lightgreen btn-round" data-toggle="modal" data-target="#Modal_CreatePSN">ลงทะเบียน</a>
+                        <a id="btnOpenPopupForCreatePSN" style="display:none" href="javascript:void(0);" class="btn btn-lightgreen btn-round">ลงทะเบียน</a>
                     </div>
                 </div>
             </div>
@@ -155,8 +154,10 @@
 @section Scripts {
     <script type="text/javascript">
         var appUserId = @ViewBag.AppUserId;
+        var appIdcardNo = "@ViewBag.appIdcardNo";
 
         console.log('appUserId=', appUserId);
+        console.log('appUserId=', appIdcardNo);
     </script>
 
     <script src="~/js/pages/psn-index.js"></script>
@@ -301,3 +302,38 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade bd-example-modal-lg" id="Modal_NoProfileIDCard" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" style="display:none;" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">ปิด</span>
+                </button>
+                <div>ข้อมูลเลขบัตรประชาชนไม่สมบูรณ์</div>
+            </div>
+            <div class="modal-body">
+
+                <div class="row">
+                    <div class="col-12">
+
+                        <div>
+                            <h4 class="text-center">
+                                <img src="/images/icon_app.png" width="99" height="104" alt=""> <br />
+                                <a href="/Account/UpdateProfile">ข้อมูลเลขบัตรประชาชนไม่สมบูรณ์ <br /> กรุณาคลิกที่นี่เพื่อกรอกข้อมูล</a> <br />
+                                <br />
+                                <br />
+                                <br />
+                                <br />
+                                <br />
+                            </h4>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+

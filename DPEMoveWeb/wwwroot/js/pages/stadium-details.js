@@ -278,19 +278,29 @@ function PrintParentStadiumName(token, id) {
     };
 
     $.ajax(settings).done(function (response) {
+
+
         var results = JSON.parse(response);
+        console.log("test", results);
         var data = results.data;
+        var item_1 = ``;
         $.each(data, function (index, value) {
-            var item_1 =
+            //var item_1 =
+            //    `
+            //        <div class="row">
+            //            <img src="` + value.GALLERY[0] + `" width="74" height="74">
+            //        </div>
+            //        <div class="row">
+            //            <p>` + value.NAME_LABEL + `</p>
+            //        </div>
+            //    `
+            //$("#lnk_PARENT_STADIUM_" + id).html(item_1)
+
+            item_1 += 
                 `
-                    <div class="row">
-                        <img src="` + value.GALLERY[0] + `" width="74" height="74">
-                    </div>
-                    <div class="row">
-                        <p>` + value.NAME_LABEL + `</p>
-                    </div>
+                <a href="/Stadium/Details/` + value.STADIUM_ID + `">` + value.NAME_LABEL + `</a>
                 `
-            $("#lnk_PARENT_STADIUM_" + id).html(item_1)
+            $("#dv_PARENT_STADIUM").html(item_1);
         });
     });
 }
