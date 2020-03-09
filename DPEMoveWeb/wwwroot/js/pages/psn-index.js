@@ -168,18 +168,13 @@ function ConvertDateToEN(input) {
 }
 
 function GetToken() {
-    var form = new FormData();
-    form.append("username", "dpeusers");
-    form.append("password", "users_api@dpe.go.th");
-
     var settings = {
-        "url": "https://data.dpe.go.th/api/tokens/keys/tokens",
+        "url": "/api/Account/GetDPEToken",
         "method": "POST",
         "timeout": 0,
-        "processData": false,
-        "mimeType": "multipart/form-data",
-        "contentType": false,
-        "data": form
+        "headers": {
+            "Content-Type": "application/json"
+        },
     };
 
     return $.ajax(settings);

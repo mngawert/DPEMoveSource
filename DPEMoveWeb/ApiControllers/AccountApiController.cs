@@ -17,6 +17,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json.Linq;
+using RestSharp;
 
 namespace DPEMoveWeb.ApiControllers
 {
@@ -320,6 +322,34 @@ namespace DPEMoveWeb.ApiControllers
         public string Test_HOME_VIEW()
         {
             return "Test2_HOME_VIEW";
+        }
+
+
+        [HttpPost]
+        [AllowAnonymous]
+        public string GetDPEToken()
+        {
+            var client = new RestClient("https://data.dpe.go.th/api/tokens/keys/tokens");
+            client.Timeout = -1;
+            var request = new RestRequest(Method.POST);
+            request.AlwaysMultipartFormData = true;
+            
+            request.AddParameter("username", configuration["DPEToken:Username"]);
+            request.AddParameter("password", configuration["DPEToken:Password"]);
+            IRestResponse response = client.Execute(request);
+
+            return response.Content;
+
+            //return GetValueFromJSON("data", response.Content);
+        }
+
+
+        protected string GetValueFromJSON(string p_strFieldName, string p_strJSON)
+        {
+            JObject jObject = JObject.Parse(p_strJSON);
+            string strValue = (string)jObject.SelectToken(p_strFieldName);
+
+            return strValue;
         }
 
     }
