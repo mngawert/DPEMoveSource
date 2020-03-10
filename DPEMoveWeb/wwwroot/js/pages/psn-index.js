@@ -168,6 +168,7 @@ function ConvertDateToEN(input) {
 }
 
 function GetToken() {
+
     var settings = {
         "url": "/api/Account/GetDPEToken",
         "method": "POST",
@@ -573,6 +574,20 @@ function DisplayPopupForCreatePSN() {
     }
 }
 
+function GoToIPESHD() {
+
+    if (appIdcardNo.length > 0) {
+        const encodedData = window.btoa(appIdcardNo);
+        console.log("encodedData", encodedData);
+        var url = `https://ipeshd.dpe.go.th?n=${encodedData}`;
+        console.log("url: ", `https://ipeshd.dpe.go.th?n=${encodedData}`);
+        window.open(url, '_blank');
+    }
+    else {
+        $("#Modal_NoProfileIDCard").modal("show");
+        console.log("error there is no idcard");
+    }
+}
 
 $(document).ready(function () {
 
@@ -586,6 +601,7 @@ $(document).ready(function () {
 
     if (appUserId != -1) {
         $("#btnOpenPopupForCreatePSN").show();
+        $("#btnGoToIPESHD").show();
     }
 
     GetToken().done(function (response) {
@@ -616,6 +632,11 @@ $(document).ready(function () {
     $("#btnOpenPopupForCreatePSN").click(function () {
         DisplayPopupForCreatePSN();
     });
+
+    $("#btnGoToIPESHD").click(function () {
+        GoToIPESHD();
+    });
+    
 
     $("#ddlProvince").change(function () {
         var provinceId = $("#ddlProvince").val();
