@@ -321,7 +321,7 @@ function GetStadium(token, pageNumber, STADIUM_NAME, PROV_CODE, AMP_CODE, TAM_CO
         PrintVoteAvg(data);
 
         GenerateTotalItems(Number(results.all_rows), "lblTotalItems");
-        GeneratePaginationHtml(pageNumber, results.all_rows == 0 ? 0 : results.all_pages, "ulPagination");
+        GeneratePaginationHtml(pageNumber, results.all_rows > 0 ? results.all_pages : 0, "ulPagination");
     });
 }
 
