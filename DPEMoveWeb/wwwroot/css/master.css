@@ -162,14 +162,14 @@ hr { border-color: #e0e0e0; }
 .con_right h3 { margin: 0; line-height: 1.2;}
 .con_right p {line-height: 1;}
 .absol_right { position:absolute ; right:15px;}
-.service_sec-box { width: 74px; height: 74px; margin: 0 10px 0 0; text-align:center;}
+.service_sec-box { width: 74px; /*height: 74px;*/ margin: 0 10px 0 0; text-align:center;}
 .service_sec { margin: 0;}
 .service_sec ul li {display: inline;}
 .read_detail { width:180px; height: 77px; background: #226b50; color: #fff;}
 .progress { border-radius: 8px; height: 16px; }
 .btn-green { background-color: #226b50; border-color:#226b50; color:#FFFFFF; opacity: 1; }
 .clear_sec { clear: both;}
-.nearby { background: #f1f1f1; margin: 110px 0 0 0; padding: 20px; border-radius: 5px; }
+.nearby { background: #f1f1f1; margin: 10px 0 0 0; padding: 20px; border-radius: 5px; }
 .nearby h3 { margin: 0 0 10px 15px;}
 .rating_sec .comment_sec { background: #f1f1f1; padding: 20px; border-radius: 5px; }
 .rating_sec .comment_sec h3 { margin: 0 0 10px 15px !important;}
@@ -409,11 +409,11 @@ button:focus { outline: none; }
 .pagination { margin-left: auto; margin-right: auto; text-align: center; border-radius: none; }
 .pagination li { border: none; padding-left: 5px; padding-right: 5px; }
 .pagination > .page-item > .page-link, .pagination > .page-item > span, .pagination > .page-item:first-child > .page-link, .pagination > .page-item:first-child > span, .pagination > .page-item:last-child > .page-link, .pagination > .page-item:last-child > span { border: 1px solid #eaeaea; color: #66615b; font-weight: normal; back }
-
-
 .page-item .page-link:hover,
 .page-item.active .page-link:hover,
 .page-item.active .page-link { background-color: #007051 !important; border-color: #007051 !important; color: #ffffff !important; }
+#dv_UNDER_STADIUM a { line-height: 1em; }
+#dv_UNDER_STADIUM a .row { margin-bottom: 8px; }
 /**/
 @media screen and (max-width: 1200px) {
 	.sec_head .wellcome h2 { font-size: 28px; }
@@ -432,7 +432,7 @@ button:focus { outline: none; }
 	.row.head_slid h2 {margin: 15px 0;}
 	.con_right {margin: 10px 0;}
 	.absol_right {margin: 124px 0 0 0;}
-	.service_sec-box {height: 124px; margin: 0 8px 0 0;}
+	.service_sec-box { /*height: 124px;*/ margin: 0 8px 0 0;}
 	.absol_right .btn {padding: 0.5rem 10px}
 	.center { text-align: left;}
 	.bt_survey {padding: 30px 40px;}
