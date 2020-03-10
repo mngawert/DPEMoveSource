@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Net.Mail;
 using System.Security.Claims;
@@ -284,6 +285,31 @@ namespace DPEMoveWeb.Controllers
             return View(model);
         }
 
+        [AllowAnonymous]
+        public async Task<ActionResult> AppLogin(string token, string returnUrl)
+        {
+            var stream = token;
+            var handler = new JwtSecurityTokenHandler();
+            var jsonToken = handler.ReadToken(stream);
+            var tokenS = handler.ReadToken(stream) as JwtSecurityToken;
+            var jti = tokenS.Claims.First(claim => claim.Type == "jti").Value;
+            var sub = tokenS.Claims.First(claim => claim.Type == "sub").Value;
+
+            var user = await userManager.FindByNameAsync(sub);
+            if (user != null)
+            {
+                await signInManager.SignInAsync(user, true);
+            }
+
+            if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
+            {
+                return Redirect(returnUrl);
+            }
+            else
+            {
+                return RedirectToAction("index", "home");
+            }
+        }
 
         [AllowAnonymous]
         [HttpPost]
@@ -491,6 +517,12 @@ namespace DPEMoveWeb.Controllers
             return View();
         }
 
+        [HttpGet]
+        [Authorize]
+        public IActionResult Test()
+        {
+            return RedirectToAction("index", "home");
+        }
 
     }
 }
