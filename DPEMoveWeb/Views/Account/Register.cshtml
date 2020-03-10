@@ -41,7 +41,7 @@
                                 <input class="col-md-5 form-control" pattern="\d*" maxlength="13" asp-for="IdcardNo" />
                             </div>
                             <div class="form-group row">
-                                <label class="col-md-4 text-right" >คำนำหน้า</label>
+                                <label class="col-md-4 text-right">คำนำหน้า</label>
                                 <select name="PrefixId" id="ddlPREFIX_TH" class="col-md-5 form-control">
                                 </select>
                             </div>
@@ -85,11 +85,21 @@
                                     <a href="javascript:void(0)" id="btnPrivacy">นโยบายความเป็นส่วนตัว</a> • <a href="javascript:void(0)" id="btnTerm">ข้อกำหนดในการให้บริการ</a>
                                 </div>
                             </div>
+
+
+                            <div class="form-group row">
+                                <div class="col-md-4">
+                                </div>
+                                <div>
+                                    <label> <input type="checkbox" id="chkAgree" /> ยอมรับเงื่อนไข ในนโยบายความเป็นส่วนตัวและข้อกำหนดในการให้บริการ </label>
+                                </div>
+                            </div>
+
                             <div class="form-group row">
                                 <div class="col-md-4">
                                 </div>
                                 <div class="col-md-5">
-                                    <button type="submit" class="button darkgreen">ลงทะเบียน</button>
+                                    <button type="submit" id="btnSubmit" disabled class="button darkgreen">ลงทะเบียน</button>
                                 </div>
                             </div>
                         </form>
@@ -122,17 +132,7 @@
                         <div class="col-12">
 
                             <div id="dvPrivacy">
-                                @*<h4 class="text-center">
-                                        <img src="/images/icon_app.png" width="99" height="104" alt=""> <br />
-                                        <a href="/Survey">ท่านได้ตอบ แบบสำรวจ สำเร็จแล้ว <br /> คลิกที่นี่เพื่อตอบแบบสำรวจอีก</a> <br />
-                                        <br />
-                                        <br />
-                                        <br />
-                                        <br />
-                                        <br />
-                                    </h4>*@
                             </div>
-
                         </div>
                     </div>
                     <div class="row">
@@ -169,17 +169,7 @@
                         <div class="col-12">
 
                             <div id="dvTerm">
-                                @*<h4 class="text-center">
-                                        <img src="/images/icon_app.png" width="99" height="104" alt=""> <br />
-                                        <a href="/Survey">ท่านได้ตอบ แบบสำรวจ สำเร็จแล้ว <br /> คลิกที่นี่เพื่อตอบแบบสำรวจอีก</a> <br />
-                                        <br />
-                                        <br />
-                                        <br />
-                                        <br />
-                                        <br />
-                                    </h4>*@
                             </div>
-
                         </div>
                     </div>
                     <div class="row">
@@ -291,6 +281,15 @@
                 $("#Modal_Term").modal("show");
             }
         });
+    });
+
+    $("#chkAgree").click(function () {
+        if (this.checked) {
+            $('#btnSubmit').removeAttr('disabled');
+        }
+        else {
+            $('#btnSubmit').attr('disabled', 'disabled');
+        }
     });
 
 </script>

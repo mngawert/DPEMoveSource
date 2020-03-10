@@ -637,6 +637,14 @@ $(document).ready(function () {
         GoToIPESHD();
     });
     
+    $("#chkAgree").click(function () {
+        if (this.checked) {
+            $('#btnCreate').removeAttr('disabled');
+        }
+        else {
+            $('#btnCreate').attr('disabled', 'disabled');
+        }
+    });
 
     $("#ddlProvince").change(function () {
         var provinceId = $("#ddlProvince").val();
