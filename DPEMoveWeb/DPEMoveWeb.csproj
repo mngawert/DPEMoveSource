@@ -13,7 +13,6 @@
   </ItemGroup>
     
   <ItemGroup>
-    <ProjectReference Include="..\BOLibs\BOLibs.csproj" />
     <ProjectReference Include="..\DPEMoveDAL\DPEMoveDAL.csproj" />
   </ItemGroup>
 
