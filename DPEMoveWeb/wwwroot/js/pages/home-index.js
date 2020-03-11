@@ -357,7 +357,7 @@ function DrawGoogleMap(inputData) {
     function drawRegionsMap() {
         var data = new google.visualization.DataTable();
         data.addColumn('string', 'จังหวัด');
-        data.addColumn('number', 'จำนวนสนามกีฬา');
+        data.addColumn('number', 'สนามกีฬา');
 
         $.each(inputData, function (index, value) {
             data.addRow([value.PROV_NAMT, parseInt(value.TOTAL)]);

@@ -2,10 +2,6 @@
 
 @inject SignInManager<ApplicationUser> SignInManager
 
-@{
-    ViewData["Title"] = "ข้อมูลกิจกรรม";
-}
-
 <div class="page-breadcrumbs" style="background-image: url('/images/bg-bc.jpg')">
     <div class="wellcome_sec">
         <div class="container">
@@ -17,7 +13,7 @@
     <div class="filter"></div>
     <div class="content-center">
         <div class="container">
-            <h2 class="presentation-subtitle text-center">@ViewData["Title"]</h2>
+            <h2 class="presentation-subtitle text-center">กิจกรรมกีฬาและนันทนาการ</h2>
         </div>
     </div>
 </div>
@@ -28,7 +24,7 @@
             <div class="col-12">
 
                 <div class="tx-head_green">
-                    <h4><a href="/Events">กิจกรรม</a> &#xbb; ข้อมูลกิจกรรม</h4>
+                    <h4><a href="/Events">กิจกรรมกีฬาและนันทนาการ </a> &#xbb; ข้อมูลกิจกรรมกีฬาและนันทนาการ</h4>
                 </div>
                 <div class="button-container">
                     @if (SignInManager.IsSignedIn(User))
