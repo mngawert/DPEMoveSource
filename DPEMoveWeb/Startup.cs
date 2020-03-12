@@ -76,7 +76,8 @@ namespace DPEMoveWeb
                     {
                         UserName = Configuration["Email:Smtp:Username"],
                         Password = Configuration["Email:Smtp:Password"],
-                    }
+                    },
+                    EnableSsl = true
                 };
 
                 return smtpClient;

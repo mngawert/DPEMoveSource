@@ -767,7 +767,7 @@ function GetTrainHistory(token, MEMBER_ID) {
                     <td>${value.COURSE_SUBJECT}</td>
                     <td>${value.SPORT_SUBJECT}</td>
                     <td>${value.LEVEL_DETAIL}</td>
-                    <td class="center ForModeEdit"><a href="javascript:void(0);" onclick="DeleteTrainHistory('${token}', '${MEMBER_ID}', '${value.HISTORY_ID}');" class="button small red">&nbsp;ลบ&nbsp;</a></td>
+                    <td class="center ForModeEdit" style="display: none"><a href="javascript:void(0);" onclick="DeleteTrainHistory('${token}', '${MEMBER_ID}', '${value.HISTORY_ID}');" class="button small red">&nbsp;ลบ&nbsp;</a></td>
                 </tr>
                 `;
             });
