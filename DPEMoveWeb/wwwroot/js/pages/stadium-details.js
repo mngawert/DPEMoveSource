@@ -63,6 +63,10 @@ function GetStadiumDetails(token, id) {
             $("#lbl_SUPPORT").html(value.SUPPORT == null ? " - " : value.SUPPORT);
             $("#lbl_ADDRESS_SUPPORT").html(value.ADDRESS_SUPPORT == null ? " - " : value.ADDRESS_SUPPORT);
             $("#lbl_SPORT_DESCRIPTION").html(value.SPORT_DESCRIPTION);
+            $("#lbl_FIELD_EQUIPMENT").html(value.FIELD_EQUIPMENT);
+            $("#lbl_SPORT_EQUIPMENT").html(value.SPORT_EQUIPMENT);
+            $("#lbl_ILLUMINATION").html(value.ILLUMINATION);            
+
             $("#dv_CHARGES").html(value.CHARGES);
             $("[name='dv_ACCEPT_USER']").append(value.ACCEPT_USER);
             $("#dv_REGULATION").append(value.REGULATION);

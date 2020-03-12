@@ -950,8 +950,26 @@ function ValidateForm() {
 
     if ($("[name='EventName']").val() == "1" ) {
         console.log("EventName error");
+
+        // go to tab index 7
+        $(".tab").removeClass("active").eq(7).addClass("active");
+        $(".tab_item").hide().eq(7).fadeIn()
+
         return false;
     }
+
+    console.log("check sectioncatId", $("[name='SectionCatId']").val());
+    if ($("[name='SectionCatId']").val() == "") {
+
+        console.log("SectionCatId error");
+
+        // go to tab index 1
+        $(".tab").removeClass("active").eq(1).addClass("active");
+        $(".tab_item").hide().eq(1).fadeIn()
+
+        return false;
+    }
+
 
     if (!$("#frmEditEvent")[0].checkValidity()) {
 
