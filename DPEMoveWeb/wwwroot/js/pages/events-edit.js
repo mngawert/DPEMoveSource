@@ -944,36 +944,20 @@ function GetActivityType(token, SECTION_CAT_ID, selectedActivityType, selectedAc
 
 function ValidateForm() {
 
-    console.log("validateForm1: ", $("#frmEditEvent"));
-    console.log("validateForm2: ", $("#frmEditEvent")[0].checkValidity());
-    console.log("validateForm3: ", document.getElementById('txtEventName').validity.valid);    
+    $("#frmEditEvent :input[required]").each(function () {
+        if (!$(this)[0].checkValidity()) {
 
-    if ($("[name='EventName']").val() == "1" ) {
-        console.log("EventName error");
+            var tabIndex = $(this).closest(".tab_item").index()
+            $(".tab").removeClass("active").eq(tabIndex).addClass("active");
+            $(".tab_item").hide().eq(tabIndex).fadeIn()
 
-        // go to tab index 7
-        $(".tab").removeClass("active").eq(7).addClass("active");
-        $(".tab_item").hide().eq(7).fadeIn()
-
-        return false;
-    }
-
-    console.log("check sectioncatId", $("[name='SectionCatId']").val());
-    if ($("[name='SectionCatId']").val() == "") {
-
-        console.log("SectionCatId error");
-
-        // go to tab index 1
-        $(".tab").removeClass("active").eq(1).addClass("active");
-        $(".tab_item").hide().eq(1).fadeIn()
-
-        return false;
-    }
-
+            $(this)[0].reportValidity();
+            return false;
+        }
+    });
 
     if (!$("#frmEditEvent")[0].checkValidity()) {
 
-        console.log("validateForm3: ", $("#frmEditEvent")[0]);
         $("#frmEditEvent")[0].reportValidity();
         return false;
     }

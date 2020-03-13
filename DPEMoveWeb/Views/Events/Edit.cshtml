@@ -18,7 +18,7 @@
 <div class="section">
     <div class="container">
 
-        <form id="frmEditEvent" asp-action="EditEvent" enctype="multipart/form-data" onsubmit="return ValidateForm();">
+        <form id="frmEditEvent" asp-action="EditEvent" enctype="multipart/form-data">
 
             <div class="row breadcrumbs-container">
                 <div class="col-12">
@@ -26,8 +26,7 @@
                         <a href="/Events">ข้อมูลกิจกรรมกีฬาและนันทนาการ</a> > <a href="#">ข้อมูลกิจกรรม</a> > เพิ่ม/แก้ไข
                     </div>
                     <div class="button-container">
-                        @*<a href="#" class="button green">บันทึก</a>*@
-                        <button type="submit" class="button green">บันทึก</button>
+                        <button type="submit" class="button green" onclick="return ValidateForm();" >บันทึก</button>
                     </div>
                 </div>
             </div>
