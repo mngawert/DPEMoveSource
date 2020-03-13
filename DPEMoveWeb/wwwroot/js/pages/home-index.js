@@ -346,12 +346,7 @@ function DrawChartForReportEvent4(token) {
 
 function DrawGoogleMap(inputData) {
 
-    google.charts.load('current', {
-        'packages': ['geochart'],
-        // Note: you will need to get a mapsApiKey for your project.
-        // See: https://developers.google.com/chart/interactive/docs/basic_load_libs#load-settings
-        'mapsApiKey': 'AIzaSyDBro62OhioE6oXZ97CV8Y4AnrzfVIt4HA'
-    });
+    google.charts.load('current', {'packages': ['geochart'], 'mapsApiKey': 'AIzaSyDBro62OhioE6oXZ97CV8Y4AnrzfVIt4HA'});
     google.charts.setOnLoadCallback(drawRegionsMap);
 
     function drawRegionsMap() {
@@ -522,6 +517,7 @@ function GetSection(token) {
             console.log("SECTION_DATA", SECTION_DATA);
 
             DrawChartForReportEvent4(localStorage.getItem("token"));
+            DrawChartForReportSurvey151A(localStorage.getItem("token"));
         }
     });
 }
@@ -551,7 +547,7 @@ $(document).ready(function () {
         localStorage.setItem("token", token1);
 
         GetReportEvent1(token1);
-        DrawChartForReportSurvey151A(token1);
+        //DrawChartForReportSurvey151A(token1);
         //DrawChartForReportEvent4(token1);
         GetReportEvent3(token1);
         GetStadium(token1);

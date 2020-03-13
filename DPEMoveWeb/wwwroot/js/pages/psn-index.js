@@ -563,10 +563,45 @@ function getUrlVars() {
     return vars;
 }
 
+function GetGMSMemberByProfileIDCard(token, HRS_ID) {
+
+    var form = new FormData();
+    form.append("Token", token);
+    form.append("HRS_ID", HRS_ID);
+
+    var settings = {
+        "url": "https://data.dpe.go.th/api/personal/member/getGmsMember",
+        "method": "POST",
+        "timeout": 0,
+        "processData": false,
+        "mimeType": "multipart/form-data",
+        "contentType": false,
+        "data": form
+    };
+
+    $.ajax(settings).done(function (response, textStatus, jqXHR) {
+
+        if (jqXHR.status == 200) {
+            var results = JSON.parse(response);
+            var data = results.data;
+            if (data.length > 0) {
+                window.location.href = window.location.href.replace("#", "") + "/Details/" + data[0].MEMBER_ID;
+            }
+            else {
+                $("#Modal_CreatePSN").modal("show");
+            }
+        }
+    });
+}
+
+
 function DisplayPopupForCreatePSN() {
 
     if (appIdcardNo.length > 0) {
-        $("#Modal_CreatePSN").modal("show");
+        //$("#Modal_CreatePSN").modal("show");
+
+        var token = localStorage.getItem("token");
+        GetGMSMemberByProfileIDCard(token, appIdcardNo);
     }
     else {
         $("#Modal_NoProfileIDCard").modal("show");
