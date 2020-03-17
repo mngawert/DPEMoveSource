@@ -26,6 +26,23 @@ namespace DPEMoveWeb.ApiControllers
 
         [HttpPost]
         [Authorize]
+        public IEnumerable<VW_RPT_SURVEY_15_1_A_DbQuery> GetReportSurvey151A(VW_RPT_SURVEY_15_1_A_Request model)
+        {
+            string sql = @"
+                SELECT   sport_name, SUM (sum_attr) AS sum_attr
+                    FROM vw_rpt_survey_15_1_a
+                   WHERE created_date BETWEEN {0} AND {1}
+                GROUP BY sport_name
+                 ORDER BY 1,2
+                ";
+
+            var q = _context.VW_RPT_SURVEY_15_1_A_DbQuery.FromSql(sql, model.CreatedDateFrom, model.CreatedDateTo);
+
+            return q.ToList();
+        }
+
+        [HttpPost]
+        [Authorize]
         public IEnumerable<ReportEvent1DbQuery> GetReportEvent1(ReportEvent1Request model)
         {
             string sql = @"
@@ -90,19 +107,61 @@ namespace DPEMoveWeb.ApiControllers
 
         [HttpPost]
         [Authorize]
-        public IEnumerable<VW_RPT_SURVEY_15_1_A_DbQuery> GetReportSurvey151A(VW_RPT_SURVEY_15_1_A_Request model)
+        public IEnumerable<ReportEvent5DbQuery> GetReportEvent5(ReportEvent5Request model)
         {
             string sql = @"
-                SELECT   sport_name, SUM (sum_attr) AS sum_attr
-                    FROM vw_rpt_survey_15_1_a
-                   WHERE created_date BETWEEN {0} AND {1}
-                GROUP BY sport_name
-                 ORDER BY 1,2
+                select SECTION_CAT_ID, count(1) as NO_OF_EVENTS 
+                from VW_RPT_EVENT
+                where EVENT_START_TIMESTAMP between {0} and {1}
+                and (PROVINCE_CODE = {2} or {2} is null)
+                group by SECTION_CAT_ID
                 ";
 
-            var q = _context.VW_RPT_SURVEY_15_1_A_DbQuery.FromSql(sql, model.CreatedDateFrom, model.CreatedDateTo);
+            var q = _context.ReportEvent5DbQuery.FromSql(sql, model.EventDateFrom, model.EventDateTo, model.ProvinceCode);
 
             return q.ToList();
         }
+
+        [HttpPost]
+        [Authorize]
+        public IEnumerable<ReportEvent6DbQuery> GetReportEvent6(ReportEvent6Request model)
+        {
+            string sql = @"
+                select a.EVENT_LEVEL_ID, b.EVENT_LEVEL_NAME, count(1) as NO_OF_EVENTS 
+                from VW_RPT_EVENT a, M_EVENT_LEVEL b
+                where EVENT_START_TIMESTAMP between {0} and {1}
+                and (PROVINCE_CODE = {2} or {2} is null)
+                and a.EVENT_LEVEL_ID = b.EVENT_LEVEL_ID
+                group by a.EVENT_LEVEL_ID, b.EVENT_LEVEL_NAME
+                ORDER BY 1
+                ";
+
+            var q = _context.ReportEvent6DbQuery.FromSql(sql, model.EventDateFrom, model.EventDateTo, model.ProvinceCode);
+
+            return q.ToList();
+        }
+
+
+        [HttpPost]
+        [Authorize]
+        public IEnumerable<ReportEvent7DbQuery> GetReportEvent7(ReportEvent7Request model)
+        {
+            string sql = @"
+                select c.M_EVENT_OBJECTIVE_ID, c.EVENT_OBJECTIVE_NAME, count(1) as NO_OF_EVENTS 
+                from VW_RPT_EVENT a, EVENT_OBJECTIVE b, M_EVENT_OBJECTIVE c
+                where EVENT_START_TIMESTAMP between {0} and {1}
+                and (PROVINCE_CODE = {2} or {2} is null)
+                and a.EVENT_ID = b.EVENT_ID
+                and b.M_EVENT_OBJECTIVE_ID = c.M_EVENT_OBJECTIVE_ID
+                group by c.M_EVENT_OBJECTIVE_ID, c.EVENT_OBJECTIVE_NAME
+                ORDER BY 1
+                ";
+
+            var q = _context.ReportEvent7DbQuery.FromSql(sql, model.EventDateFrom, model.EventDateTo, model.ProvinceCode);
+
+            return q.ToList();
+        }
+
+
     }
 }

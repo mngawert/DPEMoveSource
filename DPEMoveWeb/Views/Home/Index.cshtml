@@ -405,57 +405,19 @@
                                 <li class="nav-item"> <a class="nav-link" id="acti-tab" data-toggle="tab" href="#acti" role="tab" aria-controls="acti" aria-selected="false">กิจกรรมกีฬาและนันทนาการ</a> </li>
                                 <li class="nav-item"> <a class="nav-link" id="loca-tab" data-toggle="tab" href="#loca" role="tab" aria-controls="loca" aria-selected="false">สนามกีฬา</a> </li>
                                 <li class="nav-item"> <a class="nav-link" id="personnel-tab" data-toggle="tab" href="#personnel" role="tab" aria-controls="personnel" aria-selected="false">บุคลากรการกีฬา</a> </li>
+
+                                <li class="nav-item"> <a class="nav-link" id="num_acti-tab" data-toggle="tab" href="#num_acti5" role="tab" aria-controls="num_acti5" aria-selected="false">ภาพรวมกิจกรรมกีฬาและนันทนาการ</a> </li>
+                                <li class="nav-item"> <a class="nav-link" id="num_acti-tab" data-toggle="tab" href="#num_acti6" role="tab" aria-controls="num_acti6" aria-selected="false">สถิติกิจกรรมกีฬาและนันทนาการแบ่งตามระดับกิจกรรม</a> </li>
+                                <li class="nav-item"> <a class="nav-link" id="num_acti-tab" data-toggle="tab" href="#num_acti7" role="tab" aria-controls="num_acti7" aria-selected="false">สถิติกิจกรรมกีฬาและนันทนาการแบ่งตามวัตถุประสงค์การจัดงาน</a> </li>
+                                <li class="nav-item"> <a class="nav-link" id="num_acti-tab" data-toggle="tab" href="#num_acti8" role="tab" aria-controls="num_acti8" aria-selected="false">สถิติกิจกรรมกีฬาและนันทนาการแบ่งประเภทกีฬา</a> </li>
                             </ul>
                         </div>
                         <!-- /.col-md-4 -->
                         <div class="col-md-9 bg_tab">
                             <div class="tab-content" id="myTabContent">
-                                @*<div class="tab-pane fade show active" id="num_people" role="tabpanel" aria-labelledby="num_people-tab">
-                                        <div class="text-center">
-                                            <h3>สรุปจำนวนคนออกกำลังกาย</h3>
-                                        </div>
-                                        <br />
-                                        <div id="chartContainer" style="height: 370px; max-width: 920px; margin: 0px auto;"></div>
-                                        <script>
-                                            window.onload = function () {
-                                                var chart = new CanvasJS.Chart("chartContainer", {
-                                                    animationEnabled: true,
-                                                    data: [{
-                                                        type: "doughnut",
-                                                        startAngle: 240,
-                                                        //innerRadius: 60,
-                                                        indexLabelFontSize: 15,
-                                                        indexLabel: "{label}",
-                                                        toolTipContent: "<b>{label}:</b>",
-                                                        dataPoints: [
-                                                            { y: 6027, label: "ม.ค. 62 : 6,027 คน" },
-                                                            { y: 5027, label: "ก.พ. 62 : 5,027 คน" },
-                                                            { y: 6500, label: "มี.ค. 62 : 6,500 คน" },
-                                                            { y: 6120, label: "เม.ย. 62 : 6,120 คน" },
-                                                            { y: 5010, label: "พ.ค. 62 : 5,010 คน" },
-                                                            { y: 6100, label: "มิ.ย. 62 : 6,100 คน" },
-                                                            { y: 5850, label: "ก.ค. 62 : 5,850 คน" },
-                                                            { y: 5800, label: "ส.ค. 62 : 5,800 คน" },
-                                                            { y: 5820, label: "ก.ย. 62 : 5,820 คน" },
-                                                            { y: 5950, label: "ต.ค. 62 : 5,950 คน" },
-                                                            { y: 6000, label: "พ.ย. 62 : 6,000 คน" },
-                                                            { y: 6027, label: "ธ.ค. 62 : 6,027 คน" },
-                                                        ]
-                                                    }]
-                                                });
-                                                chart.render();
-                                            }
-                                        </script>
-                                    </div>*@
-                                @*<div class="tab-pane fade" id="num_per" role="tabpanel" aria-labelledby="num_per-tab">
-                                    <h3>จำนวนบุคลากรแต่ละพื้นที่</h3>
-                                    <div class="text-center"><img src="/images/person_area.jpg" /></div>
-                                </div>*@
                                 <div class="tab-pane fade" id="num_acti" role="tabpanel" aria-labelledby="num_acti-tab">
                                     <h3>กิจกรรมกีฬาและนันทนาการในประเทศไทย</h3>
-                                    @*<div class="text-center"><img src="/images/events_now.jpg" /></div>*@
-                                    <div id="piechart" style="width: 750px; height: 400px;"></div>
-
+                                    <div id="dvReportEvent4" style="width: 750px; height: 400px;"></div>
                                 </div>
                                 <div class="tab-pane fade show active" id="behav" role="tabpanel" aria-labelledby="behav-tab">
                                     <h3>พฤติกรรมการออกกำลังกาย</h3>
@@ -478,66 +440,6 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @*<tr>
-                                                    <th scope="row">กรุงเทพมหานคร</th>
-                                                    <td>1,626</td>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">พะเยา</th>
-                                                    <td>831</td>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">สตูล</th>
-                                                    <td>1,013</td>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">นครราชสีมา</th>
-                                                    <td>1,925</td>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">ตาก</th>
-                                                    <td>1,925</td>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">ตราด</th>
-                                                    <td>1,925</td>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">เพชรบุรี</th>
-                                                    <td>1,925</td>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">เลย</th>
-                                                    <td>1,925</td>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">สกลนคร</th>
-                                                    <td>1,925</td>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">แม่ฮ่องสอน</th>
-                                                    <td>1,925</td>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">เชียงใหม่</th>
-                                                    <td>1,925</td>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">พิษณุโลก</th>
-                                                    <td>1,925</td>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">สงขลา</th>
-                                                    <td>1,925</td>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">สุราษฏร์ธานี</th>
-                                                    <td>1,925</td>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">ขอนแก่น</th>
-                                                    <td>1,925</td>
-                                                </tr>*@
                                             </tbody>
                                         </table>
                                     </div>
@@ -557,66 +459,6 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @*<tr>
-                                                    <th scope="row">กรุงเทพมหานคร</th>
-                                                    <td>1,626</td>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">พะเยา</th>
-                                                    <td>831</td>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">สตูล</th>
-                                                    <td>1,013</td>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">นครราชสีมา</th>
-                                                    <td>1,925</td>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">ตาก</th>
-                                                    <td>1,925</td>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">ตราด</th>
-                                                    <td>1,925</td>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">เพชรบุรี</th>
-                                                    <td>1,925</td>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">เลย</th>
-                                                    <td>1,925</td>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">สกลนคร</th>
-                                                    <td>1,925</td>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">แม่ฮ่องสอน</th>
-                                                    <td>1,925</td>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">เชียงใหม่</th>
-                                                    <td>1,925</td>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">พิษณุโลก</th>
-                                                    <td>1,925</td>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">สงขลา</th>
-                                                    <td>1,925</td>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">สุราษฏร์ธานี</th>
-                                                    <td>1,925</td>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">ขอนแก่น</th>
-                                                    <td>1,925</td>
-                                                </tr>*@
                                             </tbody>
                                         </table>
                                     </div>
@@ -700,6 +542,35 @@
                                         </table>
                                     </div>
                                 </div>
+
+                                <div class="tab-pane fade" id="num_acti5" role="tabpanel" aria-labelledby="num_acti5-tab">
+                                    <h3>ภาพรวมกิจกรรมกีฬาและนันทนาการ</h3>
+
+                                    <select class="input-field" id="ddlProvinceForReportEvent5" name="Province">
+                                        <option value="">แสดงทั้งหมด</option>
+                                    </select>
+                                    <div id="dvReportEvent5" style="width: 750px; height: 400px;"></div>
+                                </div>
+                                <div class="tab-pane fade" id="num_acti6" role="tabpanel" aria-labelledby="num_acti6-tab">
+                                    <h3>สถิติกิจกรรมกีฬาและนันทนาการแบ่งตามระดับกิจกรรม</h3>
+                                    <select class="input-field" id="ddlProvinceForReportEvent6" name="Province">
+                                        <option value="">แสดงทั้งหมด</option>
+                                    </select>
+                                    <div id="dvReportEvent6" style="width: 750px; height: 400px;"></div>
+                                </div>
+                                <div class="tab-pane fade" id="num_acti7" role="tabpanel" aria-labelledby="num_acti7-tab">
+                                    <h3>สถิติกิจกรรมกีฬาและนันทนาการแบ่งตามวัตถุประสงค์การจัดงาน</h3>
+                                    <select class="input-field" id="ddlProvinceForReportEvent7" name="Province">
+                                        <option value="">แสดงทั้งหมด</option>
+                                    </select>
+                                    <div id="dvReportEvent7" style="width: 750px; height: 400px;"></div>
+                                </div>
+                                <div class="tab-pane fade" id="num_acti8" role="tabpanel" aria-labelledby="num_acti8-tab">
+                                    <h3>สถิติกิจกรรมกีฬาและนันทนาการแบ่งประเภทกีฬา</h3>
+                                    <div id="dvReportEvent8" style="width: 750px; height: 400px;"></div>
+                                </div>
+
+
                             </div>
                         </div>
                         <!-- /.col-md-8 -->

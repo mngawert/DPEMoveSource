@@ -19,6 +19,9 @@ namespace DPEMoveDAL.Models
         public DbQuery<ReportEvent2DbQuery> ReportEvent2DbQuery { get; set; }
         public DbQuery<ReportEvent3DbQuery> ReportEvent3DbQuery { get; set; }
         public DbQuery<ReportEvent4DbQuery> ReportEvent4DbQuery { get; set; }
+        public DbQuery<ReportEvent5DbQuery> ReportEvent5DbQuery { get; set; }
+        public DbQuery<ReportEvent6DbQuery> ReportEvent6DbQuery { get; set; }
+        public DbQuery<ReportEvent7DbQuery> ReportEvent7DbQuery { get; set; }
         public DbQuery<VW_RPT_SURVEY_15_1_A_DbQuery> VW_RPT_SURVEY_15_1_A_DbQuery { get; set; }
         public DbQuery<VwSurveyAnswerDbQuery> VwSurveyAnswerDbQuery { get; set; }
         public DbQuery<VwSurveyAnswerDetailsDbQuery> VwSurveyAnswerDetailsDbQuery { get; set; }

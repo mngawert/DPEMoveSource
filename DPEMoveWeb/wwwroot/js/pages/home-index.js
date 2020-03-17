@@ -334,15 +334,164 @@ function DrawChartForReportEvent4(token) {
                 var options = {
                     width: 750,
                     height: 400,
-                    title: 'กิจกรรมที่กำลังจัด ณ ขณะนี้'
+                    title: 'กิจกรรมกีฬาและนันทนาการในประเทศไทย'
                 };
 
-                var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+                var chart = new google.visualization.PieChart(document.getElementById('dvReportEvent4'));
                 chart.draw(data, options);
             }
         });
     }
 }
+
+function GetReportEvent5(token, provinceCode) {
+
+    console.log("calling GetReportEvent5: ", provinceCode);
+    var settings = {
+        "url": "/api/Report/GetReportEvent5",
+        "method": "POST",
+        "timeout": 0,
+        "headers": {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + token
+        },
+        "data": JSON.stringify({ "eventDateFrom": "2020-01-01", "eventDateTo": "2099-12-31", "provinceCode": provinceCode }),
+    };
+
+    return $.ajax(settings);
+}
+
+function DrawChartForReportEvent5(token, provinceCode) {
+
+    google.charts.load('current', { 'packages': ['corechart'] });
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+
+        GetReportEvent5(token, provinceCode).done(function (response, textStatus, jqXHR) {
+            if (jqXHR.status == 200) {
+
+                var data = new google.visualization.DataTable();
+                data.addColumn('string', 'กิจกรรม');
+                data.addColumn('number', 'จำนวน');
+
+                $.each(response, function (index, value) {
+
+                    var sectionName = GetSectionNameById(value.sectionCatId);
+                    data.addRow([sectionName, value.noOfEvents]);
+                });
+
+                var options = {
+                    width: 750,
+                    height: 400,
+                    title: 'ภาพรวมกิจกรรมกีฬาและนันทนาการ'
+                };
+
+                var chart = new google.visualization.PieChart(document.getElementById('dvReportEvent5'));
+                chart.draw(data, options);
+            }
+        });
+    }
+}
+
+
+function GetReportEvent6(token, provinceCode) {
+
+    var settings = {
+        "url": "/api/Report/GetReportEvent6",
+        "method": "POST",
+        "timeout": 0,
+        "headers": {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + token
+        },
+        "data": JSON.stringify({ "eventDateFrom": "2020-01-01", "eventDateTo": "2099-12-31", "provinceCode": provinceCode }),
+    };
+
+    return $.ajax(settings);
+}
+
+function DrawChartForReportEvent6(token, provinceCode) {
+
+    google.charts.load('current', { 'packages': ['corechart'] });
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+
+        GetReportEvent6(token, provinceCode).done(function (response, textStatus, jqXHR) {
+            if (jqXHR.status == 200) {
+
+                var data = new google.visualization.DataTable();
+                data.addColumn('string', 'กิจกรรม');
+                data.addColumn('number', 'จำนวน');
+
+                $.each(response, function (index, value) {
+
+                    data.addRow([value.eventLevelName.replace("โปรดระบุ", ""), value.noOfEvents]);
+                });
+
+                var options = {
+                    width: 750,
+                    height: 400,
+                    title: 'สถิติกิจกรรมกีฬาและนันทนาการแบ่งตามระดับกิจกรรม'
+                };
+
+                var chart = new google.visualization.PieChart(document.getElementById('dvReportEvent6'));
+                chart.draw(data, options);
+            }
+        });
+    }
+}
+
+
+function GetReportEvent7(token, provinceCode) {
+
+    var settings = {
+        "url": "/api/Report/GetReportEvent7",
+        "method": "POST",
+        "timeout": 0,
+        "headers": {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + token
+        },
+        "data": JSON.stringify({ "eventDateFrom": "2020-01-01", "eventDateTo": "2099-12-31", "provinceCode": provinceCode }),
+    };
+
+    return $.ajax(settings);
+}
+
+function DrawChartForReportEvent7(token, provinceCode) {
+
+    google.charts.load('current', { 'packages': ['corechart'] });
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+
+        GetReportEvent7(token, provinceCode).done(function (response, textStatus, jqXHR) {
+            if (jqXHR.status == 200) {
+
+                var data = new google.visualization.DataTable();
+                data.addColumn('string', 'กิจกรรม');
+                data.addColumn('number', 'จำนวน');
+
+                $.each(response, function (index, value) {
+
+                    data.addRow([value.eventObjectiveName.replace("โปรดระบุ", ""), value.noOfEvents]);
+                });
+
+                var options = {
+                    width: 750,
+                    height: 400,
+                    title: 'สถิติกิจกรรมกีฬาและนันทนาการแบ่งตามวัตถุประสงค์การจัดงาน'
+                };
+
+                var chart = new google.visualization.PieChart(document.getElementById('dvReportEvent7'));
+                chart.draw(data, options);
+            }
+        });
+    }
+}
+
 
 function DrawGoogleMap(inputData) {
 
@@ -492,6 +641,43 @@ function GetStadium(token) {
     });
 }
 
+function GetProvince(token) {
+
+    console.log("call GetProvince");
+    var form = new FormData();
+    form.append("Token", token);
+
+    var settings = {
+        "url": "https://data.dpe.go.th/api/stadium/location/getProvince",
+        "method": "POST",
+        "timeout": 0,
+        "processData": false,
+        "mimeType": "multipart/form-data",
+        "contentType": false,
+        "data": form
+    };
+
+    $.ajax(settings).done(function (response, textStatus, jqXHR) {
+
+        if (jqXHR.status == 200) {
+            var results = JSON.parse(response);
+            var data = results.data;
+            PROVINCE_DATA = data;
+            var items =
+                `
+            <option value="">แสดงทั้งหมด</option>
+            `
+            $.each(data, function (index, value) {
+                items +=
+                    `
+                <option value="` + value.PROV_CODE + `">` + value.PROV_NAMT + `</option>
+                `
+            });
+            $("[name='Province']").html(items);
+        }
+    });
+}
+
 function GetSection(token) {
 
     var form = new FormData();
@@ -517,6 +703,9 @@ function GetSection(token) {
             console.log("SECTION_DATA", SECTION_DATA);
 
             DrawChartForReportEvent4(localStorage.getItem("token"));
+            DrawChartForReportEvent5(localStorage.getItem("token"), $("#ddlProvinceForReportEvent5").val());
+            DrawChartForReportEvent6(localStorage.getItem("token"), $("#ddlProvinceForReportEvent6").val());
+            DrawChartForReportEvent7(localStorage.getItem("token"), $("#ddlProvinceForReportEvent7").val());
             DrawChartForReportSurvey151A(localStorage.getItem("token"));
         }
     });
@@ -555,6 +744,7 @@ $(document).ready(function () {
         GetToken().done(function (resp2) {
             var token2 = JSON.parse(resp2).data;
             PrintTableForReportStadium1(token2);
+            GetProvince(token2);
             GetSection(token2);
         });
     });
@@ -562,6 +752,18 @@ $(document).ready(function () {
 
     GetNews();
     //GetStadiumData();
+
+    $("#ddlProvinceForReportEvent5").change(function () {
+        DrawChartForReportEvent5(localStorage.getItem("token"), $(this).val());
+    });
+
+    $("#ddlProvinceForReportEvent6").change(function () {
+        DrawChartForReportEvent6(localStorage.getItem("token"), $(this).val());
+    });
+
+    $("#ddlProvinceForReportEvent7").change(function () {
+        DrawChartForReportEvent7(localStorage.getItem("token"), $(this).val());
+    });
 
 });
 

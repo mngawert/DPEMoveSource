@@ -86,6 +86,52 @@ namespace DPEMoveDAL.ViewModels
         public int NoOfEvents { get; set; }
     }
 
+    public class ReportEvent5Request
+    {
+        public DateTime EventDateFrom { get; set; }
+        public DateTime EventDateTo { get; set; }
+        public string ProvinceCode { get; set; }
+    }
+    public class ReportEvent5DbQuery
+    {
+        [Column("SECTION_CAT_ID")]
+        public int? SectionCatId { get; set; }
+        [Column("NO_OF_EVENTS")]
+        public int NoOfEvents { get; set; }
+    }
+
+    public class ReportEvent6Request
+    {
+        public DateTime EventDateFrom { get; set; }
+        public DateTime EventDateTo { get; set; }
+        public string ProvinceCode { get; set; }
+    }
+    public class ReportEvent6DbQuery
+    {
+        [Column("EVENT_LEVEL_ID")]
+        public int? EventLevelId { get; set; }
+        [Column("EVENT_LEVEL_NAME")]
+        public string EventLevelName { get; set; }
+        [Column("NO_OF_EVENTS")]
+        public int NoOfEvents { get; set; }
+    }
+
+
+    public class ReportEvent7Request
+    {
+        public DateTime EventDateFrom { get; set; }
+        public DateTime EventDateTo { get; set; }
+        public string ProvinceCode { get; set; }
+    }
+    public class ReportEvent7DbQuery
+    {
+        [Column("M_EVENT_OBJECTIVE_ID")]
+        public int? MEventObjectiveId { get; set; }
+        [Column("EVENT_OBJECTIVE_NAME")]
+        public string EventObjectiveName { get; set; }
+        [Column("NO_OF_EVENTS")]
+        public int NoOfEvents { get; set; }
+    }
 
     public class VW_RPT_SURVEY_15_1_A_Request
     {
