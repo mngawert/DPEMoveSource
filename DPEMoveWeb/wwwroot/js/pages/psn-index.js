@@ -584,12 +584,15 @@ function GetGMSMemberByProfileIDCard(token, HRS_ID) {
         if (jqXHR.status == 200) {
             var results = JSON.parse(response);
             var data = results.data;
-            if (data.length > 0) {
-                window.location.href = window.location.href.replace("#", "") + "/Details/" + data[0].MEMBER_ID;
-            }
-            else {
-                $("#Modal_CreatePSN").modal("show");
-            }
+            $.each(data, function (index, value) {
+
+                console.log("data", data);
+                appUserHRS_ID = value.HRS_ID;
+                appUserMEMBER_ID = value.MEMBER_ID;
+
+                $("#btnGoToIPESHD").show();
+                $("#btnOpenPopupForCreatePSN").text("แก้ไขข้อมูล");
+            });
         }
     });
 }
@@ -598,10 +601,13 @@ function GetGMSMemberByProfileIDCard(token, HRS_ID) {
 function DisplayPopupForCreatePSN() {
 
     if (appIdcardNo.length > 0) {
-        //$("#Modal_CreatePSN").modal("show");
 
-        var token = localStorage.getItem("token");
-        GetGMSMemberByProfileIDCard(token, appIdcardNo);
+        if (appUserMEMBER_ID.length > 0) {
+            window.location.href = window.location.href.replace("#", "") + "/Details/" + appUserMEMBER_ID;
+        }
+        else {
+            $("#Modal_CreatePSN").modal("show");
+        }
     }
     else {
         $("#Modal_NoProfileIDCard").modal("show");
@@ -612,10 +618,13 @@ function DisplayPopupForCreatePSN() {
 function GoToIPESHD() {
 
     if (appIdcardNo.length > 0) {
-        const encodedData = window.btoa(appIdcardNo);
-        console.log("encodedData", encodedData);
-        var url = `https://ipeshd.dpe.go.th?n=${encodedData}`;
-        console.log("url: ", `https://ipeshd.dpe.go.th?n=${encodedData}`);
+        const param1 = window.btoa(appIdcardNo);
+        console.log("param1", param1);
+        const param2 = window.btoa(appUserMEMBER_ID + "&" + appUserHRS_ID);
+        console.log("param2", param2);
+
+        var url = `https://ipeshd.dpe.go.th?n=${param1}&o=${param2}`;
+        console.log("url: ", url);
         window.open(url, '_blank');
     }
     else {
@@ -623,6 +632,10 @@ function GoToIPESHD() {
         console.log("error there is no idcard");
     }
 }
+
+
+var appUserHRS_ID = "";
+var appUserMEMBER_ID = "";
 
 $(document).ready(function () {
 
@@ -636,7 +649,7 @@ $(document).ready(function () {
 
     if (appUserId != -1) {
         $("#btnOpenPopupForCreatePSN").show();
-        $("#btnGoToIPESHD").show();
+        //$("#btnGoToIPESHD").show();
     }
 
     GetToken().done(function (response) {
@@ -644,6 +657,10 @@ $(document).ready(function () {
         localStorage.setItem("token", token);
 
         getPrefix(token, null);
+
+        if (appIdcardNo.length > 0) {
+            GetGMSMemberByProfileIDCard(token, appIdcardNo);
+        }
 
         var urlParam = new URLSearchParams(window.location.search);
         if (urlParam.get("SEARCH_NAME") != null) {
