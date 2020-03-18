@@ -473,7 +473,10 @@ function DrawChartForReportEvent8(token, provinceCode) {
                 $.each(data_10, function (index, value) {
 
                     var activityName = GetActivityNameById(value.actTypeId);
-                    data.addRow([activityName.replace("โปรดระบุ", ""), value.noOfEvents]);
+                    activityName = activityName.replace("โปรดระบุ", "")
+                    console.log("activityName", activityName);
+
+                    data.addRow([activityName, value.noOfEvents]);
                 });
 
                 var options = {
@@ -484,19 +487,19 @@ function DrawChartForReportEvent8(token, provinceCode) {
                     //bar: { groupWidth: "95%" },
                     colors: [ '#7CCC4E' ],
                     title: 'สถิติกิจกรรมกีฬาและนันทนาการแบ่งประเภทกีฬา',
-                    //vAxis: {
-                    //    title: '',
-                    //    textStyle: {
-                    //        fontSize: 14,
-                    //        bold: true,
-                    //        color: '#848484'
-                    //    },
-                    //    titleTextStyle: {
-                    //        fontSize: 14,
-                    //        bold: true,
-                    //        color: '#848484'
-                    //    }
-                    //}
+                    vAxis: {
+                        title: '',
+                        textstyle: {
+                            fontsize: 14,
+                            bold: true,
+                            color: '#848484'
+                        },
+                        titletextstyle: {
+                            fontsize: 14,
+                            bold: true,
+                            color: '#848484'
+                        }
+                    }
                 };
 
                 var chart = new google.visualization.BarChart(document.getElementById("dvReportEvent8"));
