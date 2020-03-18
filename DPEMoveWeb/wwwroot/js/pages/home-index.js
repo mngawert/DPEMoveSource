@@ -132,59 +132,6 @@ function GetStadiumData() {
         });
 }
 
-function GetReportSurvey151A(token) {
-    var settings = {
-        "url": "/api/Report/GetReportSurvey151A",
-        "method": "POST",
-        "timeout": 0,
-        "headers": {
-            "Content-Type": "application/json",
-            "Authorization": "Bearer " + token
-        },
-        "data": JSON.stringify({ "createdDateFrom": "2020-01-01", "createdDateTo": "2099-01-01" }),
-    };
-
-    return $.ajax(settings);
-}
-
-function DrawChartForReportSurvey151A(token) {
-
-    google.charts.load('current', { 'packages': ['bar'] });
-    google.charts.setOnLoadCallback(drawChart);
-
-    function drawChart() {
-
-        GetReportSurvey151A(token).done(function (response, textStatus, jqXHR) {
-            if (jqXHR.status == 200) {
-
-                var data = new google.visualization.DataTable();
-                data.addColumn('string', 'กีฬา');
-                data.addColumn('number', 'ระยะเวลา');
-
-                $.each(response, function (index, value) {
-                    data.addRow([value.sportName, value.sumAttr]);
-                });
-
-                console.log("GetReportSurvey151A data", data);
-
-                var options = {
-                    width: 750,
-                    height: 400,
-                    //legend: { position: 'none' },
-                    bar: { groupWidth: "95%" },
-                    title: 'พฤติกรรมการออกกำลังกาย',
-                };
-
-                //var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
-                //chart.draw(data, google.charts.Bar.convertOptions(options));
-
-                var chart = new google.visualization.BarChart(document.getElementById("barchart_values"));
-                chart.draw(data, options);
-            }
-        });
-    }
-}
-
 function GetReportEvent3(token) {
 
     var d = new Date();
@@ -313,7 +260,7 @@ function GetReportEvent4(token) {
 
 function DrawChartForReportEvent4(token) {
 
-    google.charts.load('current', { 'packages': ['corechart'] });
+    //google.charts.load('current', { 'packages': ['corechart'] });
     google.charts.setOnLoadCallback(drawChart);
 
     function drawChart() {
@@ -363,7 +310,7 @@ function GetReportEvent5(token, provinceCode) {
 
 function DrawChartForReportEvent5(token, provinceCode) {
 
-    google.charts.load('current', { 'packages': ['corechart'] });
+    //google.charts.load('current', { 'packages': ['corechart'] });
     google.charts.setOnLoadCallback(drawChart);
 
     function drawChart() {
@@ -413,7 +360,7 @@ function GetReportEvent6(token, provinceCode) {
 
 function DrawChartForReportEvent6(token, provinceCode) {
 
-    google.charts.load('current', { 'packages': ['corechart'] });
+    //google.charts.load('current', { 'packages': ['corechart'] });
     google.charts.setOnLoadCallback(drawChart);
 
     function drawChart() {
@@ -462,7 +409,7 @@ function GetReportEvent7(token, provinceCode) {
 
 function DrawChartForReportEvent7(token, provinceCode) {
 
-    google.charts.load('current', { 'packages': ['corechart'] });
+    //google.charts.load('current', { 'packages': ['corechart'] });
     google.charts.setOnLoadCallback(drawChart);
 
     function drawChart() {
@@ -482,7 +429,7 @@ function DrawChartForReportEvent7(token, provinceCode) {
                 var options = {
                     width: 750,
                     height: 400,
-                    title: 'สถิติกิจกรรมกีฬาและนันทนาการแบ่งตามวัตถุประสงค์การจัดงาน'
+                    title: 'สถิติกิจกรรมกีฬาและนันทนาการแบ่งตามกลุ่มเป้าหมายกิจกรรม'
                 };
 
                 var chart = new google.visualization.PieChart(document.getElementById('dvReportEvent7'));
@@ -493,9 +440,142 @@ function DrawChartForReportEvent7(token, provinceCode) {
 }
 
 
+function GetReportEvent8(token, provinceCode) {
+    var settings = {
+        "url": "/api/Report/GetReportEvent8",
+        "method": "POST",
+        "timeout": 0,
+        "headers": {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + token
+        },
+        "data": JSON.stringify({ "createdDateFrom": "2020-01-01", "createdDateTo": "2099-01-01", "provinceCode": provinceCode }),
+    };
+
+    return $.ajax(settings);
+}
+
+function DrawChartForReportEvent8(token, provinceCode) {
+
+    //google.charts.load('current', { 'packages': ['corechart'] });
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+
+        GetReportEvent8(token, provinceCode).done(function (response, textStatus, jqXHR) {
+            if (jqXHR.status == 200) {
+
+                var data = new google.visualization.DataTable();
+                data.addColumn('string', 'ชนิดกีฬา');
+                data.addColumn('number', 'จำนวนกิจกรรม');
+
+                var data_10 = response.slice(0, 10);
+                $.each(data_10, function (index, value) {
+
+                    var activityName = GetActivityNameById(value.actTypeId);
+                    data.addRow([activityName.replace("โปรดระบุ", ""), value.noOfEvents]);
+                });
+
+                var options = {
+                    width: 750,
+                    height: 400,
+                    chartArea: { width: '50%' },
+                    //legend: { position: 'none' },
+                    //bar: { groupWidth: "95%" },
+                    colors: [ '#7CCC4E' ],
+                    title: 'สถิติกิจกรรมกีฬาและนันทนาการแบ่งประเภทกีฬา',
+                    //vAxis: {
+                    //    title: '',
+                    //    textStyle: {
+                    //        fontSize: 14,
+                    //        bold: true,
+                    //        color: '#848484'
+                    //    },
+                    //    titleTextStyle: {
+                    //        fontSize: 14,
+                    //        bold: true,
+                    //        color: '#848484'
+                    //    }
+                    //}
+                };
+
+                var chart = new google.visualization.BarChart(document.getElementById("dvReportEvent8"));
+                chart.draw(data, options);
+            }
+        });
+    }
+}
+
+function GetReportSurvey151A(token) {
+    var settings = {
+        "url": "/api/Report/GetReportSurvey151A",
+        "method": "POST",
+        "timeout": 0,
+        "headers": {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + token
+        },
+        "data": JSON.stringify({ "createdDateFrom": "2020-01-01", "createdDateTo": "2099-01-01" }),
+    };
+
+    return $.ajax(settings);
+}
+
+function DrawChartForReportSurvey151A(token) {
+
+    //google.charts.load('current', { 'packages': ['corechart'] });
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+
+        GetReportSurvey151A(token).done(function (response, textStatus, jqXHR) {
+            if (jqXHR.status == 200) {
+
+                var data = new google.visualization.DataTable();
+                data.addColumn('string', 'กีฬา');
+                data.addColumn('number', 'ระยะเวลา');
+
+                $.each(response, function (index, value) {
+                    data.addRow([value.sportName, value.sumAttr]);
+                });
+
+                console.log("GetReportSurvey151A data", data);
+
+                var options = {
+                    width: 750,
+                    height: 400,
+                    //legend: { position: 'none' },
+                    //bar: { groupWidth: "70%" },
+                    title: 'พฤติกรรมการออกกำลังกาย',
+                    chartArea: { width: '50%' },
+                    //vAxis: {
+                    //    title: '',
+                    //    textStyle: {
+                    //        fontSize: 14,
+                    //        bold: true,
+                    //        color: '#848484'
+                    //    },
+                    //    titleTextStyle: {
+                    //        fontSize: 14,
+                    //        bold: true,
+                    //        color: '#848484'
+                    //    }
+                    //}
+                };
+
+                //var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
+                //chart.draw(data, google.charts.Bar.convertOptions(options));
+
+                var chart = new google.visualization.BarChart(document.getElementById("barchart_values"));
+                chart.draw(data, options);
+            }
+        });
+    }
+}
+
 function DrawGoogleMap(inputData) {
 
-    google.charts.load('current', {'packages': ['geochart'], 'mapsApiKey': 'AIzaSyDBro62OhioE6oXZ97CV8Y4AnrzfVIt4HA'});
+    //google.charts.load('current', {'packages': ['geochart'], 'mapsApiKey': 'AIzaSyDBro62OhioE6oXZ97CV8Y4AnrzfVIt4HA'});
     google.charts.setOnLoadCallback(drawRegionsMap);
 
     function drawRegionsMap() {
@@ -726,10 +806,52 @@ function GetSectionNameById(id) {
     return sectionName;
 }
 
+function GetActivityType(token, SECTION_CAT_ID) {
+    var form = new FormData();
+    form.append("Token", token);
+    form.append("SECTION_CAT_ID", SECTION_CAT_ID);
+
+    var settings = {
+        "url": "https://data.dpe.go.th/api/activity/type/getActivityType",
+        "method": "POST",
+        "timeout": 0,
+        "processData": false,
+        "mimeType": "multipart/form-data",
+        "contentType": false,
+        "data": form
+    };
+
+    $.ajax(settings).done(function (response, textStatus, jqXHR) {
+
+        if (jqXHR.status == 200) {
+            response = response.replace(/\ufeff/g, ''); //Remove BOM character
+            var results = JSON.parse(response);
+            ACTIVITY_DATA = results.data;
+
+            DrawChartForReportEvent8(localStorage.getItem("token"), $("#ddlProvinceForReportEvent8").val());
+        }
+    });
+}
+
+function GetActivityNameById(id) {
+
+    if (id == null)
+        return "";
+
+    var activityName = "n/a";
+    $.each(ACTIVITY_DATA, function (index, value) {
+        if (value.ACT_TYPE_ID == id) {
+            activityName = value.ACT_TYPE_NAME;
+            return false;
+        }
+    });
+    return activityName;
+}
 
 $(document).ready(function () {
 
     var SECTION_DATA = {}
+    var ACTIVITY_DATA = {}
 
     GetInternalToken().done(function (resp1) {
         var token1 = resp1;
@@ -746,9 +868,9 @@ $(document).ready(function () {
             PrintTableForReportStadium1(token2);
             GetProvince(token2);
             GetSection(token2);
+            GetActivityType(token2, 1);
         });
     });
-
 
     GetNews();
     //GetStadiumData();
@@ -763,6 +885,10 @@ $(document).ready(function () {
 
     $("#ddlProvinceForReportEvent7").change(function () {
         DrawChartForReportEvent7(localStorage.getItem("token"), $(this).val());
+    });
+
+    $("#ddlProvinceForReportEvent8").change(function () {
+        DrawChartForReportEvent8(localStorage.getItem("token"), $(this).val());
     });
 
 });

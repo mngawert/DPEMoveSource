@@ -141,7 +141,6 @@ namespace DPEMoveWeb.ApiControllers
             return q.ToList();
         }
 
-
         [HttpPost]
         [Authorize]
         public IEnumerable<ReportEvent7DbQuery> GetReportEvent7(ReportEvent7Request model)
@@ -158,6 +157,27 @@ namespace DPEMoveWeb.ApiControllers
                 ";
 
             var q = _context.ReportEvent7DbQuery.FromSql(sql, model.EventDateFrom, model.EventDateTo, model.ProvinceCode);
+
+            return q.ToList();
+        }
+
+        [HttpPost]
+        [Authorize]
+        public IEnumerable<ReportEvent8DbQuery> GetReportEvent8(ReportEvent8Request model)
+        {
+            string sql = @"
+                select b.ACT_TYPE_ID, count(1) as NO_OF_EVENTS 
+                from VW_RPT_EVENT a, EVENT_ACTIVITY_TYPE b
+                where 1=1
+                --and EVENT_START_TIMESTAMP between {0} and {1}
+                and (PROVINCE_CODE = {2} or {2} is null)
+                and a.EVENT_ID = b.EVENT_ID
+                and a.SECTION_CAT_ID = 1
+                group by b.ACT_TYPE_ID
+                ORDER BY 2 desc
+                ";
+
+            var q = _context.ReportEvent8DbQuery.FromSql(sql, model.EventDateFrom, model.EventDateTo, model.ProvinceCode);
 
             return q.ToList();
         }

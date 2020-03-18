@@ -406,10 +406,10 @@
                                 <li class="nav-item"> <a class="nav-link" id="loca-tab" data-toggle="tab" href="#loca" role="tab" aria-controls="loca" aria-selected="false">สนามกีฬา</a> </li>
                                 <li class="nav-item"> <a class="nav-link" id="personnel-tab" data-toggle="tab" href="#personnel" role="tab" aria-controls="personnel" aria-selected="false">บุคลากรการกีฬา</a> </li>
 
-                                <li class="nav-item"> <a class="nav-link" id="num_acti-tab" data-toggle="tab" href="#num_acti5" role="tab" aria-controls="num_acti5" aria-selected="false">ภาพรวมกิจกรรมกีฬาและนันทนาการ</a> </li>
-                                <li class="nav-item"> <a class="nav-link" id="num_acti-tab" data-toggle="tab" href="#num_acti6" role="tab" aria-controls="num_acti6" aria-selected="false">สถิติกิจกรรมกีฬาและนันทนาการแบ่งตามระดับกิจกรรม</a> </li>
-                                <li class="nav-item"> <a class="nav-link" id="num_acti-tab" data-toggle="tab" href="#num_acti7" role="tab" aria-controls="num_acti7" aria-selected="false">สถิติกิจกรรมกีฬาและนันทนาการแบ่งตามวัตถุประสงค์การจัดงาน</a> </li>
-                                <li class="nav-item"> <a class="nav-link" id="num_acti-tab" data-toggle="tab" href="#num_acti8" role="tab" aria-controls="num_acti8" aria-selected="false">สถิติกิจกรรมกีฬาและนันทนาการแบ่งประเภทกีฬา</a> </li>
+                                <li class="nav-item"> <a class="nav-link" id="num_acti5-tab" data-toggle="tab" href="#num_acti5" role="tab" aria-controls="num_acti5" aria-selected="false">ภาพรวมกิจกรรมกีฬาและนันทนาการ</a> </li>
+                                <li class="nav-item"> <a class="nav-link" id="num_acti6-tab" data-toggle="tab" href="#num_acti6" role="tab" aria-controls="num_acti6" aria-selected="false">สถิติกิจกรรมกีฬาและนันทนาการแบ่งตามระดับกิจกรรม</a> </li>
+                                <li class="nav-item"> <a class="nav-link" id="num_acti7-tab" data-toggle="tab" href="#num_acti7" role="tab" aria-controls="num_acti7" aria-selected="false">สถิติกิจกรรมกีฬาและนันทนาการแบ่งตามกลุ่มเป้าหมายกิจกรรม</a> </li>
+                                <li class="nav-item"> <a class="nav-link" id="num_acti8-tab" data-toggle="tab" href="#num_acti8" role="tab" aria-controls="num_acti8" aria-selected="false">สถิติกิจกรรมกีฬาและนันทนาการแบ่งประเภทกีฬา</a> </li>
                             </ul>
                         </div>
                         <!-- /.col-md-4 -->
@@ -559,7 +559,7 @@
                                     <div id="dvReportEvent6" style="width: 750px; height: 400px;"></div>
                                 </div>
                                 <div class="tab-pane fade" id="num_acti7" role="tabpanel" aria-labelledby="num_acti7-tab">
-                                    <h3>สถิติกิจกรรมกีฬาและนันทนาการแบ่งตามวัตถุประสงค์การจัดงาน</h3>
+                                    <h3>สถิติกิจกรรมกีฬาและนันทนาการแบ่งตามกลุ่มเป้าหมายกิจกรรม</h3>
                                     <select class="input-field" id="ddlProvinceForReportEvent7" name="Province">
                                         <option value="">แสดงทั้งหมด</option>
                                     </select>
@@ -567,6 +567,9 @@
                                 </div>
                                 <div class="tab-pane fade" id="num_acti8" role="tabpanel" aria-labelledby="num_acti8-tab">
                                     <h3>สถิติกิจกรรมกีฬาและนันทนาการแบ่งประเภทกีฬา</h3>
+                                    <select class="input-field" id="ddlProvinceForReportEvent8" name="Province">
+                                        <option value="">แสดงทั้งหมด</option>
+                                    </select>
                                     <div id="dvReportEvent8" style="width: 750px; height: 400px;"></div>
                                 </div>
 
@@ -590,6 +593,12 @@
 @section Scripts {
 
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        google.charts.load('current', { 'packages': ['geochart'], 'mapsApiKey': 'AIzaSyDBro62OhioE6oXZ97CV8Y4AnrzfVIt4HA'});
+        google.charts.load('current', { 'packages': ['corechart'] });
+    </script>
+
+
     <script type="text/javascript">
         //  google.charts.load('current', {
         //  'packages':['geochart'],

@@ -133,6 +133,21 @@ namespace DPEMoveDAL.ViewModels
         public int NoOfEvents { get; set; }
     }
 
+
+    public class ReportEvent8Request
+    {
+        public DateTime EventDateFrom { get; set; }
+        public DateTime EventDateTo { get; set; }
+        public string ProvinceCode { get; set; }
+    }
+    public class ReportEvent8DbQuery
+    {
+        [Column("ACT_TYPE_ID")]
+        public int? ActTypeId { get; set; }
+        [Column("NO_OF_EVENTS")]
+        public int NoOfEvents { get; set; }
+    }
+
     public class VW_RPT_SURVEY_15_1_A_Request
     {
         public DateTime CreatedDateFrom { get; set; }
