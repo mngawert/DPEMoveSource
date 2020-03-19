@@ -486,7 +486,7 @@ function DrawChartForReportEvent8(token, provinceCode, sectionCatId) {
                     //legend: { position: 'none' },
                     //bar: { groupWidth: "95%" },
                     colors: [ '#7CCC4E' ],
-                    title: 'สถิติกิจกรรมกีฬาและนันทนาการแบ่งประเภทกีฬา',
+                    title: 'สถิติกิจกรรมกีฬาและนันทนาการแบ่งตามด้านกิจกรรม',
                     vAxis: {
                         title: '',
                         textstyle: {
