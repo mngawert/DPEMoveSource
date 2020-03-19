@@ -139,6 +139,7 @@ namespace DPEMoveDAL.ViewModels
         public DateTime EventDateFrom { get; set; }
         public DateTime EventDateTo { get; set; }
         public string ProvinceCode { get; set; }
+        public string SectionCatId { get; set; }
     }
     public class ReportEvent8DbQuery
     {

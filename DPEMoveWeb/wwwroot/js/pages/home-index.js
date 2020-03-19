@@ -440,7 +440,7 @@ function DrawChartForReportEvent7(token, provinceCode) {
 }
 
 
-function GetReportEvent8(token, provinceCode) {
+function GetReportEvent8(token, provinceCode, sectionCatId) {
     var settings = {
         "url": "/api/Report/GetReportEvent8",
         "method": "POST",
@@ -449,20 +449,20 @@ function GetReportEvent8(token, provinceCode) {
             "Content-Type": "application/json",
             "Authorization": "Bearer " + token
         },
-        "data": JSON.stringify({ "createdDateFrom": "2020-01-01", "createdDateTo": "2099-01-01", "provinceCode": provinceCode }),
+        "data": JSON.stringify({ "createdDateFrom": "2020-01-01", "createdDateTo": "2099-01-01", "provinceCode": provinceCode, "sectionCatId": sectionCatId }),
     };
 
     return $.ajax(settings);
 }
 
-function DrawChartForReportEvent8(token, provinceCode) {
+function DrawChartForReportEvent8(token, provinceCode, sectionCatId) {
 
     //google.charts.load('current', { 'packages': ['corechart'] });
     google.charts.setOnLoadCallback(drawChart);
 
     function drawChart() {
 
-        GetReportEvent8(token, provinceCode).done(function (response, textStatus, jqXHR) {
+        GetReportEvent8(token, provinceCode, sectionCatId).done(function (response, textStatus, jqXHR) {
             if (jqXHR.status == 200) {
 
                 var data = new google.visualization.DataTable();
@@ -782,14 +782,26 @@ function GetSection(token) {
             response = response.replace(/\ufeff/g, ''); //Remove BOM character
             var results = JSON.parse(response);
             SECTION_DATA = results.data;
-
             console.log("SECTION_DATA", SECTION_DATA);
+
+            var data = results.data;
+            var items = ``;
+            $.each(data, function (index, value) {
+                items +=
+                    `
+                <option value="` + value.SECTION_CAT_ID + `">` + value.SECTION_CAT_NAME + `</option>
+                `
+            });
+            $("#ddlSection").html(items);
 
             DrawChartForReportEvent4(localStorage.getItem("token"));
             DrawChartForReportEvent5(localStorage.getItem("token"), $("#ddlProvinceForReportEvent5").val());
             DrawChartForReportEvent6(localStorage.getItem("token"), $("#ddlProvinceForReportEvent6").val());
             DrawChartForReportEvent7(localStorage.getItem("token"), $("#ddlProvinceForReportEvent7").val());
             DrawChartForReportSurvey151A(localStorage.getItem("token"));
+
+            //DrawChartForReportEvent8
+            GetActivityType(token, $("#ddlSection").val());
         }
     });
 }
@@ -831,7 +843,7 @@ function GetActivityType(token, SECTION_CAT_ID) {
             var results = JSON.parse(response);
             ACTIVITY_DATA = results.data;
 
-            DrawChartForReportEvent8(localStorage.getItem("token"), $("#ddlProvinceForReportEvent8").val());
+            DrawChartForReportEvent8(localStorage.getItem("token"), $("#ddlProvinceForReportEvent8").val(), $("#ddlSection").val());
         }
     });
 }
@@ -868,10 +880,11 @@ $(document).ready(function () {
 
         GetToken().done(function (resp2) {
             var token2 = JSON.parse(resp2).data;
+            localStorage.setItem("token2", token2);
+
             PrintTableForReportStadium1(token2);
             GetProvince(token2);
             GetSection(token2);
-            GetActivityType(token2, 1);
         });
     });
 
@@ -891,7 +904,12 @@ $(document).ready(function () {
     });
 
     $("#ddlProvinceForReportEvent8").change(function () {
-        DrawChartForReportEvent8(localStorage.getItem("token"), $(this).val());
+        DrawChartForReportEvent8(localStorage.getItem("token"), $("#ddlProvinceForReportEvent8").val(), $("#ddlSection").val());
+    });
+
+    $("#ddlSection").change(function () {
+        //DrawChartForReportEvent8
+        GetActivityType(localStorage.getItem("token2"), $("#ddlSection").val());
     });
 
 });

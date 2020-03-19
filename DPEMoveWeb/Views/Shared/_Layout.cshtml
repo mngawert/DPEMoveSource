@@ -49,7 +49,8 @@
                             <img src="~/images/ic_login.png" width="30" height="28" alt="" /><a href="javascript:{}" onclick="document.getElementById('formLogout').submit();">ออกจากระบบ</a>
                         </form>
                     }
-                    else {
+                    else
+                    {
                         <img src="~/images/ic_login.png" width="30" height="28" alt="" /><a href="/Account/Login">เข้าสู่ระบบ</a>
                     }
                 </div>
@@ -80,28 +81,28 @@
         @RenderBody()
 
         @*
-        <div class="page-breadcrumbs" style="background-image: url('/images/bg-bc.jpg')">
-            <div class="wellcome_sec">
-                <div class="container">
-                    <div class="wellcome">
-                        <p>ยินดีต้อนรับสู่กรมพลศึกษา กระทรวงการท่องเที่ยวและกีฬา</p>
+            <div class="page-breadcrumbs" style="background-image: url('/images/bg-bc.jpg')">
+                <div class="wellcome_sec">
+                    <div class="container">
+                        <div class="wellcome">
+                            <p>ยินดีต้อนรับสู่กรมพลศึกษา กระทรวงการท่องเที่ยวและกีฬา</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="filter"></div>
+                <div class="content-center">
+                    <div class="container">
+                        <h2 class="presentation-subtitle text-center">@ViewData["Title"]</h2>
                     </div>
                 </div>
             </div>
-            <div class="filter"></div>
-            <div class="content-center">
+            <div class="section">
                 <div class="container">
-                    <h2 class="presentation-subtitle text-center">@ViewData["Title"]</h2>
+
+
+
                 </div>
             </div>
-        </div>
-        <div class="section">
-            <div class="container">
-
-
-
-            </div>
-        </div>
         *@
 
 
@@ -171,9 +172,9 @@
     <script>
         tinymce.init({
             //selector: "textarea",
-            mode : "specific_textareas",
-            height : 600,
-            editor_selector : "myTextEditor",
+            mode: "specific_textareas",
+            height: 600,
+            editor_selector: "myTextEditor",
             setup: function (editor) {
                 editor.on('change', function () {
                     editor.save();
@@ -183,9 +184,9 @@
     </script>
 
     <script>
-        $(function(){
+        $(function () {
             var url = window.location.pathname.split('/')[1],
-            urlRegExp = new RegExp(url.replace(/\/$/,'') + "$"); // create regexp to match current url pathname and remove trailing slash if present as it could collide with the link in navigation in case trailing slash wasn't present there
+                urlRegExp = new RegExp(url.replace(/\/$/, '') + "$"); // create regexp to match current url pathname and remove trailing slash if present as it could collide with the link in navigation in case trailing slash wasn't present there
             // now grab every link from the navigation
             $('.nav-item a').each(function () {
                 // and test its normalized href against the url pathname regexp
@@ -196,6 +197,16 @@
             });
         });
 
+    </script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-6527383-10"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-6527383-10');
     </script>
 
     @RenderSection("Scripts", required: false)

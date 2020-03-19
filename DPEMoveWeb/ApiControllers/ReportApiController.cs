@@ -172,12 +172,12 @@ namespace DPEMoveWeb.ApiControllers
                 --and EVENT_START_TIMESTAMP between {0} and {1}
                 and (PROVINCE_CODE = {2} or {2} is null)
                 and a.EVENT_ID = b.EVENT_ID
-                and a.SECTION_CAT_ID = 1
+                and (a.SECTION_CAT_ID = {3} or {3} is null)
                 group by b.ACT_TYPE_ID
                 ORDER BY 2 desc
                 ";
 
-            var q = _context.ReportEvent8DbQuery.FromSql(sql, model.EventDateFrom, model.EventDateTo, model.ProvinceCode);
+            var q = _context.ReportEvent8DbQuery.FromSql(sql, model.EventDateFrom, model.EventDateTo, model.ProvinceCode, model.SectionCatId);
 
             return q.ToList();
         }
