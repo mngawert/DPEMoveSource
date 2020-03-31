@@ -44,6 +44,7 @@ namespace DPEMoveWeb
             services.AddScoped<ICommentService, CommentService>();
             services.AddScoped<IVoteService, VoteService>();
             services.AddScoped<ISurveyService, SurveyService>();
+            services.AddScoped<IStepService, StepService>();
 
             services.AddAutoMapper(typeof(MapperProfile));
             services.AddCors(options =>

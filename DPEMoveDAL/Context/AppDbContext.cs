@@ -80,6 +80,7 @@ namespace DPEMoveDAL.Models
         public virtual DbSet<Rolegroup> Rolegroup { get; set; }
         public virtual DbSet<Rolegrouphasrole> Rolegrouphasrole { get; set; }
         public virtual DbSet<Rolegrouphasuser> Rolegrouphasuser { get; set; }
+        public virtual DbSet<Step> Step { get; set; }
         public virtual DbSet<Survey> Survey { get; set; }
         public virtual DbSet<SurveyAnswer> SurveyAnswer { get; set; }
         public virtual DbSet<SurveyAnswerDetails> SurveyAnswerDetails { get; set; }
@@ -2618,6 +2619,25 @@ namespace DPEMoveDAL.Models
                 entity.Property(e => e.UserId).HasColumnName("USER_ID");
             });
 
+            modelBuilder.Entity<Step>(entity =>
+            {
+                entity.ToTable("STEP");
+
+                entity.HasIndex(e => e.StepId)
+                    .HasName("PK_STEP")
+                    .IsUnique();
+
+                entity.Property(e => e.StepId).HasColumnName("STEP_ID");
+
+                entity.Property(e => e.CreatedBy).HasColumnName("CREATED_BY");
+
+                entity.Property(e => e.CreatedDate)
+                    .HasColumnName("CREATED_DATE")
+                    .HasColumnType("TIMESTAMP(6)");
+
+                entity.Property(e => e.StepValue).HasColumnName("STEP_VALUE");
+            });
+
             modelBuilder.Entity<Survey>(entity =>
             {
                 entity.ToTable("SURVEY");
@@ -3063,6 +3083,8 @@ namespace DPEMoveDAL.Models
             modelBuilder.HasSequence("SQ_PRIVATE_MESSAGE");
 
             modelBuilder.HasSequence("SQ_PRODUCT");
+
+            modelBuilder.HasSequence("SQ_STEP");
 
             modelBuilder.HasSequence("SQ_SURVEY_ANSWER");
 

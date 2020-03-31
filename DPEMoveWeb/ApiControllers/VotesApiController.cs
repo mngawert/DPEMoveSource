@@ -18,12 +18,10 @@ namespace DPEMoveWeb.ApiControllers
     [ApiController]
     public class VotesApiController : ControllerBase
     {
-        private readonly AppDbContext _context;
         private readonly IVoteService _voteService;
 
-        public VotesApiController(AppDbContext context, IVoteService voteService)
+        public VotesApiController(IVoteService voteService)
         {
-            _context = context;
             _voteService = voteService;
         }
 

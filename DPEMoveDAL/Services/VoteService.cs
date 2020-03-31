@@ -14,13 +14,11 @@ namespace DPEMoveDAL.Services
     public class VoteService : IVoteService
     {
         private readonly AppDbContext _context;
-        private readonly IMapper _mapper;
         private readonly ILogger<VoteService> _logger;
 
-        public VoteService(AppDbContext context, IMapper mapper, ILogger<VoteService> logger)
+        public VoteService(AppDbContext context, ILogger<VoteService> logger)
         {
             _context = context;
-            _mapper = mapper;
             _logger = logger;
         }
 
