@@ -77,8 +77,8 @@ function GetStadiumDetails(token, id) {
             var placeNear = value.PLACE_NEAR;
             PrintPlaceNear(placeNear);
 
-            var survey = value.SURVEY;
-            PrintSurvey(survey);
+            //var survey = value.SURVEY;
+            PrintSurvey(token, id);
 
             if (value.UNDER_STADIUM_ID != null) {
 
@@ -168,83 +168,83 @@ function PrintPlaceNear(data) {
     $("#tbl_PLACE_NEAR").html(item_1);
 }
 
-function PrintSurvey(data) {
+function PrintSurvey(token, id) {
     console.log("PrintSurvey");
-    //var item_1A = "";
-    //var item_1B = "";
-    var item_2 = "";
-    var sumPoint = 0;
-    var item_icon = "";
 
-    $.each(data, function (index, value) {
-        //console.log(value);
+    var form = new FormData();
+    form.append("STADIUM_ID", id);
+    form.append("Token", token);
 
-        //sumPoint += Number(value.POINT);
+    var settings = {
+        "url": "https://data.dpe.go.th/api/stadium/survey/getSurvey",
+        "method": "POST",
+        "timeout": 0,
+        "processData": false,
+        "mimeType": "multipart/form-data",
+        "contentType": false,
+        "data": form
+    };
 
-        //// limit display to 8 items
-        //if (index < data.length/2) {
-        //    item_1A +=
-        //        `
-        //        <h3>` + value.SURV_NAME + `</h3>
-        //        <div class="row">
-        //            <div class="col-sm-10 col-md-10 col-lg-10">
-        //                <div class="progress">
-        //                    <div class="progress-bar progress-bar-success" role="progressbar" style="width: `+ value.POINT + `%" aria-valuenow="` + value.POINT + `" aria-valuemin="0" aria-valuemax="100"></div>
-        //                </div>
-        //            </div>
-        //            <div class="col-sm-2col-md-2 col-lg-2">
-        //                <h5>` + value.POINT + `</h5>
-        //            </div>
-        //        </div>
-        //    `;
-        //}
-        //else if (index < 8) {
-        //    item_1B +=
-        //        `
-        //        <h3>` + value.SURV_NAME + `</h3>
-        //        <div class="row">
-        //            <div class="col-sm-10 col-md-10 col-lg-10">
-        //                <div class="progress">
-        //                    <div class="progress-bar progress-bar-success" role="progressbar" style="width: ` + value.POINT + `%" aria-valuenow="` + value.POINT + `" aria-valuemin="0" aria-valuemax="100"></div>
-        //                </div>
-        //            </div>
-        //            <div class="col-sm-2col-md-2 col-lg-2">
-        //                <h5>` + value.POINT + `</h5>
-        //            </div>
-        //        </div>
-        //    `;
-        //}
+    $.ajax(settings).done(function (response) {
+        console.log(response);
 
-        item_2 +=
-            `
-            <div class="card_list">
-                <img src="` + value.ICON + `" width="80" height="78" alt="" />
-                <h4>` + value.SURV_DETL_NAME + `</h4>
-                <br />
-                <br />
-                <br />
-            </div>
-            `;
+        var results = JSON.parse(response);
+        console.log("test", results);
+        var data_0 = results.data;
+        var item1 = "";
+        var item3 = "";
+        var sumPoint = 0;
+        var item_icon = "";
 
-        item_icon +=
-            `
-            <div class="service_sec-box">
-                <img src="` + value.ICON + `" width="74" height="74">
-                <p>` + value.SURV_DETL_NAME + `</p>
-            </div>
-            `
+        $.each(data_0, function (index_0, value_0) {
 
+            if (value_0.SURV_TYPE_ID == "1" || value_0.SURV_TYPE_ID == "2") {
+
+                var data = value_0.SURV_DETL;
+                $.each(data, function (index, value) {
+                    item_icon +=
+                        `
+                        <div class="service_sec-box">
+                            <img src="` + value.ICON + `" width="74" height="74">
+                            <p>` + value.SURV_DETL_NAME + `</p>
+                        </div>
+                        `;
+                    item1 +=
+                        `
+                        <div class="card_list">
+                            <img src="` + value.ICON + `" width="80" height="78" alt="" />
+                            <h4>` + value.SURV_DETL_NAME + `</h4>
+                            <br />
+                            <br />
+                            <br />
+                        </div>
+                        `;
+                });
+            }
+            else if (value_0.SURV_TYPE_ID == "3") {
+
+                var data = value_0.SURV_DETL;
+                $.each(data, function (index, value) {
+                    item3 +=
+                        `
+                        <div class="card_list">
+                            <img src="` + value.ICON + `" width="80" height="78" alt="" />
+                            <h4>` + value.SURV_DETL_NAME + `</h4>
+                            <br />
+                            <br />
+                            <br />
+                        </div>
+                        `;
+                });
+            }
+
+        });
+
+        $("#dv_facility_ICON").prepend(item_icon);
+        $("#dv_SURVEY_2").html(item1);
+        $("#dv_SURV_TYPE_ID_3").html(item3);        
     });
 
-    //if (data.length > 0) {
-    //    var avg = sumPoint / data.length / 10;
-    //    $("#lbl_SURVEY_POINT_AVG").html(avg % 1 == 0 ? avg: avg.toFixed(1));
-    //}
-
-    //$("#dv_SURVEY_1A").html(item_1A);
-    //$("#dv_SURVEY_1B").html(item_1B);
-    $("#dv_SURVEY_2").html(item_2);
-    $("#dv_facility_ICON").prepend(item_icon);
 }
 
 function PrintUnderStadium(data) {
