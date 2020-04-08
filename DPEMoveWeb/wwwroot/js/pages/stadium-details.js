@@ -301,6 +301,12 @@ function PrintParentStadiumName(token, id) {
                 <a href="/Stadium/Details/` + value.STADIUM_ID + `">` + value.NAME_LABEL + `</a>
                 `
             $("#dv_PARENT_STADIUM").html(item_1);
+
+            // if parent has child stadium then print child as well.
+            if (value.UNDER_STADIUM.length > 0) {
+                PrintUnderStadium(value.UNDER_STADIUM);
+                PrintUnderStadiumName(token, value.UNDER_STADIUM);
+            }
         });
     });
 }
@@ -335,7 +341,7 @@ function PrintUnderStadiumName(token, data) {
                             <img src="` + value.GALLERY[0] + `" width="74" height="74">
                         </div>
                         <div class="col-8">
-                            <label>` + value.NAME_LABEL + `</label>
+                            ` + value.NAME_LABEL + `
                         </div>
                     </div>
                     `
