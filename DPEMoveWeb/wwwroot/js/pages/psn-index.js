@@ -363,7 +363,7 @@ function CreateGmsMember(token) {
             var data = results.data;
 
             if (data.length > 0) {
-                window.location.href = window.location.href.replace("#","") + "/Details/" + data[0].MEMBER_ID;
+                window.location.href = window.location.origin + "/PSN/Details/" + data[0].MEMBER_ID;
             }
         }
     });
@@ -603,7 +603,7 @@ function DisplayPopupForCreatePSN() {
     if (appIdcardNo.length > 0) {
 
         if (appUserMEMBER_ID.length > 0) {
-            window.location.href = window.location.href.replace("#", "") + "/Details/" + appUserMEMBER_ID;
+            window.location.href = window.location.origin + "/PSN/Details/" + appUserMEMBER_ID;
         }
         else {
             $("#Modal_CreatePSN").modal("show");
