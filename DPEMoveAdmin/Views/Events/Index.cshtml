@@ -141,7 +141,7 @@
                         `
                     <tr>
                         <td width="5%" scope="row">${ ((response.pageIndex-1) * 10 ) + index + 1 }</td>
-                        <td width="15%">${ value.eventCode }</td>
+                        <td width="15%"> <a target="blank" href="https://dpemove.dpe.go.th/Events/Details/${value.eventId}" > ${value.eventCode } </a></td>
                         <td>${value.eventName}</td>
                         <td width="15%">${ value.status == 1 ? "ใช้งาน" : "ไม่ใช้งาน" }</td>
                         <td width="15%">

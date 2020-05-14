@@ -15,19 +15,27 @@
         </div>
     </div>
 </div>
-<div class="section">
+<div class="section_s">
     <div class="container">
-
-        <div class="row breadcrumbs-container">
-            <div class="col-12">
-
+        <div class="row">
+            <div class="col-sm-12 col-md-12 col-lg-8">
                 <div class="tx-head_green">
                     <h4><a href="/Stadium">สนามกีฬา</a> &#xbb; ข้อมูลสนามกีฬา</h4>
                 </div>
             </div>
+            <div class="col-sm-12 col-md-12 col-lg-4">
+                <div class="row con_right">
+                    <div class="col">
+                        <a id="btnGoToDataDPE" style="display: none" href="javascript:void(0);" class="btn btn-lightgreen btn-round">กรอกข้อมูลสนามกีฬา</a>
+                    </div>
+                </div>
+            </div>
         </div>
+    </div>
+</div>
 
-        <div id="server-results"><!-- For server results --></div>
+<div class="section no-top">
+    <div class="container">
 
         <div class="row search-events">
             <div class="col-12">
@@ -100,7 +108,7 @@
                             <div class="col-sm-12 col-lg-4">
                                 <div class="row-field clearfix">
                                     <div class="c lbl">
-                                        หน่วยงาน/ผู้สร้างสนามกีฬา
+                                        หน่วยงาน/ผู้สนับสนุนงบประมาณสร้างสนามกีฬา
                                     </div>
                                     <div class="c field">
                                         <input type="text" class="input-field" name="SEARCH_BUILDING_BY" value="" />
@@ -152,27 +160,29 @@
             </nav>
 
         </div>
+
     </div>
 </div>
 
 
-
-
 @section Scripts {
-    
-<style>
 
-    .std-info {
-        font-size: 16px;
-    }
+    <style>
 
-    .std-info img {
-        width: 15px;
-        height: 20px;
-    }
+        .std-info {
+            font-size: 16px;
+        }
 
-</style>
+            .std-info img {
+                width: 15px;
+                height: 20px;
+            }
+    </style>
 
+    <script type="text/javascript">
+        var AppUserGroupId = @ViewBag.AppUserGroupId;
+        console.log('AppUserGroupId=', AppUserGroupId);
+    </script>
 
     <script src="~/js/pages/stadium-index.js"></script>
 }

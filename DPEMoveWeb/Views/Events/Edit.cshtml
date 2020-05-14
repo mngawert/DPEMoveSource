@@ -231,7 +231,7 @@
                                                     โทรสาร
                                                 </div>
                                                 <div class="c field">
-                                                    <input type="text" asp-for="ContactPersonFax" class="input-field" />
+                                                    <input type="text" pattern=".{0}|.{9,20}" required asp-for="ContactPersonFax" class="input-field" />
                                                 </div>
                                             </div>
                                         </div>

@@ -38,9 +38,25 @@ namespace DPEMoveWeb.Controllers
             }
             return -1;
         }
-
-        public IActionResult Index()
+        private async Task<int> GetLoginAppUserGroupId()
         {
+            var userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (userId != null)
+            {
+                var user = await _userManager.FindByIdAsync(userId);
+                if (user != null)
+                {
+                    _logger.LogDebug("user.GroupId={0}", user.GroupId);
+
+                    return (int)(user.GroupId??-1);
+                }
+            }
+            return -1;
+        }
+
+        public async Task<IActionResult> Index()
+        {
+            ViewBag.AppUserGroupId = await GetLoginAppUserGroupId();
             return View();
         }
 

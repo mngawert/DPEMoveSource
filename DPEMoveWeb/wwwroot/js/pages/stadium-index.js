@@ -479,7 +479,22 @@ function GeneratePaginationHtml(pageNumber, totalPages, forId) {
 }
 
 
+function GoToDataDPE() {
+    var url = `http://data.dpe.go.th`;
+    console.log("url: ", url);
+    window.open(url, '_blank');
+}
+
 $(document).ready(function () {
+
+    if (AppUserGroupId == 3 || AppUserGroupId == 4 || AppUserGroupId == 5) {
+        $("#btnGoToDataDPE").show();
+    }
+
+    $("#btnGoToDataDPE").click(function () {
+        GoToDataDPE();
+    });
+
 
     GetToken().done(function (response) {
         var token = JSON.parse(response).data;
