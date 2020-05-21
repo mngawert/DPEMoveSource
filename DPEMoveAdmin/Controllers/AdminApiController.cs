@@ -7,6 +7,7 @@ using DPEMoveDAL.Models;
 using DPEMoveDAL.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace DPEMoveAdmin.Controllers
 {
@@ -48,6 +49,36 @@ namespace DPEMoveAdmin.Controllers
             q = q.OrderByDescending(a => a.EventId);
 
             var qq = PaginatedList<Event>.Create(q, model.PageNumber ?? 1, model.PageSize ?? 10).GetPaginatedData();
+
+            return Ok(qq);
+        }
+
+        [HttpPost]
+        public IActionResult GetUsers(UserViewModel3 model)
+        {
+
+            string sql = @"SELECT * from VW_USER order by 1";
+
+            var q = _context.VW_USER.FromSql(sql).ToList();
+
+            if (model.Email != null)
+            {
+                q = q.Where(a => a.EMAIL != null && a.EMAIL.Contains(model.Email)).ToList();
+            }
+            if (model.Name != null)
+            {
+                q = q.Where(a => a.NAME != null && a.NAME.Contains(model.Name)).ToList();
+            }
+            if (!string.IsNullOrEmpty(model.AccountType))
+            {
+                q = q.Where(a => a.ACCOUNT_TYPE == model.AccountType).ToList();
+            }
+            if (model.GroupId != null)
+            {
+                q = q.Where(a => a.GROUP_ID == model.GroupId).ToList();
+            }
+
+            var qq = PaginatedList<VW_USER>.Create(q, model.PageNumber ?? 1, model.PageSize ?? 10).GetPaginatedData();
 
             return Ok(qq);
         }

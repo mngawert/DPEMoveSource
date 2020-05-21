@@ -101,15 +101,15 @@
     //    GetEvents($("[name='EventCode']").val(), $("[name='EventName']").val(), $("[name='Status']").val(), $("[name='PageNumber']").val(), 10);
     //});
 
-    function NextPage() {
-        $("[name='PageNumber']").val(parseInt($("[name='PageNumber']").val()) + 1);
-        GetEvents($("[name='EventCode']").val(), $("[name='EventName']").val(), $("[name='Status']").val(), $("[name='PageNumber']").val(), 10);
-    }
+    //function NextPage() {
+    //    $("[name='PageNumber']").val(parseInt($("[name='PageNumber']").val()) + 1);
+    //    GetEvents($("[name='EventCode']").val(), $("[name='EventName']").val(), $("[name='Status']").val(), $("[name='PageNumber']").val(), 10);
+    //}
 
-    function PrevPage() {
-        $("[name='PageNumber']").val(parseInt($("[name='PageNumber']").val()) - 1);
-        GetEvents($("[name='EventCode']").val(), $("[name='EventName']").val(), $("[name='Status']").val(), $("[name='PageNumber']").val(), 10);
-    }
+    //function PrevPage() {
+    //    $("[name='PageNumber']").val(parseInt($("[name='PageNumber']").val()) - 1);
+    //    GetEvents($("[name='EventCode']").val(), $("[name='EventName']").val(), $("[name='Status']").val(), $("[name='PageNumber']").val(), 10);
+    //}
 
     function GetEvents(eventCode, eventName, status, pageNumber, pageSize) {
 
@@ -156,19 +156,19 @@
                 $("#lblPageIndex").html(response.pageIndex + " / " + response.totalPages);
                 $("[name='PageNumber']").val(response.pageIndex);
 
-                if (response.totalPages > 1) {
-                    $("#dvPagination").show();
-                }
-                else {
-                    $("#dvPagination").hide();
-                }
+                //if (response.totalPages > 1) {
+                //    $("#dvPagination").show();
+                //}
+                //else {
+                //    $("#dvPagination").hide();
+                //}
 
-                var prevDisabled = !response.hasPreviousPage ? "disabled" : "";
-                var nextDisabled = !response.hasNextPage ? "disabled" : "";
-                $("#btnPrevPage").removeClass("disabled");
-                $("#btnNextPage").removeClass("disabled");
-                $("#btnPrevPage").addClass(prevDisabled);
-                $("#btnNextPage").addClass(nextDisabled);
+                //var prevDisabled = !response.hasPreviousPage ? "disabled" : "";
+                //var nextDisabled = !response.hasNextPage ? "disabled" : "";
+                //$("#btnPrevPage").removeClass("disabled");
+                //$("#btnNextPage").removeClass("disabled");
+                //$("#btnPrevPage").addClass(prevDisabled);
+                //$("#btnNextPage").addClass(nextDisabled);
 
                 GenerateTotalItems(response.totalItems, "lblTotalItems");
                 GeneratePaginationHtml(pageNumber, response.totalPages, "ulPagination");
@@ -213,7 +213,12 @@
             items_1 += `<li class="page-item ${i == pageNumber ? "active": ""}"><a class="page-link" href="${urlWithPageNumber}">${i}</a></li>`;
         }
 
+
+        $("#" + forId).append(`<li class="page-item"><a class="page-link" href="${ (url + "&PageNumber=" + 1).replace("&", "?") }"> |< </a></li>`);
+
         $("#" + forId).append(items_1);
+
+        $("#" + forId).append(`<li class="page-item"><a class="page-link" href="${ (url + "&PageNumber=" + totalPages).replace("&", "?") }"> >| </a></li>`);
     }
 
 

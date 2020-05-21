@@ -74,7 +74,8 @@
                 }
             </tbody>
         </table>
-        @{
+
+        @*@{
             var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
             var nextDisabled = !Model.HasNextPage ? "disabled" : "";
         }
@@ -91,7 +92,7 @@
            asp-route-currentFilter="@ViewData["CurrentFilter"]"
            class="btn btn-default @nextDisabled">
             Next
-        </a>
+        </a>*@
 
         @*<a class="btn btn-primary" asp-action="Create">สร้างกลุ่มใหม่</a>*@
     </div>

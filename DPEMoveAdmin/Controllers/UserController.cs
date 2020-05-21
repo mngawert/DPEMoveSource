@@ -26,26 +26,9 @@ namespace DPEMoveAdmin.Controllers
             _userManager = userManager;
         }
 
-        public IActionResult Index(int? pageNumber, string email, string name)
+        public IActionResult Index()
         {
-
-            string sql = @"SELECT * from VW_USER order by 1";
-
-            var q = _context.VW_USER.FromSql(sql).ToList();
-
-            if (email != null)
-            {
-                q = q.Where(a => a.EMAIL != null && a.EMAIL.Contains(email)).ToList();
-            }
-            if (name != null)
-            {
-                q = q.Where(a => a.NAME != null && a.NAME.Contains(name)).ToList();
-            }
-
-            int pageSize = 10;
-            var qq = PaginatedList<VW_USER>.Create(q, pageNumber ?? 1, pageSize);
-
-            return View(qq);
+            return View();
         }
 
         public IActionResult Edit(int id)

@@ -1,5 +1,4 @@
-﻿@model PaginatedList<VW_USER>;
-<!-- Page Heading -->
+﻿<!-- Page Heading -->
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="h4 mb-0 text-gray-800">
         จัดการผู้ใช้งาน
@@ -21,10 +20,13 @@
                         <input class="col-md-3 form-control" name="Name" />
                     </div>
                     <div class="form-group row">
-                        <label class="col-md-2 text-right">สถานะ</label>
-                        <select class="col-md-3 form-control" name="Status">
-                            <option value="1">ใช้งาน</option>
-                            <option value="2">ไม่ใช้งาน</option>
+                        <label class="col-md-2 text-right">กลุ่ม</label>
+                        <select class="col-md-3 form-control" name="AccountType" id="ddlAccountType">
+                            <option value="">ทั้งหมด</option>
+                        </select>
+                        <label class="col-md-2 text-right">กลุ่มสิทธิ์</label>
+                        <select class="col-md-3 form-control" name="GroupId" id="ddlGROUP">
+                            <option value="">ทั้งหมด</option>
                         </select>
                     </div>
                     <div class="form-group row">
@@ -41,9 +43,8 @@
 
     <div class="card-body">
 
-        @*<h5 class="card-title">กลุ่มผู้ใช้งานระบบ :</h5>*@
-
-        <table class="table table-sm table-striped">
+        <div id="dvTotalItems">ผลการค้นหา <label id="lblTotalItems"></label> รายการ</div>
+        <table class="table table-sm table-striped" id="tblResults">
             <thead>
                 <tr>
                     <th scope="col">#</th>
@@ -55,7 +56,7 @@
                 </tr>
             </thead>
             <tbody>
-                @{ int rowNo = ((Model.PageIndex-1) * 10) + 1; }
+                @*@{ int rowNo = ((Model.PageIndex - 1) * 10) + 1; }
                 @foreach (var r in Model)
                 {
                     <tr>
@@ -73,28 +74,235 @@
                             </form>
                         </td>
                     </tr>
-                }
+                }*@
             </tbody>
         </table>
-        @{
-            var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
-            var nextDisabled = !Model.HasNextPage ? "disabled" : "";
-        }
-        <a asp-action="Index"
-           asp-route-sortOrder="@ViewData["CurrentSort"]"
-           asp-route-pageNumber="@(Model.PageIndex - 1)"
-           asp-route-currentFilter="@ViewData["CurrentFilter"]"
-           class="btn btn-default @prevDisabled">
-            Previous
-        </a>
-        <a asp-action="Index"
-           asp-route-sortOrder="@ViewData["CurrentSort"]"
-           asp-route-pageNumber="@(Model.PageIndex + 1)"
-           asp-route-currentFilter="@ViewData["CurrentFilter"]"
-           class="btn btn-default @nextDisabled">
-            Next
-        </a>
+
+        <nav aria-label="Page navigation">
+            <ul class="pagination" id="ulPagination">
+                @*<li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item"><a class="page-link" href="#">Next</a></li>*@
+            </ul>
+        </nav>
+
     </div>
 </div>
 
+
+@section Scripts {
+
+    <script>
+
+    //$("#btnSearch").click(function () {
+    //    $("[name='PageNumber']").val(1);
+    //    GetUsers($("[name='EventCode']").val(), $("[name='EventName']").val(), $("[name='Status']").val(), $("[name='PageNumber']").val(), 10);
+    //});
+
+    //function NextPage() {
+    //    $("[name='PageNumber']").val(parseInt($("[name='PageNumber']").val()) + 1);
+    //    GetUsers($("[name='EventCode']").val(), $("[name='EventName']").val(), $("[name='Status']").val(), $("[name='PageNumber']").val(), 10);
+    //}
+
+    //function PrevPage() {
+    //    $("[name='PageNumber']").val(parseInt($("[name='PageNumber']").val()) - 1);
+    //    GetUsers($("[name='EventCode']").val(), $("[name='EventName']").val(), $("[name='Status']").val(), $("[name='PageNumber']").val(), 10);
+    //}
+
+    function GetMGroup(forId1, selectedValue1, forId2, selectedValue2) {
+
+        var settings = {
+          "url": "/api/Admin/GetMGroup",
+          "method": "POST",
+          "timeout": 0,
+          "headers": {
+            "Content-Type": "application/json"
+          },
+        };
+
+        $.ajax(settings).done(function (response, textStatus, jqXHR) {
+
+            if (jqXHR.status == 200) {
+                var data = response;
+                var items = `<option value="">ทั้งหมด</option>`;
+                $.each(data, function (index, value) {
+                    items +=
+                        `
+                    <option value="` + value.groupId + `">` + value.groupName + `</option>
+                    `
+                });
+                $("#" + forId1).html(items);
+                $("#" + forId2).html(items);
+
+                console.log("selectedValue1", selectedValue1);
+                console.log("selectedValue2", selectedValue2);
+
+                if (selectedValue1 != null) {
+                    $("#" + forId1).val(selectedValue1);
+                }
+                if (selectedValue2 != null) {
+                    $("#" + forId2).val(selectedValue2);
+                }
+
+                CallingGetUsers();
+            }
+        });
+    }
+
+    function GetUsers(email, name, accountType, groupId, pageNumber, pageSize) {
+
+        var settings = {
+            "url": "/api/Admin/GetUsers",
+            "method": "POST",
+            "timeout": 0,
+            "headers": {
+            "Content-Type": "application/json"
+            },
+            "data": JSON.stringify(
+                {
+                    "email": email,
+                    "name": name,
+                    "accountType": accountType,
+                    "groupId": groupId,
+                    "pageNumber": pageNumber,
+                    "pageSize" : pageSize
+                }
+            ),
+        };
+
+        $.ajax(settings).done(function (response, textStatus, jqXHR) {
+            console.log("response", response);
+
+            if (jqXHR.status == 200) {
+                var data = response.data;
+                var items = ``;
+                $.each(data, function (index, value) {
+                    items +=
+                        `
+                    <tr>
+                        <td width="5%" scope="row">${ ((response.pageIndex-1) * 10 ) + index + 1 }</td>
+                        <td>${value.email}</td>
+                        <td>${value.name}</td>
+                        <td width="15%">${value.accounT_TYPE_NAME}</td>
+                        <td width="20%">${value.grouP_NAME}</td>
+                        <td width="15%">
+                            <form method="post" asp-action="Delete">
+                                <a class="btn-circle btn-sm btn-success" href=/User/Edit/${value.apP_USER_ID}>แก้ไข</a>
+
+                                <input type="hidden" name="APP_USER_ID" value="${value.apP_USER_ID}" />
+                                <button class="btn-circle btn-sm btn-warning" type="submit">ลบ</button>
+                            </form>
+                        </td>
+                    </tr>
+                    `
+                });
+                $("#tblResults >tbody").html(items);
+                $("#lblPageIndex").html(response.pageIndex + " / " + response.totalPages);
+                $("[name='PageNumber']").val(response.pageIndex);
+
+                if (response.totalPages > 1) {
+                    $("#dvPagination").show();
+                }
+                else {
+                    $("#dvPagination").hide();
+                }
+
+                var prevDisabled = !response.hasPreviousPage ? "disabled" : "";
+                var nextDisabled = !response.hasNextPage ? "disabled" : "";
+                $("#btnPrevPage").removeClass("disabled");
+                $("#btnNextPage").removeClass("disabled");
+                $("#btnPrevPage").addClass(prevDisabled);
+                $("#btnNextPage").addClass(nextDisabled);
+
+                GenerateTotalItems(response.totalItems, "lblTotalItems");
+                GeneratePaginationHtml(pageNumber, response.totalPages, "ulPagination");
+            }
+        });
+    }
+
+    function CallingGetUsers() {
+
+        var urlParam = new URLSearchParams(window.location.search);
+        var p1 = urlParam.get("Email");
+        var p2 = urlParam.get("Name");
+        var p3 = urlParam.get("AccountType");
+        var p4 = urlParam.get("GroupId");
+        var p5 = urlParam.get("PageNumber");
+
+        if (p1 != null) {
+            $("[name='Email']").val(p1);
+        }
+        if (p2 != null) {
+            $("[name='Name']").val(p2);
+        }
+        if (p3 != null) {
+            $("[name='AccountType']").val(p3);
+        }
+        if (p4 != null) {
+            $("[name='GroupId']").val(p4);
+        }
+
+        GetUsers(p1, p2, p3, p4, p5, 10);
+    }
+
+    function GenerateTotalItems(totalItems, forId) {
+        $("#" + forId).html(totalItems);
+    }
+
+    function GeneratePaginationHtml(pageNumber, totalPages, forId) {
+
+        var url = window.location.pathname;
+        var urlParam = new URLSearchParams(window.location.search);
+        urlParam.delete("PageNumber");
+
+        for (var pair of urlParam.entries()) {
+             url += `&${pair[0]}=${pair[1]}`;
+        }
+
+
+        var pageNumber = parseInt(pageNumber == null ? 1 : pageNumber);
+
+        var start = 1;
+        var end = totalPages;
+        if ((pageNumber + 5) < end) {
+            end = pageNumber + 5;
+        }
+        start = end - 9;
+        if (start < 1) {
+            start = 1;
+            end = Math.min(10, totalPages);
+        }
+
+        console.log("pageNumber:" + pageNumber + " totalPages:" + totalPages);
+        console.log("start:" + start + " end:" + end);
+
+        var items_1 = "";
+        for (var i = start; i <= end; i++) {
+            var urlWithPageNumber = (url + "&PageNumber=" + i).replace("&", "?");
+            items_1 += `<li class="page-item ${i == pageNumber ? "active": ""}"><a class="page-link" href="${urlWithPageNumber}">${i}</a></li>`;
+        }
+
+        $("#" + forId).append(`<li class="page-item"><a class="page-link" href="${ (url + "&PageNumber=" + 1).replace("&", "?") }"> |< </a></li>`);
+
+        $("#" + forId).append(items_1);
+
+        $("#" + forId).append(`<li class="page-item"><a class="page-link" href="${ (url + "&PageNumber=" + totalPages).replace("&", "?") }"> >| </a></li>`);
+
+    }
+
+
+    $(document).ready(function () {
+
+        var urlParam = new URLSearchParams(window.location.search);
+
+        GetMGroup("ddlAccountType", urlParam.get("AccountType"), "ddlGROUP", urlParam.get("GroupId"));
+
+    });
+
+
+    </script>
+
+}
 
