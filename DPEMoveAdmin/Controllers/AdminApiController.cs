@@ -45,6 +45,7 @@ namespace DPEMoveAdmin.Controllers
             {
                 q = q.Where(a => a.Status == model.Status);
             }
+            q = q.OrderByDescending(a => a.EventId);
 
             var qq = PaginatedList<Event>.Create(q, model.PageNumber ?? 1, model.PageSize ?? 10).GetPaginatedData();
 

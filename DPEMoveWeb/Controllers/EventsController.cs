@@ -16,6 +16,7 @@ using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Identity;
+using System.Globalization;
 
 namespace DPEMoveWeb.Controllers
 {
@@ -167,10 +168,12 @@ namespace DPEMoveWeb.Controllers
                 _context.Entry(addr).State = EntityState.Added;
                 _context.SaveChanges();
 
+
+                DateTimeFormatInfo fmt = (new CultureInfo("en-US")).DateTimeFormat;
                 var q = new Event
                 {
                     EventName = model.EventName,
-                    EventCode = "EVT" + DateTime.Now.ToString("yyyyMMdd") + (_context.Event.Max(a => a.EventId) + 1).ToString().PadLeft(4, '0'),
+                    EventCode = "EVT" + DateTime.Now.ToString("yyyyMMddHHmmss", fmt) + (_context.Event.Max(a => a.EventId) + 1).ToString().PadLeft(7, '0'),
                     EventDescription = "...", //model.EventDescription,
                     EventStartTimestamp = model.EventStartTimestamp,
                     EventFinishTimestamp = model.EventFinishTimestamp,

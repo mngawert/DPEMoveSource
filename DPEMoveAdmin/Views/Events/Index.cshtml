@@ -45,6 +45,7 @@
                     <th scope="col">#</th>
                     <th scope="col">รหัสกิจกรรม</th>
                     <th scope="col">ชื่อกิจกรรม</th>
+                    <th scope="col">วันที่สร้าง</th>
                     <th scope="col">สถานะ</th>
                     <th scope="col"></th>
                 </tr>
@@ -143,6 +144,7 @@
                         <td width="5%" scope="row">${ ((response.pageIndex-1) * 10 ) + index + 1 }</td>
                         <td width="15%"> <a target="blank" href="https://dpemove.dpe.go.th/Events/Details/${value.eventId}" > ${value.eventCode } </a></td>
                         <td>${value.eventName}</td>
+                        <td>${ new Date(value.createdDate).toLocaleDateString('th-TH')}</td>
                         <td width="15%">${ value.status == 1 ? "ใช้งาน" : "ไม่ใช้งาน" }</td>
                         <td width="15%">
                             <a class="btn-circle btn-sm btn-success" href=/Events/Edit/${value.eventId}>แก้ไข</a>
