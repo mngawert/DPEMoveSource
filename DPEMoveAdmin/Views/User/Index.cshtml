@@ -284,12 +284,15 @@
             items_1 += `<li class="page-item ${i == pageNumber ? "active": ""}"><a class="page-link" href="${urlWithPageNumber}">${i}</a></li>`;
         }
 
-        $("#" + forId).append(`<li class="page-item"><a class="page-link" href="${ (url + "&PageNumber=" + 1).replace("&", "?") }"> |< </a></li>`);
+        if (totalPages > 0) {
+            $("#" + forId).append(`<li class="page-item"><a class="page-link" href="${ (url + "&PageNumber=" + 1).replace("&", "?") }"> |< </a></li>`);
+        }
 
         $("#" + forId).append(items_1);
 
-        $("#" + forId).append(`<li class="page-item"><a class="page-link" href="${ (url + "&PageNumber=" + totalPages).replace("&", "?") }"> >| </a></li>`);
-
+        if (totalPages > 0) {
+            $("#" + forId).append(`<li class="page-item"><a class="page-link" href="${(url + "&PageNumber=" + totalPages).replace("&", "?")}"> >| </a></li>`);
+        }
     }
 
 

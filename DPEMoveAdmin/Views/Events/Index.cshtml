@@ -214,11 +214,15 @@
         }
 
 
-        $("#" + forId).append(`<li class="page-item"><a class="page-link" href="${ (url + "&PageNumber=" + 1).replace("&", "?") }"> |< </a></li>`);
+        if (totalPages > 0) {
+            $("#" + forId).append(`<li class="page-item"><a class="page-link" href="${ (url + "&PageNumber=" + 1).replace("&", "?") }"> |< </a></li>`);
+        }
 
         $("#" + forId).append(items_1);
 
-        $("#" + forId).append(`<li class="page-item"><a class="page-link" href="${ (url + "&PageNumber=" + totalPages).replace("&", "?") }"> >| </a></li>`);
+        if (totalPages > 0) {
+            $("#" + forId).append(`<li class="page-item"><a class="page-link" href="${(url + "&PageNumber=" + totalPages).replace("&", "?")}"> >| </a></li>`);
+        }
     }
 
 
