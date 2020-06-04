@@ -221,7 +221,7 @@
                                                     โทรศัพท์* 
                                                 </div>
                                                 <div class="c field">
-                                                    <input type="text" asp-for="ContactPersonMobile" class="input-field" required />
+                                                    <input type="text" pattern=".{0}|.{9,20}" required asp-for="ContactPersonMobile" class="input-field" />
                                                 </div>
                                             </div>
                                         </div>
