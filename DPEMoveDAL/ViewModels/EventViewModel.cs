@@ -198,6 +198,9 @@ namespace DPEMoveDAL.ViewModels
         public int? Status { get; set; }
         public string AccountType { get; set; }
         public decimal? GroupId { get; set; }
+        public string ProvinceCode { get; set; }
+        public string AmphurCode { get; set; }
+        public string TambonCode { get; set; }
         public int? PageNumber { get; set; }
         public int? PageSize { get; set; }
     }

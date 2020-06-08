@@ -18,17 +18,38 @@
                         <input class="col-md-3 form-control" name="EventName" />
                     </div>
                     <div class="form-group row">
-                        <label class="col-md-2 text-right">สถานะ</label>
-                        <select class="col-md-3 form-control" name="Status">
-                            <option value="">ทั้งหมด</option>
-                            <option value="1">ใช้งาน</option>
-                            <option value="2">ไม่ใช้งาน</option>
+                        <label class="col-md-2 text-right">จังหวัด</label>
+                        <select class="col-md-3 form-control" id="ddlProvince" name="Province">
+                            <option value="">แสดงทั้งหมด</option>
                         </select>
                         <label class="col-md-2 text-right">กลุ่ม</label>
                         <select class="col-md-3 form-control" name="AccountType" id="ddlAccountType">
                             <option value="">ทั้งหมด</option>
                         </select>
                     </div>
+
+
+                    <div class="form-group row">
+                        <label class="col-md-2 text-right">อำเภอ</label>
+                        <select class="col-md-3 form-control" id="ddlAmphur" name="Amphur">
+                            <option value="">แสดงทั้งหมด</option>
+                        </select>
+                        <label class="col-md-2 text-right">สถานะ</label>
+                        <select class="col-md-3 form-control" name="Status">
+                            <option value="">ทั้งหมด</option>
+                            <option value="1">ใช้งาน</option>
+                            <option value="2">ไม่ใช้งาน</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-md-2 text-right">ตำบล</label>
+                        <select class="col-md-3 form-control" id="ddlTambon" name="Tambon">
+                            <option value="">แสดงทั้งหมด</option>
+                        </select>
+                    </div>
+
+
                     <div class="form-group row">
                         <div class="col-md-5">
                         </div>
@@ -116,8 +137,156 @@
     //}
 
 
+    function GetProvince(Token, selectedValue, GetEvenCallback) {
 
-    function GetMGroup(forId1, selectedValue1, forId2, selectedValue2, callback) {
+        console.log("call GetProvince");
+        var form = new FormData();
+        form.append("Token", Token);
+
+        var settings = {
+            "url": "https://data.dpe.go.th/api/stadium/location/getProvince",
+            "method": "POST",
+            "timeout": 0,
+            "processData": false,
+            "mimeType": "multipart/form-data",
+            "contentType": false,
+            "data": form
+        };
+
+        $.ajax(settings).done(function (response, textStatus, jqXHR) {
+
+            if (jqXHR.status == 200) {
+                var results = JSON.parse(response);
+                var data = results.data;
+                PROVINCE_DATA = data;
+                var items =
+                    `
+                <option value="">แสดงทั้งหมด</option>
+                `
+                $.each(data, function (index, value) {
+                    items +=
+                        `
+                    <option value="` + value.PROV_CODE + `">` + value.PROV_NAMT + `</option>
+                    `
+                });
+                $("#ddlProvince").html(items);
+
+                if (selectedValue != null) {
+                    $("#ddlProvince").val(selectedValue);
+                }
+
+                var urlParam = new URLSearchParams(window.location.search);
+                GetAmphur(Token, $("#ddlProvince").val(), urlParam.get("Amphur"), GetEvenCallback);
+            }
+        });
+    }
+
+    function GetAmphur(token, PROV_CODE, selectedValue, GetEvenCallback) {
+
+        console.log("GetAmphur");
+
+        var form = new FormData();
+        form.append("PROV_CODE", PROV_CODE);
+        form.append("Token", token);
+
+        var settings = {
+            "url": "https://data.dpe.go.th/api/stadium/location/getAmpher",
+            "method": "POST",
+            "timeout": 0,
+            "processData": false,
+            "mimeType": "multipart/form-data",
+            "contentType": false,
+            "data": form
+        };
+
+        $.ajax(settings).done(function (response, textStatus, jqXHR) {
+
+            if (jqXHR.status == 200) {
+                var results = JSON.parse(response);
+                var data = results.data;
+                var items =
+                    `
+                <option value="">แสดงทั้งหมด</option>
+                `
+                $.each(data, function (index, value) {
+                    items +=
+                        `
+                    <option value="` + value.AMP_CODE + `">` + value.AMP_NAMT + `</option>
+                    `
+                });
+                $("#ddlAmphur").html(items);
+
+                if (selectedValue != null) {
+                    $("#ddlAmphur").val(selectedValue);
+                }
+
+                var urlParam = new URLSearchParams(window.location.search);
+                GetTambon(token, $("#ddlProvince").val(), $("#ddlAmphur").val(), urlParam.get("Tambon"), GetEvenCallback);
+            }
+        });
+    }
+
+    function GetTambon(token, PROV_CODE, AMP_CODE, selectedValue, GetEvenCallback) {
+
+        console.log("GetTambon");
+
+        var form = new FormData();
+        form.append("PROV_CODE", PROV_CODE);
+        form.append("AMP_CODE", AMP_CODE);
+        form.append("Token", token);
+
+        var settings = {
+            "url": "https://data.dpe.go.th/api/stadium/location/getTambol",
+            "method": "POST",
+            "timeout": 0,
+            "processData": false,
+            "mimeType": "multipart/form-data",
+            "contentType": false,
+            "data": form
+        };
+
+        $.ajax(settings).done(function (response, textStatus, jqXHR) {
+
+            if (jqXHR.status == 200) {
+                var results = JSON.parse(response);
+                var data = results.data;
+                var items =
+                    `
+                <option value="">แสดงทั้งหมด</option>
+                `
+                $.each(data, function (index, value) {
+                    items +=
+                        `
+                    <option value="` + value.TAM_CODE + `">` + value.TAM_NAMT + `</option>
+                    `
+                });
+                $("#ddlTambon").html(items);
+
+                if (selectedValue != null) {
+                    $("#ddlTambon").val(selectedValue);
+                }
+
+                if (GetEvenCallback != null) {
+                    GetEvenCallback();
+                }
+            }
+        });
+    }
+
+    function GetToken() {
+        var settings = {
+            "url": "https://dpemove.dpe.go.th/api/Account/GetDPEToken",
+            "method": "POST",
+            "timeout": 0,
+            "headers": {
+                "Content-Type": "application/json"
+            },
+        };
+
+        return $.ajax(settings);
+    }
+
+    function GetMGroup(token, forId1, selectedValue1, forId2, selectedValue2, GetEvenCallback) {
 
         var settings = {
           "url": "/api/Admin/GetMGroup",
@@ -152,9 +321,8 @@
                     $("#" + forId2).val(selectedValue2);
                 }
 
-                if (callback != null) {
-                    callback();
-                }
+                var urlParam = new URLSearchParams(window.location.search);
+                GetProvince(token, urlParam.get("Province"), GetEvenCallback);
             }
         });
     }
@@ -166,7 +334,10 @@
         var p2 = urlParam.get("EventName");
         var p3 = urlParam.get("Status");
         var p4 = urlParam.get("AccountType");
-        var p5 = urlParam.get("PageNumber");
+        var p5 = urlParam.get("Province");
+        var p6 = urlParam.get("Amphur");
+        var p7 = urlParam.get("Tambon");
+        var p8 = urlParam.get("PageNumber");
 
         if (p1 != null) {
             $("[name='EventCode']").val(p1);
@@ -178,16 +349,26 @@
             $("[name='Status']").val(p3);
         }
         if (p4 != null) {
-            $("[name='accountType']").val(p4);
+            $("[name='AccountType']").val(p4);
         }
         if (p5 != null) {
-            $("[name='PageNumber']").val(p5);
+            $("[name='Province']").val(p5);
+        }
+        if (p6 != null) {
+            $("[name='Amphur']").val(p6);
+        }
+        if (p7 != null) {
+            $("[name='Tambon']").val(p7);
         }
 
-        GetEvents(p1, p2, p3, p4, p5, 10);
+        if (p8 != null) {
+            $("[name='PageNumber']").val(p8);
+        }
+
+        GetEvents(p1, p2, p3, p4, p5, p6, p7, p8, 10);
     }
 
-    function GetEvents(eventCode, eventName, status, accountType, pageNumber, pageSize) {
+    function GetEvents(eventCode, eventName, status, accountType, provinceCode, amphurCode, tambonCode , pageNumber, pageSize) {
 
         var settings = {
             "url": "/api/Admin/GetEvents",
@@ -202,6 +383,9 @@
                     "eventName": eventName,
                     "status": status,
                     "accountType": accountType,
+                    "provinceCode": provinceCode,
+                    "amphurCode": amphurCode,
+                    "tambonCode": tambonCode,
                     "pageNumber": pageNumber,
                     "pageSize" : pageSize
                 }
@@ -304,11 +488,44 @@
         }
     }
 
-
     $(document).ready(function () {
 
-        var urlParam = new URLSearchParams(window.location.search);
-        GetMGroup("ddlAccountType", urlParam.get("AccountType"), "ddlGROUP", urlParam.get("GroupId"), CallingGetEvents);
+        GetToken().done(function (response) {
+            var token = JSON.parse(response).data;
+            localStorage.setItem("token", token);
+            console.log("localStorage.token", localStorage.getItem("token"));
+
+            var urlParam = new URLSearchParams(window.location.search);
+            GetMGroup(token, "ddlAccountType", urlParam.get("AccountType"), "ddlGROUP", urlParam.get("GroupId"), CallingGetEvents);
+
+        });
+
+        $("#ddlProvince").change(function () {
+            var provinceId = $("#ddlProvince").val();
+            if (provinceId == "") {
+                $("#ddlAmphur").html(`<option value="">แสดงทั้งหมด</option>`);
+                $("#ddlTambon").html(`<option value="">แสดงทั้งหมด</option>`);
+            }
+            else {
+                var token = localStorage.getItem("token");
+                GetAmphur(token, provinceId, null);
+                $("#ddlTambon").html(`<option value="">แสดงทั้งหมด</option>`);
+            }
+        });
+
+        $("#ddlAmphur").change(function () {
+            var provinceId = $("#ddlProvince").val();
+            var amphurId = $("#ddlAmphur").val();
+
+            if (amphurId == "") {
+                $("#ddlTambon").html(`<option value="">แสดงทั้งหมด</option>`);
+            }
+            else {
+                var token = localStorage.getItem("token");
+                GetTambon(token, provinceId, amphurId, null);
+            }
+        });
+
 
     });
 

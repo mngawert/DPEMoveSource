@@ -34,10 +34,12 @@ namespace DPEMoveAdmin.Controllers
         {
             //var q = _context.Event as IQueryable<Event>;
 
-            string sql = @"SELECT EVENT_ID, EVENT_CODE, EVENT_NAME, STATUS, CREATED_DATE, CREATED_BY, B.ACCOUNT_TYPE, B.ACCOUNT_TYPE_NAME, b.GROUP_ID, b.GROUP_NAME
-                            FROM event a, VW_USER b
-                              where a.created_by = b.app_user_id
-                            order by 1
+            string sql = @"SELECT   event_id, event_code, event_name, a.status, a.created_date,
+                                 a.created_by, b.account_type, b.account_type_name, b.GROUP_ID,
+                                 b.group_name, c.province_code, c.amphur_code, c.tambon_code
+                            FROM event a, vw_user b, address c
+                           WHERE a.created_by = b.app_user_id AND a.address_id = c.address_id
+                            ORDER BY 1
                             ";
 
             var q = _context.VW_EVENTS.FromSql(sql).ToList();
@@ -61,6 +63,18 @@ namespace DPEMoveAdmin.Controllers
             if (!string.IsNullOrEmpty(model.AccountType))
             {
                 q = q.Where(a => a.AccountType == model.AccountType).ToList();
+            }
+            if (!string.IsNullOrEmpty(model.ProvinceCode))
+            {
+                q = q.Where(a => a.ProvinceCode == model.ProvinceCode).ToList();
+            }
+            if (!string.IsNullOrEmpty(model.AmphurCode))
+            {
+                q = q.Where(a => a.AmphurCode == model.AmphurCode).ToList();
+            }
+            if (!string.IsNullOrEmpty(model.TambonCode))
+            {
+                q = q.Where(a => a.TambonCode == model.TambonCode).ToList();
             }
 
             q = q.OrderByDescending(a => a.EventId).ToList();

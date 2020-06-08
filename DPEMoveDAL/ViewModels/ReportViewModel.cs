@@ -199,8 +199,13 @@ namespace DPEMoveDAL.ViewModels
         public decimal GroupId { get; set; }
         [Column("GROUP_NAME")]
         public string GroupName { get; set; }
+        [Column("PROVINCE_CODE")]
+        public string ProvinceCode { get; set; }
+        [Column("AMPHUR_CODE")]
+        public string AmphurCode { get; set; }
+        [Column("TAMBON_CODE")]
+        public string TambonCode { get; set; }
     }
-
 
 }
 
