@@ -398,8 +398,8 @@ button:focus { outline: none; }
 .modal form input[type=email]  { padding: 5px 8px; width: 100%; }
 .modal form .r-field { margin-bottom: 10px; }
 .modal form .r-field .c { float: left; padding: 0 15px; }
-.modal form .r-field .c-label { width: 20%; }
-.modal form .r-field .c-field { width: 80%; }
+.modal form .r-field .c-label { width: 25%; }
+.modal form .r-field .c-field { width: 75%; }
 .block-group .heading .mdc-radio .mdc-radio__native-control:enabled:not(:checked)+.mdc-radio__background .mdc-radio__outer-circle { border-color: #ffffff; }
 .block-group .heading .mdc-radio { margin-top: 0; }
 .block-group .heading .mdc-form-field label { font-weight: bold; padding-top: 6px; color: #ffffff; }

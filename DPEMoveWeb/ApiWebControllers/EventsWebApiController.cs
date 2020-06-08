@@ -392,6 +392,7 @@ namespace DPEMoveWeb.ApiWebControllers
                 EventParticipantName = model.EventParticipantName,
                 EventParticipantAmount = model.EventParticipantAmount,
                 EventParticipantUnit = model.EventParticipantUnit,
+                EventParticipantDuration = model.EventParticipantDuration,
                 Status = 1,
                 CreatedBy = model.CreatedBy,
                 CreatedDate = DateTime.Now

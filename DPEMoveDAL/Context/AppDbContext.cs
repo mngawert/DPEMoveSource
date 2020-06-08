@@ -1314,6 +1314,8 @@ namespace DPEMoveDAL.Models
 
                 entity.Property(e => e.EventParticipantAmount).HasColumnName("EVENT_PARTICIPANT_AMOUNT");
 
+                entity.Property(e => e.EventParticipantDuration).HasColumnName("EVENT_PARTICIPANT_DURATION");
+
                 entity.Property(e => e.EventParticipantName)
                     .HasColumnName("EVENT_PARTICIPANT_NAME")
                     .HasColumnType("VARCHAR2(255)");

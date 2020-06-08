@@ -231,7 +231,7 @@
                                                     โทรสาร
                                                 </div>
                                                 <div class="c field">
-                                                    <input type="text" pattern=".{0}|.{9,20}" required asp-for="ContactPersonFax" class="input-field" />
+                                                    <input type="text" asp-for="ContactPersonFax" class="input-field" />
                                                 </div>
                                             </div>
                                         </div>
@@ -649,6 +649,7 @@
                                                             <th class="name">ชื่อ</th>
                                                             <th class="amount">จำนวน</th>
                                                             <th class="unit">หน่วย</th>
+                                                            <th class="unit">ระยะเวลา (นาที)</th>
                                                             <th class="manage center">จัดการ</th>
                                                         </tr>
                                                     </thead>
@@ -792,13 +793,13 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <form id="frmAddEventParticipant_@topic.ParticipantId">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">ปิด</span>
-                                    </button>
-                                    <div>เพิ่ม @topic.ParticipantName</div>
-                                </div>
-                                <div class="modal-body">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">ปิด</span>
+                                </button>
+                                <div>เพิ่ม @topic.ParticipantName</div>
+                            </div>
+                            <div class="modal-body">
                                 <div class="row r-field">
                                     <div class="c c-label">
                                         ชื่อ
@@ -821,6 +822,14 @@
                                     </div>
                                     <div class="c c-field">
                                         <input type="text" id="txtEventParticipantUnit_@topic.ParticipantId" name="" value="" class="input-field" />
+                                    </div>
+                                </div>
+                                <div class="row r-field">
+                                    <div class="c c-label">
+                                        ระยะเวลา (นาที)
+                                    </div>
+                                    <div class="c c-field">
+                                        <input type="text" id="txtEventParticipantDuration_@topic.ParticipantId" name="" value="" class="input-field" />
                                     </div>
                                 </div>
                                 <div class="row">

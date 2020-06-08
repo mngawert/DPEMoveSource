@@ -169,11 +169,12 @@ namespace DPEMoveWeb.Controllers
                 _context.SaveChanges();
 
 
+
                 DateTimeFormatInfo fmt = (new CultureInfo("en-US")).DateTimeFormat;
                 var q = new Event
                 {
                     EventName = model.EventName,
-                    EventCode = "EVT" + DateTime.Now.ToString("yyyyMMddHHmmss", fmt) + (_context.Event.Max(a => a.EventId) + 1).ToString().PadLeft(7, '0'),
+                    EventCode = "EVT" + DateTime.Now.ToString("yyyyMMddHHmmss", fmt) + (_context.Event.DefaultIfEmpty().Max(a => a.EventId) + 1).ToString().PadLeft(7, '0'),
                     EventDescription = "...", //model.EventDescription,
                     EventStartTimestamp = model.EventStartTimestamp,
                     EventFinishTimestamp = model.EventFinishTimestamp,
@@ -305,6 +306,7 @@ namespace DPEMoveWeb.Controllers
                                 EventParticipantName = k.EventParticipantName,
                                 EventParticipantAmount = k.EventParticipantAmount,
                                 EventParticipantUnit = k.EventParticipantUnit,
+                                EventParticipantDuration = k.EventParticipantDuration,
                                 Status = k.Status,
                                 CreatedBy = k.CreatedBy,
                                 CreatedDate = k.CreatedDate

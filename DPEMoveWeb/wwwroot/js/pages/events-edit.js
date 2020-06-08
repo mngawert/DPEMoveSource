@@ -336,6 +336,7 @@ function GetEventParticipantFromSession(obj) {
                     <td>` + value.eventParticipantName + `</td>
                     <td>` + (value.eventParticipantAmount == null ? "" : value.eventParticipantAmount) + `</td>
                     <td>` + (value.eventParticipantUnit == null ? "" : value.eventParticipantUnit) + `</td>
+                    <td>` + (value.eventParticipantDuration == null ? "" : value.eventParticipantDuration) + `</td>
                     <td class="center"><button type="button" onclick="DeleteEventParticipantFromSession(` + value.eventId + `,` + value.participantId + `,` + value.eventParticipantId + `)" class="button small red">&nbsp;ลบ&nbsp;</button></td>
                 </tr>
                 `
@@ -366,6 +367,7 @@ function AddEventParticipantToSession(eventId, participantId) {
     input.eventParticipantName = $("#txtEventParticipantName_" + participantId).val();
     input.eventParticipantAmount = $("#txtEventParticipantAmount_" + participantId).val();
     input.eventParticipantUnit = $("#txtEventParticipantUnit_" + participantId).val();
+    input.eventParticipantDuration = $("#txtEventParticipantDuration_" + participantId).val();
     input.createdBy = "0";
     options.data = JSON.stringify(input);
     //console.log("input", options.data);
@@ -374,6 +376,7 @@ function AddEventParticipantToSession(eventId, participantId) {
     $("#txtEventParticipantName_" + participantId).val("");
     $("#txtEventParticipantAmount_" + participantId).val("");
     $("#txtEventParticipantUnit_" + participantId).val("");
+    $("#txtEventParticipantDuration_" + participantId).val("");
 
     options.url = "/webapi/Events/AddEventParticipantToSession";
     options.contentType = "application/json";

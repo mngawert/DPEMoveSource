@@ -16,6 +16,7 @@ namespace DPEMoveDAL.Models
         public int CreatedBy { get; set; }
         public DateTime? UpdatedDate { get; set; }
         public int? UpdatedBy { get; set; }
+        public int? EventParticipantDuration { get; set; }
 
         public Event Event { get; set; }
         public MParticipant Participant { get; set; }
