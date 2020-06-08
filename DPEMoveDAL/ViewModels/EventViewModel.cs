@@ -196,6 +196,8 @@ namespace DPEMoveDAL.ViewModels
         public string EventCode { get; set; }
         public string EventName { get; set; }
         public int? Status { get; set; }
+        public string AccountType { get; set; }
+        public decimal? GroupId { get; set; }
         public int? PageNumber { get; set; }
         public int? PageSize { get; set; }
     }

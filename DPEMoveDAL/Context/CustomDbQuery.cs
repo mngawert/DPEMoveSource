@@ -27,5 +27,6 @@ namespace DPEMoveDAL.Models
         public DbQuery<VwSurveyAnswerDbQuery> VwSurveyAnswerDbQuery { get; set; }
         public DbQuery<VwSurveyAnswerDetailsDbQuery> VwSurveyAnswerDetailsDbQuery { get; set; }
         public DbQuery<VW_USER> VW_USER { get; set; }
+        public DbQuery<VW_EVENTS> VW_EVENTS { get; set; }
     }
 }

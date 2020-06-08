@@ -32,23 +32,40 @@ namespace DPEMoveAdmin.Controllers
         [HttpPost]
         public IActionResult GetEvents(EventViewModel3 model)
         {
-            var q = _context.Event as IQueryable<Event>;
+            //var q = _context.Event as IQueryable<Event>;
+
+            string sql = @"SELECT EVENT_ID, EVENT_CODE, EVENT_NAME, STATUS, CREATED_DATE, CREATED_BY, B.ACCOUNT_TYPE, B.ACCOUNT_TYPE_NAME, b.GROUP_ID, b.GROUP_NAME
+                            FROM event a, VW_USER b
+                              where a.created_by = b.app_user_id
+                            order by 1
+                            ";
+
+            var q = _context.VW_EVENTS.FromSql(sql).ToList();
 
             if (!string.IsNullOrEmpty(model.EventCode))
             {
-                q = q.Where(a => a.EventCode.Contains(model.EventCode));
+                q = q.Where(a => a.EventCode.Contains(model.EventCode)).ToList();
             }
             if (!string.IsNullOrEmpty(model.EventName))
             {
-                q = q.Where(a => a.EventName.Contains(model.EventName));
+                q = q.Where(a => a.EventName.Contains(model.EventName)).ToList();
             }
             if (model.Status != null)
             {
-                q = q.Where(a => a.Status == model.Status);
+                q = q.Where(a => a.Status == model.Status).ToList();
             }
-            q = q.OrderByDescending(a => a.EventId);
+            if (model.GroupId != null)
+            {
+                q = q.Where(a => a.GroupId == model.GroupId).ToList();
+            }
+            if (!string.IsNullOrEmpty(model.AccountType))
+            {
+                q = q.Where(a => a.AccountType == model.AccountType).ToList();
+            }
 
-            var qq = PaginatedList<Event>.Create(q, model.PageNumber ?? 1, model.PageSize ?? 10).GetPaginatedData();
+            q = q.OrderByDescending(a => a.EventId).ToList();
+
+            var qq = PaginatedList<VW_EVENTS>.Create(q, model.PageNumber ?? 1, model.PageSize ?? 10).GetPaginatedData();
 
             return Ok(qq);
         }

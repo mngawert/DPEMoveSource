@@ -24,12 +24,8 @@ namespace DPEMoveWebApi.Controllers
             _context = context;
         }
 
-        public IActionResult Index(EventViewModel3 model)
+        public IActionResult Index()
         {
-            //var qq = PaginatedList<Event>.Create(_context.Event, 1, 10);
-
-            //return View(qq);
-
             return View();
         }
         

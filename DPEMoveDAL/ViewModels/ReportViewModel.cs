@@ -176,4 +176,32 @@ namespace DPEMoveDAL.ViewModels
         public string ACCOUNT_TYPE_NAME { get; set; }
         public string GROUP_NAME { get; set; }
     }
+
+    public class VW_EVENTS
+    {
+        [Column("EVENT_ID")]
+        public int EventId { get; set; }
+        [Column("EVENT_CODE")]
+        public string EventCode { get; set; }
+        [Column("EVENT_NAME")]
+        public string EventName { get; set; }
+        [Column("STATUS")]
+        public int? Status { get; set; }
+        [Column("CREATED_DATE")]
+        public DateTime CreatedDate { get; set; }
+        [Column("CREATED_BY")]
+        public int CreatedBy { get; set; }
+        [Column("ACCOUNT_TYPE")]
+        public string AccountType { get; set; }
+        [Column("ACCOUNT_TYPE_NAME")]
+        public string AccountTypeName { get; set; }
+        [Column("GROUP_ID")]
+        public decimal GroupId { get; set; }
+        [Column("GROUP_NAME")]
+        public string GroupName { get; set; }
+    }
+
+
 }
+
+

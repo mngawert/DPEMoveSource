@@ -24,6 +24,10 @@
                             <option value="1">ใช้งาน</option>
                             <option value="2">ไม่ใช้งาน</option>
                         </select>
+                        <label class="col-md-2 text-right">กลุ่ม</label>
+                        <select class="col-md-3 form-control" name="AccountType" id="ddlAccountType">
+                            <option value="">ทั้งหมด</option>
+                        </select>
                     </div>
                     <div class="form-group row">
                         <div class="col-md-5">
@@ -111,7 +115,79 @@
     //    GetEvents($("[name='EventCode']").val(), $("[name='EventName']").val(), $("[name='Status']").val(), $("[name='PageNumber']").val(), 10);
     //}
 
-    function GetEvents(eventCode, eventName, status, pageNumber, pageSize) {
+
+
+    function GetMGroup(forId1, selectedValue1, forId2, selectedValue2, callback) {
+
+        var settings = {
+          "url": "/api/Admin/GetMGroup",
+          "method": "POST",
+          "timeout": 0,
+          "headers": {
+            "Content-Type": "application/json"
+          },
+        };
+
+        $.ajax(settings).done(function (response, textStatus, jqXHR) {
+
+            if (jqXHR.status == 200) {
+                var data = response;
+                var items = `<option value="">ทั้งหมด</option>`;
+                $.each(data, function (index, value) {
+                    items +=
+                        `
+                    <option value="` + value.groupId + `">` + value.groupName + `</option>
+                    `
+                });
+                $("#" + forId1).html(items);
+                $("#" + forId2).html(items);
+
+                console.log("selectedValue1", selectedValue1);
+                console.log("selectedValue2", selectedValue2);
+
+                if (selectedValue1 != null) {
+                    $("#" + forId1).val(selectedValue1);
+                }
+                if (selectedValue2 != null) {
+                    $("#" + forId2).val(selectedValue2);
+                }
+
+                if (callback != null) {
+                    callback();
+                }
+            }
+        });
+    }
+
+    var CallingGetEvents = function () {
+
+        var urlParam = new URLSearchParams(window.location.search);
+        var p1 = urlParam.get("EventCode");
+        var p2 = urlParam.get("EventName");
+        var p3 = urlParam.get("Status");
+        var p4 = urlParam.get("AccountType");
+        var p5 = urlParam.get("PageNumber");
+
+        if (p1 != null) {
+            $("[name='EventCode']").val(p1);
+        }
+        if (p2 != null) {
+            $("[name='EventName']").val(p2);
+        }
+        if (p3 != null) {
+            $("[name='Status']").val(p3);
+        }
+        if (p4 != null) {
+            $("[name='accountType']").val(p4);
+        }
+        if (p5 != null) {
+            $("[name='PageNumber']").val(p5);
+        }
+
+        GetEvents(p1, p2, p3, p4, p5, 10);
+    }
+
+    function GetEvents(eventCode, eventName, status, accountType, pageNumber, pageSize) {
 
         var settings = {
             "url": "/api/Admin/GetEvents",
@@ -125,11 +201,14 @@
                     "eventCode": eventCode,
                     "eventName": eventName,
                     "status": status,
+                    "accountType": accountType,
                     "pageNumber": pageNumber,
                     "pageSize" : pageSize
                 }
             ),
         };
+
+        console.log("settings", settings);
 
         $.ajax(settings).done(function (response, textStatus, jqXHR) {
             console.log("response", response);
@@ -229,22 +308,8 @@
     $(document).ready(function () {
 
         var urlParam = new URLSearchParams(window.location.search);
-        var p1 = urlParam.get("EventCode");
-        var p2 = urlParam.get("EventName");
-        var p3 = urlParam.get("Status");
-        var p4 = urlParam.get("PageNumber");
+        GetMGroup("ddlAccountType", urlParam.get("AccountType"), "ddlGROUP", urlParam.get("GroupId"), CallingGetEvents);
 
-        if (p1 != null) {
-            $("[name='EventCode']").val(p1);
-        }
-        if (p2 != null) {
-            $("[name='EventName']").val(p2);
-        }
-        if (p3 != null) {
-            $("[name='Status']").val(p3);
-        }
-
-        GetEvents(p1, p2, p3, p4, 10);
     });
 
 
