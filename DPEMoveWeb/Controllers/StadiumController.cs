@@ -54,9 +54,26 @@ namespace DPEMoveWeb.Controllers
             return -1;
         }
 
+        private async Task<string> GetLoginIdcardNo()
+        {
+            var userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (userId != null)
+            {
+                var user = await _userManager.FindByIdAsync(userId);
+                if (user != null)
+                {
+                    return user.IdcardNo;
+                }
+            }
+            return null;
+        }
+
+
         public async Task<IActionResult> Index()
         {
             ViewBag.AppUserGroupId = await GetLoginAppUserGroupId();
+            ViewBag.appIdcardNo = await GetLoginIdcardNo();
+
             return View();
         }
 

@@ -480,14 +480,21 @@ function GeneratePaginationHtml(pageNumber, totalPages, forId) {
 
 
 function GoToDataDPE() {
-    var url = `http://data.dpe.go.th`;
-    console.log("url: ", url);
-    window.open(url, '_blank');
+
+    if (appIdcardNo.length > 0) {
+        const param1 = window.btoa(appIdcardNo);
+        console.log("param1", param1);
+
+        var url = `https://stadium.dpe.go.th/users/member/login/bypass/${param1}`;
+        console.log("url: ", url);
+        window.open(url, '_blank');
+    }
 }
 
 $(document).ready(function () {
 
-    if (AppUserGroupId == 3 || AppUserGroupId == 4 || AppUserGroupId == 5) {
+    if (appIdcardNo.length > 0) {
+    //if (AppUserGroupId == 3 || AppUserGroupId == 4 || AppUserGroupId == 5) {
         $("#btnGoToDataDPE").show();
     }
 
