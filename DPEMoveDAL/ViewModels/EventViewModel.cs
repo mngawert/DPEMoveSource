@@ -12,7 +12,7 @@ namespace DPEMoveDAL.ViewModels
         public string EventName { get; set; }
         public string EventShortDescription { get; set; }
         public string EventDescription { get; set; }
-        public DateTime EventStartTimestamp { get; set; }
+        public DateTime? EventStartTimestamp { get; set; }
         public DateTime? EventFinishTimestamp { get; set; }
         public int? AddressId { get; set; }
         public string StadiumCode { get; set; }

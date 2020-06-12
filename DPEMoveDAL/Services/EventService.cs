@@ -166,11 +166,11 @@ namespace DPEMoveDAL.Services
             }
             if (model.EventStartTimestamp != null)
             {
-                q = q.Where(a => model.EventStartTimestamp.CompareTo(a.EventFinishTimestamp) <= 0);
+                q = q.Where(a => model.EventStartTimestamp.Value.CompareTo(a.EventFinishTimestamp) <= 0);
             }
             if (model.EventFinishTimestamp != null)
             {
-                q = q.Where(a => a.EventStartTimestamp.CompareTo(model.EventFinishTimestamp) <= 0);
+                q = q.Where(a => a.EventStartTimestamp.Value.CompareTo(model.EventFinishTimestamp) <= 0);
             }
             if (model.OnlyMyEvent != null)
             {
