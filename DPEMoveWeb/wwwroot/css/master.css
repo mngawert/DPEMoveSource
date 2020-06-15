@@ -418,6 +418,10 @@ button:focus { outline: none; }
 @media screen and (max-width: 1200px) {
 	.sec_head .wellcome h2 { font-size: 28px; }
 }
+@media only screen and (max-width:1199px) {
+	.my-acc { display: block; }
+	.link-logout { display: block; }
+}
 @media screen and (max-width: 480px) {
 	.head_text h2 {font-size: 26px; margin: 35px 0 0 0;}
 	.head_text span { display: none;}
@@ -495,7 +499,7 @@ button:focus { outline: none; }
 	.bt_survey { width: 80%; }
 	.bt-store a { width: 100%; display: block; margin: 0 0 5px; }
 	.loadapp { margin: 15px 0 10px; text-align: right; }
-	.login-link { position: absolute; top: 115px; left: -195%; z-index: 99; }
+	.login-link { position: absolute; top: 105px; left: -195%; z-index: 99; text-align: left; }
 	.activity::after { bottom: 0px; }
 	/**/
 }
@@ -528,7 +532,7 @@ button:focus { outline: none; }
 	.bt-store a { width: auto; display: inline-block; margin: 0 5px 0 0; }
 	.bt-store a:last-child { margin-right: 0; }
 	.loadapp { text-align: center; }
-	.login-link { top: 66px; left: 15px; }
+	.login-link { top: 55px; left: 15px; }
 	h2, .h2 { font-size: 2.4em; }
 	/**/
 }

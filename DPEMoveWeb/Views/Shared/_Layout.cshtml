@@ -44,9 +44,9 @@
                     @if (SignInManager.IsSignedIn(User))
                     {
                         <form id="formLogout" action="/Account/Logout" method="post">
-                            @UserManager.GetUserName(User)
-                            <a href="/Account/UpdateProfile">แก้ไขข้อมูลส่วนตัว</a>
-                            <img src="~/images/ic_login.png" width="30" height="28" alt="" /><a href="javascript:{}" onclick="document.getElementById('formLogout').submit();">ออกจากระบบ</a>
+                            <span class="my-acc">@UserManager.GetUserName(User)
+                            <a href="/Account/UpdateProfile">แก้ไขข้อมูลส่วนตัว</a></span>
+                            <span class="link-logout"><img src="~/images/ic_login.png" width="30" height="28" alt="" /><a href="javascript:{}" onclick="document.getElementById('formLogout').submit();">ออกจากระบบ</a></span>
                         </form>
                     }
                     else
