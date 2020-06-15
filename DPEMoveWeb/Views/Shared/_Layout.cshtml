@@ -40,12 +40,13 @@
             <div class="col-sm-12 col-md-4 col-lg-4 loadapp">
                 <a href="https://play.google.com/store/apps/details?id=com.dpe.dpemoveapp" target="_blank"><img src="/images/bt_play.png" width="134" height="44" alt="" /></a><a href="https://apps.apple.com/th/app/dpe-move/id1499938473" target="_blank"><img src="/images/bt-store.png" width="134" height="44" alt="" /></a>
                 <div class="login-link">
+                    @*<img src="/images/ic_login.png" width="30" height="28" alt="" /><a href="/Account/Login">เข้าสู่ระบบ</a>*@
                     @if (SignInManager.IsSignedIn(User))
                     {
                         <form id="formLogout" action="/Account/Logout" method="post">
                             @UserManager.GetUserName(User)
-                            <a href="/Account/UpdateProfile">ข้อมูลส่วนตัว</a>
-                            <a href="javascript:{}" onclick="document.getElementById('formLogout').submit();"><img src="~/images/ic_login.png" width="30" height="28" alt="" /></a>
+                            <a href="/Account/UpdateProfile">แก้ไขข้อมูลส่วนตัว</a>
+                            <img src="~/images/ic_login.png" width="30" height="28" alt="" /><a href="javascript:{}" onclick="document.getElementById('formLogout').submit();">ออกจากระบบ</a>
                         </form>
                     }
                     else
