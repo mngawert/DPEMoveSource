@@ -478,25 +478,57 @@ function GeneratePaginationHtml(pageNumber, totalPages, forId) {
     $("#" + forId).append(items_1);
 }
 
+function GetGMSMemberByProfileIDCard(token, HRS_ID) {
+
+    var form = new FormData();
+    form.append("Token", token);
+    form.append("HRS_ID", HRS_ID);
+
+    var settings = {
+        "url": "https://data.dpe.go.th/api/personal/member/getGmsMember",
+        "method": "POST",
+        "timeout": 0,
+        "processData": false,
+        "mimeType": "multipart/form-data",
+        "contentType": false,
+        "data": form
+    };
+
+    $.ajax(settings).done(function (response, textStatus, jqXHR) {
+
+        if (jqXHR.status == 200) {
+            var results = JSON.parse(response);
+            var data = results.data;
+            $.each(data, function (index, value) {
+
+                console.log("data", data);
+                appUserHRS_ID = value.HRS_ID;
+                appUserMEMBER_ID = value.MEMBER_ID;
+
+                $("#btnGoToDataDPE").show();
+            });
+        }
+    });
+}
 
 function GoToDataDPE() {
 
     if (appIdcardNo.length > 0) {
         const param1 = window.btoa(appIdcardNo);
         console.log("param1", param1);
+        const param2 = window.btoa(appUserMEMBER_ID + "&" + appUserHRS_ID);
+        console.log("param2", param2);
 
-        var url = `https://stadium.dpe.go.th/users/member/login/bypass/${param1}`;
+        var url = `https://stadium.dpe.go.th/users/member/login/bypass/${param1}?o=${param2}`;
         console.log("url: ", url);
         window.open(url, '_blank');
     }
 }
 
-$(document).ready(function () {
+var appUserHRS_ID = "";
+var appUserMEMBER_ID = "";
 
-    if (appIdcardNo.length > 0) {
-    //if (AppUserGroupId == 3 || AppUserGroupId == 4 || AppUserGroupId == 5) {
-        $("#btnGoToDataDPE").show();
-    }
+$(document).ready(function () {
 
     $("#btnGoToDataDPE").click(function () {
         GoToDataDPE();
@@ -507,6 +539,10 @@ $(document).ready(function () {
         var token = JSON.parse(response).data;
         localStorage.setItem("token", token);
         console.log("localStorage.token", localStorage.getItem("token"));
+
+        if (appIdcardNo.length > 0) {
+            GetGMSMemberByProfileIDCard(token, appIdcardNo);
+        }
 
         var urlParam = new URLSearchParams(window.location.search);
         if (urlParam.get("STADIUM_NAME") != null) {
