@@ -514,12 +514,12 @@ function GetGMSMemberByProfileIDCard(token, HRS_ID) {
 function GoToDataDPE() {
 
     if (appIdcardNo.length > 0) {
-        const param1 = window.btoa(appIdcardNo);
-        console.log("param1", param1);
+        //const param1 = window.btoa(appIdcardNo);
+        //console.log("param1", param1);
         const param2 = window.btoa(appUserMEMBER_ID + "&" + appUserHRS_ID);
         console.log("param2", param2);
 
-        var url = `https://stadium.dpe.go.th/users/member/login/bypass/${param1}?o=${param2}`;
+        var url = `https://stadium.dpe.go.th/users/member/login/bypass/${param2}`;
         console.log("url: ", url);
         window.open(url, '_blank');
     }
