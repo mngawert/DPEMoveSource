@@ -510,7 +510,7 @@ function EditGmsMember(token, MEMBER_ID) {
     //form.append("WORK_PLACE", "โรงเรียนอนุบาลศรีธาตุนะ");
     form.append("PREFIX_ID", $("[name='PREFIX_ID']").val());
     form.append("MEMBER_USERNAME", $("[name='HRS_ID']").val());
-    form.append("MEMBER_PASSWORD", $("[name='HRS_ID']").val());
+    //form.append("MEMBER_PASSWORD", $("[name='HRS_ID']").val());
     //form.append("CLASS_ID", "1");
     form.append("TYPE_ID", $("[name='TYPE_ID']").val());
     form.append("REGHOME_ADDR", $("[name='REGHOME_ADDR']").val());

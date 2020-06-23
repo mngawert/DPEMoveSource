@@ -335,7 +335,7 @@ function CreateGmsMember(token) {
     form.append("LAST_NAME_ENG", $("[name='LAST_NAME_ENG']").val());
     form.append("PREFIX_ID", $("[name='PREFIX_ID']").val());
     form.append("MEMBER_USERNAME", $("[name='HRS_ID']").val());
-    form.append("MEMBER_PASSWORD", $("[name='HRS_ID']").val());
+    //form.append("MEMBER_PASSWORD", $("[name='HRS_ID']").val());
     form.append("CLASS_ID", "1");
     form.append("HRS_ID", $("[name='HRS_ID']").val());
     form.append("TYPE_ID", $("[name='TYPE_ID']").val());
