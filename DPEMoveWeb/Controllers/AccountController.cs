@@ -168,8 +168,13 @@ namespace DPEMoveWeb.Controllers
                     var confirmationLink = Url.Action("ConfirmEmail", "Account",
                                             new { userId = user.Id, token }, Request.Scheme);
 
+                    string emailBody = "กรุณาคลิกที่ Link ด้านล่างเพื่อยืนยัน email ที่ใช้งาน <br /><br />" + confirmationLink + "<br /><br /> ขอบพระคุณอย่างสูง <br /> DPEMove <br />";
+
                     logger.Log(LogLevel.Warning, confirmationLink);
-                    smtpClient.Send(new MailMessage(from: configuration["Email:Smtp:From"], to: model.Email, subject: "DPEMove Confirm User", body: confirmationLink));
+
+                    var mailMessage = new MailMessage(from: configuration["Email:Smtp:From"], to: model.Email, subject: "DPEMove Confirm User (ยืนยันตัวตน)", body: emailBody);
+                    mailMessage.IsBodyHtml = true;
+                    smtpClient.Send(mailMessage);
 
                     ViewBag.ErrorTitle = "Registration successful";
                     ViewBag.ErrorMessage = "Before you can Login, please confirm your " +
@@ -490,8 +495,13 @@ namespace DPEMoveWeb.Controllers
                     var passwordResetLink = Url.Action("ResetPassword", "Account",
                             new { email = model.Email, token }, Request.Scheme);
 
+                    string emailBody = "กรุณาคลิกที่ Link ด้านล่างเพื่อเข้าสู่หน้าจอการกำหนด password  <br /><br />" + passwordResetLink + "<br /><br /> ขอบพระคุณอย่างสูง <br /> DPEMove <br />";
+
                     logger.Log(LogLevel.Warning, passwordResetLink);
-                    smtpClient.Send(new MailMessage(from: configuration["Email:Smtp:From"], to: model.Email, subject: "DPEMove Reset Password", body: passwordResetLink));
+
+                    var mailMessage = new MailMessage(from: configuration["Email:Smtp:From"], to: model.Email, subject: "DPEMove Reset Password (เปลี่ยนรหัสผ่าน)", body: emailBody);
+                    mailMessage.IsBodyHtml = true;
+                    smtpClient.Send(mailMessage);
 
                     return View("ForgotPasswordConfirmation");
                 }
