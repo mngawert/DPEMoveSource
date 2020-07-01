@@ -85,6 +85,41 @@ namespace DPEMoveAdmin.Controllers
         }
 
         [HttpPost]
+        public IActionResult DeleteEvent(EventViewModel3 model)
+        {
+            var q = _context.Event.Where(a => a.EventId == model.EventId).FirstOrDefault();
+
+            var addressId = q.AddressId;
+
+            _context.EventActivityType.RemoveRange(_context.EventActivityType.Where(a => a.EventId == q.EventId).ToList());
+            _context.EventFacilities.RemoveRange(_context.EventFacilities.Where(a => a.EventId == q.EventId));
+            _context.EventFee.RemoveRange(_context.EventFee.Where(a => a.EventId == q.EventId));
+            _context.EventGoal.RemoveRange(_context.EventGoal.Where(a => a.EventId == q.EventId));
+            _context.EventJoinPersonType.RemoveRange(_context.EventJoinPersonType.Where(a => a.EventId == q.EventId));
+            _context.EventLevel.RemoveRange(_context.EventLevel.Where(a => a.EventId == q.EventId).ToList());
+            _context.EventNearby.RemoveRange(_context.EventNearby.Where(a => a.EventId == q.EventId));
+            _context.EventObjective.RemoveRange(_context.EventObjective.Where(a => a.EventId == q.EventId));
+            _context.EventObjectivePerson.RemoveRange(_context.EventObjectivePerson.Where(a => a.EventId == q.EventId).ToList());
+            _context.EventParticipant.RemoveRange(_context.EventParticipant.Where(a => a.EventId == q.EventId));
+            _context.EventSport.RemoveRange(_context.EventSport.Where(a => a.EventId == q.EventId));
+
+            _context.UploadedFile.RemoveRange(_context.UploadedFile.Where(a => a.EventUploadedFile.Any(b => b.EventId == q.EventId)));
+            _context.EventUploadedFile.RemoveRange(_context.EventUploadedFile.Where(a => a.EventId == q.EventId));
+
+            _context.Comment.RemoveRange(_context.Comment.Where(a => a.EventCode == q.EventCode));
+            _context.Vote.RemoveRange(_context.Vote.Where(a => a.EventCode == q.EventCode));
+
+            _context.Event.Remove(q);
+            _context.Address.Remove(_context.Address.Where(a => a.AddressId == addressId).FirstOrDefault());
+
+
+            _context.SaveChanges();
+
+            return Ok();
+        }
+
+
+        [HttpPost]
         public IActionResult GetUsers(UserViewModel3 model)
         {
 

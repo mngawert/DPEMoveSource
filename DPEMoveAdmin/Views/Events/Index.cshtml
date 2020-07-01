@@ -61,7 +61,7 @@
             </div>
         </form>
     </div>
-    
+
     <div class="card-body">
         <div id="dvTotalItems">ผลการค้นหา <label id="lblTotalItems"></label> รายการ</div>
         <table class="table table-sm table-striped" id="tblResults">
@@ -77,459 +77,525 @@
             </thead>
             <tbody>
                 @*<tr>
-                    <td width="5%" scope="row">@(10 * (Model.PageIndex - 1) + i + 1)</td>
-                    <td width="15%">@Model[i].EventCode</td>
-                    <td>@Model[i].EventName</td>
-                    <td width="15%">@(Model[i].Status == 1 ? "ใช้งาน" : "ไม่ใช้งาน")</td>
-                    <td width="15%">
-                        <form method="post" asp-action="Delete">
-                            <a class="btn-circle btn-sm btn-success" asp-action="Edit" asp-route-id="@Model[i].EventId">แก้ไข</a>
-                            <input type="hidden" name="MEventId" value="@Model[i].EventId" />
-                            <button class="btn-circle btn-sm btn-warning" type="button">ลบ</button>
-                        </form>
-                    </td>
-                </tr>*@
+                        <td width="5%" scope="row">@(10 * (Model.PageIndex - 1) + i + 1)</td>
+                        <td width="15%">@Model[i].EventCode</td>
+                        <td>@Model[i].EventName</td>
+                        <td width="15%">@(Model[i].Status == 1 ? "ใช้งาน" : "ไม่ใช้งาน")</td>
+                        <td width="15%">
+                            <form method="post" asp-action="Delete">
+                                <a class="btn-circle btn-sm btn-success" asp-action="Edit" asp-route-id="@Model[i].EventId">แก้ไข</a>
+                                <input type="hidden" name="MEventId" value="@Model[i].EventId" />
+                                <button class="btn-circle btn-sm btn-warning" type="button">ลบ</button>
+                            </form>
+                        </td>
+                    </tr>*@
             </tbody>
         </table>
 
         <nav aria-label="Page navigation">
             <ul class="pagination" id="ulPagination">
                 @*<li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item"><a class="page-link" href="#">Next</a></li>*@
+                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item"><a class="page-link" href="#">Next</a></li>*@
             </ul>
         </nav>
 
         @*<div id="dvPagination" style="display:none">
-            <input type="hidden" name="PageNumber" value="" />
-            <a id="btnPrevPage" class="btn btn-default" href="javascript:void(0);" onclick="PrevPage();">
-                Previous
-            </a>
-            <a id="lblPageIndex" class="btn btn-default" href="javascript:void(0);"></a>
-            <a id="btnNextPage" class="btn btn-default" href="javascript:void(0);" onclick="NextPage();">
-                Next
-            </a>
-        </div>*@
+                <input type="hidden" name="PageNumber" value="" />
+                <a id="btnPrevPage" class="btn btn-default" href="javascript:void(0);" onclick="PrevPage();">
+                    Previous
+                </a>
+                <a id="lblPageIndex" class="btn btn-default" href="javascript:void(0);"></a>
+                <a id="btnNextPage" class="btn btn-default" href="javascript:void(0);" onclick="NextPage();">
+                    Next
+                </a>
+            </div>*@
 
     </div>
 </div>
 
 
+
+<div class="modal" id="Modal_DeleteEvent" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">ลบกิจกรรม</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input id="deleteEventId" type="hidden" />
+                <div class="text-center">ยืนยันการลบกิจกรรม "<span id="deleteEventName"></span>"? </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btnConfirmDelete" class="btn btn-warning">ยินยัน</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 @section Scripts {
 
-<script>
+    <script>
 
-    //$("#btnSearch").click(function () {
-    //    $("[name='PageNumber']").val(1);
-    //    GetEvents($("[name='EventCode']").val(), $("[name='EventName']").val(), $("[name='Status']").val(), $("[name='PageNumber']").val(), 10);
-    //});
+        //$("#btnSearch").click(function () {
+        //    $("[name='PageNumber']").val(1);
+        //    GetEvents($("[name='EventCode']").val(), $("[name='EventName']").val(), $("[name='Status']").val(), $("[name='PageNumber']").val(), 10);
+        //});
 
-    //function NextPage() {
-    //    $("[name='PageNumber']").val(parseInt($("[name='PageNumber']").val()) + 1);
-    //    GetEvents($("[name='EventCode']").val(), $("[name='EventName']").val(), $("[name='Status']").val(), $("[name='PageNumber']").val(), 10);
-    //}
+        //function NextPage() {
+        //    $("[name='PageNumber']").val(parseInt($("[name='PageNumber']").val()) + 1);
+        //    GetEvents($("[name='EventCode']").val(), $("[name='EventName']").val(), $("[name='Status']").val(), $("[name='PageNumber']").val(), 10);
+        //}
 
-    //function PrevPage() {
-    //    $("[name='PageNumber']").val(parseInt($("[name='PageNumber']").val()) - 1);
-    //    GetEvents($("[name='EventCode']").val(), $("[name='EventName']").val(), $("[name='Status']").val(), $("[name='PageNumber']").val(), 10);
-    //}
+        //function PrevPage() {
+        //    $("[name='PageNumber']").val(parseInt($("[name='PageNumber']").val()) - 1);
+        //    GetEvents($("[name='EventCode']").val(), $("[name='EventName']").val(), $("[name='Status']").val(), $("[name='PageNumber']").val(), 10);
+        //}
 
 
-    function GetProvince(Token, selectedValue, GetEvenCallback) {
+        function GetProvince(Token, selectedValue, GetEvenCallback) {
 
-        console.log("call GetProvince");
-        var form = new FormData();
-        form.append("Token", Token);
+            console.log("call GetProvince");
+            var form = new FormData();
+            form.append("Token", Token);
 
-        var settings = {
-            "url": "https://data.dpe.go.th/api/stadium/location/getProvince",
-            "method": "POST",
-            "timeout": 0,
-            "processData": false,
-            "mimeType": "multipart/form-data",
-            "contentType": false,
-            "data": form
-        };
+            var settings = {
+                "url": "https://data.dpe.go.th/api/stadium/location/getProvince",
+                "method": "POST",
+                "timeout": 0,
+                "processData": false,
+                "mimeType": "multipart/form-data",
+                "contentType": false,
+                "data": form
+            };
 
-        $.ajax(settings).done(function (response, textStatus, jqXHR) {
+            $.ajax(settings).done(function (response, textStatus, jqXHR) {
 
-            if (jqXHR.status == 200) {
-                var results = JSON.parse(response);
-                var data = results.data;
-                PROVINCE_DATA = data;
-                var items =
-                    `
-                <option value="">แสดงทั้งหมด</option>
-                `
-                $.each(data, function (index, value) {
-                    items +=
+                if (jqXHR.status == 200) {
+                    var results = JSON.parse(response);
+                    var data = results.data;
+                    PROVINCE_DATA = data;
+                    var items =
                         `
-                    <option value="` + value.PROV_CODE + `">` + value.PROV_NAMT + `</option>
+                    <option value="">แสดงทั้งหมด</option>
                     `
-                });
-                $("#ddlProvince").html(items);
-
-                if (selectedValue != null) {
-                    $("#ddlProvince").val(selectedValue);
-                }
-
-                var urlParam = new URLSearchParams(window.location.search);
-                GetAmphur(Token, $("#ddlProvince").val(), urlParam.get("Amphur"), GetEvenCallback);
-            }
-        });
-    }
-
-    function GetAmphur(token, PROV_CODE, selectedValue, GetEvenCallback) {
-
-        console.log("GetAmphur");
-
-        var form = new FormData();
-        form.append("PROV_CODE", PROV_CODE);
-        form.append("Token", token);
-
-        var settings = {
-            "url": "https://data.dpe.go.th/api/stadium/location/getAmpher",
-            "method": "POST",
-            "timeout": 0,
-            "processData": false,
-            "mimeType": "multipart/form-data",
-            "contentType": false,
-            "data": form
-        };
-
-        $.ajax(settings).done(function (response, textStatus, jqXHR) {
-
-            if (jqXHR.status == 200) {
-                var results = JSON.parse(response);
-                var data = results.data;
-                var items =
-                    `
-                <option value="">แสดงทั้งหมด</option>
-                `
-                $.each(data, function (index, value) {
-                    items +=
+                    $.each(data, function (index, value) {
+                        items +=
+                            `
+                        <option value="` + value.PROV_CODE + `">` + value.PROV_NAMT + `</option>
                         `
-                    <option value="` + value.AMP_CODE + `">` + value.AMP_NAMT + `</option>
-                    `
-                });
-                $("#ddlAmphur").html(items);
+                    });
+                    $("#ddlProvince").html(items);
 
-                if (selectedValue != null) {
-                    $("#ddlAmphur").val(selectedValue);
+                    if (selectedValue != null) {
+                        $("#ddlProvince").val(selectedValue);
+                    }
+
+                    var urlParam = new URLSearchParams(window.location.search);
+                    GetAmphur(Token, $("#ddlProvince").val(), urlParam.get("Amphur"), GetEvenCallback);
                 }
+            });
+        }
 
-                var urlParam = new URLSearchParams(window.location.search);
-                GetTambon(token, $("#ddlProvince").val(), $("#ddlAmphur").val(), urlParam.get("Tambon"), GetEvenCallback);
-            }
-        });
-    }
+        function GetAmphur(token, PROV_CODE, selectedValue, GetEvenCallback) {
 
-    function GetTambon(token, PROV_CODE, AMP_CODE, selectedValue, GetEvenCallback) {
+            console.log("GetAmphur");
 
-        console.log("GetTambon");
+            var form = new FormData();
+            form.append("PROV_CODE", PROV_CODE);
+            form.append("Token", token);
 
-        var form = new FormData();
-        form.append("PROV_CODE", PROV_CODE);
-        form.append("AMP_CODE", AMP_CODE);
-        form.append("Token", token);
+            var settings = {
+                "url": "https://data.dpe.go.th/api/stadium/location/getAmpher",
+                "method": "POST",
+                "timeout": 0,
+                "processData": false,
+                "mimeType": "multipart/form-data",
+                "contentType": false,
+                "data": form
+            };
 
-        var settings = {
-            "url": "https://data.dpe.go.th/api/stadium/location/getTambol",
-            "method": "POST",
-            "timeout": 0,
-            "processData": false,
-            "mimeType": "multipart/form-data",
-            "contentType": false,
-            "data": form
-        };
+            $.ajax(settings).done(function (response, textStatus, jqXHR) {
 
-        $.ajax(settings).done(function (response, textStatus, jqXHR) {
-
-            if (jqXHR.status == 200) {
-                var results = JSON.parse(response);
-                var data = results.data;
-                var items =
-                    `
-                <option value="">แสดงทั้งหมด</option>
-                `
-                $.each(data, function (index, value) {
-                    items +=
+                if (jqXHR.status == 200) {
+                    var results = JSON.parse(response);
+                    var data = results.data;
+                    var items =
                         `
-                    <option value="` + value.TAM_CODE + `">` + value.TAM_NAMT + `</option>
+                    <option value="">แสดงทั้งหมด</option>
                     `
-                });
-                $("#ddlTambon").html(items);
-
-                if (selectedValue != null) {
-                    $("#ddlTambon").val(selectedValue);
-                }
-
-                if (GetEvenCallback != null) {
-                    GetEvenCallback();
-                }
-            }
-        });
-    }
-
-    function GetToken() {
-        var settings = {
-            "url": "https://dpemove.dpe.go.th/api/Account/GetDPEToken",
-            "method": "POST",
-            "timeout": 0,
-            "headers": {
-                "Content-Type": "application/json"
-            },
-        };
-
-        return $.ajax(settings);
-    }
-
-    function GetMGroup(token, forId1, selectedValue1, forId2, selectedValue2, GetEvenCallback) {
-
-        var settings = {
-          "url": "/api/Admin/GetMGroup",
-          "method": "POST",
-          "timeout": 0,
-          "headers": {
-            "Content-Type": "application/json"
-          },
-        };
-
-        $.ajax(settings).done(function (response, textStatus, jqXHR) {
-
-            if (jqXHR.status == 200) {
-                var data = response;
-                var items = `<option value="">ทั้งหมด</option>`;
-                $.each(data, function (index, value) {
-                    items +=
+                    $.each(data, function (index, value) {
+                        items +=
+                            `
+                        <option value="` + value.AMP_CODE + `">` + value.AMP_NAMT + `</option>
                         `
-                    <option value="` + value.groupId + `">` + value.groupName + `</option>
-                    `
-                });
-                $("#" + forId1).html(items);
-                $("#" + forId2).html(items);
+                    });
+                    $("#ddlAmphur").html(items);
 
-                console.log("selectedValue1", selectedValue1);
-                console.log("selectedValue2", selectedValue2);
+                    if (selectedValue != null) {
+                        $("#ddlAmphur").val(selectedValue);
+                    }
 
-                if (selectedValue1 != null) {
-                    $("#" + forId1).val(selectedValue1);
+                    var urlParam = new URLSearchParams(window.location.search);
+                    GetTambon(token, $("#ddlProvince").val(), $("#ddlAmphur").val(), urlParam.get("Tambon"), GetEvenCallback);
                 }
-                if (selectedValue2 != null) {
-                    $("#" + forId2).val(selectedValue2);
-                }
-
-                var urlParam = new URLSearchParams(window.location.search);
-                GetProvince(token, urlParam.get("Province"), GetEvenCallback);
-            }
-        });
-    }
-
-    var CallingGetEvents = function () {
-
-        var urlParam = new URLSearchParams(window.location.search);
-        var p1 = urlParam.get("EventCode");
-        var p2 = urlParam.get("EventName");
-        var p3 = urlParam.get("Status");
-        var p4 = urlParam.get("AccountType");
-        var p5 = urlParam.get("Province");
-        var p6 = urlParam.get("Amphur");
-        var p7 = urlParam.get("Tambon");
-        var p8 = urlParam.get("PageNumber");
-
-        if (p1 != null) {
-            $("[name='EventCode']").val(p1);
-        }
-        if (p2 != null) {
-            $("[name='EventName']").val(p2);
-        }
-        if (p3 != null) {
-            $("[name='Status']").val(p3);
-        }
-        if (p4 != null) {
-            $("[name='AccountType']").val(p4);
-        }
-        if (p5 != null) {
-            $("[name='Province']").val(p5);
-        }
-        if (p6 != null) {
-            $("[name='Amphur']").val(p6);
-        }
-        if (p7 != null) {
-            $("[name='Tambon']").val(p7);
+            });
         }
 
-        if (p8 != null) {
-            $("[name='PageNumber']").val(p8);
-        }
+        function GetTambon(token, PROV_CODE, AMP_CODE, selectedValue, GetEvenCallback) {
 
-        GetEvents(p1, p2, p3, p4, p5, p6, p7, p8, 10);
-    }
+            console.log("GetTambon");
 
-    function GetEvents(eventCode, eventName, status, accountType, provinceCode, amphurCode, tambonCode , pageNumber, pageSize) {
+            var form = new FormData();
+            form.append("PROV_CODE", PROV_CODE);
+            form.append("AMP_CODE", AMP_CODE);
+            form.append("Token", token);
 
-        var settings = {
-            "url": "/api/Admin/GetEvents",
-            "method": "POST",
-            "timeout": 0,
-            "headers": {
-            "Content-Type": "application/json"
-            },
-            "data": JSON.stringify(
-                {
-                    "eventCode": eventCode,
-                    "eventName": eventName,
-                    "status": status,
-                    "accountType": accountType,
-                    "provinceCode": provinceCode,
-                    "amphurCode": amphurCode,
-                    "tambonCode": tambonCode,
-                    "pageNumber": pageNumber,
-                    "pageSize" : pageSize
-                }
-            ),
-        };
+            var settings = {
+                "url": "https://data.dpe.go.th/api/stadium/location/getTambol",
+                "method": "POST",
+                "timeout": 0,
+                "processData": false,
+                "mimeType": "multipart/form-data",
+                "contentType": false,
+                "data": form
+            };
 
-        console.log("settings", settings);
+            $.ajax(settings).done(function (response, textStatus, jqXHR) {
 
-        $.ajax(settings).done(function (response, textStatus, jqXHR) {
-            console.log("response", response);
-
-            if (jqXHR.status == 200) {
-                var data = response.data;
-                var items = ``;
-                $.each(data, function (index, value) {
-                    items +=
+                if (jqXHR.status == 200) {
+                    var results = JSON.parse(response);
+                    var data = results.data;
+                    var items =
                         `
-                    <tr>
-                        <td width="5%" scope="row">${ ((response.pageIndex-1) * 10 ) + index + 1 }</td>
-                        <td width="15%"> <a target="blank" href="https://dpemove.dpe.go.th/Events/Details/${value.eventId}" > ${value.eventCode } </a></td>
-                        <td>${value.eventName}</td>
-                        <td>${ new Date(value.createdDate).toLocaleDateString('th-TH')}</td>
-                        <td width="15%">${ value.status == 1 ? "ใช้งาน" : "ไม่ใช้งาน" }</td>
-                        <td width="15%">
-                            <a class="btn-circle btn-sm btn-success" href=/Events/Edit/${value.eventId}>แก้ไข</a>
-                        </td>
-                    </tr>
+                    <option value="">แสดงทั้งหมด</option>
                     `
-                });
-                $("#tblResults >tbody").html(items);
-                $("#lblPageIndex").html(response.pageIndex + " / " + response.totalPages);
-                $("[name='PageNumber']").val(response.pageIndex);
+                    $.each(data, function (index, value) {
+                        items +=
+                            `
+                        <option value="` + value.TAM_CODE + `">` + value.TAM_NAMT + `</option>
+                        `
+                    });
+                    $("#ddlTambon").html(items);
 
-                //if (response.totalPages > 1) {
-                //    $("#dvPagination").show();
-                //}
-                //else {
-                //    $("#dvPagination").hide();
-                //}
+                    if (selectedValue != null) {
+                        $("#ddlTambon").val(selectedValue);
+                    }
 
-                //var prevDisabled = !response.hasPreviousPage ? "disabled" : "";
-                //var nextDisabled = !response.hasNextPage ? "disabled" : "";
-                //$("#btnPrevPage").removeClass("disabled");
-                //$("#btnNextPage").removeClass("disabled");
-                //$("#btnPrevPage").addClass(prevDisabled);
-                //$("#btnNextPage").addClass(nextDisabled);
-
-                GenerateTotalItems(response.totalItems, "lblTotalItems");
-                GeneratePaginationHtml(pageNumber, response.totalPages, "ulPagination");
-            }
-        });
-    }
-
-    function GenerateTotalItems(totalItems, forId) {
-        $("#" + forId).html(totalItems);
-    }
-
-    function GeneratePaginationHtml(pageNumber, totalPages, forId) {
-
-        var url = window.location.pathname;
-        var urlParam = new URLSearchParams(window.location.search);
-        urlParam.delete("PageNumber");
-
-        for (var pair of urlParam.entries()) {
-             url += `&${pair[0]}=${pair[1]}`;
+                    if (GetEvenCallback != null) {
+                        GetEvenCallback();
+                    }
+                }
+            });
         }
 
+        function GetToken() {
+            var settings = {
+                "url": "https://dpemove.dpe.go.th/api/Account/GetDPEToken",
+                "method": "POST",
+                "timeout": 0,
+                "headers": {
+                    "Content-Type": "application/json"
+                },
+            };
 
-        var pageNumber = parseInt(pageNumber == null ? 1 : pageNumber);
-
-        var start = 1;
-        var end = totalPages;
-        if ((pageNumber + 5) < end) {
-            end = pageNumber + 5;
-        }
-        start = end - 9;
-        if (start < 1) {
-            start = 1;
-            end = Math.min(10, totalPages);
-        }
-
-        console.log("pageNumber:" + pageNumber + " totalPages:" + totalPages);
-        console.log("start:" + start + " end:" + end);
-
-        var items_1 = "";
-        for (var i = start; i <= end; i++) {
-            var urlWithPageNumber = (url + "&PageNumber=" + i).replace("&", "?");
-            items_1 += `<li class="page-item ${i == pageNumber ? "active": ""}"><a class="page-link" href="${urlWithPageNumber}">${i}</a></li>`;
+            return $.ajax(settings);
         }
 
+        function GetMGroup(token, forId1, selectedValue1, forId2, selectedValue2, GetEvenCallback) {
 
-        if (totalPages > 0) {
-            $("#" + forId).append(`<li class="page-item"><a class="page-link" href="${ (url + "&PageNumber=" + 1).replace("&", "?") }"> |< </a></li>`);
+            var settings = {
+                "url": "/api/Admin/GetMGroup",
+                "method": "POST",
+                "timeout": 0,
+                "headers": {
+                    "Content-Type": "application/json"
+                },
+            };
+
+            $.ajax(settings).done(function (response, textStatus, jqXHR) {
+
+                if (jqXHR.status == 200) {
+                    var data = response;
+                    var items = `<option value="">ทั้งหมด</option>`;
+                    $.each(data, function (index, value) {
+                        items +=
+                            `
+                        <option value="` + value.groupId + `">` + value.groupName + `</option>
+                        `
+                    });
+                    $("#" + forId1).html(items);
+                    $("#" + forId2).html(items);
+
+                    console.log("selectedValue1", selectedValue1);
+                    console.log("selectedValue2", selectedValue2);
+
+                    if (selectedValue1 != null) {
+                        $("#" + forId1).val(selectedValue1);
+                    }
+                    if (selectedValue2 != null) {
+                        $("#" + forId2).val(selectedValue2);
+                    }
+
+                    var urlParam = new URLSearchParams(window.location.search);
+                    GetProvince(token, urlParam.get("Province"), GetEvenCallback);
+                }
+            });
         }
 
-        $("#" + forId).append(items_1);
-
-        if (totalPages > 0) {
-            $("#" + forId).append(`<li class="page-item"><a class="page-link" href="${(url + "&PageNumber=" + totalPages).replace("&", "?")}"> >| </a></li>`);
-        }
-    }
-
-    $(document).ready(function () {
-
-        GetToken().done(function (response) {
-            var token = JSON.parse(response).data;
-            localStorage.setItem("token", token);
-            console.log("localStorage.token", localStorage.getItem("token"));
+        var CallingGetEvents = function () {
 
             var urlParam = new URLSearchParams(window.location.search);
-            GetMGroup(token, "ddlAccountType", urlParam.get("AccountType"), "ddlGROUP", urlParam.get("GroupId"), CallingGetEvents);
+            var p1 = urlParam.get("EventCode");
+            var p2 = urlParam.get("EventName");
+            var p3 = urlParam.get("Status");
+            var p4 = urlParam.get("AccountType");
+            var p5 = urlParam.get("Province");
+            var p6 = urlParam.get("Amphur");
+            var p7 = urlParam.get("Tambon");
+            var p8 = urlParam.get("PageNumber");
+
+            if (p1 != null) {
+                $("[name='EventCode']").val(p1);
+            }
+            if (p2 != null) {
+                $("[name='EventName']").val(p2);
+            }
+            if (p3 != null) {
+                $("[name='Status']").val(p3);
+            }
+            if (p4 != null) {
+                $("[name='AccountType']").val(p4);
+            }
+            if (p5 != null) {
+                $("[name='Province']").val(p5);
+            }
+            if (p6 != null) {
+                $("[name='Amphur']").val(p6);
+            }
+            if (p7 != null) {
+                $("[name='Tambon']").val(p7);
+            }
+
+            if (p8 != null) {
+                $("[name='PageNumber']").val(p8);
+            }
+
+            GetEvents(p1, p2, p3, p4, p5, p6, p7, p8, 10);
+        }
+
+        function GetEvents(eventCode, eventName, status, accountType, provinceCode, amphurCode, tambonCode, pageNumber, pageSize) {
+
+            var settings = {
+                "url": "/api/Admin/GetEvents",
+                "method": "POST",
+                "timeout": 0,
+                "headers": {
+                    "Content-Type": "application/json"
+                },
+                "data": JSON.stringify(
+                    {
+                        "eventCode": eventCode,
+                        "eventName": eventName,
+                        "status": status,
+                        "accountType": accountType,
+                        "provinceCode": provinceCode,
+                        "amphurCode": amphurCode,
+                        "tambonCode": tambonCode,
+                        "pageNumber": pageNumber,
+                        "pageSize": pageSize
+                    }
+                ),
+            };
+
+            console.log("settings", settings);
+
+            $.ajax(settings).done(function (response, textStatus, jqXHR) {
+                console.log("response", response);
+
+                if (jqXHR.status == 200) {
+                    var data = response.data;
+                    var items = ``;
+                    $.each(data, function (index, value) {
+                        items +=
+                            `
+                        <tr>
+                            <td width="5%" scope="row">${ ((response.pageIndex - 1) * 10) + index + 1}</td>
+                            <td width="15%"> <a target="blank" href="https://dpemove.dpe.go.th/Events/Details/${value.eventId}" > ${value.eventCode} </a></td>
+                            <td>${value.eventName}</td>
+                            <td>${ new Date(value.createdDate).toLocaleDateString('th-TH')}</td>
+                            <td width="15%">${ value.status == 1 ? "ใช้งาน" : "ไม่ใช้งาน"}</td>
+                            <td width="15%">
+                                <a class="btn-circle btn-sm btn-success" href=/Events/Edit/${value.eventId}>แก้ไข</a>
+                                    <input type="hidden" name="EventId" value="${value.eventId}" />
+                                    <button class="btn-circle btn-sm btn-warning" type="button" onclick="OpenDeleteEventPopup('${value.eventId}', '${value.eventName}')">ลบ</button>
+                            </td>
+                        </tr>
+                        `
+                    });
+                    $("#tblResults >tbody").html(items);
+                    $("#lblPageIndex").html(response.pageIndex + " / " + response.totalPages);
+                    $("[name='PageNumber']").val(response.pageIndex);
+
+                    //if (response.totalPages > 1) {
+                    //    $("#dvPagination").show();
+                    //}
+                    //else {
+                    //    $("#dvPagination").hide();
+                    //}
+
+                    //var prevDisabled = !response.hasPreviousPage ? "disabled" : "";
+                    //var nextDisabled = !response.hasNextPage ? "disabled" : "";
+                    //$("#btnPrevPage").removeClass("disabled");
+                    //$("#btnNextPage").removeClass("disabled");
+                    //$("#btnPrevPage").addClass(prevDisabled);
+                    //$("#btnNextPage").addClass(nextDisabled);
+
+                    GenerateTotalItems(response.totalItems, "lblTotalItems");
+                    GeneratePaginationHtml(pageNumber, response.totalPages, "ulPagination");
+                }
+            });
+        }
+
+        function GenerateTotalItems(totalItems, forId) {
+            $("#" + forId).html(totalItems);
+        }
+
+        function GeneratePaginationHtml(pageNumber, totalPages, forId) {
+
+            var url = window.location.pathname;
+            var urlParam = new URLSearchParams(window.location.search);
+            urlParam.delete("PageNumber");
+
+            for (var pair of urlParam.entries()) {
+                url += `&${pair[0]}=${pair[1]}`;
+            }
+
+
+            var pageNumber = parseInt(pageNumber == null ? 1 : pageNumber);
+
+            var start = 1;
+            var end = totalPages;
+            if ((pageNumber + 5) < end) {
+                end = pageNumber + 5;
+            }
+            start = end - 9;
+            if (start < 1) {
+                start = 1;
+                end = Math.min(10, totalPages);
+            }
+
+            console.log("pageNumber:" + pageNumber + " totalPages:" + totalPages);
+            console.log("start:" + start + " end:" + end);
+
+            var items_1 = "";
+            for (var i = start; i <= end; i++) {
+                var urlWithPageNumber = (url + "&PageNumber=" + i).replace("&", "?");
+                items_1 += `<li class="page-item ${i == pageNumber ? "active" : ""}"><a class="page-link" href="${urlWithPageNumber}">${i}</a></li>`;
+            }
+
+
+            if (totalPages > 0) {
+                $("#" + forId).append(`<li class="page-item"><a class="page-link" href="${(url + "&PageNumber=" + 1).replace("&", "?")}"> |< </a></li>`);
+            }
+
+            $("#" + forId).append(items_1);
+
+            if (totalPages > 0) {
+                $("#" + forId).append(`<li class="page-item"><a class="page-link" href="${(url + "&PageNumber=" + totalPages).replace("&", "?")}"> >| </a></li>`);
+            }
+        }
+
+        function OpenDeleteEventPopup(id, name) {
+
+            console.log("Deleting Event ", id);
+            $("#deleteEventId").val(id);
+            $("#deleteEventName").html(name);
+            $("#Modal_DeleteEvent").modal("show");
+        }
+
+        function DeleteEvent(id) {
+            var settings = {
+                "url": "/api/Admin/DeleteEvent",
+                "method": "POST",
+                "timeout": 0,
+                "headers": {
+                    "Content-Type": "application/json"
+                },
+                "data": JSON.stringify(
+                    {
+                        "eventId": id
+                    }
+                ),
+            };
+            $.ajax(settings).done(function (response, textStatus, jqXHR) {
+
+                if (jqXHR.status == 200) {
+                    console.log("Deleted.");
+                    $("#Modal_DeleteEvent").modal("toggle");
+                    window.location.reload();
+                }
+            });
+
+            $("#Modal_DeleteEvent").modal("toggle");
+        }
+
+        $(document).ready(function () {
+
+            GetToken().done(function (response) {
+                var token = JSON.parse(response).data;
+                localStorage.setItem("token", token);
+                console.log("localStorage.token", localStorage.getItem("token"));
+
+                var urlParam = new URLSearchParams(window.location.search);
+                GetMGroup(token, "ddlAccountType", urlParam.get("AccountType"), "ddlGROUP", urlParam.get("GroupId"), CallingGetEvents);
+
+            });
+
+            $("#ddlProvince").change(function () {
+                var provinceId = $("#ddlProvince").val();
+                if (provinceId == "") {
+                    $("#ddlAmphur").html(`<option value="">แสดงทั้งหมด</option>`);
+                    $("#ddlTambon").html(`<option value="">แสดงทั้งหมด</option>`);
+                }
+                else {
+                    var token = localStorage.getItem("token");
+                    GetAmphur(token, provinceId, null);
+                    $("#ddlTambon").html(`<option value="">แสดงทั้งหมด</option>`);
+                }
+            });
+
+            $("#ddlAmphur").change(function () {
+                var provinceId = $("#ddlProvince").val();
+                var amphurId = $("#ddlAmphur").val();
+
+                if (amphurId == "") {
+                    $("#ddlTambon").html(`<option value="">แสดงทั้งหมด</option>`);
+                }
+                else {
+                    var token = localStorage.getItem("token");
+                    GetTambon(token, provinceId, amphurId, null);
+                }
+            });
+
+
+            $("#btnConfirmDelete").click(function () {
+
+                var eventId = $("#deleteEventId").val();
+                console.log("Confirm Delete Event Id", eventId);
+
+                DeleteEvent(eventId);
+            })
 
         });
 
-        $("#ddlProvince").change(function () {
-            var provinceId = $("#ddlProvince").val();
-            if (provinceId == "") {
-                $("#ddlAmphur").html(`<option value="">แสดงทั้งหมด</option>`);
-                $("#ddlTambon").html(`<option value="">แสดงทั้งหมด</option>`);
-            }
-            else {
-                var token = localStorage.getItem("token");
-                GetAmphur(token, provinceId, null);
-                $("#ddlTambon").html(`<option value="">แสดงทั้งหมด</option>`);
-            }
-        });
 
-        $("#ddlAmphur").change(function () {
-            var provinceId = $("#ddlProvince").val();
-            var amphurId = $("#ddlAmphur").val();
-
-            if (amphurId == "") {
-                $("#ddlTambon").html(`<option value="">แสดงทั้งหมด</option>`);
-            }
-            else {
-                var token = localStorage.getItem("token");
-                GetTambon(token, provinceId, amphurId, null);
-            }
-        });
-
-
-    });
-
-
-</script>
+    </script>
 
 }
