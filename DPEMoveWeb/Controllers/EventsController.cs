@@ -52,6 +52,22 @@ namespace DPEMoveWeb.Controllers
             return -1;
         }
 
+        private async Task<int> GetLoginAppUserGroupId()
+        {
+            var userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (userId != null)
+            {
+                var user = await _userManager.FindByIdAsync(userId);
+                if (user != null)
+                {
+                    _logger.LogDebug("user.GroupId={0}", user.GroupId);
+
+                    return (int)(user.GroupId ?? -1);
+                }
+            }
+            return -1;
+        }
+
 
         // GET: Events
         public async Task<IActionResult> Index()
@@ -79,6 +95,7 @@ namespace DPEMoveWeb.Controllers
             _eventService.AddViewCount(eventVM.EventCode);
 
             ViewBag.AppUserId = await GetLoginAppUserId();
+            ViewBag.AppUserGroupId = await GetLoginAppUserGroupId();
             ViewBag.Address = _context.Event.Where(a => a.EventId == id).FirstOrDefault()?.Address;
 
             ViewBag.CommentCount = _context.Comment.Where(a => a.EventCode == eventVM.EventCode).Count();
@@ -121,22 +138,34 @@ namespace DPEMoveWeb.Controllers
                 return View("Error");                
             }
 
-            var userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            if (userId != null)
-            {
-                var user = await _userManager.FindByIdAsync(userId);
-                if (user != null)
-                {
-                    _logger.LogDebug("user.AppUserId={0}", user.AppUserId);
 
-                    if (user.AppUserId != eventVM.CreatedBy)
-                    {
-                        ViewBag.ErrorTitle = "Permission Denied";
-                        //ViewBag.ErrorMessage = "This event does not create by you!";
-                        return View("Error");
-                    }
-                }
+            var appUserId = await GetLoginAppUserId();
+            var appUserGroupId = await GetLoginAppUserGroupId();
+
+            if (!(appUserId == eventVM.CreatedBy || appUserGroupId == 15))
+            {
+                ViewBag.ErrorTitle = "Permission Denied";
+                //ViewBag.ErrorMessage = "This event does not create by you!";
+                return View("Error");
             }
+
+
+            //var userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            //if (userId != null)
+            //{
+            //    var user = await _userManager.FindByIdAsync(userId);
+            //    if (user != null)
+            //    {
+            //        _logger.LogDebug("user.AppUserId={0}", user.AppUserId);
+
+            //        if (user.AppUserId != eventVM.CreatedBy)
+            //        {
+            //            ViewBag.ErrorTitle = "Permission Denied";
+            //            //ViewBag.ErrorMessage = "This event does not create by you!";
+            //            return View("Error");
+            //        }
+            //    }
+            //}
 
             ViewBag.MEventFacilitiesTopic = _context.MEventFacilitiesTopic.Where(a => a.Status == 1).ToList();
             ViewBag.MFee = _context.MFee.Where(a => a.Status == 1).ToList();

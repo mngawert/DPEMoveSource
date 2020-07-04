@@ -33,7 +33,7 @@
             <div class="col-sm-12 col-md-12 col-lg-4">
                 <div class="row con_right">
                     <div class="col">
-                        @if (Model.CreatedBy == (int)ViewBag.AppUserId)
+                        @if (Model.CreatedBy == (int)ViewBag.AppUserId || (int)ViewBag.AppUserGroupId == 15)
                         {
                             <button type="button" class="btn btn-danger btn-round" data-toggle="modal" data-target="#Modal_DeleteEvent">ลบ</button>
                             <a href="/Events/Edit/@Model.EventId" class="btn btn-green btn-round">แก้ไข</a>
